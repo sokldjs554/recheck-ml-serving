@@ -35,3 +35,21 @@ jobs:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install browser acceptance runner
+        run: |
+          python -m pip install playwright==1.55.0
+          python -m playwright install --with-deps chromium
+      - name: Verify public demo interactions
+        env:
+          DEMO_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          RECHECK_CHROMIUM=$(python -c 'from playwright.sync_api import sync_playwright; p=sync_playwright().start(); print(p.chromium.executable_path); p.stop()')
+          python scripts/check_browser.py --base "$DEMO_URL" --browser-executable "$RECHECK_CHROMIUM" --output work/public-browser
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: public-browser-evidence
+          path: work/public-browser
