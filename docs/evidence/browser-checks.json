@@ -1,5 +1,5 @@
 {
-  "captured_at": "2026-10-08T04:25:45.404178+00:00",
+  "captured_at": "2026-10-08T06:01:23.098616+00:00",
   "frontend": "http://127.0.0.1:8000",
   "api": "http://127.0.0.1:8000",
   "browser_executable": "/usr/bin/chromium",
@@ -27,7 +27,7 @@
     {
       "name": "unsafe baseline is visible but validation refuses; JSON download and Escape",
       "passed": true,
-      "downloaded": "recheck-4b8e1e91-5d29-49b3-931b-f9902828afa0.json"
+      "downloaded": "recheck-12e80ec8-446d-4e7e-84f7-a51ea98f2cb3.json"
     },
     {
       "name": "browser fault 시간 초과 produces explicit review reason",
@@ -82,5 +82,5 @@
     "demo-comparison.png",
     "demo-mobile.png"
   ],
-  "test_duration_seconds": 30.377
+  "test_duration_seconds": 30.65
 }

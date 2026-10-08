@@ -57,11 +57,11 @@ def main() -> None:
             page.get_by_role("button", name=name, exact=True).click()
 
         def clear_request() -> None:
-            click("판단 요청 실행")
+            click("새 판단 요청")
             page.get_by_role("heading", name="현재 확인된 주의 신호가 없어요", exact=True).wait_for()
 
         def validate(valid: bool) -> None:
-            click("현재 판단 사용 검증")
+            click("지금 사용 가능한지 확인")
             page.get_by_role("status").filter(has_text="사용 가능" if valid else "사용 거절").wait_for()
 
         try:
@@ -85,8 +85,8 @@ def main() -> None:
             for _ in range(14):
                 page.locator("#delay").press("ArrowRight")
             assert page.locator("#delay").input_value() == "280"
-            click("판단 요청 실행")
-            assert page.get_by_role("button", name="판단 요청 실행", exact=True).is_disabled(), "Must inspect the pending request"
+            click("새 판단 요청")
+            assert page.get_by_role("button", name="새 판단 요청", exact=True).is_disabled(), "Must inspect the pending request"
             assert page.locator(".receipt-identity strong").inner_text() == recorded_amount, "A pending request must not rewrite the previous receipt amount"
             page.wait_for_function("!document.querySelector('.run-button').disabled")
             assert page.locator(".receipt-identity strong").inner_text() == "900,000원"
@@ -100,19 +100,19 @@ def main() -> None:
                 passed(f"browser {mutation} refuses stale receipt")
 
             click("초기화")
-            click("추론 중 변경 재현")
+            click("오래된 판단 재현")
             page.get_by_text("이전 결과 무효", exact=True).wait_for()
             page.evaluate("window.scrollTo(0,0)")
             page.screenshot(path=str(args.output / "demo-comparison.png"), full_page=True)
             passed("protected inference race invalidates stale result")
 
             click("초기화")
-            page.get_by_role("switch", name="판단 최신성 보호").click()
-            click("추론 중 변경 재현")
+            page.get_by_role("switch", name="정보 변경 재검증").click()
+            click("오래된 판단 재현")
             page.get_by_role("heading", name="오래된 답이 통과했어요", exact=True).wait_for()
             validate(False)
             click("판단 JSON")
-            page.get_by_role("dialog", name="판단의 근거를 열어 봅니다.").wait_for()
+            page.get_by_role("dialog", name="판단 기록 원본").wait_for()
             with page.expect_download() as download:
                 click("JSON 다운로드")
             receipt_name = download.value.suggested_filename
@@ -124,23 +124,23 @@ def main() -> None:
             for fault, reason in (("시간 초과", "300ms 시간 예산을 초과했습니다."), ("응답 불가", "모델 서버가 응답할 수 없습니다.")):
                 click("초기화")
                 click(fault)
-                click("판단 요청 실행")
+                click("새 판단 요청")
                 page.locator(".decision-status p").filter(has_text=reason).wait_for()
                 passed(f"browser fault {fault} produces explicit review reason")
 
             click("서버 설계")
-            page.get_by_role("heading", name="연산은 분리하고, 검증은 짧게.", exact=True).wait_for()
+            page.get_by_role("heading", name="모델 추론과 최종 검증을 분리했습니다.", exact=True).wait_for()
             page.get_by_text("Python 호스팅 구성: SQLite", exact=False).wait_for()
             click("지원자의 관점")
-            page.get_by_role("heading", name=re.compile("AI가 만든 답을")).wait_for()
+            page.get_by_role("heading", name=re.compile("AI와 해결책을 찾고")).wait_for()
             click("판단 기록")
             page.get_by_role("table", name="판단 기록").wait_for()
             click("인터랙티브 데모")
             click("90초 체험 시작")
-            for name in ("이 단계 실행", "이 단계 실행", "이 단계 실행", "보호 장치 전후 비교"):
+            for name in ("이 단계 실행", "이 단계 실행", "이 단계 실행", "재검증 전후 비교"):
                 click(name)
                 page.wait_for_timeout(600)
-            page.get_by_text("보호 장치 전후 비교 완료", exact=True).wait_for()
+            page.get_by_text("재검증 전후 비교 완료", exact=True).wait_for()
             passed("architecture, authentic applicant story, receipts, and successful guided comparison")
 
             click("초기화")

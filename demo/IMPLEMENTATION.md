@@ -23,7 +23,7 @@ The production output is `dist/`. Root integration serves this output together w
 ## Interactions
 
 - Request synthetic transfer checks, edit the next request amount, inject 0–1000ms delay, simulate deadline and unavailable faults.
-- Change feature, policy, or model versions, including while inference is pending. **추론 중 변경 재현** injects 220ms delay and mutates the feature after 70ms; no scripted success result is inserted.
+- Change feature, policy, or model versions, including while inference is pending. **오래된 판단 재현** injects 220ms delay and mutates the feature after 70ms; no scripted success result is inserted.
 - Toggle freshness protection. The intentionally unsafe baseline can emit a stale clear receipt. Independent use-time validation still refuses that receipt.
 - Revalidate current use, observe actual receipt expiration, reset into an isolated session, inspect/download receipt JSON, and explore architecture/applicant story tabs.
 - The guided walkthrough begins with a clean session and 150000 synthetic amount. Its final stage executes baseline and protection separately. It reports comparison completion only if the returned outcomes establish the counterexample; missing or review results do not become success. The returned receipt must also capture a feature version different from the actual mutation response; a live request that snapshots after mutation does not count as a reproduced stale race.
