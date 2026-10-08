@@ -4,6 +4,8 @@
 
 [GitHub Actions 원격 검증](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/37719089551)에서 PostgreSQL+HTTP 테스트 32 통과·1 생략, TypeScript 10 통과, production build와 저장된 배포 번들 일치 검사가 통과했다. [GitHub Pages 배포](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/37719089545)도 성공했다. 공개 URL의 한국어 화면과 모드 표시를 확인했다. 개발 의존성의 알려진 취약점은 Vitest 5.0.3으로 수정했고, 당시 `npm audit`는 0개였다([원자료](evidence/npm-audit.json)).
 
+최종 소스 `d7e393f`의 [원격 CI](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/37719664371)와 [공개 주소 브라우저 검증](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/37719664388)이 모두 성공했다. 후자는 실제 GitHub Pages URL에서 13개 확인을 수행했다: 정상 후 변경 거절, 정책·모델 변경, 보호·기준선 경쟁, JSON 다운로드, 두 장애 설정, 가이드·소개 탭, 실제 21초 만료, 3개 화면 폭, 페이지 오류 0. 로컬의 14개와 달리 공개 Python API 검증은 포함하지 않는다. JSON·스크린샷은 해당 실행의 `public-browser-evidence` 아티팩트에 보존된다.
+
 ## 확인한 실행
 
 | 검증 | 결과 | 증거 |
