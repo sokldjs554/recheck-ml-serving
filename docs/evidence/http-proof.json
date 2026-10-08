@@ -1,0 +1,73 @@
+{
+  "health": {
+    "status": "ok",
+    "service": "recheck-api",
+    "mode": "live",
+    "model_service": "http://127.0.0.1:8001"
+  },
+  "receipt": {
+    "id": "ec762ba1-cdd3-4f69-8517-9cc757ec748e",
+    "session_id": "76fb9ada-14c8-4862-a7c6-7aa5ea9b0935",
+    "status": "clear",
+    "reason": "no_current_warning",
+    "risk_score": 0.00976261717345296,
+    "feature_version": 1,
+    "policy_version": 1,
+    "model_version": "risk-v1",
+    "created_at": "2026-10-08T02:24:45.468440+00:00",
+    "expires_at": "2026-10-08T02:25:00.468440+00:00",
+    "latency_ms": 9.582878999935929,
+    "trace_id": "e1856da0997fd743b0f75cd2181510db",
+    "spans": [
+      {
+        "name": "decision",
+        "start_ms": 0.105259,
+        "duration_ms": 9.362907,
+        "status": "ok"
+      },
+      {
+        "name": "snapshot",
+        "start_ms": 0.150297,
+        "duration_ms": 3.911468,
+        "status": "ok"
+      },
+      {
+        "name": "model.http",
+        "start_ms": 4.152141,
+        "duration_ms": 3.914242,
+        "status": "ok"
+      },
+      {
+        "name": "model.infer",
+        "start_ms": 4.313594,
+        "duration_ms": 0.8286,
+        "status": "ok"
+      },
+      {
+        "name": "model.predict",
+        "start_ms": 4.405253,
+        "duration_ms": 0.678272,
+        "status": "ok"
+      },
+      {
+        "name": "fence.commit",
+        "start_ms": 8.168407,
+        "duration_ms": 1.219619,
+        "status": "ok"
+      }
+    ],
+    "protected": true,
+    "model_hash": "7de0929ba34aefaa313bf15354e6582133992cb755df11094ced0796125521be"
+  },
+  "invalidation": {
+    "valid": false,
+    "reason": "versions_changed",
+    "current_versions": {
+      "feature_version": 2,
+      "policy_version": 1,
+      "model_version": "risk-v1"
+    }
+  },
+  "provider_failure": "model_unavailable",
+  "checks_passed": 7
+}

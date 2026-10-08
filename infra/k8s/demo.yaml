@@ -1,0 +1,116 @@
+# Single-node demonstration topology; database uses ephemeral storage.
+# Build/load image recheck:local before applying. This is not a production bank deployment.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: recheck
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: recheck
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: recheck-postgres}
+  template:
+    metadata:
+      labels: {app: recheck-postgres}
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16-alpine
+          env:
+            - {name: POSTGRES_DB, value: recheck}
+            - {name: POSTGRES_USER, value: recheck}
+            - {name: POSTGRES_PASSWORD, value: local-demo-only}
+          ports: [{containerPort: 5432}]
+          resources:
+            requests: {cpu: 100m, memory: 128Mi}
+            limits: {cpu: '1', memory: 512Mi}
+          readinessProbe:
+            exec:
+              command: [pg_isready, -U, recheck]
+            initialDelaySeconds: 5
+            periodSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata: {name: postgres, namespace: recheck}
+spec:
+  selector: {app: recheck-postgres}
+  ports: [{port: 5432, targetPort: 5432}]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: model, namespace: recheck}
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: recheck-model}
+  template:
+    metadata:
+      labels: {app: recheck-model}
+    spec:
+      terminationGracePeriodSeconds: 20
+      containers:
+        - name: model
+          image: recheck:local
+          imagePullPolicy: IfNotPresent
+          command: [python, -m, uvicorn, recheck.worker:app, --host, 0.0.0.0, --port, '8001']
+          ports: [{containerPort: 8001}]
+          resources:
+            requests: {cpu: 100m, memory: 256Mi}
+            limits: {cpu: '1', memory: 768Mi}
+          readinessProbe:
+            httpGet: {path: /health, port: 8001}
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          livenessProbe:
+            httpGet: {path: /health, port: 8001}
+            initialDelaySeconds: 30
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata: {name: model, namespace: recheck}
+spec:
+  selector: {app: recheck-model}
+  ports: [{port: 8001, targetPort: 8001}]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: api, namespace: recheck}
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: recheck-api}
+  template:
+    metadata:
+      labels: {app: recheck-api}
+    spec:
+      terminationGracePeriodSeconds: 20
+      containers:
+        - name: api
+          image: recheck:local
+          imagePullPolicy: IfNotPresent
+          command: [python, -m, uvicorn, 'scripts.hosted_app:app', --host, 0.0.0.0, --port, '8000']
+          env:
+            - {name: MODEL_SERVICE_URL, value: 'http://model:8001'}
+            - {name: DATABASE_URL, value: 'postgresql+psycopg://recheck:local-demo-only@postgres:5432/recheck'}
+          ports: [{containerPort: 8000}]
+          resources:
+            requests: {cpu: 100m, memory: 128Mi}
+            limits: {cpu: '1', memory: 512Mi}
+          readinessProbe:
+            httpGet: {path: /health, port: 8000}
+            initialDelaySeconds: 10
+            periodSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata: {name: api, namespace: recheck}
+spec:
+  selector: {app: recheck-api}
+  ports: [{port: 8000, targetPort: 8000}]
