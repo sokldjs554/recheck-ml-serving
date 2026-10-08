@@ -1,0 +1,66 @@
+{
+  "source_run": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/37808750494/attempts/2",
+  "commit": "5b0b150218e8d238e70a82af20b21f709fb830b7",
+  "samples": [
+    {
+      "at": "2026-10-08T16:31:57.721102+00:00",
+      "ok": true,
+      "steps": [
+        "health",
+        "session",
+        "inference",
+        "current_validation",
+        "mutation",
+        "stale_rejection"
+      ],
+      "trace_id": "cf25d7953459f1f93c8c3e243396f96b",
+      "duration_ms": 2369.206
+    },
+    {
+      "at": "2026-10-08T16:32:15.095809+00:00",
+      "ok": true,
+      "steps": [
+        "health",
+        "session",
+        "inference",
+        "current_validation",
+        "mutation",
+        "stale_rejection"
+      ],
+      "trace_id": "3641c5e3f91f8e92d293f36fda61881c",
+      "duration_ms": 1586.43
+    },
+    {
+      "at": "2026-10-08T16:32:31.697688+00:00",
+      "ok": true,
+      "steps": [
+        "health",
+        "session",
+        "inference",
+        "current_validation",
+        "mutation",
+        "stale_rejection"
+      ],
+      "trace_id": "0b7a94ba40ecc09d2a7a1c9169691666",
+      "duration_ms": 1650.011
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "good": 3,
+    "bad": 0,
+    "availability": 1,
+    "target": 0.99,
+    "latency_budget_ms": 5000,
+    "allowed_bad_samples": 0.030000000000000027,
+    "budget_consumed_ratio": 0,
+    "scope": "sampled synthetic workflow, not continuous production uptime",
+    "window_start": "2026-10-08T16:31:57.721102+00:00",
+    "window_end": "2026-10-08T16:32:33.348139+00:00",
+    "interval_seconds": 15
+  },
+  "notes": [
+    "Recorded after Render deployment finished; retains earlier failed attempt separately.",
+    "All 7 functional HTTP assertions passed in the same job."
+  ]
+}

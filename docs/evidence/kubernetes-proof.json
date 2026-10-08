@@ -1,0 +1,3425 @@
+{
+  "started_at": "2026-10-08T16:28:32.798121+00:00",
+  "finished_at": "2026-10-08T16:30:59.271235+00:00",
+  "environment": "single-node kind v0.27.0 / Kubernetes v1.32.2 on shared local Docker host",
+  "scope": "synthetic operational acceptance; not production HA or long-term availability",
+  "sampling": "sequential create-session + real inference every 0.5s; 3s HTTP timeout; raw outcomes retained; brief unobserved gaps are possible",
+  "events": [
+    {
+      "name": "api_pod_replacement",
+      "started_at": "2026-10-08T16:28:38.352950+00:00",
+      "recovered_inference": {
+        "receipt_id": "ea5b71e5-e30b-4145-a19a-f8a5fd8a9940",
+        "status": "clear",
+        "valid": true,
+        "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71"
+      },
+      "duration_seconds": 11.686,
+      "passed": true
+    },
+    {
+      "name": "model_pod_replacement",
+      "started_at": "2026-10-08T16:28:53.038701+00:00",
+      "recovered_inference": {
+        "receipt_id": "b4581ef7-5362-4dea-9443-1dd2efd7b2ab",
+        "status": "clear",
+        "valid": true,
+        "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71"
+      },
+      "duration_seconds": 9.711,
+      "passed": true
+    },
+    {
+      "name": "rolling_restart",
+      "started_at": "2026-10-08T16:29:05.749619+00:00",
+      "recovered_inference": {
+        "receipt_id": "68c01730-4888-4707-8089-a604710d5764",
+        "status": "clear",
+        "valid": true,
+        "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71"
+      },
+      "duration_seconds": 43.143,
+      "passed": true
+    },
+    {
+      "name": "bad_model_rollout",
+      "started_at": "2026-10-08T16:29:51.892871+00:00",
+      "available_replicas_during_failed_rollout": 2,
+      "unready_pod_count": 1,
+      "recovered_inference": {
+        "receipt_id": "844fef68-375b-40eb-9eea-d9b41db30507",
+        "status": "clear",
+        "valid": true,
+        "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71"
+      },
+      "duration_seconds": 20.235,
+      "passed": true
+    },
+    {
+      "name": "rollback",
+      "started_at": "2026-10-08T16:30:15.127644+00:00",
+      "recovered_inference": {
+        "receipt_id": "b8096e24-e87f-497d-af74-ae09a58eab81",
+        "status": "clear",
+        "valid": true,
+        "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71"
+      },
+      "duration_seconds": 0.208,
+      "passed": true
+    },
+    {
+      "name": "postgres_pod_replacement",
+      "started_at": "2026-10-08T16:30:18.336181+00:00",
+      "receipt_survived": "42061cb3-41ab-4ed4-af73-24773812a8f6",
+      "pvc_uid_unchanged": "19164689-c9da-441d-80c3-f60c93ff6032",
+      "recovered_inference": {
+        "receipt_id": "6188442f-ed16-4375-9b02-e167db72b34c",
+        "status": "clear",
+        "valid": true,
+        "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71"
+      },
+      "duration_seconds": 32.717,
+      "passed": true
+    }
+  ],
+  "phase_summary": {
+    "baseline": {
+      "attempts": 10,
+      "http_errors": 0,
+      "http_error_fraction": 0.0,
+      "receipt_outcomes": {
+        "clear:no_current_warning": 10
+      },
+      "error_timestamps": []
+    },
+    "api_pod_replacement": {
+      "attempts": 30,
+      "http_errors": 0,
+      "http_error_fraction": 0.0,
+      "receipt_outcomes": {
+        "clear:no_current_warning": 30
+      },
+      "error_timestamps": []
+    },
+    "model_pod_replacement": {
+      "attempts": 25,
+      "http_errors": 0,
+      "http_error_fraction": 0.0,
+      "receipt_outcomes": {
+        "clear:no_current_warning": 25
+      },
+      "error_timestamps": []
+    },
+    "rolling_restart": {
+      "attempts": 93,
+      "http_errors": 0,
+      "http_error_fraction": 0.0,
+      "receipt_outcomes": {
+        "clear:no_current_warning": 93
+      },
+      "error_timestamps": []
+    },
+    "bad_model_rollout": {
+      "attempts": 46,
+      "http_errors": 0,
+      "http_error_fraction": 0.0,
+      "receipt_outcomes": {
+        "clear:no_current_warning": 45,
+        "review:model_unavailable": 1
+      },
+      "error_timestamps": []
+    },
+    "rollback": {
+      "attempts": 6,
+      "http_errors": 0,
+      "http_error_fraction": 0.0,
+      "receipt_outcomes": {
+        "clear:no_current_warning": 6
+      },
+      "error_timestamps": []
+    },
+    "postgres_pod_replacement": {
+      "attempts": 72,
+      "http_errors": 5,
+      "http_error_fraction": 0.06944444444444445,
+      "receipt_outcomes": {
+        "clear:no_current_warning": 67,
+        "http_error:": 5
+      },
+      "error_timestamps": [
+        "2026-10-08T16:30:48.888104+00:00",
+        "2026-10-08T16:30:49.388328+00:00",
+        "2026-10-08T16:30:49.889413+00:00",
+        "2026-10-08T16:30:50.389521+00:00",
+        "2026-10-08T16:30:50.889624+00:00"
+      ]
+    },
+    "recovered": {
+      "attempts": 10,
+      "http_errors": 0,
+      "http_error_fraction": 0.0,
+      "receipt_outcomes": {
+        "clear:no_current_warning": 10
+      },
+      "error_timestamps": []
+    }
+  },
+  "samples": [
+    {
+      "at": "2026-10-08T16:28:33.352644+00:00",
+      "phase": "baseline",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.873
+    },
+    {
+      "at": "2026-10-08T16:28:33.852795+00:00",
+      "phase": "baseline",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.687
+    },
+    {
+      "at": "2026-10-08T16:28:34.352902+00:00",
+      "phase": "baseline",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.756
+    },
+    {
+      "at": "2026-10-08T16:28:34.853050+00:00",
+      "phase": "baseline",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 20.625
+    },
+    {
+      "at": "2026-10-08T16:28:35.353187+00:00",
+      "phase": "baseline",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.046
+    },
+    {
+      "at": "2026-10-08T16:28:35.853304+00:00",
+      "phase": "baseline",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.374
+    },
+    {
+      "at": "2026-10-08T16:28:36.353417+00:00",
+      "phase": "baseline",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.034
+    },
+    {
+      "at": "2026-10-08T16:28:36.853533+00:00",
+      "phase": "baseline",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 18.273
+    },
+    {
+      "at": "2026-10-08T16:28:37.353644+00:00",
+      "phase": "baseline",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.814
+    },
+    {
+      "at": "2026-10-08T16:28:37.853758+00:00",
+      "phase": "baseline",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.855
+    },
+    {
+      "at": "2026-10-08T16:28:38.353894+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 27.626
+    },
+    {
+      "at": "2026-10-08T16:28:38.854048+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 20.545
+    },
+    {
+      "at": "2026-10-08T16:28:39.354162+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.403
+    },
+    {
+      "at": "2026-10-08T16:28:39.854269+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 18.192
+    },
+    {
+      "at": "2026-10-08T16:28:40.354416+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 73.797
+    },
+    {
+      "at": "2026-10-08T16:28:40.854602+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.275
+    },
+    {
+      "at": "2026-10-08T16:28:41.354710+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.003
+    },
+    {
+      "at": "2026-10-08T16:28:41.854822+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.93
+    },
+    {
+      "at": "2026-10-08T16:28:42.354952+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.779
+    },
+    {
+      "at": "2026-10-08T16:28:42.855065+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.182
+    },
+    {
+      "at": "2026-10-08T16:28:43.355169+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 14.831
+    },
+    {
+      "at": "2026-10-08T16:28:43.855283+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.754
+    },
+    {
+      "at": "2026-10-08T16:28:44.355398+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.468
+    },
+    {
+      "at": "2026-10-08T16:28:44.855583+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 23.359
+    },
+    {
+      "at": "2026-10-08T16:28:45.355685+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 33.904
+    },
+    {
+      "at": "2026-10-08T16:28:45.855805+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 127.183
+    },
+    {
+      "at": "2026-10-08T16:28:46.355936+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 72.53
+    },
+    {
+      "at": "2026-10-08T16:28:46.856049+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 43.576
+    },
+    {
+      "at": "2026-10-08T16:28:47.356161+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 70.548
+    },
+    {
+      "at": "2026-10-08T16:28:47.856279+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 39.143
+    },
+    {
+      "at": "2026-10-08T16:28:48.356386+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 20.705
+    },
+    {
+      "at": "2026-10-08T16:28:48.856498+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.13
+    },
+    {
+      "at": "2026-10-08T16:28:49.356605+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 14.681
+    },
+    {
+      "at": "2026-10-08T16:28:49.856716+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.554
+    },
+    {
+      "at": "2026-10-08T16:28:50.356833+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 19.9
+    },
+    {
+      "at": "2026-10-08T16:28:50.856940+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 14.845
+    },
+    {
+      "at": "2026-10-08T16:28:51.357038+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.2
+    },
+    {
+      "at": "2026-10-08T16:28:51.857172+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.376
+    },
+    {
+      "at": "2026-10-08T16:28:52.357280+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.59
+    },
+    {
+      "at": "2026-10-08T16:28:52.857390+00:00",
+      "phase": "api_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.055
+    },
+    {
+      "at": "2026-10-08T16:28:53.357492+00:00",
+      "phase": "model_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.105
+    },
+    {
+      "at": "2026-10-08T16:28:53.857593+00:00",
+      "phase": "model_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 18.067
+    },
+    {
+      "at": "2026-10-08T16:28:54.357725+00:00",
+      "phase": "model_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.276
+    },
+    {
+      "at": "2026-10-08T16:28:54.857853+00:00",
+      "phase": "model_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.837
+    },
+    {
+      "at": "2026-10-08T16:28:55.357957+00:00",
+      "phase": "model_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.04
+    },
+    {
+      "at": "2026-10-08T16:28:55.859403+00:00",
+      "phase": "model_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 27.13
+    },
+    {
+      "at": "2026-10-08T16:28:56.359483+00:00",
+      "phase": "model_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 18.463
+    },
+    {
+      "at": "2026-10-08T16:28:56.860410+00:00",
+      "phase": "model_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 27.143
+    },
+    {
+      "at": "2026-10-08T16:28:57.360513+00:00",
+      "phase": "model_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.041
+    },
+    {
+      "at": "2026-10-08T16:28:57.860619+00:00",
+      "phase": "model_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.711
+    },
+    {
+      "at": "2026-10-08T16:28:58.360785+00:00",
+      "phase": "model_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 22.564
+    },
+    {
+      "at": "2026-10-08T16:28:58.860891+00:00",
+      "phase": "model_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 34.169
+    },
+    {
+      "at": "2026-10-08T16:28:59.361007+00:00",
+      "phase": "model_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.024
+    },
+    {
+      "at": "2026-10-08T16:28:59.861115+00:00",
+      "phase": "model_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.969
+    },
+    {
+      "at": "2026-10-08T16:29:00.361218+00:00",
+      "phase": "model_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 18.191
+    },
+    {
+      "at": "2026-10-08T16:29:00.861332+00:00",
+      "phase": "model_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.218
+    },
+    {
+      "at": "2026-10-08T16:29:01.361446+00:00",
+      "phase": "model_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.5
+    },
+    {
+      "at": "2026-10-08T16:29:01.861589+00:00",
+      "phase": "model_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.587
+    },
+    {
+      "at": "2026-10-08T16:29:02.361696+00:00",
+      "phase": "model_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.88
+    },
+    {
+      "at": "2026-10-08T16:29:02.861794+00:00",
+      "phase": "model_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.523
+    },
+    {
+      "at": "2026-10-08T16:29:03.361900+00:00",
+      "phase": "model_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.88
+    },
+    {
+      "at": "2026-10-08T16:29:03.862008+00:00",
+      "phase": "model_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.048
+    },
+    {
+      "at": "2026-10-08T16:29:04.362114+00:00",
+      "phase": "model_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.413
+    },
+    {
+      "at": "2026-10-08T16:29:04.862223+00:00",
+      "phase": "model_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.045
+    },
+    {
+      "at": "2026-10-08T16:29:05.362333+00:00",
+      "phase": "model_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.014
+    },
+    {
+      "at": "2026-10-08T16:29:05.862410+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 21.256
+    },
+    {
+      "at": "2026-10-08T16:29:06.362515+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 18.828
+    },
+    {
+      "at": "2026-10-08T16:29:06.862628+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 20.885
+    },
+    {
+      "at": "2026-10-08T16:29:07.362802+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.32
+    },
+    {
+      "at": "2026-10-08T16:29:07.862935+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 19.023
+    },
+    {
+      "at": "2026-10-08T16:29:08.363046+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 26.647
+    },
+    {
+      "at": "2026-10-08T16:29:08.863159+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 28.393
+    },
+    {
+      "at": "2026-10-08T16:29:09.363264+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 21.038
+    },
+    {
+      "at": "2026-10-08T16:29:09.863373+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 20.69
+    },
+    {
+      "at": "2026-10-08T16:29:10.363486+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 18.445
+    },
+    {
+      "at": "2026-10-08T16:29:10.863596+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.316
+    },
+    {
+      "at": "2026-10-08T16:29:11.363706+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.264
+    },
+    {
+      "at": "2026-10-08T16:29:11.863801+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.089
+    },
+    {
+      "at": "2026-10-08T16:29:12.363911+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.176
+    },
+    {
+      "at": "2026-10-08T16:29:12.864029+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 18.954
+    },
+    {
+      "at": "2026-10-08T16:29:13.364136+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 21.578
+    },
+    {
+      "at": "2026-10-08T16:29:13.864248+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 59.291
+    },
+    {
+      "at": "2026-10-08T16:29:14.364350+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 163.247
+    },
+    {
+      "at": "2026-10-08T16:29:14.864502+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 66.317
+    },
+    {
+      "at": "2026-10-08T16:29:15.364617+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 69.981
+    },
+    {
+      "at": "2026-10-08T16:29:15.864733+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 61.553
+    },
+    {
+      "at": "2026-10-08T16:29:16.364845+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.102
+    },
+    {
+      "at": "2026-10-08T16:29:16.864945+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.778
+    },
+    {
+      "at": "2026-10-08T16:29:17.365062+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.599
+    },
+    {
+      "at": "2026-10-08T16:29:17.865169+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.771
+    },
+    {
+      "at": "2026-10-08T16:29:18.365293+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 22.973
+    },
+    {
+      "at": "2026-10-08T16:29:18.865412+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 23.335
+    },
+    {
+      "at": "2026-10-08T16:29:19.365538+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 20.875
+    },
+    {
+      "at": "2026-10-08T16:29:19.865646+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 23.888
+    },
+    {
+      "at": "2026-10-08T16:29:20.365754+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 23.265
+    },
+    {
+      "at": "2026-10-08T16:29:20.865888+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 21.631
+    },
+    {
+      "at": "2026-10-08T16:29:21.365991+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 22.882
+    },
+    {
+      "at": "2026-10-08T16:29:21.866120+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 18.153
+    },
+    {
+      "at": "2026-10-08T16:29:22.366231+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.18
+    },
+    {
+      "at": "2026-10-08T16:29:22.866343+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 19.522
+    },
+    {
+      "at": "2026-10-08T16:29:23.366478+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.548
+    },
+    {
+      "at": "2026-10-08T16:29:23.866593+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.932
+    },
+    {
+      "at": "2026-10-08T16:29:24.366714+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 33.11
+    },
+    {
+      "at": "2026-10-08T16:29:24.866825+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.792
+    },
+    {
+      "at": "2026-10-08T16:29:25.366937+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.373
+    },
+    {
+      "at": "2026-10-08T16:29:25.867064+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.733
+    },
+    {
+      "at": "2026-10-08T16:29:26.367177+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.331
+    },
+    {
+      "at": "2026-10-08T16:29:26.867295+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 18.095
+    },
+    {
+      "at": "2026-10-08T16:29:27.367411+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.786
+    },
+    {
+      "at": "2026-10-08T16:29:27.867526+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.484
+    },
+    {
+      "at": "2026-10-08T16:29:28.367629+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.338
+    },
+    {
+      "at": "2026-10-08T16:29:28.867737+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.455
+    },
+    {
+      "at": "2026-10-08T16:29:29.367838+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.199
+    },
+    {
+      "at": "2026-10-08T16:29:29.867949+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 20.529
+    },
+    {
+      "at": "2026-10-08T16:29:30.368064+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 19.17
+    },
+    {
+      "at": "2026-10-08T16:29:30.868179+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.814
+    },
+    {
+      "at": "2026-10-08T16:29:31.368290+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 18.7
+    },
+    {
+      "at": "2026-10-08T16:29:31.868407+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 18.016
+    },
+    {
+      "at": "2026-10-08T16:29:32.368518+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 18.718
+    },
+    {
+      "at": "2026-10-08T16:29:32.868631+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 18.627
+    },
+    {
+      "at": "2026-10-08T16:29:33.368740+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.117
+    },
+    {
+      "at": "2026-10-08T16:29:33.868845+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.399
+    },
+    {
+      "at": "2026-10-08T16:29:34.368958+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.882
+    },
+    {
+      "at": "2026-10-08T16:29:34.869076+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.964
+    },
+    {
+      "at": "2026-10-08T16:29:35.369193+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 18.24
+    },
+    {
+      "at": "2026-10-08T16:29:35.869351+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 18.095
+    },
+    {
+      "at": "2026-10-08T16:29:36.369461+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 19.799
+    },
+    {
+      "at": "2026-10-08T16:29:36.869608+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 20.733
+    },
+    {
+      "at": "2026-10-08T16:29:37.369749+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 65.983
+    },
+    {
+      "at": "2026-10-08T16:29:37.869862+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 67.742
+    },
+    {
+      "at": "2026-10-08T16:29:38.369969+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 103.404
+    },
+    {
+      "at": "2026-10-08T16:29:38.870087+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 53.834
+    },
+    {
+      "at": "2026-10-08T16:29:39.370201+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 23.51
+    },
+    {
+      "at": "2026-10-08T16:29:39.871401+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.478
+    },
+    {
+      "at": "2026-10-08T16:29:40.371520+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 19.586
+    },
+    {
+      "at": "2026-10-08T16:29:40.871684+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 27.135
+    },
+    {
+      "at": "2026-10-08T16:29:41.371799+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.243
+    },
+    {
+      "at": "2026-10-08T16:29:41.871905+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.406
+    },
+    {
+      "at": "2026-10-08T16:29:42.372017+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.472
+    },
+    {
+      "at": "2026-10-08T16:29:42.872121+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.524
+    },
+    {
+      "at": "2026-10-08T16:29:43.372237+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.293
+    },
+    {
+      "at": "2026-10-08T16:29:43.872357+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.743
+    },
+    {
+      "at": "2026-10-08T16:29:44.372470+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.114
+    },
+    {
+      "at": "2026-10-08T16:29:44.872575+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 18.032
+    },
+    {
+      "at": "2026-10-08T16:29:45.372686+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.124
+    },
+    {
+      "at": "2026-10-08T16:29:45.872793+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.684
+    },
+    {
+      "at": "2026-10-08T16:29:46.372899+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.957
+    },
+    {
+      "at": "2026-10-08T16:29:46.873003+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.965
+    },
+    {
+      "at": "2026-10-08T16:29:47.373129+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.608
+    },
+    {
+      "at": "2026-10-08T16:29:47.873243+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.223
+    },
+    {
+      "at": "2026-10-08T16:29:48.373356+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 18.411
+    },
+    {
+      "at": "2026-10-08T16:29:48.873502+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 23.243
+    },
+    {
+      "at": "2026-10-08T16:29:49.373617+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.845
+    },
+    {
+      "at": "2026-10-08T16:29:49.873727+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.823
+    },
+    {
+      "at": "2026-10-08T16:29:50.373784+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.519
+    },
+    {
+      "at": "2026-10-08T16:29:50.873887+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.709
+    },
+    {
+      "at": "2026-10-08T16:29:51.373990+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.316
+    },
+    {
+      "at": "2026-10-08T16:29:51.874097+00:00",
+      "phase": "rolling_restart",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.463
+    },
+    {
+      "at": "2026-10-08T16:29:52.374217+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 19.628
+    },
+    {
+      "at": "2026-10-08T16:29:52.874348+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 18.42
+    },
+    {
+      "at": "2026-10-08T16:29:53.374459+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 18.826
+    },
+    {
+      "at": "2026-10-08T16:29:53.874568+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "review",
+      "reason": "model_unavailable",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 18.32
+    },
+    {
+      "at": "2026-10-08T16:29:54.374676+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 27.388
+    },
+    {
+      "at": "2026-10-08T16:29:54.874789+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.743
+    },
+    {
+      "at": "2026-10-08T16:29:55.374916+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 21.469
+    },
+    {
+      "at": "2026-10-08T16:29:55.875030+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 35.654
+    },
+    {
+      "at": "2026-10-08T16:29:56.375147+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.92
+    },
+    {
+      "at": "2026-10-08T16:29:56.875254+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.235
+    },
+    {
+      "at": "2026-10-08T16:29:57.375361+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.634
+    },
+    {
+      "at": "2026-10-08T16:29:57.875466+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.909
+    },
+    {
+      "at": "2026-10-08T16:29:58.375578+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 18.046
+    },
+    {
+      "at": "2026-10-08T16:29:58.875686+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.918
+    },
+    {
+      "at": "2026-10-08T16:29:59.375797+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.793
+    },
+    {
+      "at": "2026-10-08T16:29:59.875908+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.33
+    },
+    {
+      "at": "2026-10-08T16:30:00.376850+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 111.68
+    },
+    {
+      "at": "2026-10-08T16:30:00.876962+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 53.332
+    },
+    {
+      "at": "2026-10-08T16:30:01.377088+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 110.341
+    },
+    {
+      "at": "2026-10-08T16:30:01.877202+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 19.328
+    },
+    {
+      "at": "2026-10-08T16:30:02.377314+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.345
+    },
+    {
+      "at": "2026-10-08T16:30:02.877402+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.835
+    },
+    {
+      "at": "2026-10-08T16:30:03.377515+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.737
+    },
+    {
+      "at": "2026-10-08T16:30:03.877625+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.883
+    },
+    {
+      "at": "2026-10-08T16:30:04.377732+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.724
+    },
+    {
+      "at": "2026-10-08T16:30:04.877838+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.882
+    },
+    {
+      "at": "2026-10-08T16:30:05.377946+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.932
+    },
+    {
+      "at": "2026-10-08T16:30:05.878106+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.6
+    },
+    {
+      "at": "2026-10-08T16:30:06.378218+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.007
+    },
+    {
+      "at": "2026-10-08T16:30:06.878331+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.9
+    },
+    {
+      "at": "2026-10-08T16:30:07.378406+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.689
+    },
+    {
+      "at": "2026-10-08T16:30:07.878512+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 19.964
+    },
+    {
+      "at": "2026-10-08T16:30:08.378636+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 18.855
+    },
+    {
+      "at": "2026-10-08T16:30:08.878745+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.387
+    },
+    {
+      "at": "2026-10-08T16:30:09.378860+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.248
+    },
+    {
+      "at": "2026-10-08T16:30:09.879003+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.903
+    },
+    {
+      "at": "2026-10-08T16:30:10.379130+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.344
+    },
+    {
+      "at": "2026-10-08T16:30:10.879242+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.312
+    },
+    {
+      "at": "2026-10-08T16:30:11.379360+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.465
+    },
+    {
+      "at": "2026-10-08T16:30:11.879467+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.814
+    },
+    {
+      "at": "2026-10-08T16:30:12.379574+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 20.116
+    },
+    {
+      "at": "2026-10-08T16:30:12.879689+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.607
+    },
+    {
+      "at": "2026-10-08T16:30:13.379794+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.272
+    },
+    {
+      "at": "2026-10-08T16:30:13.879903+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.319
+    },
+    {
+      "at": "2026-10-08T16:30:14.380011+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.751
+    },
+    {
+      "at": "2026-10-08T16:30:14.880154+00:00",
+      "phase": "bad_model_rollout",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.032
+    },
+    {
+      "at": "2026-10-08T16:30:15.380237+00:00",
+      "phase": "rollback",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 13.906
+    },
+    {
+      "at": "2026-10-08T16:30:15.880346+00:00",
+      "phase": "rollback",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.603
+    },
+    {
+      "at": "2026-10-08T16:30:16.380456+00:00",
+      "phase": "rollback",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.574
+    },
+    {
+      "at": "2026-10-08T16:30:16.880566+00:00",
+      "phase": "rollback",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.46
+    },
+    {
+      "at": "2026-10-08T16:30:17.380667+00:00",
+      "phase": "rollback",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.472
+    },
+    {
+      "at": "2026-10-08T16:30:17.880780+00:00",
+      "phase": "rollback",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.037
+    },
+    {
+      "at": "2026-10-08T16:30:18.380897+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 22.277
+    },
+    {
+      "at": "2026-10-08T16:30:18.881118+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.45
+    },
+    {
+      "at": "2026-10-08T16:30:19.381225+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.696
+    },
+    {
+      "at": "2026-10-08T16:30:19.881342+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.472
+    },
+    {
+      "at": "2026-10-08T16:30:20.381557+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.715
+    },
+    {
+      "at": "2026-10-08T16:30:20.881673+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 18.051
+    },
+    {
+      "at": "2026-10-08T16:30:21.381777+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.447
+    },
+    {
+      "at": "2026-10-08T16:30:21.881882+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 18.832
+    },
+    {
+      "at": "2026-10-08T16:30:22.381991+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.955
+    },
+    {
+      "at": "2026-10-08T16:30:22.882101+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.644
+    },
+    {
+      "at": "2026-10-08T16:30:23.382243+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.096
+    },
+    {
+      "at": "2026-10-08T16:30:23.882382+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.164
+    },
+    {
+      "at": "2026-10-08T16:30:24.382492+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.296
+    },
+    {
+      "at": "2026-10-08T16:30:24.882604+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.551
+    },
+    {
+      "at": "2026-10-08T16:30:25.382715+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.282
+    },
+    {
+      "at": "2026-10-08T16:30:25.882824+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.477
+    },
+    {
+      "at": "2026-10-08T16:30:26.382934+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.291
+    },
+    {
+      "at": "2026-10-08T16:30:26.883048+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.092
+    },
+    {
+      "at": "2026-10-08T16:30:27.383167+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.621
+    },
+    {
+      "at": "2026-10-08T16:30:27.883283+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.838
+    },
+    {
+      "at": "2026-10-08T16:30:28.383406+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 19.119
+    },
+    {
+      "at": "2026-10-08T16:30:28.883528+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.743
+    },
+    {
+      "at": "2026-10-08T16:30:29.383638+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.169
+    },
+    {
+      "at": "2026-10-08T16:30:29.883747+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.715
+    },
+    {
+      "at": "2026-10-08T16:30:30.383862+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.263
+    },
+    {
+      "at": "2026-10-08T16:30:30.883966+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.866
+    },
+    {
+      "at": "2026-10-08T16:30:31.384089+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.012
+    },
+    {
+      "at": "2026-10-08T16:30:31.884191+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.768
+    },
+    {
+      "at": "2026-10-08T16:30:32.384300+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.697
+    },
+    {
+      "at": "2026-10-08T16:30:32.884417+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.062
+    },
+    {
+      "at": "2026-10-08T16:30:33.384541+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.78
+    },
+    {
+      "at": "2026-10-08T16:30:33.884657+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.42
+    },
+    {
+      "at": "2026-10-08T16:30:34.384767+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.679
+    },
+    {
+      "at": "2026-10-08T16:30:34.884880+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 21.138
+    },
+    {
+      "at": "2026-10-08T16:30:35.384996+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.787
+    },
+    {
+      "at": "2026-10-08T16:30:35.885114+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.828
+    },
+    {
+      "at": "2026-10-08T16:30:36.385224+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 19.213
+    },
+    {
+      "at": "2026-10-08T16:30:36.885335+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.73
+    },
+    {
+      "at": "2026-10-08T16:30:37.385451+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.054
+    },
+    {
+      "at": "2026-10-08T16:30:37.885558+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.308
+    },
+    {
+      "at": "2026-10-08T16:30:38.385667+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 19.523
+    },
+    {
+      "at": "2026-10-08T16:30:38.885782+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.766
+    },
+    {
+      "at": "2026-10-08T16:30:39.385890+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.975
+    },
+    {
+      "at": "2026-10-08T16:30:39.886012+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 19.361
+    },
+    {
+      "at": "2026-10-08T16:30:40.386139+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.473
+    },
+    {
+      "at": "2026-10-08T16:30:40.886254+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.457
+    },
+    {
+      "at": "2026-10-08T16:30:41.386368+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.839
+    },
+    {
+      "at": "2026-10-08T16:30:41.886478+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.896
+    },
+    {
+      "at": "2026-10-08T16:30:42.386598+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.978
+    },
+    {
+      "at": "2026-10-08T16:30:42.886711+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.984
+    },
+    {
+      "at": "2026-10-08T16:30:43.386832+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.949
+    },
+    {
+      "at": "2026-10-08T16:30:43.886939+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.669
+    },
+    {
+      "at": "2026-10-08T16:30:44.387048+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.127
+    },
+    {
+      "at": "2026-10-08T16:30:44.887164+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.648
+    },
+    {
+      "at": "2026-10-08T16:30:45.387277+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.614
+    },
+    {
+      "at": "2026-10-08T16:30:45.887418+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.895
+    },
+    {
+      "at": "2026-10-08T16:30:46.387536+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.93
+    },
+    {
+      "at": "2026-10-08T16:30:46.887647+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.97
+    },
+    {
+      "at": "2026-10-08T16:30:47.387794+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.708
+    },
+    {
+      "at": "2026-10-08T16:30:47.887909+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 20.099
+    },
+    {
+      "at": "2026-10-08T16:30:48.388018+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.69
+    },
+    {
+      "at": "2026-10-08T16:30:48.888104+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 503,
+      "error": "{\"detail\":\"database_unavailable\"}",
+      "latency_ms": 5.647
+    },
+    {
+      "at": "2026-10-08T16:30:49.388328+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 503,
+      "error": "{\"detail\":\"database_unavailable\"}",
+      "latency_ms": 4.682
+    },
+    {
+      "at": "2026-10-08T16:30:49.889413+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 503,
+      "error": "{\"detail\":\"database_unavailable\"}",
+      "latency_ms": 7.567
+    },
+    {
+      "at": "2026-10-08T16:30:50.389521+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 503,
+      "error": "{\"detail\":\"database_unavailable\"}",
+      "latency_ms": 3.145
+    },
+    {
+      "at": "2026-10-08T16:30:50.889624+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 503,
+      "error": "{\"detail\":\"database_unavailable\"}",
+      "latency_ms": 3.25
+    },
+    {
+      "at": "2026-10-08T16:30:51.389735+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.411
+    },
+    {
+      "at": "2026-10-08T16:30:51.889843+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.512
+    },
+    {
+      "at": "2026-10-08T16:30:52.389957+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 18.054
+    },
+    {
+      "at": "2026-10-08T16:30:52.890065+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 22.59
+    },
+    {
+      "at": "2026-10-08T16:30:53.390175+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.252
+    },
+    {
+      "at": "2026-10-08T16:30:53.890287+00:00",
+      "phase": "postgres_pod_replacement",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.767
+    },
+    {
+      "at": "2026-10-08T16:30:54.390404+00:00",
+      "phase": "recovered",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.677
+    },
+    {
+      "at": "2026-10-08T16:30:54.890548+00:00",
+      "phase": "recovered",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 18.943
+    },
+    {
+      "at": "2026-10-08T16:30:55.390673+00:00",
+      "phase": "recovered",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.558
+    },
+    {
+      "at": "2026-10-08T16:30:55.890785+00:00",
+      "phase": "recovered",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 16.515
+    },
+    {
+      "at": "2026-10-08T16:30:56.390890+00:00",
+      "phase": "recovered",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 14.957
+    },
+    {
+      "at": "2026-10-08T16:30:56.890995+00:00",
+      "phase": "recovered",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.346
+    },
+    {
+      "at": "2026-10-08T16:30:57.391128+00:00",
+      "phase": "recovered",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.06
+    },
+    {
+      "at": "2026-10-08T16:30:57.891223+00:00",
+      "phase": "recovered",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 15.723
+    },
+    {
+      "at": "2026-10-08T16:30:58.391321+00:00",
+      "phase": "recovered",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 18.657
+    },
+    {
+      "at": "2026-10-08T16:30:58.891418+00:00",
+      "phase": "recovered",
+      "http_status": 200,
+      "receipt_status": "clear",
+      "reason": "no_current_warning",
+      "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71",
+      "latency_ms": 17.395
+    }
+  ],
+  "initial_receipt": {
+    "id": "42061cb3-41ab-4ed4-af73-24773812a8f6",
+    "session_id": "b1c8343a-7852-4d7b-b1c9-ad67d8533593",
+    "status": "clear",
+    "reason": "no_current_warning",
+    "risk_score": 0.009762617173452968,
+    "feature_version": 1,
+    "policy_version": 1,
+    "model_version": "risk-v1",
+    "created_at": "2026-10-08T16:28:32.921718+00:00",
+    "expires_at": "2026-10-08T16:28:47.921718+00:00",
+    "latency_ms": 19.21878999999649,
+    "trace_id": "6bb84cfd2d0bc267fe094afbbc8d399f",
+    "spans": [
+      {
+        "name": "decision",
+        "start_ms": 0.147606,
+        "duration_ms": 18.904802,
+        "status": "ok"
+      },
+      {
+        "name": "snapshot",
+        "start_ms": 0.2135,
+        "duration_ms": 11.720845,
+        "status": "ok"
+      },
+      {
+        "name": "model.http",
+        "start_ms": 12.031437,
+        "duration_ms": 4.695735,
+        "status": "ok"
+      },
+      {
+        "name": "model.infer",
+        "start_ms": 12.205804,
+        "duration_ms": 0.989423,
+        "status": "ok"
+      },
+      {
+        "name": "model.predict",
+        "start_ms": 12.36919,
+        "duration_ms": 0.737923,
+        "status": "ok"
+      },
+      {
+        "name": "fence.commit",
+        "start_ms": 16.832439,
+        "duration_ms": 2.200212,
+        "status": "ok"
+      }
+    ],
+    "protected": true,
+    "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71"
+  },
+  "deployments_before": {
+    "apiVersion": "v1",
+    "items": [
+      {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "metadata": {
+          "annotations": {
+            "deployment.kubernetes.io/revision": "1",
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"name\":\"api\",\"namespace\":\"recheck\"},\"spec\":{\"minReadySeconds\":5,\"progressDeadlineSeconds\":90,\"replicas\":2,\"selector\":{\"matchLabels\":{\"app\":\"api\"}},\"strategy\":{\"rollingUpdate\":{\"maxSurge\":1,\"maxUnavailable\":0},\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"labels\":{\"app\":\"api\"}},\"spec\":{\"containers\":[{\"command\":[\"python\",\"-m\",\"uvicorn\",\"scripts.hosted_app:app\",\"--host\",\"0.0.0.0\",\"--port\",\"8000\",\"--timeout-graceful-shutdown\",\"20\"],\"env\":[{\"name\":\"DATABASE_URL\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"DATABASE_URL\",\"name\":\"postgres\"}}},{\"name\":\"MODEL_SERVICE_URL\",\"value\":\"http://model:8001\"}],\"image\":\"recheck:kubernetes\",\"imagePullPolicy\":\"Never\",\"lifecycle\":{\"preStop\":{\"exec\":{\"command\":[\"python\",\"-c\",\"import time; time.sleep(5)\"]}}},\"livenessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/live\",\"port\":8000},\"periodSeconds\":10},\"name\":\"api\",\"ports\":[{\"containerPort\":8000}],\"readinessProbe\":{\"failureThreshold\":2,\"httpGet\":{\"path\":\"/ready\",\"port\":8000},\"periodSeconds\":2},\"resources\":{\"limits\":{\"cpu\":\"1\",\"memory\":\"512Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"128Mi\"}},\"startupProbe\":{\"failureThreshold\":60,\"httpGet\":{\"path\":\"/ready\",\"port\":8000},\"periodSeconds\":2}}],\"terminationGracePeriodSeconds\":30}}}}\n"
+          },
+          "creationTimestamp": "2026-10-08T16:28:14Z",
+          "generation": 1,
+          "name": "api",
+          "namespace": "recheck",
+          "resourceVersion": "696",
+          "uid": "5001d7b6-e9c8-4022-93ca-dd279523550d"
+        },
+        "spec": {
+          "minReadySeconds": 5,
+          "progressDeadlineSeconds": 90,
+          "replicas": 2,
+          "revisionHistoryLimit": 10,
+          "selector": {
+            "matchLabels": {
+              "app": "api"
+            }
+          },
+          "strategy": {
+            "rollingUpdate": {
+              "maxSurge": 1,
+              "maxUnavailable": 0
+            },
+            "type": "RollingUpdate"
+          },
+          "template": {
+            "metadata": {
+              "creationTimestamp": null,
+              "labels": {
+                "app": "api"
+              }
+            },
+            "spec": {
+              "containers": [
+                {
+                  "command": [
+                    "python",
+                    "-m",
+                    "uvicorn",
+                    "scripts.hosted_app:app",
+                    "--host",
+                    "0.0.0.0",
+                    "--port",
+                    "8000",
+                    "--timeout-graceful-shutdown",
+                    "20"
+                  ],
+                  "env": [
+                    {
+                      "name": "DATABASE_URL",
+                      "valueFrom": {
+                        "secretKeyRef": {
+                          "key": "DATABASE_URL",
+                          "name": "postgres"
+                        }
+                      }
+                    },
+                    {
+                      "name": "MODEL_SERVICE_URL",
+                      "value": "http://model:8001"
+                    }
+                  ],
+                  "image": "recheck:kubernetes",
+                  "imagePullPolicy": "Never",
+                  "lifecycle": {
+                    "preStop": {
+                      "exec": {
+                        "command": [
+                          "python",
+                          "-c",
+                          "import time; time.sleep(5)"
+                        ]
+                      }
+                    }
+                  },
+                  "livenessProbe": {
+                    "failureThreshold": 3,
+                    "httpGet": {
+                      "path": "/live",
+                      "port": 8000,
+                      "scheme": "HTTP"
+                    },
+                    "periodSeconds": 10,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 1
+                  },
+                  "name": "api",
+                  "ports": [
+                    {
+                      "containerPort": 8000,
+                      "protocol": "TCP"
+                    }
+                  ],
+                  "readinessProbe": {
+                    "failureThreshold": 2,
+                    "httpGet": {
+                      "path": "/ready",
+                      "port": 8000,
+                      "scheme": "HTTP"
+                    },
+                    "periodSeconds": 2,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 1
+                  },
+                  "resources": {
+                    "limits": {
+                      "cpu": "1",
+                      "memory": "512Mi"
+                    },
+                    "requests": {
+                      "cpu": "100m",
+                      "memory": "128Mi"
+                    }
+                  },
+                  "startupProbe": {
+                    "failureThreshold": 60,
+                    "httpGet": {
+                      "path": "/ready",
+                      "port": 8000,
+                      "scheme": "HTTP"
+                    },
+                    "periodSeconds": 2,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 1
+                  },
+                  "terminationMessagePath": "/dev/termination-log",
+                  "terminationMessagePolicy": "File"
+                }
+              ],
+              "dnsPolicy": "ClusterFirst",
+              "restartPolicy": "Always",
+              "schedulerName": "default-scheduler",
+              "securityContext": {},
+              "terminationGracePeriodSeconds": 30
+            }
+          }
+        },
+        "status": {
+          "availableReplicas": 2,
+          "conditions": [
+            {
+              "lastTransitionTime": "2026-10-08T16:28:30Z",
+              "lastUpdateTime": "2026-10-08T16:28:30Z",
+              "message": "Deployment has minimum availability.",
+              "reason": "MinimumReplicasAvailable",
+              "status": "True",
+              "type": "Available"
+            },
+            {
+              "lastTransitionTime": "2026-10-08T16:28:14Z",
+              "lastUpdateTime": "2026-10-08T16:28:30Z",
+              "message": "ReplicaSet \"api-7c8699594c\" has successfully progressed.",
+              "reason": "NewReplicaSetAvailable",
+              "status": "True",
+              "type": "Progressing"
+            }
+          ],
+          "observedGeneration": 1,
+          "readyReplicas": 2,
+          "replicas": 2,
+          "updatedReplicas": 2
+        }
+      },
+      {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "metadata": {
+          "annotations": {
+            "deployment.kubernetes.io/revision": "1",
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"name\":\"model\",\"namespace\":\"recheck\"},\"spec\":{\"minReadySeconds\":5,\"progressDeadlineSeconds\":90,\"replicas\":2,\"selector\":{\"matchLabels\":{\"app\":\"model\"}},\"strategy\":{\"rollingUpdate\":{\"maxSurge\":1,\"maxUnavailable\":0},\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"labels\":{\"app\":\"model\"}},\"spec\":{\"containers\":[{\"command\":[\"python\",\"-m\",\"uvicorn\",\"recheck.worker:app\",\"--host\",\"0.0.0.0\",\"--port\",\"8001\",\"--timeout-graceful-shutdown\",\"20\"],\"env\":[{\"name\":\"RECHECK_WORKER_CONCURRENCY\",\"value\":\"1\"},{\"name\":\"RECHECK_WORKER_QUEUE\",\"value\":\"4\"}],\"image\":\"recheck:kubernetes\",\"imagePullPolicy\":\"Never\",\"lifecycle\":{\"preStop\":{\"exec\":{\"command\":[\"python\",\"-c\",\"import time; time.sleep(5)\"]}}},\"livenessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/live\",\"port\":8001},\"periodSeconds\":10},\"name\":\"model\",\"ports\":[{\"containerPort\":8001}],\"readinessProbe\":{\"failureThreshold\":2,\"httpGet\":{\"path\":\"/ready\",\"port\":8001},\"periodSeconds\":2},\"resources\":{\"limits\":{\"cpu\":\"1\",\"memory\":\"512Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"128Mi\"}},\"startupProbe\":{\"failureThreshold\":60,\"httpGet\":{\"path\":\"/ready\",\"port\":8001},\"periodSeconds\":2}}],\"terminationGracePeriodSeconds\":30}}}}\n"
+          },
+          "creationTimestamp": "2026-10-08T16:28:14Z",
+          "generation": 1,
+          "name": "model",
+          "namespace": "recheck",
+          "resourceVersion": "701",
+          "uid": "8048d58c-4f1f-4727-91e8-d3ee2ed2b1a9"
+        },
+        "spec": {
+          "minReadySeconds": 5,
+          "progressDeadlineSeconds": 90,
+          "replicas": 2,
+          "revisionHistoryLimit": 10,
+          "selector": {
+            "matchLabels": {
+              "app": "model"
+            }
+          },
+          "strategy": {
+            "rollingUpdate": {
+              "maxSurge": 1,
+              "maxUnavailable": 0
+            },
+            "type": "RollingUpdate"
+          },
+          "template": {
+            "metadata": {
+              "creationTimestamp": null,
+              "labels": {
+                "app": "model"
+              }
+            },
+            "spec": {
+              "containers": [
+                {
+                  "command": [
+                    "python",
+                    "-m",
+                    "uvicorn",
+                    "recheck.worker:app",
+                    "--host",
+                    "0.0.0.0",
+                    "--port",
+                    "8001",
+                    "--timeout-graceful-shutdown",
+                    "20"
+                  ],
+                  "env": [
+                    {
+                      "name": "RECHECK_WORKER_CONCURRENCY",
+                      "value": "1"
+                    },
+                    {
+                      "name": "RECHECK_WORKER_QUEUE",
+                      "value": "4"
+                    }
+                  ],
+                  "image": "recheck:kubernetes",
+                  "imagePullPolicy": "Never",
+                  "lifecycle": {
+                    "preStop": {
+                      "exec": {
+                        "command": [
+                          "python",
+                          "-c",
+                          "import time; time.sleep(5)"
+                        ]
+                      }
+                    }
+                  },
+                  "livenessProbe": {
+                    "failureThreshold": 3,
+                    "httpGet": {
+                      "path": "/live",
+                      "port": 8001,
+                      "scheme": "HTTP"
+                    },
+                    "periodSeconds": 10,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 1
+                  },
+                  "name": "model",
+                  "ports": [
+                    {
+                      "containerPort": 8001,
+                      "protocol": "TCP"
+                    }
+                  ],
+                  "readinessProbe": {
+                    "failureThreshold": 2,
+                    "httpGet": {
+                      "path": "/ready",
+                      "port": 8001,
+                      "scheme": "HTTP"
+                    },
+                    "periodSeconds": 2,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 1
+                  },
+                  "resources": {
+                    "limits": {
+                      "cpu": "1",
+                      "memory": "512Mi"
+                    },
+                    "requests": {
+                      "cpu": "100m",
+                      "memory": "128Mi"
+                    }
+                  },
+                  "startupProbe": {
+                    "failureThreshold": 60,
+                    "httpGet": {
+                      "path": "/ready",
+                      "port": 8001,
+                      "scheme": "HTTP"
+                    },
+                    "periodSeconds": 2,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 1
+                  },
+                  "terminationMessagePath": "/dev/termination-log",
+                  "terminationMessagePolicy": "File"
+                }
+              ],
+              "dnsPolicy": "ClusterFirst",
+              "restartPolicy": "Always",
+              "schedulerName": "default-scheduler",
+              "securityContext": {},
+              "terminationGracePeriodSeconds": 30
+            }
+          }
+        },
+        "status": {
+          "availableReplicas": 2,
+          "conditions": [
+            {
+              "lastTransitionTime": "2026-10-08T16:28:32Z",
+              "lastUpdateTime": "2026-10-08T16:28:32Z",
+              "message": "Deployment has minimum availability.",
+              "reason": "MinimumReplicasAvailable",
+              "status": "True",
+              "type": "Available"
+            },
+            {
+              "lastTransitionTime": "2026-10-08T16:28:14Z",
+              "lastUpdateTime": "2026-10-08T16:28:32Z",
+              "message": "ReplicaSet \"model-6866f5f758\" has successfully progressed.",
+              "reason": "NewReplicaSetAvailable",
+              "status": "True",
+              "type": "Progressing"
+            }
+          ],
+          "observedGeneration": 1,
+          "readyReplicas": 2,
+          "replicas": 2,
+          "updatedReplicas": 2
+        }
+      }
+    ],
+    "kind": "List",
+    "metadata": {
+      "resourceVersion": ""
+    }
+  },
+  "nodes": {
+    "apiVersion": "v1",
+    "items": [
+      {
+        "apiVersion": "v1",
+        "kind": "Node",
+        "metadata": {
+          "annotations": {
+            "kubeadm.alpha.kubernetes.io/cri-socket": "unix:///run/containerd/containerd.sock",
+            "node.alpha.kubernetes.io/ttl": "0",
+            "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+          },
+          "creationTimestamp": "2026-10-08T16:27:17Z",
+          "labels": {
+            "beta.kubernetes.io/arch": "amd64",
+            "beta.kubernetes.io/os": "linux",
+            "kubernetes.io/arch": "amd64",
+            "kubernetes.io/hostname": "recheck-ops-control-plane",
+            "kubernetes.io/os": "linux",
+            "node-role.kubernetes.io/control-plane": ""
+          },
+          "name": "recheck-ops-control-plane",
+          "resourceVersion": "653",
+          "uid": "ffcfa88e-20fc-4ea6-9253-1fe0208137f3"
+        },
+        "spec": {
+          "podCIDR": "10.244.0.0/24",
+          "podCIDRs": [
+            "10.244.0.0/24"
+          ],
+          "providerID": "kind://docker/recheck-ops/recheck-ops-control-plane"
+        },
+        "status": {
+          "addresses": [
+            {
+              "address": "172.18.0.2",
+              "type": "InternalIP"
+            },
+            {
+              "address": "recheck-ops-control-plane",
+              "type": "Hostname"
+            }
+          ],
+          "allocatable": {
+            "cpu": "4",
+            "ephemeral-storage": "151263856Ki",
+            "hugepages-1Gi": "0",
+            "hugepages-2Mi": "0",
+            "memory": "16377684Ki",
+            "pods": "110"
+          },
+          "capacity": {
+            "cpu": "4",
+            "ephemeral-storage": "151263856Ki",
+            "hugepages-1Gi": "0",
+            "hugepages-2Mi": "0",
+            "memory": "16377684Ki",
+            "pods": "110"
+          },
+          "conditions": [
+            {
+              "lastHeartbeatTime": "2026-10-08T16:28:21Z",
+              "lastTransitionTime": "2026-10-08T16:27:16Z",
+              "message": "kubelet has sufficient memory available",
+              "reason": "KubeletHasSufficientMemory",
+              "status": "False",
+              "type": "MemoryPressure"
+            },
+            {
+              "lastHeartbeatTime": "2026-10-08T16:28:21Z",
+              "lastTransitionTime": "2026-10-08T16:27:16Z",
+              "message": "kubelet has no disk pressure",
+              "reason": "KubeletHasNoDiskPressure",
+              "status": "False",
+              "type": "DiskPressure"
+            },
+            {
+              "lastHeartbeatTime": "2026-10-08T16:28:21Z",
+              "lastTransitionTime": "2026-10-08T16:27:16Z",
+              "message": "kubelet has sufficient PID available",
+              "reason": "KubeletHasSufficientPID",
+              "status": "False",
+              "type": "PIDPressure"
+            },
+            {
+              "lastHeartbeatTime": "2026-10-08T16:28:21Z",
+              "lastTransitionTime": "2026-10-08T16:27:40Z",
+              "message": "kubelet is posting ready status",
+              "reason": "KubeletReady",
+              "status": "True",
+              "type": "Ready"
+            }
+          ],
+          "daemonEndpoints": {
+            "kubeletEndpoint": {
+              "Port": 10250
+            }
+          },
+          "images": [
+            {
+              "names": [
+                "docker.io/library/recheck:kubernetes"
+              ],
+              "sizeBytes": 511352669
+            },
+            {
+              "names": [
+                "docker.io/library/recheck:postgres-lab"
+              ],
+              "sizeBytes": 296769959
+            },
+            {
+              "names": [
+                "registry.k8s.io/kube-apiserver-amd64:v1.32.2",
+                "registry.k8s.io/kube-apiserver:v1.32.2"
+              ],
+              "sizeBytes": 98050545
+            },
+            {
+              "names": [
+                "registry.k8s.io/kube-proxy-amd64:v1.32.2",
+                "registry.k8s.io/kube-proxy:v1.32.2"
+              ],
+              "sizeBytes": 95269065
+            },
+            {
+              "names": [
+                "registry.k8s.io/kube-controller-manager-amd64:v1.32.2",
+                "registry.k8s.io/kube-controller-manager:v1.32.2"
+              ],
+              "sizeBytes": 90788183
+            },
+            {
+              "names": [
+                "registry.k8s.io/kube-scheduler-amd64:v1.32.2",
+                "registry.k8s.io/kube-scheduler:v1.32.2"
+              ],
+              "sizeBytes": 70648151
+            },
+            {
+              "names": [
+                "registry.k8s.io/etcd:3.5.16-0"
+              ],
+              "sizeBytes": 57680541
+            },
+            {
+              "names": [
+                "docker.io/kindest/kindnetd:v20250214-acbabc1a"
+              ],
+              "sizeBytes": 38996835
+            },
+            {
+              "names": [
+                "docker.io/kindest/local-path-provisioner:v20250214-acbabc1a"
+              ],
+              "sizeBytes": 22540870
+            },
+            {
+              "names": [
+                "registry.k8s.io/coredns/coredns:v1.11.3"
+              ],
+              "sizeBytes": 18562039
+            },
+            {
+              "names": [
+                "docker.io/kindest/local-path-helper:v20241212-8ac705d0"
+              ],
+              "sizeBytes": 3084671
+            },
+            {
+              "names": [
+                "registry.k8s.io/pause:3.10"
+              ],
+              "sizeBytes": 320368
+            }
+          ],
+          "nodeInfo": {
+            "architecture": "amd64",
+            "bootID": "43fa4c60-5c2b-4460-bba8-becc57756b30",
+            "containerRuntimeVersion": "containerd://2.0.3",
+            "kernelVersion": "6.17.0-1022-azure",
+            "kubeProxyVersion": "v1.32.2",
+            "kubeletVersion": "v1.32.2",
+            "machineID": "e39c7b3908f84aec8130c0944753d5df",
+            "operatingSystem": "linux",
+            "osImage": "Debian GNU/Linux 12 (bookworm)",
+            "systemUUID": "4edb7a13-2497-496d-8986-723186954000"
+          },
+          "runtimeHandlers": [
+            {
+              "features": {
+                "recursiveReadOnlyMounts": true,
+                "userNamespaces": true
+              },
+              "name": "runc"
+            },
+            {
+              "features": {
+                "recursiveReadOnlyMounts": true,
+                "userNamespaces": true
+              },
+              "name": ""
+            },
+            {
+              "features": {
+                "recursiveReadOnlyMounts": true,
+                "userNamespaces": true
+              },
+              "name": "test-handler"
+            }
+          ]
+        }
+      }
+    ],
+    "kind": "List",
+    "metadata": {
+      "resourceVersion": ""
+    }
+  },
+  "checks_passed": 6,
+  "observed_http_outages": [
+    {
+      "first_failed_sample": "2026-10-08T16:30:48.888104+00:00",
+      "phase": "postgres_pod_replacement",
+      "failed_samples": 5,
+      "first_recovered_sample": "2026-10-08T16:30:51.389735+00:00",
+      "observed_recovery_seconds": 2.501631
+    }
+  ],
+  "same_idempotency_key_replayed_on_each_api_replica": [
+    {
+      "pod": "api-7c8699594c-gq8dl",
+      "receipt_id": "42061cb3-41ab-4ed4-af73-24773812a8f6"
+    },
+    {
+      "pod": "api-7c8699594c-pbq5w",
+      "receipt_id": "42061cb3-41ab-4ed4-af73-24773812a8f6"
+    }
+  ],
+  "outage_interpretation": "Time between first failed and first recovered sample, not exact downtime; sampling and request duration bound temporal resolution. HTTP-200 review outcomes are reported separately."
+}

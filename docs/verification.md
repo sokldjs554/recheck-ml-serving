@@ -73,4 +73,10 @@ backend/.venv/bin/python scripts/benchmark.py --count 60 --rate 80 --delay 80 --
 
 추가 리뷰에서 자식 프로세스가 죽어도 준비 상태가 정상이던 문제, 처음부터 무효인 판단도 합성 점검이 성공으로 오인하던 문제, 복구 검증이 readiness만 확인하던 문제를 고쳤다. 현재 검증은 새 정상 추론과 사용 시점의 유효성까지 확인한다.
 
-최종 로컬 production 번들의 [브라우저 검사](evidence/operations-browser-checks.json)는 **16개 확인**을 통과했다. 실제 Python HTTP 모드의 정상 판단·변경 후 거절, 390·768·1024px 가로 넘침, 새 검증 탭, 페이지 오류 0을 포함한다. [PostgreSQL 테스트 출력](evidence/operations-backend-tests.txt)도 보존했다. 처음 임시18765 출처에서는 CORS가 막았으며, 설정된5173 출처에서 재검증했다.
+최종 로컬 production 번들의 [브라우저 검사](evidence/operations-browser-checks.json)는 **17개 확인**을 통과했다. 실제 Python HTTP 모드의 정상 판단·변경 후 거절, 390·768·1024px 가로 넘침, 새 검증 탭, 페이지 오류 0을 포함한다. [PostgreSQL 테스트 출력](evidence/operations-backend-tests.txt)도 보존했다. 처음 임시18765 출처에서는 CORS가 막았으며, 설정된5173 출처에서 재검증했다.
+
+### 공개 검증이 찾아낸 추가 문제
+
+공개 Pages 브라우저 검사에서 정보 변경 응답보다 사용 시점 검증 응답이 먼저 반환됐다. 실제 로그는 검증 응답16:27:39.640UTC, 변경 응답16:27:39.849UTC였다. 변경 응답이 앞선 검증 표시를 지우면서 사용자가 재검증 결과를 볼 수 없었다. 로컬에서 실제 변경 요청을 브라우저 라우트로 보류해 재현했고, 변경 처리 중에는 재검증 버튼과 핸들러를 차단했다. 같은 반례가 수정 전 실패·수정 후 통과했다. 이 회귀를 공개 브라우저 검사에도 포함한다.
+
+[배포 중 외부 점검](evidence/public-synthetic-deployment.json)은 정확성3/3이지만 시작 지연75.4초로 5초 이내2/3이었다. [배포 후 재실행](evidence/public-synthetic-recovered.json)은 3/3이며 HTTP 기능7개도 통과했다. 실패 기록을 삭제하거나 장기간 가용성으로 바꾸지 않는다.

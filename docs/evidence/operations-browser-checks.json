@@ -1,5 +1,5 @@
 {
-  "captured_at": "2026-10-08T16:24:11.146512+00:00",
+  "captured_at": "2026-10-08T16:32:42.333689+00:00",
   "frontend": "http://127.0.0.1:5173",
   "api": "http://127.0.0.1:18100",
   "browser_executable": "/usr/bin/chromium",
@@ -27,7 +27,7 @@
     {
       "name": "unsafe baseline is visible but validation refuses; JSON download and Escape",
       "passed": true,
-      "downloaded": "recheck-5f3c44df-0b68-43fc-a76e-17a7ab54f933.json"
+      "downloaded": "recheck-a1498887-c503-4ed0-bd51-f24bd7b05731.json"
     },
     {
       "name": "browser fault 시간 초과 produces explicit review reason",
@@ -66,6 +66,10 @@
       "width": 1024
     },
     {
+      "name": "live revalidation waits for mutation response before checking current state",
+      "passed": true
+    },
+    {
       "name": "live Python HTTP mode validates clear result and refuses feature-stale use",
       "passed": true
     },
@@ -86,5 +90,5 @@
     "demo-comparison.png",
     "demo-mobile.png"
   ],
-  "test_duration_seconds": 31.561
+  "test_duration_seconds": 31.906
 }

@@ -320,7 +320,7 @@ export default function App() {
     return raceReproduced(receipt, mutation) ? receipt : undefined;
   };
   const validate = async () => {
-    if (!session || !current) return;
+    if (!session || !current || mutating) return;
     const gen = generation.current;
     const epoch = validationEpoch.current;
     setValidating(true);
@@ -1057,7 +1057,7 @@ export default function App() {
                 </div>
                 <button
                   className="outline-button"
-                  disabled={!current || validating || busy}
+                  disabled={!current || validating || busy || mutating}
                   onClick={() => void validate()}
                 >
                   {validating ? (

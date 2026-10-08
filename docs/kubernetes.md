@@ -66,3 +66,7 @@ KUBECONFIG="$PWD/work/kubernetes/kubeconfig" work/tools/kind delete cluster --na
 `native`는 레이어를 복사하므로 32GB 디스크에서 일반 다중 레이어 이미지로 먼저 실행했을 때 공간이 소진되었다. 최종 스크립트는 **실험용** API 이미지와 PostgreSQL 이미지를 `docker export/import`로 한 레이어로 만들며 실행 user, working directory, 필수 환경변수와 entrypoint를 유지한다. 실제 운영 배포 Dockerfile은 변경하지 않는다. `RECHECK_K8S_SKIP_BUILD=1`은 이미 준비한 로컬 실험 이미지 재사용용이며 기본/CI 실행은 현재 소스를 빌드한다.
 
 초기 실패 시도와 최종 검증의 실행 이미지는 결과 파일과 런타임 기록을 함께 참고한다. 전체 Docker prune은 사용하지 않는다. 자동 승인 검토가 활성 node의 광범위 snapshot 삭제를 위험하다고 거절하여, 그 방식 대신 실험 전용 클러스터를 삭제하고 다시 생성했다.
+
+## 통합 공개판에서 세 번째 실행
+
+[실행37808750548](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/37808750548), 소스 `5b0b150`: 6개 검증 통과. [전체 원본 JSON](evidence/kubernetes-proof.json)을 CI가 출력한 gzip 기록에서 정확히 복원했다. 292개 표본 중 정상 판단286개, DB 재시작 HTTP오류5개, 준비 실패 모델 배포 중 `review:model_unavailable`1개다. HTTP오류가 없다는 것과 업무상 성공은 구분한다. 복구 후 정상 판단·유효성 검사까지 통과했지만 모든 단계 무중단을 보장하지 않는다. 앞선 두 실행을 덮어쓰지 않았다.

@@ -1,0 +1,66 @@
+{
+  "source_run": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/37808750494/attempts/1",
+  "commit": "5b0b150218e8d238e70a82af20b21f709fb830b7",
+  "notes": [
+    "All three correctness workflows passed; first workflow exceeded the 5000ms latency objective.",
+    "The first sample includes 75.4 seconds while the free host was starting/updating. Retained as a failed latency sample."
+  ],
+  "samples": [
+    {
+      "at": "2026-10-08T16:26:14.965054+00:00",
+      "ok": true,
+      "steps": [
+        "health",
+        "session",
+        "inference",
+        "current_validation",
+        "mutation",
+        "stale_rejection"
+      ],
+      "trace_id": "11ad24f62a1d00940a6130a3fd5c58fd",
+      "duration_ms": 75404.667
+    },
+    {
+      "at": "2026-10-08T16:27:45.385124+00:00",
+      "ok": true,
+      "steps": [
+        "health",
+        "session",
+        "inference",
+        "current_validation",
+        "mutation",
+        "stale_rejection"
+      ],
+      "trace_id": "4d4e9848e917c5b08cc61f1128dfcb76",
+      "duration_ms": 2167.594
+    },
+    {
+      "at": "2026-10-08T16:28:02.568037+00:00",
+      "ok": true,
+      "steps": [
+        "health",
+        "session",
+        "inference",
+        "current_validation",
+        "mutation",
+        "stale_rejection"
+      ],
+      "trace_id": "1e29153994a265fbedb10d3067434b53",
+      "duration_ms": 2941.02
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "good": 2,
+    "bad": 1,
+    "availability": 0.6666666666666666,
+    "target": 0.99,
+    "latency_budget_ms": 5000,
+    "allowed_bad_samples": 0.030000000000000027,
+    "budget_consumed_ratio": 33.33333333333331,
+    "scope": "sampled synthetic workflow, not continuous production uptime",
+    "window_start": "2026-10-08T16:26:14.965054+00:00",
+    "window_end": "2026-10-08T16:28:05.509455+00:00",
+    "interval_seconds": 15
+  }
+}

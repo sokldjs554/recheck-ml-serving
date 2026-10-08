@@ -185,8 +185,16 @@ def main() -> None:
                 page.get_by_text("HTTP API와 독립 모델 서버의 실제 응답을 표시합니다.", exact=True).wait_for(timeout=100000)
                 clear_request()
                 validate(True)
-                click("수취인 정보 변경")
+                held_mutations = []
+                page.route("**/api/sessions/*/mutations", lambda route: held_mutations.append(route))
+                with page.expect_request("**/api/sessions/*/mutations"):
+                    click("수취인 정보 변경")
+                assert len(held_mutations) == 1, "Must observe the pending real mutation"
+                assert page.get_by_role("button", name="지금 사용 가능한지 확인", exact=True).is_disabled(), "Validation must wait for a pending mutation"
+                held_mutations[0].continue_()
+                page.unroute("**/api/sessions/*/mutations")
                 validate(False)
+                passed("live revalidation waits for mutation response before checking current state")
                 passed("live Python HTTP mode validates clear result and refuses feature-stale use")
 
             assert not report["page_errors"], report["page_errors"]
