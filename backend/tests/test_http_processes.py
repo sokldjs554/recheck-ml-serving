@@ -70,12 +70,17 @@ async def test_separate_http_processes_preserve_freshness_trace_and_deadlines(tm
             assert first["trace_id"] == trace_id
             assert "model.predict" in {s["name"] for s in first["spans"]}
             delayed = dict(base, idempotency_key="race", delay_ms=50)
-            pending = asyncio.create_task(client.post(f"/api/sessions/{sid}/decisions", json=delayed))
+            # Construct/warm the observer before starting the 50 ms request: client
+            # initialization can otherwise consume the entire mutation window.
             async with httpx.AsyncClient(base_url=worker_url, trust_env=False) as monitor:
+                assert (await monitor.get("/health")).json()["active"] == 0
+                pending = asyncio.create_task(client.post(f"/api/sessions/{sid}/decisions", json=delayed))
                 for _ in range(100):
                     if (await monitor.get("/health")).json()["active"]:
                         break
                     await asyncio.sleep(0.001)
+                else:
+                    pytest.fail("worker never entered observed active state")
                 await client.post(f"/api/sessions/{sid}/mutations", json={"kind": "feature"})
                 assert (await pending).json()["status"] == "invalidated"
                 timed_out = (await client.post(f"/api/sessions/{sid}/decisions", json=dict(base, idempotency_key="timeout", fault="timeout"))).json()
@@ -83,6 +88,10 @@ async def test_separate_http_processes_preserve_freshness_trace_and_deadlines(tm
                 assert timed_out["reason"] == "deadline_exceeded"
                 # Disconnect does not assume immediate remote cancellation. The worker's
                 # own propagated deadline must end its bounded work independently.
-                await asyncio.sleep(0.06)
-                health = (await monitor.get("/health")).json()
-                assert health["active"] == health["admitted"] == 0
+                until = time.monotonic() + 1
+                while True:
+                    health = (await monitor.get("/health")).json()
+                    if health["active"] == health["admitted"] == 0:
+                        break
+                    assert time.monotonic() < until, health
+                    await asyncio.sleep(0.001)

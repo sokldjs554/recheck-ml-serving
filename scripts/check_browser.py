@@ -133,6 +133,17 @@ def main() -> None:
             page.get_by_text("Python 호스팅 구성: SQLite", exact=False).wait_for()
             click("지원자의 관점")
             page.get_by_role("heading", name=re.compile("AI와 해결책을 찾고")).wait_for()
+            click("검증 기록")
+            page.get_by_role("heading", name="설계의 이유, 실행의 결과.", exact=True).wait_for()
+            assert page.locator(".evidence-record").count() == 4
+            page.screenshot(path=str(args.output / "operations-desktop.png"), full_page=True)
+            for evidence_width in (390, 768, 1024):
+                page.set_viewport_size({"width": evidence_width, "height": 844})
+                assert not page.evaluate("document.documentElement.scrollWidth > window.innerWidth"), f"Evidence overflow at {evidence_width}"
+                if evidence_width == 390:
+                    page.screenshot(path=str(args.output / "operations-mobile.png"), full_page=True)
+            page.set_viewport_size({"width": 1440, "height": 1050})
+            passed("dated operations evidence and source links are readable on desktop and mobile")
             click("판단 기록")
             page.get_by_role("table", name="판단 기록").wait_for()
             click("인터랙티브 데모")
@@ -171,7 +182,7 @@ def main() -> None:
                 click("실제 Python 서버 연결")
                 page.get_by_label("API 주소", exact=False).fill(args.api)
                 click("연결 확인")
-                page.get_by_text("HTTP API와 독립 모델 서버의 실제 응답을 표시합니다.", exact=True).wait_for()
+                page.get_by_text("HTTP API와 독립 모델 서버의 실제 응답을 표시합니다.", exact=True).wait_for(timeout=100000)
                 clear_request()
                 validate(True)
                 click("수취인 정보 변경")

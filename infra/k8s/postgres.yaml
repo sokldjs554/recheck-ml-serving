@@ -1,0 +1,66 @@
+# Isolated local lab credentials only. Supply managed secrets in a real environment.
+apiVersion: v1
+kind: Secret
+metadata:
+  name: postgres
+  namespace: recheck
+type: Opaque
+stringData:
+  POSTGRES_DB: recheck
+  POSTGRES_USER: recheck
+  POSTGRES_PASSWORD: local-kubernetes-lab-only
+  DATABASE_URL: postgresql+psycopg://recheck:local-kubernetes-lab-only@postgres:5432/recheck
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: recheck
+spec:
+  selector: {app: postgres}
+  ports:
+    - port: 5432
+      targetPort: 5432
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+  namespace: recheck
+spec:
+  serviceName: postgres
+  replicas: 1
+  selector:
+    matchLabels: {app: postgres}
+  template:
+    metadata:
+      labels: {app: postgres}
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: postgres
+          image: recheck:postgres-lab
+          imagePullPolicy: Never
+          envFrom:
+            - secretRef: {name: postgres}
+          ports:
+            - containerPort: 5432
+          resources:
+            requests: {cpu: 100m, memory: 128Mi}
+            limits: {cpu: '1', memory: 512Mi}
+          readinessProbe:
+            exec: {command: [pg_isready, -U, recheck, -d, recheck]}
+            periodSeconds: 2
+          livenessProbe:
+            tcpSocket: {port: 5432}
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+    - metadata: {name: data}
+      spec:
+        accessModes: [ReadWriteOnce]
+        resources:
+          requests: {storage: 1Gi}

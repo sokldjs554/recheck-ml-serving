@@ -40,7 +40,7 @@ async def probe(client: httpx.AsyncClient) -> dict:
         health = await client.get('/health')
         health.raise_for_status()
         info = health.json()
-        if any(info.get(k) != v for k,v in {'status':'ok','service':'recheck-api','mode':'live'}.items()):
+        if not isinstance(info, dict) or any(info.get(k) != v for k,v in {'status':'ok','service':'recheck-api','mode':'live'}.items()):
             raise ValueError('unexpected health identity')
         row['steps'].append(step)
         step = 'session'
@@ -55,18 +55,30 @@ async def probe(client: httpx.AsyncClient) -> dict:
             'delay_ms': 0, 'fault': 'none'})
         result.raise_for_status()
         receipt = result.json()
-        if receipt.get('status') != 'clear' or not receipt.get('model_hash') or not receipt.get('trace_id'):
+        if not isinstance(receipt, dict) or receipt.get('status') != 'clear' or not receipt.get('model_hash') or not receipt.get('trace_id'):
             raise ValueError('inference did not produce usable identified result')
         row['trace_id'] = receipt['trace_id']
+        row['steps'].append(step)
+        original_versions = {key: receipt[key] for key in ('feature_version', 'policy_version', 'model_version')}
+        step = 'current_validation'
+        validation_path = prefix + '/decisions/' + receipt['id'] + '/validate'
+        current = await client.get(validation_path)
+        current.raise_for_status()
+        if current.json() != {'valid': True, 'reason': 'current', 'current_versions': original_versions}:
+            raise ValueError('new receipt is not currently valid')
         row['steps'].append(step)
         step = 'mutation'
         changed = await client.post(prefix + '/mutations', json={'kind':'feature'})
         changed.raise_for_status()
+        expected_versions = {**original_versions, 'feature_version': original_versions['feature_version'] + 1}
+        if changed.json() != expected_versions:
+            raise ValueError('mutation did not increment feature version')
         row['steps'].append(step)
         step = 'stale_rejection'
-        checked = await client.get(prefix + '/decisions/' + receipt['id'] + '/validate')
+        checked = await client.get(validation_path)
         checked.raise_for_status()
-        if checked.json().get('valid') is not False:
+        validation = checked.json()
+        if validation != {'valid': False, 'reason': 'versions_changed', 'current_versions': expected_versions}:
             raise ValueError('stale result incorrectly accepted')
         row['steps'].append(step)
         row['ok'] = True

@@ -13,10 +13,12 @@ from fastapi.responses import JSONResponse
 import httpx
 from opentelemetry import propagate, trace
 from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy import text
 
 from .admission import Admission, DeadlineExceeded, Overloaded
 from .config import Settings
 from .model import get_model
+from .observability import install_metrics
 from .schemas import DecisionRequest, MutationRequest
 from .store import Store
 from .telemetry import finishing_span, telemetry
@@ -32,7 +34,7 @@ def create_app(settings=None, model_client=None):
     settings = settings or Settings.from_env()
     store = Store(settings)
     tracer, display, provider = telemetry("recheck-api")
-    expected_hashes = {v: get_model(v).model_hash for v in ("risk-v1", "risk-v2")}
+    expected_hashes = {v: get_model(v, settings.workload).model_hash for v in ("risk-v1", "risk-v2")}
     supplied_client = model_client is not None
     model_client = model_client or httpx.AsyncClient(base_url=settings.model_service_url, limits=httpx.Limits(max_connections=settings.gateway_concurrency, max_keepalive_connections=settings.gateway_concurrency), trust_env=False)
 
@@ -46,6 +48,7 @@ def create_app(settings=None, model_client=None):
 
     app = FastAPI(title="RECHECK version-fenced inference receipts", lifespan=lifespan)
     app.add_middleware(CORSMiddleware, allow_origins=list(settings.cors_origins), allow_methods=["GET", "POST"], allow_headers=["Content-Type", "traceparent", "tracestate"])
+    install_metrics(app, "api")
     app.state.store = store
     app.state.admission = Admission(settings.gateway_concurrency, settings.gateway_queue)
     app.state.active_sessions = Counter()
@@ -56,8 +59,16 @@ def create_app(settings=None, model_client=None):
         logger.error("database operation failed: %s", type(exc).__name__)
         return JSONResponse(status_code=503, content={"detail": "database_unavailable"})
 
+    @app.get("/ready")
     @app.get("/health")
     async def health():
+        def check_database():
+            with store.engine.connect() as connection:
+                connection.execute(text("SELECT 1"))
+        try:
+            await asyncio.to_thread(check_database)
+        except SQLAlchemyError as exc:
+            raise HTTPException(503, "database_unavailable") from exc
         try:
             response = await model_client.get("/health", timeout=0.3)
             response.raise_for_status()
@@ -155,7 +166,7 @@ def create_app(settings=None, model_client=None):
                             model_span.set_status(trace.StatusCode.ERROR, reason)
                         else:
                             result = response.json()
-                            if result.get("model_version") != snapshot["model_version"] or result.get("model_hash") != get_model(snapshot["model_version"]).model_hash:
+                            if result.get("model_version") != snapshot["model_version"] or result.get("model_hash") != get_model(snapshot["model_version"], settings.workload).model_hash:
                                 reason = "model_version_mismatch"
                                 model_span.set_status(trace.StatusCode.ERROR, reason)
                             else:
@@ -181,7 +192,7 @@ def create_app(settings=None, model_client=None):
                        **{k: snapshot[k] for k in ("feature_version", "policy_version", "model_version")},
                        "created_at": iso(snapshot["created_at"]), "expires_at": iso(snapshot["created_at"] + settings.receipt_ttl_ms / 1000),
                        "latency_ms": (time.monotonic() - started) * 1000, "trace_id": trace_id,
-                       "spans": [], "protected": body.protected, "model_hash": get_model(snapshot["model_version"]).model_hash}
+                       "spans": [], "protected": body.protected, "model_hash": get_model(snapshot["model_version"], settings.workload).model_hash}
             if status != "clear":
                 root.set_status(trace.StatusCode.ERROR, reason)
             with finishing_span(tracer, "fence.commit") as fence:

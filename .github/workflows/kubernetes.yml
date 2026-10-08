@@ -1,0 +1,33 @@
+name: Kubernetes operational proof
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, feat/serving-operations]
+    paths: ['backend/**', 'scripts/k8s*', 'infra/k8s/**', 'Dockerfile', '.github/workflows/kubernetes.yml']
+  pull_request:
+    paths: ['backend/**', 'scripts/k8s*', 'infra/k8s/**', 'Dockerfile', '.github/workflows/kubernetes.yml']
+permissions:
+  contents: read
+jobs:
+  operational-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned cluster tools
+        run: |
+          mkdir -p work/tools
+          curl -fsSL https://github.com/kubernetes-sigs/kind/releases/download/v0.27.0/kind-linux-amd64 -o work/tools/kind
+          curl -fsSL https://dl.k8s.io/release/v1.32.2/bin/linux/amd64/kubectl -o work/tools/kubectl
+          chmod +x work/tools/kind work/tools/kubectl
+      - name: Execute real cluster acceptance
+        run: bash scripts/k8s_lab.sh
+      - name: Upload raw HTTP outcomes and commands
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kubernetes-evidence
+          path: docs/evidence/kubernetes*
+      - name: Remove this lab cluster
+        if: always()
+        run: work/tools/kind delete cluster --name recheck-ops
