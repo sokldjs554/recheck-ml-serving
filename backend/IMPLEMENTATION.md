@@ -59,15 +59,19 @@ The exact serialized artifact hash can differ across library versions.
 | `RECHECK_MAX_RECEIPTS` | 100 | Receipts/reservations per session |
 | `RECHECK_SESSION_TTL_SECONDS` | 3600 | Session expiry, with cascading cleanup on session allocation |
 | `RECHECK_CORS_ORIGINS` | localhost:5173, 127.0.0.1:5173 (HTTP) | Explicit comma-separated browser origins |
+| `RECHECK_WORKLOAD` | logistic | `logistic` or `cpu-ensemble` trained workload |
+| `RECHECK_EXECUTION_MODE` | inline | `inline` or bounded `process` isolation |
 | `OTEL_EXPORTER_OTLP_ENDPOINT` | unset | Optional real OTLP HTTP trace export |
 
 Request delay injection is capped at 2000 ms; recipient/key lengths, amount and
 feature vector shape/range are validated. No retries run behind a timed-out gateway.
 The worker applies its own remaining deadline, so a disconnected gateway cannot
-leave injected delays running indefinitely. Model prediction itself is a tiny,
-synchronous CPU operation; it is never put in an unbounded background thread pool.
-Slots stay held until that operation actually ends. A heavier production model
-would require a bounded process pool and separate CPU/GPU capacity management.
+leave injected delays running indefinitely. The default model uses a small synchronous CPU operation. The optional
+`RECHECK_WORKLOAD=cpu-ensemble` executes 128 trained trees over 4,096 scenarios;
+`RECHECK_EXECUTION_MODE=process` isolates it in a warmed, bounded process pool.
+Slots stay held until actual CPU work ends, including after HTTP timeout or
+cancellation. Dead executors fail closed and fail readiness/liveness probes.
+GPU execution and GPU capacity management remain outside this project.
 
 ## Persistence and concurrency
 
@@ -180,5 +184,15 @@ Final commands and outputs:
 - `.venv/bin/python -m compileall -q recheck`: exit 0.
 
 Additional full-suite evidence is recorded in the integration report. No production
-fraud accuracy, GPU performance, transfer approval or Kubernetes execution is
-claimed by this backend.
+fraud accuracy, GPU performance or transfer approval is claimed. Subsequent
+actual Kubernetes execution is recorded separately in [cluster evidence](../docs/kubernetes.md).
+
+## Operational extension, 2026-10-09 KST
+
+The current suite includes process cancellation/child death, metrics cardinality,
+dependency-aware readiness and synthetic monitor negative controls. Latest local
+PostgreSQL + actual HTTP run: **54 passed, 1 SQLite-only fixture skipped in 11.39s**.
+SQLite + actual HTTP run: **55 passed in 10.32s**. See
+[CPU experiments](../docs/compute-experiments.md),
+[observability proof](../docs/operations.md), and
+[job coverage](../docs/job-coverage.md). Earlier counts above are historical.

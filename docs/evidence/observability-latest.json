@@ -1,0 +1,478 @@
+{
+  "started_at": "2026-10-08T16:16:26.636737+00:00",
+  "environment": "owned local Docker lab, one shared host",
+  "project": "recheck-observe",
+  "versions": {
+    "prometheus": "3.2.1",
+    "alertmanager": "0.28.1",
+    "grafana": "11.6.0",
+    "collector": "0.123.0",
+    "jaeger": "1.66.0"
+  },
+  "checks": {
+    "scrape_targets": [
+      {
+        "discoveredLabels": {
+          "__address__": "api:8000",
+          "__metrics_path__": "/metrics",
+          "__scheme__": "http",
+          "__scrape_interval__": "2s",
+          "__scrape_timeout__": "2s",
+          "job": "recheck-api"
+        },
+        "labels": {
+          "instance": "api:8000",
+          "job": "recheck-api"
+        },
+        "scrapePool": "recheck-api",
+        "scrapeUrl": "http://api:8000/metrics",
+        "globalUrl": "http://api:8000/metrics",
+        "lastError": "",
+        "lastScrape": "2026-10-08T16:16:26.19962712Z",
+        "lastScrapeDuration": 0.001505269,
+        "health": "up",
+        "scrapeInterval": "2s",
+        "scrapeTimeout": "2s"
+      },
+      {
+        "discoveredLabels": {
+          "__address__": "model:8001",
+          "__metrics_path__": "/metrics",
+          "__scheme__": "http",
+          "__scrape_interval__": "2s",
+          "__scrape_timeout__": "2s",
+          "job": "recheck-model"
+        },
+        "labels": {
+          "instance": "model:8001",
+          "job": "recheck-model"
+        },
+        "scrapePool": "recheck-model",
+        "scrapeUrl": "http://model:8001/metrics",
+        "globalUrl": "http://model:8001/metrics",
+        "lastError": "",
+        "lastScrape": "2026-10-08T16:16:25.35698326Z",
+        "lastScrapeDuration": 0.00153951,
+        "health": "up",
+        "scrapeInterval": "2s",
+        "scrapeTimeout": "2s"
+      }
+    ],
+    "grafana_health": {
+      "database": "ok",
+      "version": "11.6.0",
+      "commit": "d2fdff9ee4d75c74bfd3a97c18a0b8e4d029f06e"
+    },
+    "grafana_dashboard": {
+      "uid": "recheck-operations",
+      "panels": 6
+    },
+    "exported_cross_service_trace": {
+      "trace_id": "aeb867df9167e20197d9e182f11070cb",
+      "services": [
+        "recheck-api",
+        "recheck-worker"
+      ],
+      "span_count": 10,
+      "client_span_id": "5b810c6e5d760651",
+      "worker_parent": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "aeb867df9167e20197d9e182f11070cb",
+          "spanID": "5b810c6e5d760651"
+        }
+      ],
+      "span_names": [
+        "fastapi.dependencies",
+        "fastapi.endpoint",
+        "POST /infer",
+        "snapshot",
+        "decision",
+        "fastapi.serialization",
+        "model.predict",
+        "model.infer",
+        "model.http",
+        "fence.commit"
+      ]
+    },
+    "business_metrics": [
+      {
+        "metric": {
+          "outcome": "success",
+          "reason": "none",
+          "service": "model"
+        },
+        "value": [
+          1791476197.025,
+          "1"
+        ]
+      },
+      {
+        "metric": {
+          "outcome": "clear",
+          "reason": "no_current_warning",
+          "service": "api"
+        },
+        "value": [
+          1791476197.025,
+          "1"
+        ]
+      },
+      {
+        "metric": {
+          "outcome": "error",
+          "reason": "model_unavailable",
+          "service": "model"
+        },
+        "value": [
+          1791476197.025,
+          "3"
+        ]
+      },
+      {
+        "metric": {
+          "outcome": "review",
+          "reason": "model_unavailable",
+          "service": "api"
+        },
+        "value": [
+          1791476197.025,
+          "3"
+        ]
+      }
+    ],
+    "business_alert_firing": [
+      {
+        "received_at": "2026-10-08T16:16:36.439400+00:00",
+        "payload": {
+          "receiver": "local-proof",
+          "status": "firing",
+          "alerts": [
+            {
+              "status": "firing",
+              "labels": {
+                "alertname": "RecheckDecisionFailures",
+                "environment": "local-lab",
+                "severity": "warning"
+              },
+              "annotations": {
+                "runbook": "docs/operations.md",
+                "summary": "Synthetic lab observed a failed or degraded decision attempt"
+              },
+              "startsAt": "2026-10-08T16:16:35.434Z",
+              "endsAt": "0001-01-01T00:00:00Z",
+              "generatorURL": "http://7c47f2d7b3dd:9090/graph?g0.expr=sum%28increase%28recheck_business_outcomes_total%7Breason%21~%22no_current_warning%7Crisk_signal%22%2Cservice%3D%22api%22%7D%5B30s%5D%29%29+%3E+0&g0.tab=1",
+              "fingerprint": "4f77e07bd54a398d"
+            }
+          ],
+          "groupLabels": {
+            "alertname": "RecheckDecisionFailures"
+          },
+          "commonLabels": {
+            "alertname": "RecheckDecisionFailures",
+            "environment": "local-lab",
+            "severity": "warning"
+          },
+          "commonAnnotations": {
+            "runbook": "docs/operations.md",
+            "summary": "Synthetic lab observed a failed or degraded decision attempt"
+          },
+          "externalURL": "http://212162de20cc:9093",
+          "version": "4",
+          "groupKey": "{}:{alertname=\"RecheckDecisionFailures\"}",
+          "truncatedAlerts": 0
+        }
+      }
+    ],
+    "alert_firing": [
+      {
+        "received_at": "2026-10-08T16:16:44.438925+00:00",
+        "payload": {
+          "receiver": "local-proof",
+          "status": "firing",
+          "alerts": [
+            {
+              "status": "firing",
+              "labels": {
+                "alertname": "RecheckTargetDown",
+                "environment": "local-lab",
+                "instance": "model:8001",
+                "job": "recheck-model",
+                "severity": "warning"
+              },
+              "annotations": {
+                "runbook": "docs/operations.md",
+                "summary": "RECHECK scrape target unavailable"
+              },
+              "startsAt": "2026-10-08T16:16:43.434Z",
+              "endsAt": "0001-01-01T00:00:00Z",
+              "generatorURL": "http://7c47f2d7b3dd:9090/graph?g0.expr=up%7Bjob%3D~%22recheck-.%2B%22%7D+%3D%3D+0&g0.tab=1",
+              "fingerprint": "4f0df1eac4a32d34"
+            }
+          ],
+          "groupLabels": {
+            "alertname": "RecheckTargetDown"
+          },
+          "commonLabels": {
+            "alertname": "RecheckTargetDown",
+            "environment": "local-lab",
+            "instance": "model:8001",
+            "job": "recheck-model",
+            "severity": "warning"
+          },
+          "commonAnnotations": {
+            "runbook": "docs/operations.md",
+            "summary": "RECHECK scrape target unavailable"
+          },
+          "externalURL": "http://212162de20cc:9093",
+          "version": "4",
+          "groupKey": "{}:{alertname=\"RecheckTargetDown\"}",
+          "truncatedAlerts": 0
+        }
+      }
+    ],
+    "dependency_failure_probes": {
+      "live": 200,
+      "ready": 503
+    },
+    "alert_resolved": [
+      {
+        "received_at": "2026-10-08T16:16:50.440239+00:00",
+        "payload": {
+          "receiver": "local-proof",
+          "status": "resolved",
+          "alerts": [
+            {
+              "status": "resolved",
+              "labels": {
+                "alertname": "RecheckTargetDown",
+                "environment": "local-lab",
+                "instance": "model:8001",
+                "job": "recheck-model",
+                "severity": "warning"
+              },
+              "annotations": {
+                "runbook": "docs/operations.md",
+                "summary": "RECHECK scrape target unavailable"
+              },
+              "startsAt": "2026-10-08T16:16:43.434Z",
+              "endsAt": "2026-10-08T16:16:49.434Z",
+              "generatorURL": "http://7c47f2d7b3dd:9090/graph?g0.expr=up%7Bjob%3D~%22recheck-.%2B%22%7D+%3D%3D+0&g0.tab=1",
+              "fingerprint": "4f0df1eac4a32d34"
+            }
+          ],
+          "groupLabels": {
+            "alertname": "RecheckTargetDown"
+          },
+          "commonLabels": {
+            "alertname": "RecheckTargetDown",
+            "environment": "local-lab",
+            "instance": "model:8001",
+            "job": "recheck-model",
+            "severity": "warning"
+          },
+          "commonAnnotations": {
+            "runbook": "docs/operations.md",
+            "summary": "RECHECK scrape target unavailable"
+          },
+          "externalURL": "http://212162de20cc:9093",
+          "version": "4",
+          "groupKey": "{}:{alertname=\"RecheckTargetDown\"}",
+          "truncatedAlerts": 0
+        }
+      }
+    ],
+    "business_alert_resolved": [
+      {
+        "received_at": "2026-10-08T16:17:04.450052+00:00",
+        "payload": {
+          "receiver": "local-proof",
+          "status": "resolved",
+          "alerts": [
+            {
+              "status": "resolved",
+              "labels": {
+                "alertname": "RecheckDecisionFailures",
+                "environment": "local-lab",
+                "severity": "warning"
+              },
+              "annotations": {
+                "runbook": "docs/operations.md",
+                "summary": "Synthetic lab observed a failed or degraded decision attempt"
+              },
+              "startsAt": "2026-10-08T16:16:35.434Z",
+              "endsAt": "2026-10-08T16:17:03.434Z",
+              "generatorURL": "http://7c47f2d7b3dd:9090/graph?g0.expr=sum%28increase%28recheck_business_outcomes_total%7Breason%21~%22no_current_warning%7Crisk_signal%22%2Cservice%3D%22api%22%7D%5B30s%5D%29%29+%3E+0&g0.tab=1",
+              "fingerprint": "4f77e07bd54a398d"
+            }
+          ],
+          "groupLabels": {
+            "alertname": "RecheckDecisionFailures"
+          },
+          "commonLabels": {
+            "alertname": "RecheckDecisionFailures",
+            "environment": "local-lab",
+            "severity": "warning"
+          },
+          "commonAnnotations": {
+            "runbook": "docs/operations.md",
+            "summary": "Synthetic lab observed a failed or degraded decision attempt"
+          },
+          "externalURL": "http://212162de20cc:9093",
+          "version": "4",
+          "groupKey": "{}:{alertname=\"RecheckDecisionFailures\"}",
+          "truncatedAlerts": 0
+        }
+      }
+    ],
+    "recovered_targets": [
+      {
+        "discoveredLabels": {
+          "__address__": "api:8000",
+          "__metrics_path__": "/metrics",
+          "__scheme__": "http",
+          "__scrape_interval__": "2s",
+          "__scrape_timeout__": "2s",
+          "job": "recheck-api"
+        },
+        "labels": {
+          "instance": "api:8000",
+          "job": "recheck-api"
+        },
+        "scrapePool": "recheck-api",
+        "scrapeUrl": "http://api:8000/metrics",
+        "globalUrl": "http://api:8000/metrics",
+        "lastError": "",
+        "lastScrape": "2026-10-08T16:17:04.19962712Z",
+        "lastScrapeDuration": 0.003579771,
+        "health": "up",
+        "scrapeInterval": "2s",
+        "scrapeTimeout": "2s"
+      },
+      {
+        "discoveredLabels": {
+          "__address__": "model:8001",
+          "__metrics_path__": "/metrics",
+          "__scheme__": "http",
+          "__scrape_interval__": "2s",
+          "__scrape_timeout__": "2s",
+          "job": "recheck-model"
+        },
+        "labels": {
+          "instance": "model:8001",
+          "job": "recheck-model"
+        },
+        "scrapePool": "recheck-model",
+        "scrapeUrl": "http://model:8001/metrics",
+        "globalUrl": "http://model:8001/metrics",
+        "lastError": "",
+        "lastScrape": "2026-10-08T16:17:03.35698326Z",
+        "lastScrapeDuration": 0.001859403,
+        "health": "up",
+        "scrapeInterval": "2s",
+        "scrapeTimeout": "2s"
+      }
+    ],
+    "recovered_inference": {
+      "status": "clear",
+      "trace_id": "dcb70c90cf4e2a0ba979677d076dac44",
+      "valid": true,
+      "model_version": "risk-v1",
+      "model_hash": "7de0929ba34aefaa313bf15354e6582133992cb755df11094ced0796125521be"
+    }
+  },
+  "runtime_backend_sha256": {
+    "observability.py": "0e62ec60fa69d5d914c5735f6893dedd23fdaf3960addba6db68b655c3774bd3",
+    "__init__.py": "172675a3dd4a3e8b3047cafd141232062c71b035d77aa5f3e298d852670a755e",
+    "admission.py": "8402363de55dc66de0ec80451c60fc00895dcca110cb4e5aba6eafba239ec353",
+    "api.py": "d131718c8d0360cb9ca2539f90e024f8d0048f3a8b8720ee825925a4d7c8d876",
+    "store.py": "699955c4eafc64cb07e5e75f26d27bc150b598ba22bfe74fb79af913323804b2",
+    "config.py": "b5a063b200738cd019042006550b96b0b807bd62c6741d8e10ac1fe249798e03",
+    "telemetry.py": "ea7db57583e8103f35b666c6db6c48616443ec290c4f353c9e6a62bc2fe7138d",
+    "worker.py": "856deda0fb3190b58dfabf2c2230f9cd7aba653408a530b68b4fac1055bcd5ed",
+    "model.py": "f794d9b97ac01162d38a1741b5be6f07e719c1898cb76c9a75921441ef82c71e",
+    "schemas.py": "5d2d5afb839674977801121cb17f5b25dcafda10d31fe8160591a826fb08886a",
+    "execution.py": "ab8786b3d5f0eda75114b97cadbc07b08cc40aabaf906f243f6ca7fd32cb2f71"
+  },
+  "image_ids": [
+    {
+      "ID": "sha256:5c42a1c2e40bdbf0d7c55cbef9f51ba8a8c928678ac16421e321f4ca246e2ac3",
+      "ContainerName": "recheck-observe-grafana-1",
+      "Repository": "grafana/grafana",
+      "Tag": "11.6.0",
+      "Platform": "linux/amd64",
+      "Size": 662540812,
+      "LastTagTime": "2025-03-21T14:06:22.583444934Z"
+    },
+    {
+      "ID": "sha256:503e04849f1c820b73ed19f348cb8da0c9728f38b6a4f68eb68d8c3eb0e1869f",
+      "ContainerName": "recheck-observe-prometheus-1",
+      "Repository": "prom/prometheus",
+      "Tag": "v3.2.1",
+      "Platform": "linux/amd64",
+      "Size": 295200838,
+      "LastTagTime": "2025-02-26T09:46:12.292017399Z"
+    },
+    {
+      "ID": "sha256:df18428df8a0f9189c84e7424d214b4c50092af1f9dca5842a00c41c39bda316",
+      "ContainerName": "recheck-observe-alert-sink-1",
+      "Repository": "python",
+      "Tag": "3.12-slim",
+      "Platform": "linux/amd64",
+      "Size": 119431103,
+      "LastTagTime": "2026-10-06T02:04:40.915617827Z"
+    },
+    {
+      "ID": "sha256:7f6e0cbb9df50ba5f3a3ff95d71947b15da82486300cdd59f0189ffb141a558e",
+      "ContainerName": "recheck-observe-model-1",
+      "Repository": "recheck",
+      "Tag": "observe-final",
+      "Platform": "linux/amd64",
+      "Size": 502545529,
+      "LastTagTime": "2026-10-08T16:07:08.280774915Z"
+    },
+    {
+      "ID": "sha256:7f6e0cbb9df50ba5f3a3ff95d71947b15da82486300cdd59f0189ffb141a558e",
+      "ContainerName": "recheck-observe-api-1",
+      "Repository": "recheck",
+      "Tag": "observe-final",
+      "Platform": "linux/amd64",
+      "Size": 502545529,
+      "LastTagTime": "2026-10-08T16:07:08.280774915Z"
+    },
+    {
+      "ID": "sha256:91c01b3cec9b5b3071454a5bf13814e64127ed1601b9afd3b932559945fc9a5e",
+      "ContainerName": "recheck-observe-alertmanager-1",
+      "Repository": "prom/alertmanager",
+      "Tag": "v0.28.1",
+      "Platform": "linux/amd64",
+      "Size": 72302012,
+      "LastTagTime": "2025-03-07T15:10:29.369534419Z"
+    },
+    {
+      "ID": "sha256:eff470813457f0076ef6c282060efcc554f26b8ac2d62522f4f2e0474a03d7e7",
+      "ContainerName": "recheck-observe-jaeger-1",
+      "Repository": "jaegertracing/all-in-one",
+      "Tag": "1.66.0",
+      "Platform": "linux/amd64",
+      "Size": 80288489,
+      "LastTagTime": "2025-02-06T19:25:57.072533044Z"
+    },
+    {
+      "ID": "sha256:acd6003846539c75013d54c1dcc59bdb994faac06ddb1ca1a2b1ed0dd75a97dd",
+      "ContainerName": "recheck-observe-collector-1",
+      "Repository": "otel/opentelemetry-collector",
+      "Tag": "0.123.0",
+      "Platform": "linux/amd64",
+      "Size": 126299122,
+      "LastTagTime": "2025-04-01T15:27:12.465230686Z"
+    }
+  ],
+  "success": true,
+  "finished_at": "2026-10-08T16:17:04.671208+00:00",
+  "config_validation": {
+    "promtool": "Prometheus config valid, 2 alert rules valid",
+    "amtool": "Alertmanager config valid, 1 receiver",
+    "otelcol": "collector validate exit 0"
+  }
+}

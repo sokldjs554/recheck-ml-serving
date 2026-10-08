@@ -1,0 +1,62 @@
+{
+  "source": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/37804110093",
+  "commit": "7ba76f1e80bd233be821f82261e3dc9261695450",
+  "api": "https://recheck-ml-serving.onrender.com",
+  "observations": [
+    {
+      "at": "2026-10-08T15:51:10.416735+00:00",
+      "ok": true,
+      "steps": [
+        "health",
+        "session",
+        "inference",
+        "mutation",
+        "stale_rejection"
+      ],
+      "trace_id": "98022decd8621222d484e1259ba2e2a1",
+      "duration_ms": 3258.503
+    },
+    {
+      "at": "2026-10-08T15:51:28.690681+00:00",
+      "ok": true,
+      "steps": [
+        "health",
+        "session",
+        "inference",
+        "mutation",
+        "stale_rejection"
+      ],
+      "trace_id": "9b79c1e34cf76f46bc6ba5de601a66ba",
+      "duration_ms": 2058
+    },
+    {
+      "at": "2026-10-08T15:51:45.764011+00:00",
+      "ok": true,
+      "steps": [
+        "health",
+        "session",
+        "inference",
+        "mutation",
+        "stale_rejection"
+      ],
+      "trace_id": "fafed87b27ff27da8bcbbc35851f0ada",
+      "duration_ms": 1347.396
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "good": 3,
+    "bad": 0,
+    "availability": 1,
+    "target": 0.99,
+    "latency_budget_ms": 5000,
+    "allowed_bad_samples": 0.030000000000000027,
+    "budget_consumed_ratio": 0,
+    "scope": "sampled synthetic workflow, not continuous production uptime",
+    "window_start": "2026-10-08T15:51:10.416735+00:00",
+    "window_end": "2026-10-08T15:51:47.111782+00:00",
+    "interval_seconds": 15
+  },
+  "http_acceptance": "7 functional assertions passed in same workflow; full responses in workflow artifact 11562475357",
+  "scope": "Initial sampled observations, not historical production SLA"
+}

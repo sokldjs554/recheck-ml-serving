@@ -1,0 +1,13 @@
+global:
+  resolve_timeout: 5s
+route:
+  receiver: local-proof
+  group_by: [alertname]
+  group_wait: 1s
+  group_interval: 2s
+  repeat_interval: 1h
+receivers:
+  - name: local-proof
+    webhook_configs:
+      - url: http://alert-sink:8090/alerts
+        send_resolved: true

@@ -14,11 +14,17 @@ class Settings:
     gateway_queue: int = 16
     worker_concurrency: int = 2
     worker_queue: int = 8
+    workload: str = "lightweight"
+    execution_mode: str = "inline"
     max_sessions: int = 1000
     max_receipts: int = 100
     cors_origins: tuple[str, ...] = ("http://localhost:5173", "http://127.0.0.1:5173")
 
     def __post_init__(self):
+        if self.workload not in ("lightweight", "cpu-ensemble"):
+            raise ValueError("unknown workload")
+        if self.execution_mode not in ("inline", "process"):
+            raise ValueError("unknown execution mode")
         for name in ("deadline_ms", "receipt_ttl_ms", "feature_ttl_ms", "session_ttl_seconds",
                      "gateway_concurrency", "worker_concurrency", "max_sessions", "max_receipts"):
             if getattr(self, name) <= 0:

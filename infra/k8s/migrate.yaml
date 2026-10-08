@@ -1,0 +1,23 @@
+# Serialize first schema creation before replicated API processes start.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: schema-init
+  namespace: recheck
+spec:
+  backoffLimit: 3
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: schema-init
+          image: recheck:kubernetes
+          imagePullPolicy: Never
+          command: [python, -c, 'from recheck.config import Settings; from recheck.store import Store; Store(Settings.from_env()).engine.dispose()']
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef: {name: postgres, key: DATABASE_URL}
+          resources:
+            requests: {cpu: 100m, memory: 128Mi}
+            limits: {cpu: '1', memory: 512Mi}

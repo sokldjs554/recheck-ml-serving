@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: model
+  namespace: recheck
+spec:
+  selector: {app: model}
+  ports:
+    - port: 8001
+      targetPort: 8001
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api
+  namespace: recheck
+spec:
+  type: NodePort
+  selector: {app: api}
+  ports:
+    - port: 8000
+      targetPort: 8000
+      nodePort: 30080
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: api
+  namespace: recheck
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels: {app: api}
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: model
+  namespace: recheck
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels: {app: model}

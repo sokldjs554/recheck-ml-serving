@@ -1,0 +1,173 @@
+{
+  "timestamp": "2026-10-08T15:56:22.869413+00:00",
+  "suite": {
+    "command": "RECHECK_NETWORK_TESTS=1 PYTHONPATH=backend backend/.venv/bin/python -m pytest backend/tests -q",
+    "result": "55 passed in 10.32s"
+  },
+  "network_permission": "required in sandbox for sockets and executor wakeup",
+  "http_race_repeats": [
+    {
+      "repeat": 1,
+      "command": [
+        "/workspace/work/recheck/backend/.venv/bin/python",
+        "-m",
+        "pytest",
+        "backend/tests/test_http_processes.py",
+        "-q"
+      ],
+      "returncode": 0,
+      "stdout": ".                                                                        [100%]\n1 passed in 2.24s\n",
+      "stderr": ""
+    },
+    {
+      "repeat": 2,
+      "command": [
+        "/workspace/work/recheck/backend/.venv/bin/python",
+        "-m",
+        "pytest",
+        "backend/tests/test_http_processes.py",
+        "-q"
+      ],
+      "returncode": 0,
+      "stdout": ".                                                                        [100%]\n1 passed in 2.29s\n",
+      "stderr": ""
+    },
+    {
+      "repeat": 3,
+      "command": [
+        "/workspace/work/recheck/backend/.venv/bin/python",
+        "-m",
+        "pytest",
+        "backend/tests/test_http_processes.py",
+        "-q"
+      ],
+      "returncode": 0,
+      "stdout": ".                                                                        [100%]\n1 passed in 2.07s\n",
+      "stderr": ""
+    },
+    {
+      "repeat": 4,
+      "command": [
+        "/workspace/work/recheck/backend/.venv/bin/python",
+        "-m",
+        "pytest",
+        "backend/tests/test_http_processes.py",
+        "-q"
+      ],
+      "returncode": 0,
+      "stdout": ".                                                                        [100%]\n1 passed in 2.14s\n",
+      "stderr": ""
+    },
+    {
+      "repeat": 5,
+      "command": [
+        "/workspace/work/recheck/backend/.venv/bin/python",
+        "-m",
+        "pytest",
+        "backend/tests/test_http_processes.py",
+        "-q"
+      ],
+      "returncode": 0,
+      "stdout": ".                                                                        [100%]\n1 passed in 2.26s\n",
+      "stderr": ""
+    }
+  ],
+  "cpu_targeted": {
+    "command": "PYTHONPATH=backend backend/.venv/bin/python -m pytest backend/tests/test_compute.py -q",
+    "result": "6 passed in 4.94s",
+    "includes": "real idle child death before inference, /ready /live /health and /infer fail closed"
+  },
+  "intermediate_failure": {
+    "result": "1 failed, 53 passed in 10.91s",
+    "test": "test_gateway_and_worker_admission_are_bounded",
+    "observed": "Unexpected HTTP status was not captured by old assertion. Disk was subsequently observed full; deadline expiry was also a possible documented outcome. Original cause remains unproven.",
+    "follow_up": "Ten exact diagnostic repetitions returned only 200 and 429. Final suite passed after disk cleanup and contract-aware assertions; 503 and unknown 504 reasons remain failures."
+  },
+  "admission_diagnostics": [
+    {
+      "repeat": 1,
+      "outcomes": {
+        "200 deadline_exceeded": 3,
+        "429 overloaded": 17
+      }
+    },
+    {
+      "repeat": 2,
+      "outcomes": {
+        "200 no_current_warning": 1,
+        "200 deadline_exceeded": 2,
+        "429 overloaded": 17
+      }
+    },
+    {
+      "repeat": 3,
+      "outcomes": {
+        "200 no_current_warning": 1,
+        "200 deadline_exceeded": 2,
+        "429 overloaded": 17
+      }
+    },
+    {
+      "repeat": 4,
+      "outcomes": {
+        "200 no_current_warning": 1,
+        "200 deadline_exceeded": 2,
+        "429 overloaded": 17
+      }
+    },
+    {
+      "repeat": 5,
+      "outcomes": {
+        "200 no_current_warning": 1,
+        "200 deadline_exceeded": 2,
+        "429 overloaded": 17
+      }
+    },
+    {
+      "repeat": 6,
+      "outcomes": {
+        "200 no_current_warning": 1,
+        "200 deadline_exceeded": 2,
+        "429 overloaded": 17
+      }
+    },
+    {
+      "repeat": 7,
+      "outcomes": {
+        "200 no_current_warning": 1,
+        "200 deadline_exceeded": 2,
+        "429 overloaded": 17
+      }
+    },
+    {
+      "repeat": 8,
+      "outcomes": {
+        "200 no_current_warning": 1,
+        "200 deadline_exceeded": 2,
+        "429 overloaded": 17
+      }
+    },
+    {
+      "repeat": 9,
+      "outcomes": {
+        "200 no_current_warning": 1,
+        "200 deadline_exceeded": 2,
+        "429 overloaded": 17
+      }
+    },
+    {
+      "repeat": 10,
+      "outcomes": {
+        "200 no_current_warning": 1,
+        "200 deadline_exceeded": 2,
+        "429 overloaded": 17
+      }
+    }
+  ],
+  "queued_deadline_contract": {
+    "test": "test_queued_gateway_deadline_is_504_and_does_not_enter_worker",
+    "observed_status": 504,
+    "observed_detail": "deadline_exceeded_before_admission",
+    "method": "Hold sole gateway admission permit with its real admission context; let an HTTP caller queue until its own deadline; verify no worker admission and exact release count."
+  }
+}

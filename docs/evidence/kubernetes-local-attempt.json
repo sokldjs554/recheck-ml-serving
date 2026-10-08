@@ -1,0 +1,25 @@
+{
+  "result": "blocked_before_http_acceptance",
+  "environment": "managed cloud, Docker vfs, 32GB shared filesystem, 5 vCPU, 17GB memory",
+  "kind_version": "v0.27.0",
+  "kubernetes_version": "v1.32.2",
+  "achieved": [
+    "Kubernetes control plane and node Ready",
+    "local-path PVC Bound",
+    "PostgreSQL Ready and schema-init completed during first recovered attempt"
+  ],
+  "blocker": "No space left on device during containerd native unpack and PostgreSQL initialization; host filesystem reached 100%",
+  "attempts": [
+    "default kind bridge failed missing IPv6 iptables; IPv4 bridge succeeded",
+    "missing /dev/kmsg; isolated null mount enabled kubelet",
+    "overlayfs rootfs mount invalid argument; native snapshotter enabled control plane",
+    "multilayer native image unpack exhausted shared disk",
+    "fresh cluster with one-layer application image still exhausted disk",
+    "fresh cluster with one-layer app and PostgreSQL images still exhausted disk"
+  ],
+  "cleanup": "Deleted only owned recheck-ops cluster and task image tags. 6.6GB free after cleanup. Existing unrelated database and observability image retained.",
+  "approval_review": "Automatic review rejected broad snapshot removal in active node; followed suggested safer cluster deletion instead.",
+  "http_operational_checks_passed": 0,
+  "next_execution": "GitHub Actions Kubernetes operational proof run 37806017582; status must be checked separately.",
+  "recorded_at": "2026-10-08T16:09:37.283928+00:00"
+}

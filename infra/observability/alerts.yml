@@ -1,0 +1,17 @@
+groups:
+  - name: recheck
+    rules:
+      - alert: RecheckTargetDown
+        expr: up{job=~"recheck-.+"} == 0
+        for: 6s
+        labels: {severity: warning, environment: local-lab}
+        annotations:
+          summary: RECHECK scrape target unavailable
+          runbook: docs/operations.md
+      - alert: RecheckDecisionFailures
+        expr: sum(increase(recheck_business_outcomes_total{service="api",reason!~"no_current_warning|risk_signal"}[30s])) > 0
+        for: 2s
+        labels: {severity: warning, environment: local-lab}
+        annotations:
+          summary: Synthetic lab observed a failed or degraded decision attempt
+          runbook: docs/operations.md

@@ -10,3 +10,6 @@ work/
 .superpowers/
 test-results/
 playwright-report/
+
+*.db-shm
+*.db-wal

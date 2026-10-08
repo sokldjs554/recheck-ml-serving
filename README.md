@@ -6,7 +6,7 @@
 
 RECHECK는 송금 전 확인이라는 합성 시나리오에서, 모델이 계산하는 사이 입력·정책·모델이 바뀌면 오래된 판단을 차단하는 Python ML 서빙 실험실입니다. 고객에게 보이는 한 문장부터 모델 서버의 trace, 버전, 실패 원인까지 연결합니다.
 
-[바로 체험하기](https://sokldjs554.github.io/recheck-ml-serving/) · [90초 시연 가이드](docs/interview-demo.md) · [조사와 차별점](docs/research.md) · [설계 선택](docs/decisions.md) · [검증 기록](docs/verification.md) · [백엔드 상세](backend/IMPLEMENTATION.md)
+[바로 체험하기](https://sokldjs554.github.io/recheck-ml-serving/) · [실제 Python 호스트](https://recheck-ml-serving.onrender.com/) · [공고 항목별 증거](docs/job-coverage.md) · [90초 시연 가이드](docs/interview-demo.md) · [조사와 차별점](docs/research.md) · [설계 선택](docs/decisions.md) · [검증 기록](docs/verification.md) · [백엔드 상세](backend/IMPLEMENTATION.md)
 
 ![추론 당시의 기록과 현재 버전을 비교하는 RECHECK 실험 화면](docs/evidence/demo-comparison.png)
 
@@ -56,9 +56,9 @@ sequenceDiagram
 |---|---|---|
 | 브라우저 모드 | 탭 메모리 | 규칙과 대기 시간을 이용한 교육용 모사 |
 | GitHub Pages 공개 데모 | 탭 메모리 | 설치 없는 인터랙티브 시뮬레이션 |
-| Python 호스팅 구성 | 임시 SQLite | 동일 호스트의 API·모델 별도 프로세스 |
+| Render 공개 Python 서버 | 임시 SQLite | 실제 API·모델 별도 프로세스, 외부 HTTP 검증과 매시간 합성 점검 |
 | Docker Compose | PostgreSQL 16 | DB·API·모델 별도 컨테이너 |
-| Kubernetes 예제 | 임시 PostgreSQL | probes·resources·서비스 경계를 담은 단일 노드 예제 |
+| Kubernetes 실험 환경 | PVC PostgreSQL | 복제 API·모델, 배포·복구 검증. 실행 범위는 [클러스터 기록](docs/kubernetes.md) 참조 |
 
 ## 로컬 실행
 
@@ -87,6 +87,8 @@ npm ci
 npm test
 npm run build
 ```
+
+CPU 격리·복제 비교는 [실측 결과](docs/compute-experiments.md), 지표·알림·분산 추적은 [운영 절차](docs/operations.md), 공개 서버 점검은 [Actions 기록](https://github.com/sokldjs554/recheck-ml-serving/actions/workflows/synthetic-monitor.yml)에 있습니다.
 
 실제 HTTP 검증: `backend/.venv/bin/python scripts/verify_http.py`.
 부하 재현: `backend/.venv/bin/python scripts/benchmark.py --delay 80 --rate 80`.

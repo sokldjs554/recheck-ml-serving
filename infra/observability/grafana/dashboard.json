@@ -1,0 +1,145 @@
+{
+  "uid": "recheck-operations",
+  "title": "RECHECK local operations",
+  "schemaVersion": 40,
+  "version": 1,
+  "refresh": "5s",
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "panels": [
+    {
+      "id": 1,
+      "title": "Request rate by HTTP status",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "expr": "sum by (service,status)(rate(recheck_http_requests_total[1m]))",
+          "refId": "A",
+          "legendFormat": "{{service}} {{status}} {{outcome}} {{reason}}"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Request p95 seconds (all outcomes)",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum by (service,le)(rate(recheck_http_request_duration_seconds_bucket[1m])))",
+          "refId": "A",
+          "legendFormat": "{{service}} {{status}} {{outcome}} {{reason}}"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Decision outcomes including 200 degradations",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 8,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "expr": "sum by (outcome,reason)(increase(recheck_business_outcomes_total{service=\"api\"}[5m]))",
+          "refId": "A",
+          "legendFormat": "{{service}} {{status}} {{outcome}} {{reason}}"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Scrape availability",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 8,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "expr": "up{job=~\"recheck-.+\"}",
+          "refId": "A",
+          "legendFormat": "{{service}} {{status}} {{outcome}} {{reason}}"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Good decisions within 300 ms / all attempts",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 16,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(recheck_business_duration_seconds_bucket{service=\"api\",reason=~\"no_current_warning|risk_signal\",le=\"0.3\"}[5m])) / sum(rate(recheck_business_outcomes_total{service=\"api\"}[5m]))",
+          "refId": "A",
+          "legendFormat": "{{service}} {{status}} {{outcome}} {{reason}}"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "In-flight requests",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 16,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "expr": "recheck_http_inflight",
+          "refId": "A",
+          "legendFormat": "{{service}} {{status}} {{outcome}} {{reason}}"
+        }
+      ]
+    }
+  ]
+}

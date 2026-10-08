@@ -2,6 +2,7 @@
 import asyncio
 import importlib.util
 import os
+import time
 from datetime import datetime
 from contextlib import asynccontextmanager
 
@@ -139,7 +140,9 @@ async def test_reusing_key_with_changed_body_conflicts(tmp_path):
 
 @pytest.mark.parametrize("fault,reason", [("unavailable", "model_unavailable"), ("timeout", "deadline_exceeded")])
 async def test_provider_failure_is_explicit_review(tmp_path, fault, reason):
-    app, worker, model, client, sid = await setup(tmp_path, deadline_ms=80)
+    # Only the timeout scenario needs a tight budget. Immediate unavailability
+    # should test the provider reason without racing unrelated host contention.
+    app, worker, model, client, sid = await setup(tmp_path, deadline_ms=80 if fault == "timeout" else 300)
     async with closing_clients(model, client):
         request = body()
         request["fault"] = fault
@@ -161,13 +164,22 @@ async def test_gateway_and_worker_admission_are_bounded(tmp_path):
             request["delay_ms"] = 90
             return await client.post(f"/api/sessions/{sid}/decisions", json=request)
         responses = await asyncio.gather(*[run(i) for i in range(20)])
-        assert all(r.status_code in (200, 429) for r in responses)
-        assert any(r.status_code == 429 or r.json()["reason"] == "overloaded" for r in responses)
+        assert all(r.status_code in (200, 429, 504) for r in responses), [
+            (r.status_code, r.json().get("detail", r.json().get("reason"))) for r in responses]
+        for response in responses:
+            if response.status_code == 504:
+                assert response.json()["detail"] in {
+                    "deadline_exceeded_before_admission", "deadline_exceeded_after_commit"}
+        # Exhausting the gateway's finite admission capacity must reject a caller.
+        assert any(r.status_code == 429 for r in responses)
         assert app.state.admission.peak_active <= 2
         assert app.state.admission.peak_admitted <= 3
         assert worker.state.admission.peak_active <= 1
         assert worker.state.admission.peak_admitted <= 2
-        await asyncio.sleep(0.03)
+        until = time.monotonic() + 1
+        while app.state.admission.admitted or worker.state.admission.admitted:
+            assert time.monotonic() < until
+            await asyncio.sleep(0.001)
         assert app.state.admission.admitted == worker.state.admission.admitted == 0
 
 
@@ -342,3 +354,18 @@ async def test_deadline_includes_waiting_for_the_final_database_fence(tmp_path):
         thread.join()
         assert receipt["status"] == "review"
         assert receipt["reason"] == "deadline_exceeded"
+
+
+async def test_queued_gateway_deadline_is_504_and_does_not_enter_worker(tmp_path):
+    app, worker, model, client, sid = await setup(tmp_path, gateway_concurrency=1,
+                                                gateway_queue=1, deadline_ms=20)
+    async with closing_clients(model, client):
+        # An existing admitted operation occupies the only gateway permit. The
+        # new HTTP request can queue, but must expire before reaching inference.
+        async with app.state.admission.slot(time.monotonic() + 2):
+            response = await client.post(f"/api/sessions/{sid}/decisions", json=body())
+            assert response.status_code == 504
+            assert response.json()["detail"] == "deadline_exceeded_before_admission"
+            assert app.state.admission.admitted == 1
+            assert worker.state.admission.peak_admitted == 0
+        assert app.state.admission.admitted == 0

@@ -14,7 +14,8 @@ import {
   X,
 } from "lucide-react";
 import { Simulation } from "./simulation";
-import { LiveApi } from "./api";
+import { defaultApiBase, LiveApi } from "./api";
+import Evidence from "./Evidence";
 import {
   comparisonConfirmed,
   currentValidation,
@@ -28,7 +29,7 @@ import type {
   Session,
   Validation,
 } from "./types";
-type Tab = "lab" | "receipts" | "architecture" | "story";
+type Tab = "lab" | "receipts" | "architecture" | "evidence" | "story";
 type Event = {
   id: string;
   at: string;
@@ -112,7 +113,7 @@ export default function App() {
   const [detail, setDetail] = useState<Receipt | null>(null);
   const [guided, setGuided] = useState<number | null>(null);
   const [base, setBase] = useState(
-    () => localStorage.getItem("recheck-api-base") || "",
+    () => defaultApiBase(window.location.hostname, localStorage.getItem("recheck-api-base")),
   );
   const [showConnect, setShowConnect] = useState(false);
   const [, tick] = useState(0);
@@ -429,6 +430,7 @@ export default function App() {
     { id: "lab" as Tab, label: "인터랙티브 데모" },
     { id: "receipts" as Tab, label: "판단 기록" },
     { id: "architecture" as Tab, label: "서버 설계" },
+    { id: "evidence" as Tab, label: "검증 기록" },
     { id: "story" as Tab, label: "지원자의 관점" },
   ];
   const versions = [
@@ -526,7 +528,9 @@ export default function App() {
                   ? "02. 판단 기록"
                   : tab === "architecture"
                     ? "03. 서버 설계"
-                    : "04. 문제 해결 방식"}
+                    : tab === "evidence"
+                      ? "04. 운영 검증 기록"
+                      : "05. 문제 해결 방식"}
             </span>
             <h1>
               {tab === "lab" ? (
@@ -546,6 +550,11 @@ export default function App() {
                   추론이 끝나면,
                   <br />
                   <em>다시 검증합니다.</em>
+                </>
+              ) : tab === "evidence" ? (
+                <>
+                  설계한 만큼,<br />
+                  <em>실행해서 확인합니다.</em>
                 </>
               ) : (
                 <>
@@ -575,6 +584,11 @@ export default function App() {
                   모델 호출부터 결과 저장까지 요청의 흐름을 살펴보세요.
                   <br />
                   오래된 결과와 시간 초과를 처리하는 위치를 설명합니다.
+                </>
+              ) : tab === "evidence" ? (
+                <>
+                  추론 성능부터 장애 대응까지 검증 근거를 모았습니다.<br />
+                  확인된 결과와 아직 확인하지 못한 범위를 함께 읽어보세요.
                 </>
               ) : (
                 <>
@@ -646,6 +660,8 @@ export default function App() {
               placeholder={window.location.origin}
               value={base}
               onChange={(event) => setBase(event.target.value)}
+              disabled={connecting}
+              aria-describedby="connection-help"
             />
             <button className="ink-button" disabled={connecting}>
               {connecting ? (
@@ -653,7 +669,7 @@ export default function App() {
               ) : (
                 <Wifi size={16} />
               )}
-              연결 확인
+              {connecting ? "서버 응답 대기 중" : "연결 확인"}
             </button>
             <button
               type="button"
@@ -663,6 +679,11 @@ export default function App() {
             >
               <X size={18} />
             </button>
+            <p id="connection-help" className="connection-help" role="status">
+              {connecting
+                ? "무료 서버가 시작 중일 수 있어요. 최대 90초 동안 응답을 기다립니다. 연결에 성공하면 실제 API 모드로 전환됩니다."
+                : "GitHub Pages에서는 공개 Python API를 제안합니다. 무료 서버의 첫 연결은 시작 시간이 필요할 수 있습니다. 연결 실패 시 현재 실행 모드를 유지합니다."}
+            </p>
           </form>
         )}
         {error && (
@@ -1350,6 +1371,7 @@ export default function App() {
             </div>
           </section>
         )}
+        {tab === "evidence" && <Evidence />}
         {tab === "story" && (
           <section className="story-page">
             <div className="story-statement">

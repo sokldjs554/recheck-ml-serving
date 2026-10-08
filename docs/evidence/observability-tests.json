@@ -1,0 +1,41 @@
+{
+  "recorded_at": "2026-10-08T16:04:40.952635+00:00",
+  "command": "PYTHONPATH=backend backend/.venv/bin/pytest backend/tests/test_observability.py -q",
+  "result": {
+    "passed": 7,
+    "failed": 0,
+    "duration_seconds": 2.14
+  },
+  "network_permission": true,
+  "tests_cover": [
+    "bounded unknown paths, methods and session IDs",
+    "HTTP 429/422/503/unhandled500 and broken executor",
+    "HTTP200 business degradation with outcome latency",
+    "API live vs DB-aware ready",
+    "freshness invalidation reason",
+    "cancelled499 attempt denominator",
+    "CORS rejection counting"
+  ],
+  "tdd": "Initial four cases observed red, outcome histogram/invalidation/cancellation/CORS/broken-executor assertions also observed red before changes.",
+  "source_sha256": {
+    "backend/recheck/api.py": "d131718c8d0360cb9ca2539f90e024f8d0048f3a8b8720ee825925a4d7c8d876",
+    "backend/recheck/observability.py": "0e62ec60fa69d5d914c5735f6893dedd23fdaf3960addba6db68b655c3774bd3",
+    "backend/tests/test_observability.py": "d7f81e14ad2d66e426a61451c531ce305c12ed84442933656a95948c415017cf"
+  },
+  "limits": [
+    "This file verifies metrics unit/integration contracts; full external telemetry proof is separate."
+  ],
+  "related_regression": {
+    "scenario": "Provider unavailable under normal default deadline; timeout test retains tight80ms budget",
+    "targeted": "2 passed in 1.64s",
+    "original_full_suite_failure": "One unavailable-provider assertion got deadline_exceeded at80ms under concurrent monitoring load; isolated rerun passed before test budget separation."
+  },
+  "full_backend_regression": {
+    "command": "PYTHONPATH=backend backend/.venv/bin/pytest backend/tests -q",
+    "passed": 54,
+    "skipped": 1,
+    "failed": 0,
+    "duration_seconds": 7.78,
+    "note": "Final rerun after splitting unavailable-provider default deadline from timeout-case80ms budget."
+  }
+}

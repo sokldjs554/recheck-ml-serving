@@ -31,7 +31,7 @@
 
 HTTP 검증은 모델 해시·trace, 멱등 재생, 본문 충돌 409, 버전 변경 후 거절, 모델 응답 불가의 review 전환, 세션 격리, 다른 세션의 판단 404를 확인한다. 수용 검증 하나를 여러 개의 단위 테스트라고 합산하지 않는다.
 
-브라우저 자동 검증과 Compose 실행 결과는 각각 [browser-checks.json](evidence/browser-checks.json), [compose-http-proof.json](evidence/compose-http-proof.json)에 기록한다. Kubernetes YAML은 구성 예제이며 실제 클러스터 검증을 완료했다는 주장은 하지 않는다.
+브라우저 자동 검증과 Compose 실행 결과는 각각 [browser-checks.json](evidence/browser-checks.json), [compose-http-proof.json](evidence/compose-http-proof.json)에 기록한다. 이 초기 기록 당시 Kubernetes YAML은 구성 예제였다. 아래 운영 보완에서 실제 클러스터 검증을 추가했다.
 
 ## 부하 측정 방법
 
@@ -62,3 +62,15 @@ backend/.venv/bin/python scripts/benchmark.py --count 60 --rate 80 --delay 80 --
 7. UI 재설계 리뷰에서 다음 요청이 진행되는 동안 이전 기록의 금액이 새 입력값으로 바뀌어 보였다. 기록별 제출 금액을 사용하도록 수정했다. 기존 번들에서 150,000원 → 900,000원 변경으로 재현했고, 브라우저 검증에 요청 진행 중 금액 불변 확인을 추가했다.
 
 이는 이번 AI 지원 개발·독립 리뷰에서 관측한 기록이다. 사용자가 과거에 직접 수행한 작업으로 바꿔 서술하지 않는다.
+
+## 운영 보완, 2026-10-09 KST
+
+- PostgreSQL + 실제 HTTP 회귀: **54 통과·1 SQLite 전용 fixture 생략**, 11.39초. SQLite + HTTP는 **55 통과**. 프런트엔드 **18 통과**, Kubernetes 검증기의 잘못된 성공을 막는 반례 **3 통과**.
+- [CPU 비교](compute-experiments.md): 실제 앙상블 추론 **10,900건**을 원자료에 보존. 격리 2개·30rps·30초에서 896/900건이 200ms 기준 내 성공. 60rps·60초에서는 2572/3600건으로 용량 한계를 확인했다. 거절·오류도 분모에 포함한다.
+- [Kubernetes](kubernetes.md): 실제 GitHub Actions 클러스터의 장애·배포·복구 **6개 검증**. 초기 291개 표본 중 DB 재시작 단계의 HTTP 오류 2개를 함께 기록했다. 0.5초 표본 간격에서 보이지 않는 중단까지 없었다고 주장하지 않는다.
+- [관측](operations.md): Prometheus 두 대상, Grafana 6개 패널, 실제 API→모델 trace, 업무 실패와 모델 중단 알림의 발화·해제, 복구 후 새 유효 판단을 확인했다.
+- [공개 점검](evidence/public-synthetic-initial.json): Render의 실제 Python 서버를 외부에서 호출해 초기 3개 표본과 HTTP 기능 7개를 확인했다. 매시간 점검은 실행별 원자료를 보존하며 장기간 실적과 구분한다.
+
+추가 리뷰에서 자식 프로세스가 죽어도 준비 상태가 정상이던 문제, 처음부터 무효인 판단도 합성 점검이 성공으로 오인하던 문제, 복구 검증이 readiness만 확인하던 문제를 고쳤다. 현재 검증은 새 정상 추론과 사용 시점의 유효성까지 확인한다.
+
+최종 로컬 production 번들의 [브라우저 검사](evidence/operations-browser-checks.json)는 **16개 확인**을 통과했다. 실제 Python HTTP 모드의 정상 판단·변경 후 거절, 390·768·1024px 가로 넘침, 새 검증 탭, 페이지 오류 0을 포함한다. [PostgreSQL 테스트 출력](evidence/operations-backend-tests.txt)도 보존했다. 처음 임시18765 출처에서는 CORS가 막았으며, 설정된5173 출처에서 재검증했다.

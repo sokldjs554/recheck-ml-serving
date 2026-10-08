@@ -1,0 +1,784 @@
+{
+  "timestamp": "2026-10-08T15:51:39.820204+00:00",
+  "boundary": "direct model worker HTTP; excludes gateway/database",
+  "workload": "cpu-ensemble: trained 128-tree ExtraTrees plus 4096 contributing uncertainty scenarios; no injected delay",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "cpu_count": 5,
+  "cpu_affinity": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "deadline_ms": 200,
+  "resource_note": "CPU seconds and summed RSS of owned uvicorn/process-pool trees; RSS can double-count shared pages; same host shared with other tasks",
+  "configurations": [
+    {
+      "execution_mode": "inline",
+      "service_replicas": 1,
+      "process_pool_per_replica": 0,
+      "concurrency_per_replica": 1,
+      "queue_per_replica": 2,
+      "model_hashes": {
+        "risk-v1": "cc963b5c100158f75df0833d750ca28c8aec88389a910802c41737119110d279",
+        "risk-v2": "0b2560d5d647b61afef53210d24e8a0a7d147764cefc822dc5b70496f6bbe765"
+      },
+      "cases": [
+        {
+          "rate_rps": 10,
+          "repeat": 1,
+          "duration_seconds": 2.0,
+          "observed_seconds": 2.0,
+          "requested": 20,
+          "outcomes": {
+            "200": 20
+          },
+          "success": 20,
+          "good": 20,
+          "success_throughput_rps": 10.0,
+          "goodput_rps": 10.0,
+          "good_fraction": 1.0,
+          "reject_fraction": 0.0,
+          "deadline_fraction": 0.0,
+          "all_outcome_latency_ms": {
+            "p50": 39.66433299501659,
+            "p95": 54.89246599609032,
+            "p99": 54.89246599609032
+          },
+          "health_latency_p95_ms": 31.20871799910674,
+          "health_errors": 0,
+          "cpu_seconds": 0.7100000000000002,
+          "peak_process_tree_rss_bytes": 171667456,
+          "response_drain_seconds": 1.953398539997579,
+          "error_fraction": 0.0,
+          "late_success_fraction": 0.0
+        },
+        {
+          "rate_rps": 10,
+          "repeat": 2,
+          "duration_seconds": 2.0,
+          "observed_seconds": 2.0,
+          "requested": 20,
+          "outcomes": {
+            "200": 20
+          },
+          "success": 20,
+          "good": 20,
+          "success_throughput_rps": 10.0,
+          "goodput_rps": 10.0,
+          "good_fraction": 1.0,
+          "reject_fraction": 0.0,
+          "deadline_fraction": 0.0,
+          "all_outcome_latency_ms": {
+            "p50": 40.66791699733585,
+            "p95": 62.62202600191813,
+            "p99": 62.62202600191813
+          },
+          "health_latency_p95_ms": 33.629876998020336,
+          "health_errors": 0,
+          "cpu_seconds": 0.7399999999999998,
+          "peak_process_tree_rss_bytes": 171667456,
+          "response_drain_seconds": 1.9405401660042116,
+          "error_fraction": 0.0,
+          "late_success_fraction": 0.0
+        },
+        {
+          "rate_rps": 30,
+          "repeat": 1,
+          "duration_seconds": 2.0,
+          "observed_seconds": 2.0160108440031763,
+          "requested": 60,
+          "outcomes": {
+            "200": 60
+          },
+          "success": 60,
+          "good": 60,
+          "success_throughput_rps": 29.761744674378086,
+          "goodput_rps": 29.761744674378086,
+          "good_fraction": 1.0,
+          "reject_fraction": 0.0,
+          "deadline_fraction": 0.0,
+          "all_outcome_latency_ms": {
+            "p50": 43.76138266525231,
+            "p95": 61.62204132851912,
+            "p99": 65.23679367091972
+          },
+          "health_latency_p95_ms": 26.617097995767836,
+          "health_errors": 0,
+          "cpu_seconds": 1.87,
+          "peak_process_tree_rss_bytes": 171929600,
+          "response_drain_seconds": 2.0160108440031763,
+          "error_fraction": 0.0,
+          "late_success_fraction": 0.0
+        },
+        {
+          "rate_rps": 30,
+          "repeat": 2,
+          "duration_seconds": 2.0,
+          "observed_seconds": 2.0164258040022105,
+          "requested": 60,
+          "outcomes": {
+            "200": 60
+          },
+          "success": 60,
+          "good": 60,
+          "success_throughput_rps": 29.7556200088849,
+          "goodput_rps": 29.7556200088849,
+          "good_fraction": 1.0,
+          "reject_fraction": 0.0,
+          "deadline_fraction": 0.0,
+          "all_outcome_latency_ms": {
+            "p50": 43.584329992881976,
+            "p95": 54.109646000142675,
+            "p99": 57.053339332924224
+          },
+          "health_latency_p95_ms": 24.95053999882657,
+          "health_errors": 0,
+          "cpu_seconds": 1.83,
+          "peak_process_tree_rss_bytes": 171929600,
+          "response_drain_seconds": 2.0164258040022105,
+          "error_fraction": 0.0,
+          "late_success_fraction": 0.0
+        },
+        {
+          "rate_rps": 60,
+          "repeat": 1,
+          "duration_seconds": 2.0,
+          "observed_seconds": 3.789541707999888,
+          "requested": 120,
+          "outcomes": {
+            "200": 73,
+            "504": 47
+          },
+          "success": 73,
+          "good": 7,
+          "success_throughput_rps": 19.263543094378356,
+          "goodput_rps": 1.8471890638444999,
+          "good_fraction": 0.058333333333333334,
+          "reject_fraction": 0.0,
+          "deadline_fraction": 0.9416666666666667,
+          "all_outcome_latency_ms": {
+            "p50": 650.9077666632948,
+            "p95": 1874.954382328724,
+            "p99": 1899.9437659949763
+          },
+          "health_latency_p95_ms": 305.4609629980405,
+          "health_errors": 1,
+          "cpu_seconds": 3.75,
+          "peak_process_tree_rss_bytes": 173240320,
+          "response_drain_seconds": 3.789541707999888,
+          "error_fraction": 0.0,
+          "late_success_fraction": 0.55
+        },
+        {
+          "rate_rps": 60,
+          "repeat": 2,
+          "duration_seconds": 2.0,
+          "observed_seconds": 2.611243788000138,
+          "requested": 120,
+          "outcomes": {
+            "200": 10,
+            "504": 110
+          },
+          "success": 10,
+          "good": 4,
+          "success_throughput_rps": 3.829592643151353,
+          "goodput_rps": 1.5318370572605413,
+          "good_fraction": 0.03333333333333333,
+          "reject_fraction": 0.0,
+          "deadline_fraction": 0.9666666666666667,
+          "all_outcome_latency_ms": {
+            "p50": 434.81266467279056,
+            "p95": 778.9118000000599,
+            "p99": 807.9191813303623
+          },
+          "health_latency_p95_ms": 246.2280199979432,
+          "health_errors": 0,
+          "cpu_seconds": 2.5500000000000007,
+          "peak_process_tree_rss_bytes": 173764608,
+          "response_drain_seconds": 2.611243788000138,
+          "error_fraction": 0.0,
+          "late_success_fraction": 0.05
+        }
+      ]
+    },
+    {
+      "execution_mode": "inline",
+      "service_replicas": 2,
+      "process_pool_per_replica": 0,
+      "concurrency_per_replica": 1,
+      "queue_per_replica": 2,
+      "model_hashes": {
+        "risk-v1": "cc963b5c100158f75df0833d750ca28c8aec88389a910802c41737119110d279",
+        "risk-v2": "0b2560d5d647b61afef53210d24e8a0a7d147764cefc822dc5b70496f6bbe765"
+      },
+      "cases": [
+        {
+          "rate_rps": 10,
+          "repeat": 1,
+          "duration_seconds": 2.0,
+          "observed_seconds": 2.0,
+          "requested": 20,
+          "outcomes": {
+            "200": 20
+          },
+          "success": 20,
+          "good": 20,
+          "success_throughput_rps": 10.0,
+          "goodput_rps": 10.0,
+          "good_fraction": 1.0,
+          "reject_fraction": 0.0,
+          "deadline_fraction": 0.0,
+          "all_outcome_latency_ms": {
+            "p50": 35.47636399889598,
+            "p95": 48.85538800590439,
+            "p99": 48.85538800590439
+          },
+          "health_latency_p95_ms": 15.031734001240693,
+          "health_errors": 0,
+          "cpu_seconds": 0.6700000000000004,
+          "peak_process_tree_rss_bytes": 339206144,
+          "response_drain_seconds": 1.9465076560009038,
+          "error_fraction": 0.0,
+          "late_success_fraction": 0.0
+        },
+        {
+          "rate_rps": 10,
+          "repeat": 2,
+          "duration_seconds": 2.0,
+          "observed_seconds": 2.0,
+          "requested": 20,
+          "outcomes": {
+            "200": 20
+          },
+          "success": 20,
+          "good": 20,
+          "success_throughput_rps": 10.0,
+          "goodput_rps": 10.0,
+          "good_fraction": 1.0,
+          "reject_fraction": 0.0,
+          "deadline_fraction": 0.0,
+          "all_outcome_latency_ms": {
+            "p50": 36.44371999689611,
+            "p95": 51.35407699708594,
+            "p99": 51.35407699708594
+          },
+          "health_latency_p95_ms": 9.005429004901089,
+          "health_errors": 0,
+          "cpu_seconds": 0.69,
+          "peak_process_tree_rss_bytes": 339468288,
+          "response_drain_seconds": 1.9364673160016537,
+          "error_fraction": 0.0,
+          "late_success_fraction": 0.0
+        },
+        {
+          "rate_rps": 30,
+          "repeat": 1,
+          "duration_seconds": 2.0,
+          "observed_seconds": 2.0169686660010484,
+          "requested": 60,
+          "outcomes": {
+            "200": 60
+          },
+          "success": 60,
+          "good": 60,
+          "success_throughput_rps": 29.74761135925788,
+          "goodput_rps": 29.74761135925788,
+          "good_fraction": 1.0,
+          "reject_fraction": 0.0,
+          "deadline_fraction": 0.0,
+          "all_outcome_latency_ms": {
+            "p50": 38.89465066458797,
+            "p95": 53.279182997357566,
+            "p99": 54.37551366776461
+          },
+          "health_latency_p95_ms": 21.81172899872763,
+          "health_errors": 0,
+          "cpu_seconds": 1.9799999999999995,
+          "peak_process_tree_rss_bytes": 339468288,
+          "response_drain_seconds": 2.0169686660010484,
+          "error_fraction": 0.0,
+          "late_success_fraction": 0.0
+        },
+        {
+          "rate_rps": 30,
+          "repeat": 2,
+          "duration_seconds": 2.0,
+          "observed_seconds": 2.0180357420031214,
+          "requested": 60,
+          "outcomes": {
+            "200": 60
+          },
+          "success": 60,
+          "good": 60,
+          "success_throughput_rps": 29.731881725961617,
+          "goodput_rps": 29.731881725961617,
+          "good_fraction": 1.0,
+          "reject_fraction": 0.0,
+          "deadline_fraction": 0.0,
+          "all_outcome_latency_ms": {
+            "p50": 38.541114336112514,
+            "p95": 52.697900668135844,
+            "p99": 57.4912759984727
+          },
+          "health_latency_p95_ms": 23.258039997017477,
+          "health_errors": 0,
+          "cpu_seconds": 2.030000000000001,
+          "peak_process_tree_rss_bytes": 339730432,
+          "response_drain_seconds": 2.0180357420031214,
+          "error_fraction": 0.0,
+          "late_success_fraction": 0.0
+        },
+        {
+          "rate_rps": 60,
+          "repeat": 1,
+          "duration_seconds": 2.0,
+          "observed_seconds": 2.0208852580035455,
+          "requested": 120,
+          "outcomes": {
+            "200": 120
+          },
+          "success": 120,
+          "good": 120,
+          "success_throughput_rps": 59.37991755086051,
+          "goodput_rps": 59.37991755086051,
+          "good_fraction": 1.0,
+          "reject_fraction": 0.0,
+          "deadline_fraction": 0.0,
+          "all_outcome_latency_ms": {
+            "p50": 49.7781196681899,
+            "p95": 81.00017366814427,
+            "p99": 105.9628623406752
+          },
+          "health_latency_p95_ms": 41.73432999959914,
+          "health_errors": 0,
+          "cpu_seconds": 3.849999999999998,
+          "peak_process_tree_rss_bytes": 339992576,
+          "response_drain_seconds": 2.0208852580035455,
+          "error_fraction": 0.0,
+          "late_success_fraction": 0.0
+        },
+        {
+          "rate_rps": 60,
+          "repeat": 2,
+          "duration_seconds": 2.0,
+          "observed_seconds": 2.1537609580045682,
+          "requested": 120,
+          "outcomes": {
+            "200": 120
+          },
+          "success": 120,
+          "good": 104,
+          "success_throughput_rps": 55.71648959185259,
+          "goodput_rps": 48.28762431293892,
+          "good_fraction": 0.8666666666666667,
+          "reject_fraction": 0.0,
+          "deadline_fraction": 0.13333333333333333,
+          "all_outcome_latency_ms": {
+            "p50": 109.21424466505414,
+            "p95": 222.80505367234582,
+            "p99": 257.7013813352096
+          },
+          "health_latency_p95_ms": 103.23932099709054,
+          "health_errors": 0,
+          "cpu_seconds": 4.140000000000001,
+          "peak_process_tree_rss_bytes": 340123648,
+          "response_drain_seconds": 2.1537609580045682,
+          "error_fraction": 0.0,
+          "late_success_fraction": 0.13333333333333333
+        }
+      ]
+    },
+    {
+      "execution_mode": "process",
+      "service_replicas": 1,
+      "process_pool_per_replica": 1,
+      "concurrency_per_replica": 1,
+      "queue_per_replica": 2,
+      "model_hashes": {
+        "risk-v1": "cc963b5c100158f75df0833d750ca28c8aec88389a910802c41737119110d279",
+        "risk-v2": "0b2560d5d647b61afef53210d24e8a0a7d147764cefc822dc5b70496f6bbe765"
+      },
+      "cases": [
+        {
+          "rate_rps": 10,
+          "repeat": 1,
+          "duration_seconds": 2.0,
+          "observed_seconds": 2.0,
+          "requested": 20,
+          "outcomes": {
+            "200": 20
+          },
+          "success": 20,
+          "good": 20,
+          "success_throughput_rps": 10.0,
+          "goodput_rps": 10.0,
+          "good_fraction": 1.0,
+          "reject_fraction": 0.0,
+          "deadline_fraction": 0.0,
+          "all_outcome_latency_ms": {
+            "p50": 45.193899000878446,
+            "p95": 82.14971000415972,
+            "p99": 82.14971000415972
+          },
+          "health_latency_p95_ms": 4.294906000723131,
+          "health_errors": 0,
+          "cpu_seconds": 0.73,
+          "peak_process_tree_rss_bytes": 335134720,
+          "response_drain_seconds": 1.9431290100037586,
+          "error_fraction": 0.0,
+          "late_success_fraction": 0.0
+        },
+        {
+          "rate_rps": 10,
+          "repeat": 2,
+          "duration_seconds": 2.0,
+          "observed_seconds": 2.0,
+          "requested": 20,
+          "outcomes": {
+            "200": 20
+          },
+          "success": 20,
+          "good": 20,
+          "success_throughput_rps": 10.0,
+          "goodput_rps": 10.0,
+          "good_fraction": 1.0,
+          "reject_fraction": 0.0,
+          "deadline_fraction": 0.0,
+          "all_outcome_latency_ms": {
+            "p50": 61.26102400594391,
+            "p95": 118.9235900019412,
+            "p99": 118.9235900019412
+          },
+          "health_latency_p95_ms": 6.287030002567917,
+          "health_errors": 0,
+          "cpu_seconds": 0.8700000000000001,
+          "peak_process_tree_rss_bytes": 335134720,
+          "response_drain_seconds": 1.986344443001144,
+          "error_fraction": 0.0,
+          "late_success_fraction": 0.0
+        },
+        {
+          "rate_rps": 30,
+          "repeat": 1,
+          "duration_seconds": 2.0,
+          "observed_seconds": 2.133756764997088,
+          "requested": 60,
+          "outcomes": {
+            "200": 46,
+            "429": 14
+          },
+          "success": 46,
+          "good": 43,
+          "success_throughput_rps": 21.558221046841194,
+          "goodput_rps": 20.152250109003724,
+          "good_fraction": 0.7166666666666667,
+          "reject_fraction": 0.23333333333333334,
+          "deadline_fraction": 0.05,
+          "all_outcome_latency_ms": {
+            "p50": 111.56385266804136,
+            "p95": 194.16858199838316,
+            "p99": 224.82133699668339
+          },
+          "health_latency_p95_ms": 6.834295003500301,
+          "health_errors": 0,
+          "cpu_seconds": 1.92,
+          "peak_process_tree_rss_bytes": 335396864,
+          "response_drain_seconds": 2.133756764997088,
+          "error_fraction": 0.0,
+          "late_success_fraction": 0.05
+        },
+        {
+          "rate_rps": 30,
+          "repeat": 2,
+          "duration_seconds": 2.0,
+          "observed_seconds": 2.0898623149987543,
+          "requested": 60,
+          "outcomes": {
+            "200": 50,
+            "429": 10
+          },
+          "success": 50,
+          "good": 50,
+          "success_throughput_rps": 23.925021108402447,
+          "goodput_rps": 23.925021108402447,
+          "good_fraction": 0.8333333333333334,
+          "reject_fraction": 0.16666666666666666,
+          "deadline_fraction": 0.0,
+          "all_outcome_latency_ms": {
+            "p50": 109.78283033182379,
+            "p95": 159.85463466495275,
+            "p99": 174.23046600015368
+          },
+          "health_latency_p95_ms": 20.81507099501323,
+          "health_errors": 0,
+          "cpu_seconds": 1.9100000000000001,
+          "peak_process_tree_rss_bytes": 335396864,
+          "response_drain_seconds": 2.0898623149987543,
+          "error_fraction": 0.0,
+          "late_success_fraction": 0.0
+        },
+        {
+          "rate_rps": 60,
+          "repeat": 1,
+          "duration_seconds": 2.0,
+          "observed_seconds": 2.0964330890055862,
+          "requested": 120,
+          "outcomes": {
+            "429": 63,
+            "200": 57
+          },
+          "success": 57,
+          "good": 57,
+          "success_throughput_rps": 27.189038514478494,
+          "goodput_rps": 27.189038514478494,
+          "good_fraction": 0.475,
+          "reject_fraction": 0.525,
+          "deadline_fraction": 0.0,
+          "all_outcome_latency_ms": {
+            "p50": 14.417907674214803,
+            "p95": 120.07399866706692,
+            "p99": 138.83944167173468
+          },
+          "health_latency_p95_ms": 4.759666997415479,
+          "health_errors": 0,
+          "cpu_seconds": 2.1599999999999993,
+          "peak_process_tree_rss_bytes": 335659008,
+          "response_drain_seconds": 2.0964330890055862,
+          "error_fraction": 0.0,
+          "late_success_fraction": 0.0
+        },
+        {
+          "rate_rps": 60,
+          "repeat": 2,
+          "duration_seconds": 2.0,
+          "observed_seconds": 2.074781866002013,
+          "requested": 120,
+          "outcomes": {
+            "200": 51,
+            "429": 69
+          },
+          "success": 51,
+          "good": 49,
+          "success_throughput_rps": 24.58089731537615,
+          "goodput_rps": 23.616940557910418,
+          "good_fraction": 0.4083333333333333,
+          "reject_fraction": 0.575,
+          "deadline_fraction": 0.016666666666666666,
+          "all_outcome_latency_ms": {
+            "p50": 38.124958336993586,
+            "p95": 168.72977599996375,
+            "p99": 193.9283156680176
+          },
+          "health_latency_p95_ms": 19.995781003672164,
+          "health_errors": 0,
+          "cpu_seconds": 1.950000000000001,
+          "peak_process_tree_rss_bytes": 335921152,
+          "response_drain_seconds": 2.074781866002013,
+          "error_fraction": 0.0,
+          "late_success_fraction": 0.016666666666666666
+        }
+      ]
+    },
+    {
+      "execution_mode": "process",
+      "service_replicas": 2,
+      "process_pool_per_replica": 1,
+      "concurrency_per_replica": 1,
+      "queue_per_replica": 2,
+      "model_hashes": {
+        "risk-v1": "cc963b5c100158f75df0833d750ca28c8aec88389a910802c41737119110d279",
+        "risk-v2": "0b2560d5d647b61afef53210d24e8a0a7d147764cefc822dc5b70496f6bbe765"
+      },
+      "cases": [
+        {
+          "rate_rps": 10,
+          "repeat": 1,
+          "duration_seconds": 2.0,
+          "observed_seconds": 2.0041102260001935,
+          "requested": 20,
+          "outcomes": {
+            "200": 20
+          },
+          "success": 20,
+          "good": 20,
+          "success_throughput_rps": 9.979491018273997,
+          "goodput_rps": 9.979491018273997,
+          "good_fraction": 1.0,
+          "reject_fraction": 0.0,
+          "deadline_fraction": 0.0,
+          "all_outcome_latency_ms": {
+            "p50": 41.14191200642381,
+            "p95": 88.59137200488476,
+            "p99": 88.59137200488476
+          },
+          "health_latency_p95_ms": 4.078439000295475,
+          "health_errors": 0,
+          "cpu_seconds": 0.7599999999999998,
+          "peak_process_tree_rss_bytes": 673636352,
+          "response_drain_seconds": 2.0041102260001935,
+          "error_fraction": 0.0,
+          "late_success_fraction": 0.0
+        },
+        {
+          "rate_rps": 10,
+          "repeat": 2,
+          "duration_seconds": 2.0,
+          "observed_seconds": 2.0,
+          "requested": 20,
+          "outcomes": {
+            "200": 20
+          },
+          "success": 20,
+          "good": 20,
+          "success_throughput_rps": 10.0,
+          "goodput_rps": 10.0,
+          "good_fraction": 1.0,
+          "reject_fraction": 0.0,
+          "deadline_fraction": 0.0,
+          "all_outcome_latency_ms": {
+            "p50": 51.28118599532172,
+            "p95": 88.88950900291093,
+            "p99": 88.88950900291093
+          },
+          "health_latency_p95_ms": 4.451996996067464,
+          "health_errors": 0,
+          "cpu_seconds": 0.830000000000001,
+          "peak_process_tree_rss_bytes": 673636352,
+          "response_drain_seconds": 1.949062022002181,
+          "error_fraction": 0.0,
+          "late_success_fraction": 0.0
+        },
+        {
+          "rate_rps": 30,
+          "repeat": 1,
+          "duration_seconds": 2.0,
+          "observed_seconds": 2.0048465649961145,
+          "requested": 60,
+          "outcomes": {
+            "200": 60
+          },
+          "success": 60,
+          "good": 60,
+          "success_throughput_rps": 29.927477268125145,
+          "goodput_rps": 29.927477268125145,
+          "good_fraction": 1.0,
+          "reject_fraction": 0.0,
+          "deadline_fraction": 0.0,
+          "all_outcome_latency_ms": {
+            "p50": 50.16317732952302,
+            "p95": 69.45292599993991,
+            "p99": 79.01563533232547
+          },
+          "health_latency_p95_ms": 4.857433996221516,
+          "health_errors": 0,
+          "cpu_seconds": 2.2700000000000005,
+          "peak_process_tree_rss_bytes": 673636352,
+          "response_drain_seconds": 2.0048465649961145,
+          "error_fraction": 0.0,
+          "late_success_fraction": 0.0
+        },
+        {
+          "rate_rps": 30,
+          "repeat": 2,
+          "duration_seconds": 2.0,
+          "observed_seconds": 2.012727558001643,
+          "requested": 60,
+          "outcomes": {
+            "200": 60
+          },
+          "success": 60,
+          "good": 60,
+          "success_throughput_rps": 29.81029387781206,
+          "goodput_rps": 29.81029387781206,
+          "good_fraction": 1.0,
+          "reject_fraction": 0.0,
+          "deadline_fraction": 0.0,
+          "all_outcome_latency_ms": {
+            "p50": 50.73434799851384,
+            "p95": 77.67176866764203,
+            "p99": 80.5882980057504
+          },
+          "health_latency_p95_ms": 6.319878993963357,
+          "health_errors": 0,
+          "cpu_seconds": 2.2699999999999996,
+          "peak_process_tree_rss_bytes": 673636352,
+          "response_drain_seconds": 2.012727558001643,
+          "error_fraction": 0.0,
+          "late_success_fraction": 0.0
+        },
+        {
+          "rate_rps": 60,
+          "repeat": 1,
+          "duration_seconds": 2.0,
+          "observed_seconds": 2.104882252999232,
+          "requested": 120,
+          "outcomes": {
+            "200": 104,
+            "429": 16
+          },
+          "success": 104,
+          "good": 104,
+          "success_throughput_rps": 49.408939550804384,
+          "goodput_rps": 49.408939550804384,
+          "good_fraction": 0.8666666666666667,
+          "reject_fraction": 0.13333333333333333,
+          "deadline_fraction": 0.0,
+          "all_outcome_latency_ms": {
+            "p50": 101.84371066861786,
+            "p95": 136.1870953332982,
+            "p99": 147.92510367260547
+          },
+          "health_latency_p95_ms": 5.08575800631661,
+          "health_errors": 0,
+          "cpu_seconds": 3.9799999999999986,
+          "peak_process_tree_rss_bytes": 674291712,
+          "response_drain_seconds": 2.104882252999232,
+          "error_fraction": 0.0,
+          "late_success_fraction": 0.0
+        },
+        {
+          "rate_rps": 60,
+          "repeat": 2,
+          "duration_seconds": 2.0,
+          "observed_seconds": 2.184057227001176,
+          "requested": 120,
+          "outcomes": {
+            "200": 106,
+            "429": 14
+          },
+          "success": 106,
+          "good": 105,
+          "success_throughput_rps": 48.533526818591426,
+          "goodput_rps": 48.075663358038675,
+          "good_fraction": 0.875,
+          "reject_fraction": 0.11666666666666667,
+          "deadline_fraction": 0.008333333333333333,
+          "all_outcome_latency_ms": {
+            "p50": 97.4397936661262,
+            "p95": 141.8703783347155,
+            "p99": 166.7989033376216
+          },
+          "health_latency_p95_ms": 8.87303899799008,
+          "health_errors": 0,
+          "cpu_seconds": 3.880000000000001,
+          "peak_process_tree_rss_bytes": 674422784,
+          "response_drain_seconds": 2.184057227001176,
+          "error_fraction": 0.0,
+          "late_success_fraction": 0.008333333333333333
+        }
+      ]
+    }
+  ],
+  "host_interference": "Kubernetes image/cluster and monitoring work ran concurrently on this shared host. Short runs are operational evidence, not isolated hardware capacity or a universal speedup claim.",
+  "packages": {
+    "scikit-learn": "1.9.1",
+    "numpy": "2.5.3",
+    "fastapi": "0.142.4",
+    "uvicorn": "0.54.0"
+  },
+  "raw_records": "compute-load.json.gz",
+  "total_attempts": 1600
+}

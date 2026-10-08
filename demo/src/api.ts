@@ -7,6 +7,10 @@ import type {
   Validation,
   Versions,
 } from "./types";
+export const PUBLIC_API_BASE = "https://recheck-ml-serving.onrender.com";
+export function defaultApiBase(hostname: string, saved: string | null): string {
+  return saved ?? (hostname.endsWith(".github.io") ? PUBLIC_API_BASE : "");
+}
 export class LiveApi implements Adapter {
   readonly base: string;
   constructor(base: string) {
@@ -16,9 +20,9 @@ export class LiveApi implements Adapter {
       throw new Error("HTTP 또는 HTTPS API 주소를 입력하세요.");
     this.base = base.replace(/\/$/, "");
   }
-  private async request<T>(path: string, body?: unknown): Promise<T> {
+  private async request<T>(path: string, body?: unknown, timeoutMs = 10000): Promise<T> {
     const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 10000);
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
     try {
       const response = await fetch(this.base + path, {
         method: body === undefined ? "GET" : "POST",
@@ -35,7 +39,9 @@ export class LiveApi implements Adapter {
     } catch (error) {
       if (error instanceof Error && error.name === "AbortError")
         throw new Error(
-          "API 연결 시간이 초과되었습니다. 서버 주소와 상태를 확인하세요.",
+          path === "/health"
+            ? "서버 시작을 90초 기다렸지만 응답이 없습니다. 잠시 뒤 다시 연결하거나 서버 상태를 확인하세요."
+            : "API 연결 시간이 초과되었습니다. 서버 주소와 상태를 확인하세요.",
         );
       throw error;
     } finally {
@@ -47,7 +53,7 @@ export class LiveApi implements Adapter {
       status: string;
       service: string;
       mode: string;
-    }>("/health");
+    }>("/health", undefined, 90000);
     if (
       result.status !== "ok" ||
       result.service !== "recheck-api" ||
