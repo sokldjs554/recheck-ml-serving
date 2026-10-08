@@ -15,6 +15,17 @@ import urllib.request
 import uuid
 
 
+def assert_current_clear(request):
+    """HTTP success alone must never satisfy the recovered-inference contract."""
+    sid = request("/api/sessions", {})["session_id"]
+    result = request(f"/api/sessions/{sid}/decisions", {"amount": 150000, "recipient": "demo-recipient", "idempotency_key": str(uuid.uuid4()), "protected": True})
+    assert result["status"] == "clear", result
+    assert result["model_hash"] and result["trace_id"], result
+    validation = request(f"/api/sessions/{sid}/decisions/{result['id']}/validate")
+    assert validation["valid"] is True, validation
+    return {"receipt_id": result["id"], "status": result["status"], "valid": validation["valid"], "model_hash": result["model_hash"]}
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--base", default="http://127.0.0.1:18080")
@@ -45,15 +56,7 @@ def main():
             return json.load(response)
 
     def receipt(sid, body=None):
-        return request(f"/api/sessions/{sid}/decisions", body or {"amount": 150000, "recipient": "kubernetes-lab", "idempotency_key": str(uuid.uuid4()), "protected": True})
-
-    def assert_clear_current():
-        fresh_sid = request("/api/sessions", {})["session_id"]
-        result = receipt(fresh_sid)
-        assert result["status"] == "clear", result
-        validation = request(f"/api/sessions/{fresh_sid}/decisions/{result['id']}/validate")
-        assert validation["valid"] is True, validation
-        return {"receipt_id": result["id"], "status": result["status"], "valid": validation["valid"]}
+        return request(f"/api/sessions/{sid}/decisions", body or {"amount": 150000, "recipient": "demo-recipient", "idempotency_key": str(uuid.uuid4()), "protected": True})
 
     def ready(deployment):
         kubectl("rollout", "status", "deployment/" + deployment, "--timeout=180s")
@@ -65,7 +68,7 @@ def main():
     deployment_before = get("deployments")
     nodes = get("nodes")
     sid = request("/api/sessions", {})["session_id"]
-    original_body = {"amount": 150000, "recipient": "kubernetes-lab", "idempotency_key": str(uuid.uuid4()), "protected": True}
+    original_body = {"amount": 150000, "recipient": "demo-recipient", "idempotency_key": str(uuid.uuid4()), "protected": True}
     original = receipt(sid, original_body)
     assert original["status"] == "clear", original
     assert original["model_hash"] and original["trace_id"], original
@@ -112,7 +115,7 @@ def main():
         deadline = time.monotonic() + 30
         while True:
             try:
-                event["recovered_inference"] = assert_clear_current()
+                event["recovered_inference"] = assert_current_clear(request)
                 break
             except urllib.error.URLError:
                 if time.monotonic() >= deadline:

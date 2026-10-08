@@ -21,7 +21,20 @@ jobs:
           curl -fsSL https://dl.k8s.io/release/v1.32.2/bin/linux/amd64/kubectl -o work/tools/kubectl
           chmod +x work/tools/kind work/tools/kubectl
       - name: Execute real cluster acceptance
-        run: bash scripts/k8s_lab.sh
+        run: |
+          python3 -m unittest discover -s scripts -p k8s_verify_test.py
+          mkdir -p docs/evidence
+          bash scripts/k8s_lab.sh 2>&1 | tee docs/evidence/kubernetes-execution.log
+      - name: Capture cluster diagnostics
+        if: always()
+        env:
+          KUBECONFIG: ${{ github.workspace }}/work/kubernetes/kubeconfig
+        run: |
+          if [ -f "$KUBECONFIG" ]; then
+            work/tools/kubectl -n recheck get pods,pvc,deployments,statefulsets -o wide > docs/evidence/kubernetes-resources.log 2>&1 || true
+            work/tools/kubectl -n recheck describe pods > docs/evidence/kubernetes-pods.log 2>&1 || true
+            work/tools/kubectl -n recheck logs postgres-0 --tail=100 > docs/evidence/kubernetes-postgres.log 2>&1 || true
+          fi
       - name: Upload raw HTTP outcomes and commands
         if: always()
         uses: actions/upload-artifact@v4

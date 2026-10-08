@@ -34,7 +34,7 @@ docker pull postgres:16-alpine
 postgres_container=$(docker create postgres:16-alpine)
 trap 'docker rm -v "$postgres_container" >/dev/null 2>&1 || true' EXIT
 docker export "$postgres_container" | docker import \
-  --change 'ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin LANG=en_US.utf8 PGDATA=/var/lib/postgresql/data' \
+  --change 'ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin LANG=en_US.utf8 PG_MAJOR=16 PGDATA=/var/lib/postgresql/data' \
   --change 'ENTRYPOINT ["docker-entrypoint.sh"]' --change 'CMD ["postgres"]' - recheck:postgres-lab
 docker rm -v "$postgres_container"
 trap - EXIT
