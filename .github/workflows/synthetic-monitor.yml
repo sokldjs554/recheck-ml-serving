@@ -1,0 +1,40 @@
+name: Public API synthetic monitor
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/synthetic-monitor.yml'
+      - 'scripts/synthetic_monitor.py'
+permissions:
+  contents: read
+concurrency:
+  group: public-api-monitor
+  cancel-in-progress: false
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install httpx==0.28.1
+      - name: Sample real inference and stale-result rejection
+        run: >-
+          python scripts/synthetic_monitor.py
+          --base https://recheck-ml-serving.onrender.com
+          --count 3 --interval 15 --timeout 90 --budget-ms 5000
+          --output evidence/synthetic.jsonl --summary evidence/summary.json
+      - name: Functional HTTP acceptance
+        if: always()
+        run: python scripts/verify_http.py --base https://recheck-ml-serving.onrender.com > evidence/public-http-proof.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: public-api-observations-${{ github.run_id }}
+          path: evidence/
+          retention-days: 90
