@@ -67,12 +67,30 @@ def main() -> None:
         try:
             page.goto(args.base, wait_until="networkidle")
             page.locator(".mode-label").filter(has_text="브라우저 시뮬레이션").wait_for()
+            assert page.locator(".feature-row .snapshot-version").inner_text().strip() == "—", "Unissued snapshot must stay empty"
             clear_request()
             validate(True)
             click("수취인 정보 변경")
             page.get_by_role("heading", name="정보가 바뀌어 다시 확인이 필요해요", exact=True).wait_for()
+            assert page.locator(".feature-row .snapshot-version").inner_text().strip() == "v1", "Receipt snapshot must remain immutable"
+            assert "v2" in page.locator(".feature-row .live-version").inner_text(), "Current version should reflect the actual mutation"
             validate(False)
             passed("browser valid receipt then feature change refuses use")
+
+            click("초기화")
+            clear_request()
+            recorded_amount = page.locator(".receipt-identity strong").inner_text()
+            page.locator("#amount").fill("900000")
+            page.locator("#delay").press("Home")
+            for _ in range(14):
+                page.locator("#delay").press("ArrowRight")
+            assert page.locator("#delay").input_value() == "280"
+            click("판단 요청 실행")
+            assert page.get_by_role("button", name="판단 요청 실행", exact=True).is_disabled(), "Must inspect the pending request"
+            assert page.locator(".receipt-identity strong").inner_text() == recorded_amount, "A pending request must not rewrite the previous receipt amount"
+            page.wait_for_function("!document.querySelector('.run-button').disabled")
+            assert page.locator(".receipt-identity strong").inner_text() == "900,000원"
+            passed("immutable receipt amount stays unchanged while the next request is pending")
 
             for mutation in ("정책 갱신", "모델 교체"):
                 click("초기화")
@@ -84,6 +102,8 @@ def main() -> None:
             click("초기화")
             click("추론 중 변경 재현")
             page.get_by_text("이전 결과 무효", exact=True).wait_for()
+            page.evaluate("window.scrollTo(0,0)")
+            page.screenshot(path=str(args.output / "demo-comparison.png"), full_page=True)
             passed("protected inference race invalidates stale result")
 
             click("초기화")
@@ -105,12 +125,12 @@ def main() -> None:
                 click("초기화")
                 click(fault)
                 click("판단 요청 실행")
-                page.locator(".phone-result p").filter(has_text=reason).wait_for()
+                page.locator(".decision-status p").filter(has_text=reason).wait_for()
                 passed(f"browser fault {fault} produces explicit review reason")
 
             click("서버 설계")
             page.get_by_role("heading", name="연산은 분리하고, 검증은 짧게.", exact=True).wait_for()
-            page.get_by_text("공개 데모: SQLite", exact=False).wait_for()
+            page.get_by_text("Python 호스팅 구성: SQLite", exact=False).wait_for()
             click("지원자의 관점")
             page.get_by_role("heading", name=re.compile("AI가 만든 답을")).wait_for()
             click("판단 기록")
@@ -161,7 +181,7 @@ def main() -> None:
             assert not report["page_errors"], report["page_errors"]
             passed("no browser page errors")
             report["passed"] = True
-            report["screenshots"] = ["demo-desktop.png", "demo-mobile.png"]
+            report["screenshots"] = ["demo-desktop.png", "demo-comparison.png", "demo-mobile.png"]
         except Exception as error:
             report["passed"] = False
             report["failure"] = str(error)

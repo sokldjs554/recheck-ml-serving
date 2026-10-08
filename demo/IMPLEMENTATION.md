@@ -30,7 +30,7 @@ The production output is `dist/`. Root integration serves this output together w
 
 Browser simulation stores at most 30 visible receipts and 18 UI events per session; its local request ledger admits at most 51 keys. Receipt TTL is 20 seconds in simulation; live mode uses the API's `expires_at`. Displayed browser latency is observed local elapsed time including injected waiting, labeled accordingly. Snapshot and recheck spans without an observable elapsed interval show 0ms. These spans are not presented as Python OpenTelemetry traces.
 
-The phone preserves the submitted amount for its current receipt while the scenario input edits the next request. A previously successful validation badge becomes refusal when current versions differ or the receipt expires. Generation checks keep late requests and scheduled mutations from updating a reset session.
+The open receipt preserves the submitted amount and immutable feature/policy/model snapshot while the scenario input edits the next request. A side-by-side version ledger compares that snapshot with the last confirmed session state. Changed versions receive both a color and a CHANGED label; an unissued receipt shows a dash. The last-confirmed timestamp advances only on successful session creation or mutation, not on UI rerenders. A previously successful validation badge becomes refusal when current versions differ or the receipt expires. Generation checks keep late requests and scheduled mutations from updating a reset session.
 
 ## Verification performed
 
@@ -43,7 +43,7 @@ The first acceptance attempt stopped on an overly strict whitespace match for a 
 
 ## Limits and provenance
 
-Browser mode is an educational state machine; it does not claim backend locks, real queue behavior, real ML inference, or real distributed traces. Live mode consumes the exact snake_case shared HTTP contract. The architecture view explicitly distinguishes public hosted SQLite, local Compose PostgreSQL, and browser memory. Database deployment/benchmark evidence is owned by root/backend integration.
+Browser mode is an educational state machine; it does not claim backend locks, real queue behavior, real ML inference, or real distributed traces. Live mode consumes the exact snake_case shared HTTP contract. The architecture view explicitly distinguishes the Python hosting configuration (SQLite), local Compose PostgreSQL, and the public GitHub Pages browser simulation (memory). Database deployment/benchmark evidence is owned by root/backend integration.
 
 Applicant prose uses only supplied context: junior applicant, Python/LLM/AI-ML experience, investigating recurring AI-coding errors, comparing solutions. It invents no employers, production experience, achievements, or measured business outcomes.
 

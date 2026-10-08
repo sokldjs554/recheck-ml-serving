@@ -1,11 +1,15 @@
 {
-  "captured_at": "2026-10-08T02:30:21.447822+00:00",
-  "frontend": "http://127.0.0.1:5173",
+  "captured_at": "2026-10-08T04:25:45.404178+00:00",
+  "frontend": "http://127.0.0.1:8000",
   "api": "http://127.0.0.1:8000",
   "browser_executable": "/usr/bin/chromium",
   "checks": [
     {
       "name": "browser valid receipt then feature change refuses use",
+      "passed": true
+    },
+    {
+      "name": "immutable receipt amount stays unchanged while the next request is pending",
       "passed": true
     },
     {
@@ -23,7 +27,7 @@
     {
       "name": "unsafe baseline is visible but validation refuses; JSON download and Escape",
       "passed": true,
-      "downloaded": "recheck-a360bf8b-0d48-498e-9551-3239e08d36ec.json"
+      "downloaded": "recheck-4b8e1e91-5d29-49b3-931b-f9902828afa0.json"
     },
     {
       "name": "browser fault 시간 초과 produces explicit review reason",
@@ -75,7 +79,8 @@
   "passed": true,
   "screenshots": [
     "demo-desktop.png",
+    "demo-comparison.png",
     "demo-mobile.png"
   ],
-  "test_duration_seconds": 31.291
+  "test_duration_seconds": 30.377
 }

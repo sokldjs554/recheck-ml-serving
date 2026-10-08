@@ -8,7 +8,7 @@ RECHECK는 송금 전 확인이라는 합성 시나리오에서, 모델이 계�
 
 [바로 체험하기](https://sokldjs554.github.io/recheck-ml-serving/) · [90초 시연 가이드](docs/interview-demo.md) · [조사와 차별점](docs/research.md) · [설계 선택](docs/decisions.md) · [검증 기록](docs/verification.md) · [백엔드 상세](backend/IMPLEMENTATION.md)
 
-![RECHECK 인터랙티브 데모](docs/evidence/demo-desktop.png)
+![추론 당시의 기록과 현재 버전을 비교하는 RECHECK 실험 화면](docs/evidence/demo-comparison.png)
 
 ## 면접관에게 보여줄 세 가지
 
