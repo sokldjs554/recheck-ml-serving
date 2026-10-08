@@ -6,7 +6,7 @@
 
 RECHECK는 송금 전 확인이라는 합성 시나리오에서, 모델이 계산하는 사이 입력·정책·모델이 바뀌면 오래된 판단을 차단하는 Python ML 서빙 실험실입니다. 고객에게 보이는 한 문장부터 모델 서버의 trace, 버전, 실패 원인까지 연결합니다.
 
-[90초 시연 가이드](docs/interview-demo.md) · [조사와 차별점](docs/research.md) · [설계 선택](docs/decisions.md) · [검증 기록](docs/verification.md) · [백엔드 상세](backend/IMPLEMENTATION.md)
+[바로 체험하기](https://sokldjs554.github.io/recheck-ml-serving/) · [90초 시연 가이드](docs/interview-demo.md) · [조사와 차별점](docs/research.md) · [설계 선택](docs/decisions.md) · [검증 기록](docs/verification.md) · [백엔드 상세](backend/IMPLEMENTATION.md)
 
 ![RECHECK 인터랙티브 데모](docs/evidence/demo-desktop.png)
 
@@ -16,7 +16,7 @@ RECHECK는 송금 전 확인이라는 합성 시나리오에서, 모델이 계�
 2. **성공 응답 뒤도 확인합니다.** 판단을 받은 뒤 정책을 갱신하고 ‘현재 판단 사용 검증’을 누르면 사용이 거절됩니다. 생성 당시의 기록은 그대로 남습니다.
 3. **장애를 감추지 않습니다.** 모델 응답 불가·시간 예산 초과·수용 한도 초과를 구분합니다. 실제 서버 연결이 실패하면 오류를 표시하며 시뮬레이션으로 몰래 전환하지 않습니다.
 
-첫 화면은 설치 없이 즉시 실행되는 **브라우저 시뮬레이션**입니다. 상단의 **실제 Python 서버 연결 → 주소를 비운 채 연결 확인**으로 공개 호스트의 실제 API와 독립 모델 프로세스를 사용합니다. 무료 호스트가 잠들어 있으면 첫 연결에 시간이 걸릴 수 있습니다.
+첫 화면은 설치 없이 즉시 실행되는 **브라우저 시뮬레이션**입니다. GitHub Pages는 이 모드를 제공합니다. Python 호스트 또는 로컬 실행 화면에서는 **실제 Python 서버 연결 → 주소를 비운 채 연결 확인**으로 같은 호스트의 API와 독립 모델 프로세스를 사용합니다. 다른 API에 연결하려면 주소와 해당 서버의 CORS 허용 설정이 필요합니다. 무료 Python 호스트가 잠들어 있으면 첫 연결에 시간이 걸릴 수 있습니다.
 
 ## 왜 이 주제인가
 
@@ -55,7 +55,8 @@ sequenceDiagram
 | 구성 | 저장소 | 실행 범위 |
 |---|---|---|
 | 브라우저 모드 | 탭 메모리 | 규칙과 대기 시간을 이용한 교육용 모사 |
-| 공개 무료 데모 | 임시 SQLite | 동일 호스트의 API·모델 별도 프로세스 |
+| GitHub Pages 공개 데모 | 탭 메모리 | 설치 없는 인터랙티브 시뮬레이션 |
+| Python 호스팅 구성 | 임시 SQLite | 동일 호스트의 API·모델 별도 프로세스 |
 | Docker Compose | PostgreSQL 16 | DB·API·모델 별도 컨테이너 |
 | Kubernetes 예제 | 임시 PostgreSQL | probes·resources·서비스 경계를 담은 단일 노드 예제 |
 

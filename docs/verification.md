@@ -2,6 +2,8 @@
 
 2026-10-08, Linux 개발 컨테이너, Python 3.12.14, Node 24.19, PostgreSQL 16. 합성 데이터만 사용했다. CI 설정의 존재와 실제 실행을 구분한다.
 
+[GitHub Actions 원격 검증](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/37719089551)에서 PostgreSQL+HTTP 테스트 32 통과·1 생략, TypeScript 10 통과, production build와 저장된 배포 번들 일치 검사가 통과했다. [GitHub Pages 배포](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/37719089545)도 성공했다. 공개 URL의 한국어 화면과 모드 표시를 확인했다. 개발 의존성의 알려진 취약점은 Vitest 5.0.3으로 수정했고, 당시 `npm audit`는 0개였다([원자료](evidence/npm-audit.json)).
+
 ## 확인한 실행
 
 | 검증 | 결과 | 증거 |
