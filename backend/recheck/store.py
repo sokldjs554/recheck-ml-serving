@@ -56,6 +56,8 @@ class Store:
             def pragma(connection, _):
                 connection.execute("PRAGMA foreign_keys=ON")
                 connection.execute("PRAGMA journal_mode=WAL")
+        # Register all tables even for schema-init processes that import only Store.
+        from .evidence import EvidenceState  # noqa: F401
         Base.metadata.create_all(self.engine)
         self.sqlite = sqlite
 

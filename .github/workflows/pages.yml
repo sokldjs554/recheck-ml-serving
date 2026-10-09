@@ -5,6 +5,7 @@ on:
     paths:
       - 'demo/**'
       - '.github/workflows/pages.yml'
+      - 'scripts/check_evidence_browser.py'
   workflow_dispatch:
 permissions:
   contents: read
@@ -48,8 +49,32 @@ jobs:
         run: |
           RECHECK_CHROMIUM=$(python -c 'from playwright.sync_api import sync_playwright; p=sync_playwright().start(); print(p.chromium.executable_path); p.stop()')
           python scripts/check_browser.py --base "$DEMO_URL" --api https://recheck-ml-serving.onrender.com --browser-executable "$RECHECK_CHROMIUM" --output work/public-browser
+      - name: Wait for updated Python API
+        run: |
+          python - <<'PYCODE'
+          import json, time, urllib.request
+          deadline = time.monotonic() + 300
+          while time.monotonic() < deadline:
+              try:
+                  with urllib.request.urlopen('https://recheck-ml-serving.onrender.com/openapi.json', timeout=15) as response:
+                      schema = json.load(response)
+                  if '/api/sessions/{sid}/evidence/releases/evaluate' in schema.get('paths', {}):
+                      print('Evidence API routes are available')
+                      break
+              except Exception as exc:
+                  print(type(exc).__name__, flush=True)
+              time.sleep(3)
+          else:
+              raise SystemExit('Updated evidence API did not become available')
+          PYCODE
+      - name: Verify evidence freshness and release gates on public API
+        run: |
+          RECHECK_CHROMIUM=$(python -c 'from playwright.sync_api import sync_playwright; p=sync_playwright().start(); print(p.chromium.executable_path); p.stop()')
+          python scripts/check_evidence_browser.py --base "${{ steps.deployment.outputs.page_url }}" --api https://recheck-ml-serving.onrender.com --browser-executable "$RECHECK_CHROMIUM" --output work/public-evidence
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: public-browser-evidence
-          path: work/public-browser
+          path: |
+            work/public-browser
+            work/public-evidence

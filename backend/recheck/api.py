@@ -21,6 +21,7 @@ from .model import get_model
 from .observability import install_metrics
 from .schemas import DecisionRequest, MutationRequest
 from .store import Store
+from .evidence_routes import evidence_router
 from .telemetry import finishing_span, telemetry
 
 logger = logging.getLogger("recheck")
@@ -49,6 +50,7 @@ def create_app(settings=None, model_client=None):
     app = FastAPI(title="RECHECK version-fenced inference receipts", lifespan=lifespan)
     app.add_middleware(CORSMiddleware, allow_origins=list(settings.cors_origins), allow_methods=["GET", "POST"], allow_headers=["Content-Type", "traceparent", "tracestate"])
     install_metrics(app, "api")
+    app.include_router(evidence_router(store))
     app.state.store = store
     app.state.admission = Admission(settings.gateway_concurrency, settings.gateway_queue)
     app.state.active_sessions = Counter()

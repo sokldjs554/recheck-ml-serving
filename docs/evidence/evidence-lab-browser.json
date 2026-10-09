@@ -1,0 +1,57 @@
+{
+  "captured_at": "2026-10-09T01:04:50.205511+00:00",
+  "frontend": "http://127.0.0.1:5175",
+  "api": "http://127.0.0.1:8013",
+  "checks": [
+    {
+      "name": "real Python connection and isolated persistent session",
+      "passed": true
+    },
+    {
+      "name": "actual retrieval creates a currently usable receipt",
+      "passed": true
+    },
+    {
+      "name": "actual source edit preserves historical output and refuses its use",
+      "passed": true
+    },
+    {
+      "name": "same dimension incompatible model/index cannot deploy",
+      "passed": true
+    },
+    {
+      "name": "computed quality regression fails and real report is downloadable",
+      "passed": true
+    },
+    {
+      "name": "paired rebuild switches atomically and new receipt cites edited content",
+      "passed": true
+    },
+    {
+      "name": "second product reuses the evidence lifecycle",
+      "passed": true
+    },
+    {
+      "name": "deleted evidence cannot be used",
+      "passed": true
+    },
+    {
+      "name": "390/768/1440 responsive layout without document overflow",
+      "passed": true
+    },
+    {
+      "name": "HTTP failure clears previous validation instead of showing success",
+      "passed": true
+    },
+    {
+      "name": "failed document update leaves no stale success assertion",
+      "passed": true
+    },
+    {
+      "name": "pending mutation disables reuse and late completion cannot overwrite a new lab",
+      "passed": true
+    }
+  ],
+  "page_errors": [],
+  "scope": "actual HTTP API; fictional lexical retrieval; not LLM"
+}

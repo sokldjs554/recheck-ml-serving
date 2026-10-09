@@ -80,3 +80,21 @@ backend/.venv/bin/python scripts/benchmark.py --count 60 --rate 80 --delay 80 --
 공개 Pages 브라우저 검사에서 정보 변경 응답보다 사용 시점 검증 응답이 먼저 반환됐다. 실제 로그는 검증 응답16:27:39.640UTC, 변경 응답16:27:39.849UTC였다. 변경 응답이 앞선 검증 표시를 지우면서 사용자가 재검증 결과를 볼 수 없었다. 로컬에서 실제 변경 요청을 브라우저 라우트로 보류해 재현했고, 변경 처리 중에는 재검증 버튼과 핸들러를 차단했다. 같은 반례가 수정 전 실패·수정 후 통과했다. 이 회귀를 공개 브라우저 검사에도 포함한다.
 
 [배포 중 외부 점검](evidence/public-synthetic-deployment.json)은 정확성3/3이지만 시작 지연75.4초로 5초 이내2/3이었다. [배포 후 재실행](evidence/public-synthetic-recovered.json)은 3/3이며 HTTP 기능7개도 통과했다. 실패 기록을 삭제하거나 장기간 가용성으로 바꾸지 않는다.
+
+## 2026-10-09 자료 기반 근거 실험 업데이트
+
+[검증 요약 JSON](evidence/evidence-lab-verification.json),
+[실제 브라우저 12항목](evidence/evidence-lab-browser.json),
+[검색 품질 실패 후보 원본](evidence/evidence-lab-negative-release.json),
+[SDK 답변 예제](evidence/evidence-sdk-answer.json),
+[SDK 체크리스트 예제](evidence/evidence-sdk-checklist.json)를 추가했습니다.
+
+로컬 최종 백엔드 73개(`RECHECK_NETWORK_TESTS=1`), 프런트엔드 21개 통과.
+기존 데모 브라우저 검증 17개와 새 근거 실험 12개가 실제 HTTP로 통과했습니다.
+로컬 백엔드 전체 실행은 SQLite이며 PostgreSQL 검증은 저장소 CI를 확인합니다.
+공개 Pages의 새 실험 검증은 Python API 업데이트를 기다린 후 실제 API로 실행하고,
+화면 캡처·원본 결과를 `public-browser-evidence` 워크플로 아티팩트에 남깁니다.
+
+독립 리뷰에서 빈 원문이 제목만으로 검색되어 빈 답변이 유효해지는 경우를 발견하여,
+삭제 이벤트를 제외한 공백 본문을 API에서 거절하도록 수정했습니다. 외부 요청으로
+문서가 바뀐 경우 이전 배포 평가의 통과 표시도 숨기고 재평가를 요구합니다.

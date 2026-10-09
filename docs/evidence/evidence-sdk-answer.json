@@ -1,0 +1,34 @@
+{
+  "product": "answer",
+  "receipt": {
+    "id": "0f1d9531-264d-43f3-bca9-a0acba344e6f",
+    "product": "answer",
+    "query": "하루 이체 한도",
+    "output": "하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+    "references": [
+      {
+        "source_id": "transfer",
+        "title": "이체 한도 안내",
+        "text": "하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+        "revision": 1
+      }
+    ],
+    "release_epoch": 1,
+    "artifact_hash": "6e6894cb19cb08556a8224cb720ea4be45ca1af37e93795ac032d2ec2567e787",
+    "created_at": 1791507625.3127792,
+    "expires_at": 1791507745.3127792,
+    "idempotency_key": "c035ca77-f23a-4484-bbdc-fcb3f8eb3075",
+    "request_hash": "ef97a5276cef0b8c39a78614183ba838908b5bba5d76ceeedb5cb86cca572332",
+    "retrieval_ms": 1.1931490007555112,
+    "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
+  },
+  "validation": {
+    "valid": true,
+    "reason": "current",
+    "affected_sources": [],
+    "receipt_id": "0f1d9531-264d-43f3-bca9-a0acba344e6f",
+    "checked_at": 1791507625.3207705,
+    "release_epoch": 1,
+    "scope": "point-in-time validation; not an atomic external business action"
+  }
+}

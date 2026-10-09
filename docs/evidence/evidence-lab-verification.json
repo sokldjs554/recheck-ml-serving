@@ -1,0 +1,23 @@
+{
+  "scope": "local actual HTTP, fictional lexical corpus; not production traffic",
+  "backend": {
+    "passed": 73,
+    "skipped": 0,
+    "scope": "local SQLite and real HTTP processes, RECHECK_NETWORK_TESTS=1"
+  },
+  "frontend": {
+    "passed": 21
+  },
+  "browser": {
+    "existing_checks": 17,
+    "new_checks": 12,
+    "page_errors": 0
+  },
+  "screenshots": "GitHub Pages workflow artifact public-browser-evidence; local work/material-update/browser",
+  "commands": [
+    "backend/.venv/bin/python -m pytest backend/tests -q",
+    "npm test --prefix demo",
+    "scripts/check_browser.py --base http://127.0.0.1:5175 --api http://127.0.0.1:8012",
+    "scripts/check_evidence_browser.py --base http://127.0.0.1:5175 --api http://127.0.0.1:8012"
+  ]
+}

@@ -1,0 +1,172 @@
+{
+  "candidate": "regressed",
+  "passed": false,
+  "failed_gates": [
+    "retrieval_quality",
+    "quality_regression"
+  ],
+  "recall_at_1": 0.25,
+  "baseline_recall_at_1": 1,
+  "p95_ms": 0.395196,
+  "sample_count": 24,
+  "samples": [
+    {
+      "query": "하루 이체 한도",
+      "expected_source": "transfer",
+      "actual_source": "card",
+      "latency_ms": 0.142725
+    },
+    {
+      "query": "송금 본인 인증",
+      "expected_source": "transfer",
+      "actual_source": "card",
+      "latency_ms": 0.165971
+    },
+    {
+      "query": "해외 결제 취소 환불",
+      "expected_source": "refund",
+      "actual_source": "card",
+      "latency_ms": 0.142715
+    },
+    {
+      "query": "환불 처리 기간",
+      "expected_source": "refund",
+      "actual_source": "card",
+      "latency_ms": 0.144177
+    },
+    {
+      "query": "분실 카드 재발급",
+      "expected_source": "card",
+      "actual_source": "card",
+      "latency_ms": 0.145108
+    },
+    {
+      "query": "카드 분실 신고",
+      "expected_source": "card",
+      "actual_source": "card",
+      "latency_ms": 0.142215
+    },
+    {
+      "query": "대출 소득 증빙 서류",
+      "expected_source": "loan",
+      "actual_source": "card",
+      "latency_ms": 0.140812
+    },
+    {
+      "query": "대출 심사 제출 서류",
+      "expected_source": "loan",
+      "actual_source": "card",
+      "latency_ms": 0.369266
+    },
+    {
+      "query": "하루 이체 한도",
+      "expected_source": "transfer",
+      "actual_source": "card",
+      "latency_ms": 0.204768
+    },
+    {
+      "query": "송금 본인 인증",
+      "expected_source": "transfer",
+      "actual_source": "card",
+      "latency_ms": 0.255565
+    },
+    {
+      "query": "해외 결제 취소 환불",
+      "expected_source": "refund",
+      "actual_source": "card",
+      "latency_ms": 0.273792
+    },
+    {
+      "query": "환불 처리 기간",
+      "expected_source": "refund",
+      "actual_source": "card",
+      "latency_ms": 0.339401
+    },
+    {
+      "query": "분실 카드 재발급",
+      "expected_source": "card",
+      "actual_source": "card",
+      "latency_ms": 0.336237
+    },
+    {
+      "query": "카드 분실 신고",
+      "expected_source": "card",
+      "actual_source": "card",
+      "latency_ms": 0.479042
+    },
+    {
+      "query": "대출 소득 증빙 서류",
+      "expected_source": "loan",
+      "actual_source": "card",
+      "latency_ms": 0.156886
+    },
+    {
+      "query": "대출 심사 제출 서류",
+      "expected_source": "loan",
+      "actual_source": "card",
+      "latency_ms": 0.262516
+    },
+    {
+      "query": "하루 이체 한도",
+      "expected_source": "transfer",
+      "actual_source": "card",
+      "latency_ms": 0.233092
+    },
+    {
+      "query": "송금 본인 인증",
+      "expected_source": "transfer",
+      "actual_source": "card",
+      "latency_ms": 0.395196
+    },
+    {
+      "query": "해외 결제 취소 환불",
+      "expected_source": "refund",
+      "actual_source": "card",
+      "latency_ms": 0.153982
+    },
+    {
+      "query": "환불 처리 기간",
+      "expected_source": "refund",
+      "actual_source": "card",
+      "latency_ms": 0.146351
+    },
+    {
+      "query": "분실 카드 재발급",
+      "expected_source": "card",
+      "actual_source": "card",
+      "latency_ms": 0.144148
+    },
+    {
+      "query": "카드 분실 신고",
+      "expected_source": "card",
+      "actual_source": "card",
+      "latency_ms": 0.268044
+    },
+    {
+      "query": "대출 소득 증빙 서류",
+      "expected_source": "loan",
+      "actual_source": "card",
+      "latency_ms": 0.18552
+    },
+    {
+      "query": "대출 심사 제출 서류",
+      "expected_source": "loan",
+      "actual_source": "card",
+      "latency_ms": 0.145189
+    }
+  ],
+  "model_index_match": true,
+  "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA",
+  "thresholds": {
+    "min_recall_at_1": 0.9,
+    "max_recall_drop": 0.05,
+    "max_warm_p95_ms": 50
+  },
+  "id": "dfafe4d9-4eed-472b-bbaa-eecb1c3ce7c6",
+  "corpus_hash": "0a8d098f64afe73b5c547dacffe9d54204499ff36e0906ac280418e00e6da626",
+  "base_release_epoch": 1,
+  "artifact_hash": "76c80301c8cef73ea42761fd1977eae1e7848d5b16e2bcd8518d1809ea886c20",
+  "model_hash": "fe48e712d399983f509fadb4a57a3cc726f3afb8c214a307547abca67498bffd",
+  "index_model_hash": "fe48e712d399983f509fadb4a57a3cc726f3afb8c214a307547abca67498bffd",
+  "created_at": 1791507893.50539
+}

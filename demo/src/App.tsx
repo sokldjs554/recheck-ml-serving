@@ -16,6 +16,7 @@ import {
 import { Simulation } from "./simulation";
 import { defaultApiBase, LiveApi } from "./api";
 import Evidence from "./Evidence";
+import EvidenceLab from "./EvidenceLab";
 import {
   comparisonConfirmed,
   currentValidation,
@@ -29,7 +30,13 @@ import type {
   Session,
   Validation,
 } from "./types";
-type Tab = "lab" | "receipts" | "architecture" | "evidence" | "story";
+type Tab =
+  | "freshness"
+  | "lab"
+  | "receipts"
+  | "architecture"
+  | "evidence"
+  | "story";
 type Event = {
   id: string;
   at: string;
@@ -112,8 +119,11 @@ export default function App() {
   const [validating, setValidating] = useState(false);
   const [detail, setDetail] = useState<Receipt | null>(null);
   const [guided, setGuided] = useState<number | null>(null);
-  const [base, setBase] = useState(
-    () => defaultApiBase(window.location.hostname, localStorage.getItem("recheck-api-base")),
+  const [base, setBase] = useState(() =>
+    defaultApiBase(
+      window.location.hostname,
+      localStorage.getItem("recheck-api-base"),
+    ),
   );
   const [showConnect, setShowConnect] = useState(false);
   const [, tick] = useState(0);
@@ -428,6 +438,7 @@ export default function App() {
 
   const sections = [
     { id: "lab" as Tab, label: "인터랙티브 데모" },
+    { id: "freshness" as Tab, label: "근거 변경 실험" },
     { id: "receipts" as Tab, label: "판단 기록" },
     { id: "architecture" as Tab, label: "서버 설계" },
     { id: "evidence" as Tab, label: "검증 기록" },
@@ -522,18 +533,26 @@ export default function App() {
           <div className="intro-title">
             <span className="eyebrow">
               RECHECK /{" "}
-              {tab === "lab"
-                ? "01. 판단 재검증"
-                : tab === "receipts"
-                  ? "02. 판단 기록"
-                  : tab === "architecture"
-                    ? "03. 서버 설계"
-                    : tab === "evidence"
-                      ? "04. 운영 검증 기록"
-                      : "05. 문제 해결 방식"}
+              {tab === "freshness"
+                ? "02. 근거 변경 실험"
+                : tab === "lab"
+                  ? "01. 판단 재검증"
+                  : tab === "receipts"
+                    ? "03. 판단 기록"
+                    : tab === "architecture"
+                      ? "04. 서버 설계"
+                      : tab === "evidence"
+                        ? "05. 운영 검증 기록"
+                        : "06. 문제 해결 방식"}
             </span>
             <h1>
-              {tab === "lab" ? (
+              {tab === "freshness" ? (
+                <>
+                  답은 그대로인데,
+                  <br />
+                  <em>근거가 바뀌었다면?</em>
+                </>
+              ) : tab === "lab" ? (
                 <>
                   AI의 판단,
                   <br />
@@ -553,7 +572,8 @@ export default function App() {
                 </>
               ) : tab === "evidence" ? (
                 <>
-                  설계한 만큼,<br />
+                  설계한 만큼,
+                  <br />
                   <em>실행해서 확인합니다.</em>
                 </>
               ) : (
@@ -567,7 +587,13 @@ export default function App() {
           </div>
           <div className="intro-context">
             <p>
-              {tab === "lab" ? (
+              {tab === "freshness" ? (
+                <>
+                  문서를 수정하고, 이전 답변을 다시 사용해 보세요.
+                  <br />
+                  근거의 변화부터 안전한 모델 교체까지 직접 확인합니다.
+                </>
+              ) : tab === "lab" ? (
                 <>
                   판단이 끝나기 전에 수취인 정보를 바꿔보세요.
                   <br />
@@ -587,7 +613,8 @@ export default function App() {
                 </>
               ) : tab === "evidence" ? (
                 <>
-                  추론 성능부터 장애 대응까지 검증 근거를 모았습니다.<br />
+                  추론 성능부터 장애 대응까지 검증 근거를 모았습니다.
+                  <br />
                   확인된 결과와 아직 확인하지 못한 범위를 함께 읽어보세요.
                 </>
               ) : (
@@ -607,101 +634,114 @@ export default function App() {
             )}
           </div>
         </section>
-        <div className={`mode-banner ${mode === "live" ? "is-live" : ""}`}>
-          <div className="mode-label">
-            <span className="mode-indicator" />
-            {mode === "browser" ? "브라우저 시뮬레이션" : "실제 Python 서버"}
-            <span className="mode-note">
-              {mode === "browser"
-                ? "예시 데이터로 동작하는 체험 모드 · 서버 연결 없이 실행"
-                : "HTTP API와 독립 모델 서버의 실제 응답을 표시합니다."}
-            </span>
-          </div>
-          <div className="mode-actions">
-            <span className="synthetic-label">예시 거래 · 실제 송금 없음</span>
-            <button
-              className="text-button"
-              onClick={() =>
-                mode === "browser"
-                  ? setShowConnect(!showConnect)
-                  : ((api.current = new Simulation()),
-                    setMode("browser"),
-                    void newSession())
-              }
-            >
-              {mode === "browser" ? (
-                <>
-                  <Wifi size={15} />
-                  실제 Python 서버 연결
-                </>
-              ) : (
-                <>
-                  시뮬레이션으로 전환
-                  <ArrowRight size={15} />
-                </>
-              )}
-            </button>
-          </div>
-        </div>
-        {showConnect && (
-          <form
-            className="connection-form"
-            onSubmit={(event) => {
-              event.preventDefault();
-              void connect();
-            }}
-          >
-            <label htmlFor="api-base">
-              API 주소<small>비우면 현재 사이트 주소 사용</small>
-            </label>
-            <input
-              id="api-base"
-              type="url"
-              placeholder={window.location.origin}
-              value={base}
-              onChange={(event) => setBase(event.target.value)}
-              disabled={connecting}
-              aria-describedby="connection-help"
-            />
-            <button className="ink-button" disabled={connecting}>
-              {connecting ? (
-                <LoaderCircle className="spin" size={16} />
-              ) : (
-                <Wifi size={16} />
-              )}
-              {connecting ? "서버 응답 대기 중" : "연결 확인"}
-            </button>
-            <button
-              type="button"
-              className="icon-button"
-              onClick={() => setShowConnect(false)}
-              aria-label="연결 설정 닫기"
-            >
-              <X size={18} />
-            </button>
-            <p id="connection-help" className="connection-help" role="status">
-              {connecting
-                ? "무료 서버가 시작 중일 수 있어요. 최대 90초 동안 응답을 기다립니다. 연결에 성공하면 실제 API 모드로 전환됩니다."
-                : "GitHub Pages에서는 공개 Python API를 제안합니다. 무료 서버의 첫 연결은 시작 시간이 필요할 수 있습니다. 연결 실패 시 현재 실행 모드를 유지합니다."}
-            </p>
-          </form>
-        )}
-        {error && (
-          <div className="error-banner" role="alert">
-            <TriangleAlert size={20} />
-            <div>
-              {error}
-              <small>오류 내용을 확인한 뒤 다시 시도해 주세요.</small>
+        {tab !== "freshness" && (
+          <>
+            <div className={`mode-banner ${mode === "live" ? "is-live" : ""}`}>
+              <div className="mode-label">
+                <span className="mode-indicator" />
+                {mode === "browser"
+                  ? "브라우저 시뮬레이션"
+                  : "실제 Python 서버"}
+                <span className="mode-note">
+                  {mode === "browser"
+                    ? "예시 데이터로 동작하는 체험 모드 · 서버 연결 없이 실행"
+                    : "HTTP API와 독립 모델 서버의 실제 응답을 표시합니다."}
+                </span>
+              </div>
+              <div className="mode-actions">
+                <span className="synthetic-label">
+                  예시 거래 · 실제 송금 없음
+                </span>
+                <button
+                  className="text-button"
+                  onClick={() =>
+                    mode === "browser"
+                      ? setShowConnect(!showConnect)
+                      : ((api.current = new Simulation()),
+                        setMode("browser"),
+                        void newSession())
+                  }
+                >
+                  {mode === "browser" ? (
+                    <>
+                      <Wifi size={15} />
+                      실제 Python 서버 연결
+                    </>
+                  ) : (
+                    <>
+                      시뮬레이션으로 전환
+                      <ArrowRight size={15} />
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
-            <button
-              className="icon-button"
-              onClick={() => setError("")}
-              aria-label="오류 메시지 닫기"
-            >
-              <X size={18} />
-            </button>
-          </div>
+            {showConnect && (
+              <form
+                className="connection-form"
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  void connect();
+                }}
+              >
+                <label htmlFor="api-base">
+                  API 주소<small>비우면 현재 사이트 주소 사용</small>
+                </label>
+                <input
+                  id="api-base"
+                  type="url"
+                  placeholder={window.location.origin}
+                  value={base}
+                  onChange={(event) => setBase(event.target.value)}
+                  disabled={connecting}
+                  aria-describedby="connection-help"
+                />
+                <button className="ink-button" disabled={connecting}>
+                  {connecting ? (
+                    <LoaderCircle className="spin" size={16} />
+                  ) : (
+                    <Wifi size={16} />
+                  )}
+                  {connecting ? "서버 응답 대기 중" : "연결 확인"}
+                </button>
+                <button
+                  type="button"
+                  className="icon-button"
+                  onClick={() => setShowConnect(false)}
+                  aria-label="연결 설정 닫기"
+                >
+                  <X size={18} />
+                </button>
+                <p
+                  id="connection-help"
+                  className="connection-help"
+                  role="status"
+                >
+                  {connecting
+                    ? "무료 서버가 시작 중일 수 있어요. 최대 90초 동안 응답을 기다립니다. 연결에 성공하면 실제 API 모드로 전환됩니다."
+                    : "GitHub Pages에서는 공개 Python API를 제안합니다. 무료 서버의 첫 연결은 시작 시간이 필요할 수 있습니다. 연결 실패 시 현재 실행 모드를 유지합니다."}
+                </p>
+              </form>
+            )}
+            {error && (
+              <div className="error-banner" role="alert">
+                <TriangleAlert size={20} />
+                <div>
+                  {error}
+                  <small>오류 내용을 확인한 뒤 다시 시도해 주세요.</small>
+                </div>
+                <button
+                  className="icon-button"
+                  onClick={() => setError("")}
+                  aria-label="오류 메시지 닫기"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+            )}
+          </>
         )}
+        {tab === "freshness" && <EvidenceLab defaultBase={base} />}
         {tab === "lab" && (
           <>
             {guided !== null && (
