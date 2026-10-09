@@ -1,0 +1,110 @@
+[
+  {
+    "page": "인터랙티브 데모",
+    "width": 390,
+    "h1_px": 18,
+    "overflow": false
+  },
+  {
+    "page": "인터랙티브 데모",
+    "width": 768,
+    "h1_px": 20,
+    "overflow": false
+  },
+  {
+    "page": "인터랙티브 데모",
+    "width": 1440,
+    "h1_px": 20,
+    "overflow": false
+  },
+  {
+    "page": "근거 변경 실험",
+    "width": 390,
+    "h1_px": 18,
+    "overflow": false
+  },
+  {
+    "page": "근거 변경 실험",
+    "width": 768,
+    "h1_px": 20,
+    "overflow": false
+  },
+  {
+    "page": "근거 변경 실험",
+    "width": 1440,
+    "h1_px": 20,
+    "overflow": false
+  },
+  {
+    "page": "판단 기록",
+    "width": 390,
+    "h1_px": 18,
+    "overflow": false
+  },
+  {
+    "page": "판단 기록",
+    "width": 768,
+    "h1_px": 20,
+    "overflow": false
+  },
+  {
+    "page": "판단 기록",
+    "width": 1440,
+    "h1_px": 20,
+    "overflow": false
+  },
+  {
+    "page": "서버 설계",
+    "width": 390,
+    "h1_px": 18,
+    "overflow": false
+  },
+  {
+    "page": "서버 설계",
+    "width": 768,
+    "h1_px": 20,
+    "overflow": false
+  },
+  {
+    "page": "서버 설계",
+    "width": 1440,
+    "h1_px": 20,
+    "overflow": false
+  },
+  {
+    "page": "검증 기록",
+    "width": 390,
+    "h1_px": 18,
+    "overflow": false
+  },
+  {
+    "page": "검증 기록",
+    "width": 768,
+    "h1_px": 20,
+    "overflow": false
+  },
+  {
+    "page": "검증 기록",
+    "width": 1440,
+    "h1_px": 20,
+    "overflow": false
+  },
+  {
+    "page": "지원자의 관점",
+    "width": 390,
+    "h1_px": 18,
+    "overflow": false
+  },
+  {
+    "page": "지원자의 관점",
+    "width": 768,
+    "h1_px": 20,
+    "overflow": false
+  },
+  {
+    "page": "지원자의 관점",
+    "width": 1440,
+    "h1_px": 20,
+    "overflow": false
+  }
+]

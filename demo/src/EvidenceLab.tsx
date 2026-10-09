@@ -2,6 +2,7 @@ import { visibleValidation, staleRelease } from "./evidencePresentation";
 import { useEffect, useRef, useState } from "react";
 import {
   ArrowDown,
+  Files,
   ArrowRight,
   ArrowUpRight,
   Check,
@@ -240,20 +241,44 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
         )}
       </div>
       {!state && (
-        <div className="el-opening">
-          <div className="el-opening-number">
-            01 <ArrowRight size={28} /> 02 <ArrowRight size={28} /> 03
+        <div className="el-preview" aria-label="연결 전 화면 미리보기">
+          <div className="el-preview-toolbar">
+            <span>문서 / 답변 비교</span>
+            <span>연결 전 미리보기 · 실행 결과 아님</span>
           </div>
-          <h2>
-            답변을 만든 다음,
-            <br />그 답의 근거를 바꿔보세요.
-          </h2>
-          <p>
-            같은 질문, 바뀐 문서, 서로 다른 결과.
-            <br />
-            어떤 답변을 멈춰야 하는지 서버가 판단하는 순간을 체험합니다.
-          </p>
-          <small>무료 서버의 첫 연결은 최대 90초 걸릴 수 있습니다.</small>
+          <div className="el-preview-panes">
+            <div className="el-preview-source">
+              <span className="eyebrow">원문 · 예시 문서</span>
+              <h2>이체 한도 안내</h2>
+              <p>
+                하루 이체 한도는 <mark>300만 원</mark>입니다.
+              </p>
+              <p>한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.</p>
+              <small>실험을 시작하면 이 내용을 직접 수정할 수 있습니다.</small>
+            </div>
+            <div className="el-preview-result">
+              <span className="eyebrow">답변 기록 · 실행 전</span>
+              <div className="el-empty-document">
+                <Files size={25} />
+                <p>검색 결과가 여기에 기록됩니다.</p>
+              </div>
+              <ol>
+                <li>
+                  <span>1</span>문서에서 답변 준비
+                </li>
+                <li>
+                  <span>2</span>원문의 금액 또는 조건 수정
+                </li>
+                <li>
+                  <span>3</span>이전 답변의 사용 가능 여부 확인
+                </li>
+              </ol>
+            </div>
+          </div>
+          <div className="el-preview-foot">
+            무료 Python 서버의 첫 연결은 최대 90초 걸릴 수 있습니다. 연결이
+            끝나면 실제 검색과 검증을 실행합니다.
+          </div>
         </div>
       )}
       <div className="el-status" role="status" aria-live="polite">
@@ -509,11 +534,7 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
           <section className="el-release">
             <div className="el-release-intro">
               <span className="eyebrow">두 번째 실험 / 안전한 모델 교체</span>
-              <h2>
-                새 모델이라고,
-                <br />
-                <em>바로 배포하지 않습니다.</em>
-              </h2>
+              <h2>모델·인덱스 배포 검증</h2>
               <p>
                 같은 질문으로 후보를 실제 평가합니다. 모델과 인덱스가 맞아도
                 검색 품질이 나빠지면 배포를 멈춥니다.
@@ -709,11 +730,7 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
       <section className="el-foundation">
         <div>
           <span className="eyebrow">자료에서 구현으로</span>
-          <h3>
-            한 번의 검증을,
-            <br />
-            여러 제품에서 쓰도록.
-          </h3>
+          <h3>공통 API와 Python SDK</h3>
           <p>
             답변 초안과 업무 체크리스트는 같은 근거 기록 API를 사용합니다.
             저장소에는 두 제품에서 재사용하는 Python SDK와 실행 예제도 있습니다.

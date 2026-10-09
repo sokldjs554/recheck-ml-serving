@@ -1,6 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
+  Activity,
+  Files,
+  GitBranch,
+  ListChecks,
+  Terminal,
+  UserRound,
   ArrowUpRight,
   Clock3,
   Download,
@@ -436,6 +442,30 @@ export default function App() {
       setGuided(guided < 3 ? guided + 1 : null);
   };
 
+  const navIcons = {
+    lab: Activity,
+    freshness: Files,
+    receipts: ListChecks,
+    architecture: GitBranch,
+    evidence: Terminal,
+    story: UserRound,
+  };
+  const pageNames: Record<Tab, string> = {
+    lab: "판단 재검증",
+    freshness: "문서와 답변",
+    receipts: "판단 기록",
+    architecture: "요청 처리 구조",
+    evidence: "실행 증거",
+    story: "설계자의 관점",
+  };
+  const pageDescriptions: Record<Tab, string> = {
+    lab: "조건을 바꾸고, 같은 판단을 다시 검증합니다.",
+    freshness: "원문 변경이 답변과 배포에 미치는 영향을 확인합니다.",
+    receipts: "생성 당시의 정보와 판단 원본을 확인합니다.",
+    architecture: "요청 접수부터 최종 검증까지의 처리 경로입니다.",
+    evidence: "실행 환경과 관측 시각이 기록된 검증 자료입니다.",
+    story: "문제 정의, 기술 선택, 기여하고 싶은 일을 설명합니다.",
+  };
   const sections = [
     { id: "lab" as Tab, label: "인터랙티브 데모" },
     { id: "freshness" as Tab, label: "근거 변경 실험" },
@@ -501,138 +531,80 @@ export default function App() {
   };
 
   return (
-    <div className="recheck-workbench">
+    <div className={`recheck-workbench workspace-theme workspace-${tab}`}>
       <header className="site-header">
         <button
           className="wordmark"
           aria-label="RECHECK 홈"
           onClick={() => setTab("lab")}
         >
-          recheck<span>↗</span>
+          <span className="brand-glyph">r/</span> RECHECK
         </button>
+        <div className="rail-caption">SERVING LAB</div>
         <nav aria-label="주 메뉴">
-          {sections.map(({ id, label }, index) => (
-            <button
-              key={id}
-              className={`nav-item ${tab === id ? "active" : ""}`}
-              aria-current={tab === id ? "page" : undefined}
-              aria-label={label}
-              onClick={() => setTab(id)}
-            >
-              <span className="nav-index">0{index + 1}</span>
-              {label}
-            </button>
-          ))}
+          {sections.map(({ id, label }, index) => {
+            const Icon = navIcons[id];
+            return (
+              <div className="rail-item" key={id}>
+                {(index === 0 || index === 2) && (
+                  <span className="rail-group">
+                    {index === 0 ? "실험" : "기록과 설계"}
+                  </span>
+                )}
+                <button
+                  className={`nav-item ${tab === id ? "active" : ""}`}
+                  aria-current={tab === id ? "page" : undefined}
+                  aria-label={label}
+                  onClick={() => setTab(id)}
+                >
+                  <Icon size={16} />
+                  <span>{label}</span>
+                  <span className="nav-index">0{index + 1}</span>
+                </button>
+              </div>
+            );
+          })}
         </nav>
-        <span className="edition-label">
-          오래된 AI 판단을 걸러내는 서버 실험
-        </span>
+        <div className="rail-note">
+          <span className="rail-note-rule" />
+          <strong>검증할 수 있는 AI 서빙</strong>
+          <p>
+            실패를 재현하고,
+            <br />
+            결과를 기록합니다.
+          </p>
+          <a
+            href="https://github.com/sokldjs554/recheck-ml-serving"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub 저장소 <ArrowUpRight size={14} />
+          </a>
+        </div>
       </header>
       <main>
+        <div className="workspace-toolbar">
+          <span>
+            RECHECK <span>/</span>{" "}
+            {tab === "lab" || tab === "freshness" ? "실험실" : "프로젝트"}{" "}
+            <span>/</span> {pageNames[tab]}
+          </span>
+          <span className="workspace-scope">
+            합성 데이터 · 실제 금융 업무 없음
+          </span>
+        </div>
         <section className="page-intro">
           <div className="intro-title">
-            <span className="eyebrow">
-              RECHECK /{" "}
-              {tab === "freshness"
-                ? "02. 근거 변경 실험"
-                : tab === "lab"
-                  ? "01. 판단 재검증"
-                  : tab === "receipts"
-                    ? "03. 판단 기록"
-                    : tab === "architecture"
-                      ? "04. 서버 설계"
-                      : tab === "evidence"
-                        ? "05. 운영 검증 기록"
-                        : "06. 문제 해결 방식"}
-            </span>
-            <h1>
-              {tab === "freshness" ? (
-                <>
-                  답은 그대로인데,
-                  <br />
-                  <em>근거가 바뀌었다면?</em>
-                </>
-              ) : tab === "lab" ? (
-                <>
-                  AI의 판단,
-                  <br />
-                  <em>지금도 유효할까요?</em>
-                </>
-              ) : tab === "receipts" ? (
-                <>
-                  판단에 사용한
-                  <br />
-                  <em>정보를 확인하세요.</em>
-                </>
-              ) : tab === "architecture" ? (
-                <>
-                  추론이 끝나면,
-                  <br />
-                  <em>다시 검증합니다.</em>
-                </>
-              ) : tab === "evidence" ? (
-                <>
-                  설계한 만큼,
-                  <br />
-                  <em>실행해서 확인합니다.</em>
-                </>
-              ) : (
-                <>
-                  반복되는 오류,
-                  <br />
-                  <em>원인부터 찾습니다.</em>
-                </>
-              )}
-            </h1>
+            <h1>{pageNames[tab]}</h1>
+            <p>{pageDescriptions[tab]}</p>
           </div>
-          <div className="intro-context">
-            <p>
-              {tab === "freshness" ? (
-                <>
-                  문서를 수정하고, 이전 답변을 다시 사용해 보세요.
-                  <br />
-                  근거의 변화부터 안전한 모델 교체까지 직접 확인합니다.
-                </>
-              ) : tab === "lab" ? (
-                <>
-                  판단이 끝나기 전에 수취인 정보를 바꿔보세요.
-                  <br />
-                  이전 정보로 만든 결과가 차단되는지 확인할 수 있습니다.
-                </>
-              ) : tab === "receipts" ? (
-                <>
-                  각 판단에 사용된 정보와 결과를 함께 저장합니다.
-                  <br />
-                  현재 유효한지는 데모의 재검증 버튼으로 확인하세요.
-                </>
-              ) : tab === "architecture" ? (
-                <>
-                  모델 호출부터 결과 저장까지 요청의 흐름을 살펴보세요.
-                  <br />
-                  오래된 결과와 시간 초과를 처리하는 위치를 설명합니다.
-                </>
-              ) : tab === "evidence" ? (
-                <>
-                  추론 성능부터 장애 대응까지 검증 근거를 모았습니다.
-                  <br />
-                  확인된 결과와 아직 확인하지 못한 범위를 함께 읽어보세요.
-                </>
-              ) : (
-                <>
-                  Python과 LLM·AI/ML을 경험한 신입 개발자입니다.
-                  <br />
-                  AI와 함께 원인을 찾고, 서로 다른 해결책을 비교합니다.
-                </>
-              )}
-            </p>
-            {tab === "lab" && (
-              <button className="text-button guide-start" onClick={startGuide}>
-                <Play size={14} />
-                90초 체험 시작
-                <ArrowRight size={15} />
-              </button>
-            )}
-          </div>
+          {tab === "lab" && (
+            <button className="text-button guide-start" onClick={startGuide}>
+              <Play size={14} />
+              90초 체험 시작
+              <ArrowRight size={15} />
+            </button>
+          )}
         </section>
         {tab !== "freshness" && (
           <>
@@ -776,7 +748,7 @@ export default function App() {
               <div className="instrument-heading">
                 <div>
                   <span className="instrument-index">버전 비교</span>
-                  <h2 id="instrument-title">판단 당시와 현재 정보</h2>
+                  <h2 id="instrument-title">판단 당시 / 현재</h2>
                 </div>
                 <div className="instrument-actions">
                   <button
@@ -884,10 +856,7 @@ export default function App() {
                         {observedAt ? clock(observedAt) : "— : — : —"}
                       </strong>
                     </div>
-                    <p>
-                      기록과 현재 정보의 버전을 비교합니다. 처리 시간은 아래에서
-                      확인하세요.
-                    </p>
+                    <p>기록된 버전과 현재 버전을 비교합니다.</p>
                   </div>
                   <div className={`open-receipt ${current ? "issued" : ""}`}>
                     <div className="receipt-identity">
@@ -1416,13 +1385,7 @@ export default function App() {
           <section className="story-page">
             <div className="story-statement">
               <span className="eyebrow">이 프로젝트를 만든 이유</span>
-              <h2>
-                AI와 해결책을 찾고,
-                <br />
-                서로 다른 방법을 비교하며
-                <br />
-                <em>결과를 확인합니다.</em>
-              </h2>
+              <h2>오류 재현과 해결책 검증</h2>
               <p>
                 저는 Python과 LLM·AI/ML을 경험한 신입 개발자입니다. AI와 함께
                 개발하며 반복되는 오류를 직접 조사하고, 서로 다른 해결 방법을
@@ -1469,11 +1432,7 @@ export default function App() {
             </div>
             <div className="contribution">
               <span className="eyebrow">토스뱅크에서 기여하고 싶은 일</span>
-              <h3>
-                AI 기능을 만드는 팀이
-                <br />
-                서버의 예외 상황을 일관되게 다룰 수 있도록.
-              </h3>
+              <h3>여러 AI 제품이 공유하는 검증 기능</h3>
               <p>
                 모델 응답이 늦거나 입력 정보가 바뀌었을 때의 처리, 실패 원인을
                 찾을 수 있는 기록을 공통 서버 기능으로 만드는 데 기여하고
@@ -1490,8 +1449,8 @@ export default function App() {
           <span>
             RECHECK<span className="footer-mark">↗</span>
           </span>
-          <p>응답이 왔다고, 지금도 유효한 것은 아닙니다.</p>
-          <small>재현하고, 비교하고, 검증합니다.</small>
+          <p>ML serving experiments · Python / AI·ML</p>
+          <small>소스 코드와 검증 기록을 함께 공개합니다.</small>
         </footer>
       </main>
       <dialog

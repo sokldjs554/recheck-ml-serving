@@ -132,9 +132,9 @@ def main() -> None:
             page.get_by_role("heading", name="모델 추론과 최종 검증을 분리했습니다.", exact=True).wait_for()
             page.get_by_text("Python 호스팅 구성: SQLite", exact=False).wait_for()
             click("지원자의 관점")
-            page.get_by_role("heading", name=re.compile("AI와 해결책을 찾고")).wait_for()
+            page.get_by_role("heading", name="오류 재현과 해결책 검증").wait_for()
             click("검증 기록")
-            page.get_by_role("heading", name="설계의 이유, 실행의 결과.", exact=True).wait_for()
+            page.get_by_role("heading", name="운영 실험 결과", exact=True).wait_for()
             assert page.locator(".evidence-record").count() == 4
             page.screenshot(path=str(args.output / "operations-desktop.png"), full_page=True)
             for evidence_width in (390, 768, 1024):
@@ -176,6 +176,14 @@ def main() -> None:
                     page.screenshot(path=str(args.output / "demo-mobile.png"), full_page=True)
                     assert page.get_by_role("button", name="지원자의 관점", exact=True).is_visible()
                 passed("responsive layout without horizontal overflow", width=width)
+            page.set_viewport_size({"width": 844, "height": 390})
+            page.get_by_role("button", name="검증 기록", exact=True).focus()
+            page.keyboard.press("Tab")
+            last_nav = page.get_by_role("button", name="지원자의 관점", exact=True)
+            assert last_nav.evaluate("el => document.activeElement === el")
+            bounds = last_nav.bounding_box()
+            assert bounds and bounds["y"] >= 0 and bounds["y"] + bounds["height"] <= 390, bounds
+            passed("keyboard navigation reveals offscreen rail item on short landscape viewport")
             page.set_viewport_size({"width": 1440, "height": 1050})
 
             if args.api:
