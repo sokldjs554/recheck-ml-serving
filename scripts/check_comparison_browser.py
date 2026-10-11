@@ -13,6 +13,8 @@ def main():
     parser.add_argument('--output', type=Path, default=Path('work/action-comparison/browser'))
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
+    evidence = json.loads((Path(__file__).resolve().parents[1] / 'docs/evidence/action-workloads.json').read_text())
+    workload_attempts = evidence['parameters']['rounds'] * evidence['parameters']['workers']
     report = dict(captured_at=datetime.now(timezone.utc).isoformat(), frontend=args.base,
                   scope='browser inspection of stored actual SQL experiments; no live comparison writes', checks=[], page_errors=[])
     def passed(name):
@@ -60,20 +62,20 @@ def main():
                 passed(f'{database}: stale rejection, selective invalidation, ABA and retry match SQL evidence')
             page.get_by_label('비교할 동시 요청').select_option('replay_after_edit')
             rows = page.get_by_test_id('comparison-workload-results').get_by_role('row')
-            expect(rows.nth(2)).to_contain_text('72')
-            expect(rows.nth(3)).to_contain_text('72')
+            expect(rows.nth(2)).to_contain_text(str(workload_attempts))
+            expect(rows.nth(3)).to_contain_text(str(workload_attempts))
             expect(page.get_by_test_id('comparison-workload-note')).to_contain_text('과거 작업')
             page.get_by_label('비교할 동시 요청').select_option('edit_after_check')
             expect(page.get_by_test_id('comparison-workload-note')).to_contain_text('검사')
-            expect(page.get_by_test_id('comparison-latency')).to_contain_text('90')
+            expect(page.get_by_test_id('comparison-latency')).to_contain_text(str(evidence['parameters']['samples']))
             expect(page.get_by_test_id('comparison-latency')).to_contain_text('p95')
             passed('contended outcomes and separate normal-path latency have visible denominators')
             page.get_by_label('비교할 동시 요청').select_option('lock_timeout_retry')
             expect(page.get_by_test_id('comparison-workload-note')).to_contain_text('시간 초과')
             rows = page.get_by_test_id('comparison-workload-results').get_by_role('row')
             for row in range(1, 4):
-                expect(rows.nth(row)).to_contain_text('0 / 72')
-                expect(rows.nth(row)).to_contain_text('72 / 72')
+                expect(rows.nth(row)).to_contain_text(f'0 / {workload_attempts}')
+                expect(rows.nth(row)).to_contain_text(f'{workload_attempts} / {workload_attempts}')
             passed('real lock-timeout errors remain visible beside separately recorded recovery')
             assert not any('/api/' in url for url in requests), requests
             passed('record inspection never triggers unsafe API execution')

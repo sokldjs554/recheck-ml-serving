@@ -56,6 +56,7 @@ def main():
                 replay = response.json()
                 assert replay['action_id'] == fixture['action']['action_id']
                 assert replay['replayed'] is True
+                assert {k:v for k,v in replay.items() if k != 'replayed'} == {k:v for k,v in fixture['action'].items() if k != 'replayed'}
                 listed = client.get(prefix+'/actions'); listed.raise_for_status()
                 records = listed.json()['actions']
                 assert sum(a['action_id'] == replay['action_id'] for a in records) == 1

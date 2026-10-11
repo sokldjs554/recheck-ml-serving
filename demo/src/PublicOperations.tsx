@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { PUBLIC_API_BASE } from './api';
+import { defaultApiBase } from './api';
 type Counter = {name: string; labels: Record<string,string>; value: number};
 type Sample = {id: string; at: number; boot_id: string; ready: boolean; reason: string; api: Counter[]; model: Counter[]; dropped_unpersisted_samples: number};
 type Journal = {storage: string; samples: Sample[]};
@@ -13,7 +13,7 @@ export default function PublicOperations() {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 90000);
     try {
-      const base = location.hostname.endsWith('.github.io') ? PUBLIC_API_BASE : '';
+      const base = defaultApiBase(location.hostname, localStorage.getItem('recheck-api-base'));
       const response = await fetch(base + '/api/operations', {signal:controller.signal});
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const result = await response.json();
@@ -43,6 +43,6 @@ export default function PublicOperations() {
       <details><summary>최근 관측 12개</summary><ol>{journal?.samples.slice(-12).reverse().map(row => <li key={row.id}><time>{stamp(row.at)}</time><b>{row.ready ? '준비됨' : row.reason}</b><span>실행 {row.boot_id.slice(0,8)}</span></li>)}</ol></details>
       {latest.dropped_unpersisted_samples > 0 && <p>DB 장애 중 저장 대기 한도를 넘긴 관측 {latest.dropped_unpersisted_samples}개가 누락됐습니다.</p>}
     </div>}
-    <p>활동이 있는 동안 60초마다 수집 · 7일 보관 · 최신 120개 조회. 숫자는 실행 ID별 누적값입니다. 잠든 시간·관측 사이·강제 종료 직전은 알 수 없으며, 장기 가용성이나 실시간 무장애 표시가 아닙니다.</p>
+    <p>활동이 있는 동안 60초마다 수집 · 7일 보관 · 최신 120개 조회. 데모 조작과 장애 주입 자동 점검도 함께 집계하며, 숫자는 실행 ID별 누적값입니다. 잠든 시간·관측 사이·강제 종료 직전은 알 수 없으며, 장기 가용성이나 실시간 무장애 표시가 아닙니다.</p>
   </section>;
 }

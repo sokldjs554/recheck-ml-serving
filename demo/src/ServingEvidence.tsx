@@ -29,7 +29,7 @@ export default function ServingEvidence({view}: {view: 'serving' | 'recovery'}) 
       <div><h1>{view === 'serving' ? '모델의 처리 한계' : '장애에서 다시 추론까지'}</h1>
         <p>{view === 'serving' ? '요청을 더 받으면, 제시간에 끝나는 일은 얼마나 늘어날까.' : '프로세스가 살아 있는 것과, 답변을 줄 수 있는 것은 다릅니다.'}</p></div>
     </header>
-    <p className="serving-record-note" data-testid="stored-evidence-note">저장된 실제 실험 기록 · 실시간 부하 실행이나 현재 서버 상태가 아닙니다.</p>
+    <p className="serving-record-note" data-testid="stored-evidence-note">{view === 'serving' ? '저장된 실제 실험 기록 · 실시간 부하 실행이나 현재 서버 상태가 아닙니다.' : '운영 기록은 버튼을 눌러 공개 API에서 조회합니다. 아래 장애 주입 실험은 저장된 기록입니다.'}</p>
     {view === 'serving' ? <>
       <section className="public-observation" aria-label="API 모델 PostgreSQL 전체 경로 부하">
         <h2>API에서 SQL 기록까지</h2>
@@ -38,6 +38,11 @@ export default function ServingEvidence({view}: {view: 'serving' | 'recovery'}) 
         <p>HTTP 200으로 받은 {fullpath.checks.all_delivered_receipts_equal_sql}개 응답을 DB 원본과 대조했습니다. 중복 저장 0건. 연결 중단 후 재시도와 API 재시작 후에도 같은 기록을 돌려받았습니다.</p>
         <p>첫 구간의 DB 오류 1건도 포함합니다. 이 실행에서는 다른 SQL 검증이 같은 로컬 DB를 사용했습니다. 공유 호스트의 짧은 측정이며 공개 Render 서버의 처리 용량은 아닙니다.</p>
         <a href={evidenceRoot + 'fullpath-load.json'} target="_blank" rel="noreferrer">전체 시도·조건·실패 원본 ↗</a>
+        <h3>요청을 더 밀어 넣으면</h3>
+        <p>전용 테스트 DB로 분리한 뒤 60·120 req/s를 각각 2초씩 2회 실행했습니다. HTTP 200이라도 추론이 보류되면 성공에서 뺐습니다.</p>
+        <div className="recovery-table-scroll"><table className="recovery-table"><thead><tr><th>요청률 / 회차</th><th>500ms 내 유효 응답</th><th>과부하 보류·거절</th><th>전체 p95</th></tr></thead><tbody>{fullpath.saturation.cases.map(c => <tr key={`${c.rate_rps}-${c.repeat}`}><th>{c.rate_rps} req/s · {c.repeat}회</th><td>{c.good} / {c.requested}</td><td>{c.reasons.overloaded ?? 0}</td><td>{c.p95_ms.toFixed(1)} ms</td></tr>)}</tbody></table></div>
+        <p>120 req/s 두 회차에서 전체 480건 중 250건이 유효 응답이었습니다. 나머지 230건에는 HTTP 429 거절 17건과 HTTP 200 보류 213건이 포함됩니다. 모두 같은 분모에 남겼습니다.</p>
+        <a href={evidenceRoot + 'fullpath-saturation.json.gz'} target="_blank" rel="noreferrer">과부하 원본 내려받기 · JSON.gz ↗</a>
       </section>
       <div className="serving-instrument">
         <aside className="serving-settings">

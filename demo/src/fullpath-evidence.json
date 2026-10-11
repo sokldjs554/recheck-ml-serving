@@ -126,6 +126,97 @@
       "peak_api_model_rss_bytes": 682983424
     }
   ],
+  "saturation": {
+    "measured_at": "2026-10-11T16:00:19.401445+00:00",
+    "checks": {
+      "unavailable": "model_unavailable",
+      "timeout": "deadline_exceeded",
+      "disconnect_retry_single_sql_row": true,
+      "api_restart_immutable_replay": true,
+      "conflicting_replay_rejected": true,
+      "all_delivered_receipts_equal_sql": 703,
+      "duplicate_rows": 0
+    },
+    "cases": [
+      {
+        "rate_rps": 60,
+        "repeat": 1,
+        "duration_seconds": 2.0,
+        "observed_seconds": 2.069248283998604,
+        "requested": 120,
+        "good": 116,
+        "goodput_rps": 56.05900504884906,
+        "outcomes": {
+          "200": 120
+        },
+        "reasons": {
+          "overloaded": 4,
+          "no_current_warning": 116
+        },
+        "p95_ms": 144.16935999906855,
+        "cpu_seconds": 4.739999999999999,
+        "peak_api_model_rss_bytes": 681385984
+      },
+      {
+        "rate_rps": 60,
+        "repeat": 2,
+        "duration_seconds": 2.0,
+        "observed_seconds": 2.0734207120003703,
+        "requested": 120,
+        "good": 120,
+        "goodput_rps": 57.8753744020565,
+        "outcomes": {
+          "200": 120
+        },
+        "reasons": {
+          "no_current_warning": 120
+        },
+        "p95_ms": 121.94996633479604,
+        "cpu_seconds": 4.74,
+        "peak_api_model_rss_bytes": 682041344
+      },
+      {
+        "rate_rps": 120,
+        "repeat": 1,
+        "duration_seconds": 2.0,
+        "observed_seconds": 2.2435716559994034,
+        "requested": 240,
+        "good": 127,
+        "goodput_rps": 56.60617063885468,
+        "outcomes": {
+          "200": 232,
+          "429": 8
+        },
+        "reasons": {
+          "overloaded": 113,
+          "no_current_warning": 127
+        },
+        "p95_ms": 223.41783366937307,
+        "cpu_seconds": 6.02,
+        "peak_api_model_rss_bytes": 683614208
+      },
+      {
+        "rate_rps": 120,
+        "repeat": 2,
+        "duration_seconds": 2.0,
+        "observed_seconds": 2.2401845770000364,
+        "requested": 240,
+        "good": 123,
+        "goodput_rps": 54.906189991146434,
+        "outcomes": {
+          "200": 231,
+          "429": 9
+        },
+        "reasons": {
+          "overloaded": 117,
+          "no_current_warning": 123
+        },
+        "p95_ms": 232.66065233110567,
+        "cpu_seconds": 5.969999999999999,
+        "peak_api_model_rss_bytes": 683876352
+      }
+    ]
+  },
   "limitations": [
     "Short shared-host experiment, not public hosting capacity or SLA.",
     "One 503 is retained; a concurrent local SQL evaluator shared this database during this run."

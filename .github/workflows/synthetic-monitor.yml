@@ -8,6 +8,7 @@ on:
     paths:
       - '.github/workflows/synthetic-monitor.yml'
       - 'scripts/synthetic_monitor.py'
+      - 'scripts/verify_public_observations.py'
 permissions:
   contents: read
 concurrency:
@@ -32,6 +33,9 @@ jobs:
       - name: Functional HTTP acceptance
         if: always()
         run: python scripts/verify_http.py --base https://recheck-ml-serving.onrender.com > evidence/public-http-proof.json
+      - name: Check durable public observation and injected-failure recovery
+        if: always()
+        run: python scripts/verify_public_observations.py --base https://recheck-ml-serving.onrender.com --output evidence/public-observations-proof.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:

@@ -44,6 +44,10 @@ def main():
         assert '65.1' in public.inner_text() and '2 / 3' in public.inner_text()
         assert public.get_by_role('link', name='실패한 원본 실행').get_attribute('href').endswith('38126563464')
         checks.append('actual dependency failure and nonzero DB restart errors are retained')
+        page.get_by_role('button', name='운영 기록 조회', exact=True).click()
+        page.get_by_test_id('public-operations').wait_for(timeout=95000)
+        assert 'postgresql' in page.get_by_test_id('public-operations').inner_text()
+        checks.append('public PostgreSQL journal is fetched and labeled as boot-scoped observations')
         for width in (320, 390, 768):
             page.set_viewport_size({'width': width, 'height': 844})
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'), f'overflow at {width}'

@@ -1,0 +1,44 @@
+name: CPU API PostgreSQL full-path regression
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'backend/recheck/**'
+      - 'scripts/benchmark_fullpath.py'
+      - '.github/workflows/fullpath.yml'
+permissions:
+  contents: read
+jobs:
+  fullpath:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: recheck
+          POSTGRES_PASSWORD: local-demo-only
+          POSTGRES_DB: fullpath
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd 'pg_isready -U recheck'
+          --health-interval 5s --health-timeout 3s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r backend/requirements.txt
+      - name: Keep every HTTP outcome and verify SQL and recovery invariants
+        run: python scripts/benchmark_fullpath.py --database-url-env RECHECK_BENCH_DB --rates 5 30 --duration 3 --repeats 1 --output evidence/fullpath.json
+        env:
+          RECHECK_BENCH_DB: postgresql+psycopg://recheck:local-demo-only@127.0.0.1:5432/fullpath
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fullpath-regression
+          path: |
+            evidence/
+            work/fullpath/
+          retention-days: 90

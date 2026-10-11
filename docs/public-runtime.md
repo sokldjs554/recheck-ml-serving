@@ -79,3 +79,10 @@ python scripts/build_fullpath_summary.py
 RSS/CPU cover API and model process trees, not PostgreSQL; shared memory can be counted
 more than once. This short shared-host measurement does not establish public Render
 capacity, multi-host scale, or an SLA.
+
+The follow-up saturation run used its own disposable PostgreSQL database, at
+60/120 req/s for two seconds twice. Of 480 requests at 120 req/s, 250 were valid
+within 500 ms; 17 were HTTP 429 and 213 were HTTP 200 review/overload responses.
+The compressed raw JSON retains all 720 attempts, including the 60 req/s cases:
+`docs/evidence/fullpath-saturation.json.gz`. Decompress with `gzip -dc`.
+All 703 delivered HTTP 200 receipts matched SQL; replay/restart checks passed again.
