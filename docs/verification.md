@@ -129,3 +129,12 @@ backend/.venv/bin/python scripts/benchmark.py --count 60 --rate 80 --delay 80 --
 
 자동 검증과 실제 사용자 조사, 지원자 본인의 과제 수행은 다릅니다. [사용성 조사](usability-protocol.md)와 [개인 판단 기록](ownership-workbook.md)은 아직 완료됐다고 주장하지 않습니다.
 공개 배포의 검증 결과는 이 로컬 기록과 별도로 해당 commit의 Pages/CI 실행에서 확인합니다.
+
+
+## 2026-10-11 화면 구성 정리
+
+첫 화면은 단일 제목·실행 버튼·원문/답변 비교·실행 내역 순서로 정리했다. 메뉴의 반복 아이콘·번호·박스형 선택 표시, 중첩 카드, 중복 제목과 빈 상태 설명을 줄였다. 변경 금액과 차단 결과에만 강조를 사용한다. 기존 API 상태 흐름과 재시도 계약은 유지한다.
+
+로컬 production 번들에서 TypeScript 테스트 35개, 기존 브라우저 확인 18개, 근거 실험 12개, 핵심 사례 5개 검증 그룹이 통과했다. 핵심 사례는 실제 HTTP 요청으로 실행 차단·최신 근거 기록·같은 키 재시도·오류 복구를 확인했다. 390px·768px·844px에서 가로 넘침이 없었고, 초기 실행 버튼은 1388×800 및 390×844 화면 안에 들어왔다. 초기/차단/완료 화면을 직접 열어 확인했다. 이 기록은 로컬 검증이며 공개 배포의 결과는 해당 커밋의 Pages 워크플로에서 별도로 확인한다.
+
+[데스크톱 차단 상태](evidence/ui-refinement-desktop.png) · [모바일 초기 상태](evidence/ui-refinement-mobile.png) · [실행 원자료](evidence/ui-refinement-browser.json)

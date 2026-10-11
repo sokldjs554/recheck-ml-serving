@@ -1,12 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
-  Activity,
-  Files,
-  GitBranch,
-  ListChecks,
-  Terminal,
-  UserRound,
   ArrowUpRight,
   Clock3,
   Download,
@@ -444,17 +438,8 @@ export default function App() {
       setGuided(guided < 3 ? guided + 1 : null);
   };
 
-  const navIcons = {
-    case: ShieldCheck,
-    lab: Activity,
-    freshness: Files,
-    receipts: ListChecks,
-    architecture: GitBranch,
-    evidence: Terminal,
-    story: UserRound,
-  };
   const pageNames: Record<Tab, string> = {
-    case: "답변에서 실행까지",
+    case: "이체 한도 사례",
     lab: "판단 재검증",
     freshness: "문서와 답변",
     receipts: "판단 기록",
@@ -544,20 +529,19 @@ export default function App() {
           aria-label="RECHECK 홈"
           onClick={() => setTab("case")}
         >
-          <span className="brand-glyph">r/</span> RECHECK
+          RECHECK<span className="brand-period">.</span>
         </button>
-        <div className="rail-caption">SERVING LAB</div>
+        <div className="rail-caption">AI 응답의 실행 조건</div>
         <nav aria-label="주 메뉴">
           {sections.map(({ id, label }, index) => {
-            const Icon = navIcons[id];
             return (
               <div className="rail-item" key={id}>
                 {(index === 0 || index === 1 || index === 3) && (
                   <span className="rail-group">
                     {index === 0
-                      ? "처음이라면"
+                      ? "사례"
                       : index === 1
-                        ? "직접 실험"
+                        ? "실험"
                         : "기록과 설계"}
                   </span>
                 )}
@@ -567,22 +551,13 @@ export default function App() {
                   aria-label={label}
                   onClick={() => setTab(id)}
                 >
-                  <Icon size={16} />
                   <span>{label}</span>
-                  <span className="nav-index">0{index + 1}</span>
                 </button>
               </div>
             );
           })}
         </nav>
         <div className="rail-note">
-          <span className="rail-note-rule" />
-          <strong>검증할 수 있는 AI 서빙</strong>
-          <p>
-            실패를 재현하고,
-            <br />
-            결과를 기록합니다.
-          </p>
           <a
             href="https://github.com/sokldjs554/recheck-ml-serving"
             target="_blank"
@@ -603,19 +578,21 @@ export default function App() {
             합성 데이터 · 실제 금융 업무 없음
           </span>
         </div>
-        <section className="page-intro">
-          <div className="intro-title">
-            <h1>{pageNames[tab]}</h1>
-            <p>{pageDescriptions[tab]}</p>
-          </div>
-          {tab === "lab" && (
-            <button className="text-button guide-start" onClick={startGuide}>
-              <Play size={14} />
-              90초 체험 시작
-              <ArrowRight size={15} />
-            </button>
-          )}
-        </section>
+        {tab !== "case" && (
+          <section className="page-intro">
+            <div className="intro-title">
+              <h1>{pageNames[tab]}</h1>
+              <p>{pageDescriptions[tab]}</p>
+            </div>
+            {tab === "lab" && (
+              <button className="text-button guide-start" onClick={startGuide}>
+                <Play size={14} />
+                90초 체험 시작
+                <ArrowRight size={15} />
+              </button>
+            )}
+          </section>
+        )}
         {tab !== "freshness" && tab !== "case" && (
           <>
             <div className={`mode-banner ${mode === "live" ? "is-live" : ""}`}>

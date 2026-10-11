@@ -18,7 +18,7 @@ RECHECK는 이 질문을 Python 서버, 실제 SQL 트랜잭션, 직접 조작�
 
 [지원용 프로젝트 소개](docs/application-brief.md) → [실제 API 데모](https://sokldjs554.github.io/recheck-ml-serving/) → [기술 선택과 비교 근거](docs/safety-case-study.md)
 
-![근거 변경을 감지해 이전 답변의 실행을 거절하는 실제 API 화면](docs/evidence/case-study-desktop.png)
+![근거 변경을 감지해 이전 답변의 실행을 거절하는 실제 API 화면](docs/evidence/ui-refinement-desktop.png)
 
 ## 먼저 체험할 한 가지
 

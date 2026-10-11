@@ -1,0 +1,12 @@
+{
+  "frontend": "http://127.0.0.1:5176",
+  "api": "http://127.0.0.1:8014",
+  "checks": [
+    "malformed HTTP 200 cannot claim success; retry retains original key",
+    "actual HTTP: old answer blocked, fresh task recorded, replay returns one historical action, JSON contains actual responses",
+    "390 portrait, 768 tablet, 844 landscape: no horizontal overflow and reset reachable",
+    "network failure clears success and same-step retry completes with actual HTTP",
+    "pending controls locked; late session completion after reset does not restore old state"
+  ],
+  "page_errors": []
+}
