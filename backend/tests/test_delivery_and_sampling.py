@@ -4,29 +4,38 @@ import httpx
 import pytest
 from sqlalchemy import event
 
-from test_recheck import body, closing_clients, setup
+from test_recheck import body, closing_clients, gateway_clock, setup
 
 
-@pytest.mark.parametrize("budget,code,reason", [(60, 504, "deadline_exceeded_after_commit"), (250, 409, "receipt_expired_after_commit")])
-async def test_slow_final_database_write_cannot_deliver_a_late_clear(tmp_path, budget, code, reason):
-    app, worker, model, client, sid = await setup(tmp_path, deadline_ms=budget, receipt_ttl_ms=70)
+@pytest.mark.parametrize("monotonic_jump,code,reason", [(3, 504, "deadline_exceeded_after_commit"), (0, 409, "receipt_expired_after_commit")])
+async def test_final_database_write_crossing_deadline_or_expiry_cannot_deliver_clear(tmp_path, monkeypatch, monotonic_jump, code, reason):
+    app, worker, model, client, sid = await setup(tmp_path, deadline_ms=2000, receipt_ttl_ms=1000)
+    clock = gateway_clock(monkeypatch)
+    writes = []
     @event.listens_for(app.state.store.engine, "before_cursor_execute")
     def slow_write(connection, cursor, statement, parameters, context, executemany):
         if statement.startswith("UPDATE decisions"):
-            time.sleep(0.1)
+            # Cross the boundary during the real SQL write, after finalize.
+            # This is a clock-boundary test, not a wall-time performance test.
+            writes.append(statement)
+            clock['monotonic'] += monotonic_jump
+            clock['wall'] += 3
     async with closing_clients(model, client):
         started = time.monotonic()
         response = await client.post(f"/api/sessions/{sid}/decisions", json=body())
         elapsed_ms = (time.monotonic() - started) * 1000
         assert response.status_code == code, f"Delivered {response.status_code} after {elapsed_ms:.1f} ms"
         assert response.json()["detail"] == reason
+        assert len(writes) == 1
         # Persistence is an immutable historical fact; delivery failure must not
         # rewrite it or execute a second inference on an idempotent retry.
         stored = (await client.get(f"/api/sessions/{sid}/decisions")).json()["receipts"][0]
+        assert stored['status'] == 'clear'
         retry = await client.post(f"/api/sessions/{sid}/decisions", json=body())
         assert retry.status_code == 200
         assert retry.json() == stored
         assert worker.state.completed == 1
+        assert len(writes) == 1
         validation = (await client.get(f"/api/sessions/{sid}/decisions/{stored['id']}/validate")).json()
         assert validation["valid"] is False
         assert validation["reason"] == "expired"

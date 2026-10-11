@@ -49,6 +49,18 @@ async def setup(tmp_path, **overrides):
     return app, worker, model, client, sid
 
 
+def gateway_clock(monkeypatch):
+    """Advance gateway boundaries without changing asyncio's or the DB's clock."""
+    from types import SimpleNamespace
+    from recheck import admission, api, store
+    shift = dict(monotonic=0.0, wall=0.0)
+    clock = SimpleNamespace(monotonic=lambda: time.monotonic() + shift['monotonic'],
+                            time=lambda: time.time() + shift['wall'], time_ns=time.time_ns)
+    for module in (admission, api, store):
+        monkeypatch.setattr(module, 'time', clock)
+    return shift
+
+
 async def test_trained_model_is_reproducible_and_sensitive_to_features():
     assert importlib.util.find_spec("recheck.model"), "Trained model is not implemented"
     from recheck.model import train_model
@@ -327,33 +339,36 @@ async def test_changed_body_conflicts_even_while_first_request_pending(tmp_path)
         assert (await pending).status_code == 200
 
 
-async def test_deadline_includes_waiting_for_the_final_database_fence(tmp_path):
-    import threading
-    import time
-    app, worker, model, client, sid = await setup(tmp_path, deadline_ms=60)
+async def test_deadline_is_rechecked_after_the_final_database_fence(tmp_path, monkeypatch):
+    from sqlalchemy import event
+    app, worker, model, client, sid = await setup(tmp_path, deadline_ms=2000)
+    clock = gateway_clock(monkeypatch)
+    original_finish = app.state.store.finish
+    phase = dict(finishing=False, locked=0)
+    def finish(*args, **kwargs):
+        phase['finishing'] = True
+        try:
+            return original_finish(*args, **kwargs)
+        finally:
+            phase['finishing'] = False
+    monkeypatch.setattr(app.state.store, 'finish', finish)
+    @event.listens_for(app.state.store.engine, 'after_cursor_execute')
+    def fence_acquired(connection, cursor, statement, parameters, context, executemany):
+        if phase['finishing'] and statement.startswith('SELECT demo_sessions.'):
+            # The real SQL fence has completed. Model elapsed lock-wait time
+            # here, before finalize, independently of runner scheduling.
+            phase['locked'] += 1
+            clock['monotonic'] += 3
     async with closing_clients(model, client):
-        request = body()
-        request["delay_ms"] = 15
-        pending = asyncio.create_task(client.post(f"/api/sessions/{sid}/decisions", json=request))
-        while worker.state.admission.active == 0:
-            await asyncio.sleep(0.001)
-        locked = threading.Event()
-        def lock_final_fence():
-            with app.state.store.transaction(write=True) as db:
-                app.state.store.row(db, sid, lock=True)
-                locked.set()
-                time.sleep(0.075)
-        thread = threading.Thread(target=lock_final_fence)
-        thread.start()
-        for _ in range(1000):
-            if locked.is_set():
-                break
-            await asyncio.sleep(0.001)
-        assert locked.is_set()
-        receipt = (await pending).json()
-        thread.join()
+        response = await client.post(f"/api/sessions/{sid}/decisions", json=body())
+        assert response.status_code == 200, response.text
+        receipt = response.json()
+        assert phase['locked'] == 1
+        assert worker.state.completed == 1
         assert receipt["status"] == "review"
         assert receipt["reason"] == "deadline_exceeded"
+        assert receipt['risk_score'] is None
+        assert (await client.get(f'/api/sessions/{sid}/decisions')).json()['receipts'] == [receipt]
 
 
 async def test_queued_gateway_deadline_is_504_and_does_not_enter_worker(tmp_path):
