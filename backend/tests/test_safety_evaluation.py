@@ -41,6 +41,15 @@ def test_same_schedules_reveal_stale_commits_and_preserve_valid_actions(tmp_path
     assert aba['state_at_submit']['receipt_revision'] == 1
 
 
+def test_export_contains_actual_before_and_after_document_text(tmp_path):
+    evaluation = load_evaluation()
+    report = evaluation.evaluate_database(f'sqlite:///{tmp_path}/texts.db')
+    for row in report['results']:
+        changed = next(c for c in row['cases'] if c['case'] == 'cited_edit_after_check')
+        assert '300만 원' in changed['receipt']['references'][0]['text']
+        assert '100만 원' in changed['state_at_submit'].get('source_text', ''), 'current SQL source text must be exported'
+
+
 def test_removed_production_guard_is_detected_from_committed_sql_state(tmp_path, monkeypatch):
     evaluation = load_evaluation()
     # Mutation: replacing execute's validate+append with a blind SQL append must fail.

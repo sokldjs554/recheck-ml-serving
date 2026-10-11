@@ -201,3 +201,32 @@ async def test_simultaneous_same_key_requests_record_once(tmp_path):
         assert len({action['action_id'] for action in actions}) == 1
         assert sum(not action['replayed'] for action in actions) == 1
         assert len((await client.get(base+'/actions')).json()['actions']) == 1
+
+
+async def test_actual_db_lock_timeout_returns_503_then_same_key_recovers(tmp_path):
+    from recheck.evidence import EvidenceStore
+    app, model, client, sid, base = await lab(tmp_path)
+    async with closing_clients(model, client):
+        receipt = (await client.post(base+'/prepare', json=prepare())).json()
+        holder = EvidenceStore(app.state.store)
+        acquired, release = threading.Event(), threading.Event()
+        def hold():
+            with holder.locked(sid):
+                acquired.set()
+                assert release.wait(5)
+        with ThreadPoolExecutor(max_workers=1) as pool:
+            held = pool.submit(hold)
+            try:
+                assert await asyncio.to_thread(acquired.wait, 2)
+                busy = await execute(client, base, receipt['id'], 'recoverable')
+                assert busy.status_code == 503
+                assert busy.json() == {'detail': 'database_unavailable'}
+            finally:
+                release.set()
+                held.result(2)
+        recovered = await execute(client, base, receipt['id'], 'recoverable')
+        assert recovered.status_code == 200 and not recovered.json()['replayed']
+        replay = await execute(client, base, receipt['id'], 'recoverable')
+        assert replay.json()['action_id'] == recovered.json()['action_id']
+        assert replay.json()['replayed']
+        assert len((await client.get(base+'/actions')).json()['actions']) == 1

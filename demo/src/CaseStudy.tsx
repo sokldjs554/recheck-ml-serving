@@ -197,6 +197,13 @@ export default function CaseStudy({
             </button>
           )}
           <span>실제 API 요청 · 결과를 이 화면에 남깁니다</span>
+          <button
+            className="case-compare"
+            disabled={locked}
+            onClick={onEvidence}
+          >
+            세 방식 비교 <ArrowRight size={14} />
+          </button>
         </div>
       </div>
 

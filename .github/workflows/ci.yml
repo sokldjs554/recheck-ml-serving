@@ -38,6 +38,15 @@ jobs:
         with:
           name: safety-evaluation
           path: work/safety-evaluation.json
+      - name: Reproduce contended action workloads on both databases
+        run: python scripts/evaluate_action_workloads.py --postgres-url-env RECHECK_EVAL_DATABASE_URL --rounds 3 --samples 12 --warmups 3 --output work/action-workloads.json
+        env:
+          RECHECK_EVAL_DATABASE_URL: postgresql+psycopg://recheck:local-demo-only@127.0.0.1:5432/recheck
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: action-workloads
+          path: work/action-workloads*.json
       - run: npm ci && npm test && npm run build
         working-directory: demo
       - run: python scripts/build_safety_summary.py --check

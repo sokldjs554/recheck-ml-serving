@@ -1,5 +1,9 @@
 # From a checked draft to an owned SQL action
 
+The original nine ordered schedules below are retained. A separate [audit and extension](action-comparison-audit.md)
+adds controlled concurrent requests, historical replay after source edits, and separately measured normal-path SQL cost.
+Those results do not change the sample count or scope of this original experiment.
+
 A support draft cites a transfer document that originally says “300만 원.” A source change can make that draft unsuitable for a new task. Validating it once does not protect a later task record: another transaction can change the source between the check and the write.
 
 RECHECK's guarded operation validates the receipt and appends an immutable synthetic support task under the same session lock and SQL transaction. Source events and release promotions take that lock too. This covers a record owned by this database. It does not send a message, move money, or coordinate an external service.

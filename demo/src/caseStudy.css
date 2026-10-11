@@ -22,6 +22,19 @@
   opacity: 0.45;
   cursor: not-allowed;
 }
+.case-study .case-compare {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-end;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid #b9c3b2;
+  border-radius: 0;
+  padding: 0 0 2px;
+  min-height: 32px;
+  color: #405c43;
+}
 .case-desk-heading,
 .case-heading-tools,
 .case-desk-title,

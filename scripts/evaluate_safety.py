@@ -74,8 +74,10 @@ def mutate(lab, sid, name, receipt, clock):
         return
     source_id = 'card' if name == 'unrelated' else receipt['references'][0]['source_id']
     original = lab.snapshot(sid)['sources'][source_id]
+    changed_text = (original['text'].replace('300만 원', '100만 원')
+                    if name in ('edit', 'aba') else original['text'] + ' 최신 적용 내용입니다.')
     lab.event(sid, SourceEvent(source_id=source_id, revision=original['revision'] + 1,
-        text='' if name == 'delete' else original['text'] + ' 최신 적용 내용입니다.', deleted=name == 'delete'))
+        text='' if name == 'delete' else changed_text, deleted=name == 'delete'))
     if name == 'aba':
         lab.event(sid, SourceEvent(source_id=source_id, revision=original['revision'] + 2,
                                   text=original['text']))
@@ -103,7 +105,7 @@ def run_case(store, strategy, case):
             ref = receipt['references'][0]
             source = state['sources'][ref['source_id']]
             facts = dict(source_id=ref['source_id'], source_revision=source['revision'],
-                receipt_revision=ref['revision'], deleted=source['deleted'],
+                receipt_revision=ref['revision'], source_text=source['text'], deleted=source['deleted'],
                 cited_text_equals_receipt=source['text'] == ref['text'],
                 active_release_epoch=state['active']['epoch'], receipt_release_epoch=receipt['release_epoch'],
                 clock=clock[0], expires_at=receipt['expires_at'])
