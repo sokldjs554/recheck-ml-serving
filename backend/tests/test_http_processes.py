@@ -21,10 +21,10 @@ def unused_port():
 
 
 @contextmanager
-def servers(tmp_path):
+def servers(tmp_path, deadline_ms=2000):
     worker_port, api_port = unused_port(), unused_port()
     env = dict(os.environ, MODEL_SERVICE_URL=f"http://127.0.0.1:{worker_port}",
-               DATABASE_URL=f"sqlite:///{tmp_path / 'http.db'}", RECHECK_DEADLINE_MS="100")
+               DATABASE_URL=f"sqlite:///{tmp_path / 'http.db'}", RECHECK_DEADLINE_MS=str(deadline_ms))
     processes = []
     logs = []
     try:
@@ -36,7 +36,7 @@ def servers(tmp_path):
             until = time.monotonic() + 15
             while time.monotonic() < until:
                 try:
-                    if client.get(f"http://127.0.0.1:{api_port}/health", timeout=0.2).status_code == 200:
+                    if client.get(f"http://127.0.0.1:{api_port}/ready", timeout=1).status_code == 200:
                         break
                 except httpx.HTTPError:
                     pass
@@ -59,19 +59,19 @@ def servers(tmp_path):
             log.close()
 
 
-async def test_separate_http_processes_preserve_freshness_trace_and_deadlines(tmp_path):
+async def test_separate_http_processes_preserve_freshness_and_trace(tmp_path):
     with servers(tmp_path) as (api_url, worker_url):
         async with httpx.AsyncClient(base_url=api_url, trust_env=False) as client:
             sid = (await client.post("/api/sessions")).json()["session_id"]
             base = dict(amount=150000, recipient="demo-recipient", idempotency_key="first", delay_ms=0, fault="none", protected=True)
             trace_id = "1234567890abcdef1234567890abcdef"
             first = (await client.post(f"/api/sessions/{sid}/decisions", json=base, headers={"traceparent": f"00-{trace_id}-1234567890abcdef-01"})).json()
-            assert first["status"] == "clear"
+            assert first["status"] == "clear", first
             assert first["trace_id"] == trace_id
             assert "model.predict" in {s["name"] for s in first["spans"]}
-            delayed = dict(base, idempotency_key="race", delay_ms=50)
-            # Construct/warm the observer before starting the 50 ms request: client
-            # initialization can otherwise consume the entire mutation window.
+            delayed = dict(base, idempotency_key="race", delay_ms=1000)
+            # This is a correctness test, not a 100 ms cold-path benchmark.
+            # Observe admission before mutation; keep generous scheduling room.
             async with httpx.AsyncClient(base_url=worker_url, trust_env=False) as monitor:
                 assert (await monitor.get("/health")).json()["active"] == 0
                 pending = asyncio.create_task(client.post(f"/api/sessions/{sid}/decisions", json=delayed))
@@ -82,10 +82,21 @@ async def test_separate_http_processes_preserve_freshness_trace_and_deadlines(tm
                 else:
                     pytest.fail("worker never entered observed active state")
                 await client.post(f"/api/sessions/{sid}/mutations", json={"kind": "feature"})
-                assert (await pending).json()["status"] == "invalidated"
+                result = (await pending).json()
+                assert result["status"] == "invalidated", result
+
+
+async def test_http_deadline_is_propagated_and_remote_work_drains(tmp_path):
+    # Keep the strict 100 ms deadline in an independent failure-path test.
+    # The injected timeout always exceeds the propagated remaining budget.
+    with servers(tmp_path, deadline_ms=100) as (api_url, worker_url):
+        async with httpx.AsyncClient(base_url=api_url, trust_env=False) as client:
+            sid = (await client.post('/api/sessions')).json()['session_id']
+            base = dict(amount=150000, recipient='demo-recipient', delay_ms=0, protected=True)
+            async with httpx.AsyncClient(base_url=worker_url, trust_env=False) as monitor:
                 timed_out = (await client.post(f"/api/sessions/{sid}/decisions", json=dict(base, idempotency_key="timeout", fault="timeout"))).json()
-                assert timed_out["status"] == "review"
-                assert timed_out["reason"] == "deadline_exceeded"
+                assert timed_out["status"] == "review", timed_out
+                assert timed_out["reason"] == "deadline_exceeded", timed_out
                 # Disconnect does not assume immediate remote cancellation. The worker's
                 # own propagated deadline must end its bounded work independently.
                 until = time.monotonic() + 1

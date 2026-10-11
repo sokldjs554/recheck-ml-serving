@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -15,9 +15,11 @@ import {
 } from "lucide-react";
 import { Simulation } from "./simulation";
 import { defaultApiBase, LiveApi } from "./api";
-import Evidence from "./Evidence";
+const Evidence = lazy(() => import("./Evidence"));
 import EvidenceLab from "./EvidenceLab";
 import CaseStudy from "./CaseStudy";
+import "./servingEvidence.css";
+const ServingEvidence = lazy(() => import("./ServingEvidence"));
 import {
   comparisonConfirmed,
   currentValidation,
@@ -33,6 +35,8 @@ import type {
 } from "./types";
 type Tab =
   | "case"
+  | "serving"
+  | "recovery"
   | "freshness"
   | "lab"
   | "receipts"
@@ -103,7 +107,21 @@ function exportReceipt(receipt: Receipt) {
   URL.revokeObjectURL(url);
 }
 export default function App() {
-  const [tab, setTab] = useState<Tab>("case");
+  const readTab = (): Tab => {
+    const value = window.location.hash.slice(1);
+    return ["case", "serving", "recovery", "freshness", "lab", "receipts", "architecture", "evidence", "story"].includes(value) ? value as Tab : "case";
+  };
+  const [tab, setCurrentTab] = useState<Tab>(readTab);
+  const setTab = (value: Tab) => {
+    window.location.hash = value;
+    setCurrentTab(value);
+  };
+  useEffect(() => {
+    const change = () => setCurrentTab(readTab());
+    window.addEventListener("hashchange", change);
+    return () => window.removeEventListener("hashchange", change);
+  }, []);
+  const isExperiment = tab === "case" || tab === "serving" || tab === "recovery";
   const [mode, setMode] = useState<"browser" | "live">("browser");
   const [session, setSession] = useState<Session | null>(null);
   const [observedAt, setObservedAt] = useState<string | null>(null);
@@ -440,6 +458,8 @@ export default function App() {
 
   const pageNames: Record<Tab, string> = {
     case: "이체 한도 사례",
+    serving: "모델 부하",
+    recovery: "장애 복구",
     lab: "판단 재검증",
     freshness: "문서와 답변",
     receipts: "판단 기록",
@@ -449,6 +469,8 @@ export default function App() {
   };
   const pageDescriptions: Record<Tab, string> = {
     case: "문서가 바뀐 뒤에도 이 답변을 사용해도 될까요? 직접 바꾸고 확인하세요.",
+    serving: "저장된 CPU 서빙 실험",
+    recovery: "저장된 장애·복구 실험",
     lab: "조건을 바꾸고, 같은 판단을 다시 검증합니다.",
     freshness: "원문 변경이 답변과 배포에 미치는 영향을 확인합니다.",
     receipts: "생성 당시의 정보와 판단 원본을 확인합니다.",
@@ -559,13 +581,20 @@ export default function App() {
         </a>
       </header>
       <main className="desk-main">
-        {tab !== "case" && (
+        {isExperiment && <nav className="experiment-nav" aria-label="실험 선택">
+          <a href="#case" aria-current={tab === "case" ? "page" : undefined}><span aria-hidden="true">01</span>정합성 재현</a>
+          <a href="#serving" aria-current={tab === "serving" ? "page" : undefined}><span aria-hidden="true">02</span>모델 부하</a>
+          <a href="#recovery" aria-current={tab === "recovery" ? "page" : undefined}><span aria-hidden="true">03</span>장애 복구</a>
+          <small>실행 시점 검증 / CPU 서빙 / 운영 실험</small>
+        </nav>}
+        {(tab === "serving" || tab === "recovery") && <Suspense fallback={<p role="status">측정 기록 불러오는 중…</p>}><ServingEvidence view={tab} /></Suspense>}
+        {!isExperiment && (
           <div className="desk-context">
             <span>RECHECK / {pageNames[tab]}</span>
             <span>합성 데이터 · 실제 금융 업무 없음</span>
           </div>
         )}
-        {tab !== "case" && (
+        {!isExperiment && (
           <section className="page-intro">
             <div className="intro-title">
               <h1>{pageNames[tab]}</h1>
@@ -580,7 +609,7 @@ export default function App() {
             )}
           </section>
         )}
-        {tab !== "freshness" && tab !== "case" && (
+        {(tab === "lab" || tab === "receipts") && (
           <>
             <div className={`mode-banner ${mode === "live" ? "is-live" : ""}`}>
               <div className="mode-label">
@@ -1361,7 +1390,7 @@ export default function App() {
             </div>
           </section>
         )}
-        {tab === "evidence" && <Evidence />}
+        {tab === "evidence" && <Suspense fallback={<p role="status">검증 기록 불러오는 중…</p>}><Evidence /></Suspense>}
         {tab === "story" && (
           <section className="story-page">
             <div className="story-statement">

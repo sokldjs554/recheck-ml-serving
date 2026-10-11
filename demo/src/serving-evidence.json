@@ -1,0 +1,312 @@
+{
+  "samples": [
+    {
+      "source": "compute-capacity-summary.json",
+      "measuredAt": "2026-10-08T16:03:16.551127+00:00",
+      "deadline": 200,
+      "replicas": 2,
+      "duration": 30.0,
+      "rate": 30,
+      "requested": 900,
+      "good": 896,
+      "late": 0,
+      "rejected": 1,
+      "timeout": 3,
+      "p95": 90.03111933270702,
+      "healthP95": 6.394976997398771,
+      "rssBytes": 651493376,
+      "cpuPerGood": 37.700892857142854
+    },
+    {
+      "source": "compute-sustained-summary.json",
+      "measuredAt": "2026-10-08T15:59:31.361562+00:00",
+      "deadline": 200,
+      "replicas": 2,
+      "duration": 60.0,
+      "rate": 60,
+      "requested": 3600,
+      "good": 2572,
+      "late": 148,
+      "rejected": 775,
+      "timeout": 105,
+      "p95": 221.2519623353728,
+      "healthP95": 12.757119999150746,
+      "rssBytes": 676073472,
+      "cpuPerGood": 40.66874027993779
+    }
+  ],
+  "public": {
+    "source_run": 38126563464,
+    "source_url": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/38126563464",
+    "conclusion": "failure",
+    "functional_acceptance": "success",
+    "summary": {
+      "total": 3,
+      "good": 2,
+      "bad": 1,
+      "availability": 0.6666666666666666,
+      "target": 0.99,
+      "latency_budget_ms": 5000,
+      "allowed_bad_samples": 0.030000000000000027,
+      "budget_consumed_ratio": 33.33333333333331,
+      "scope": "sampled synthetic workflow, not continuous production uptime",
+      "window_start": "2026-10-11T08:56:14.621151+00:00",
+      "window_end": "2026-10-11T08:57:53.856021+00:00",
+      "interval_seconds": 15
+    },
+    "rows": [
+      {
+        "at": "2026-10-11T08:56:14.621151+00:00",
+        "ok": true,
+        "steps": [
+          "health",
+          "session",
+          "inference",
+          "current_validation",
+          "mutation",
+          "stale_rejection"
+        ],
+        "trace_id": "feb7f6c9fcbd70528d4e32cc6839d0c9",
+        "duration_ms": 65100.243
+      },
+      {
+        "at": "2026-10-11T08:57:34.736817+00:00",
+        "ok": true,
+        "steps": [
+          "health",
+          "session",
+          "inference",
+          "current_validation",
+          "mutation",
+          "stale_rejection"
+        ],
+        "trace_id": "2f3bd7dcb8f69886064a7277c6ebad82",
+        "duration_ms": 2389.151
+      },
+      {
+        "at": "2026-10-11T08:57:52.141288+00:00",
+        "ok": true,
+        "steps": [
+          "health",
+          "session",
+          "inference",
+          "current_validation",
+          "mutation",
+          "stale_rejection"
+        ],
+        "trace_id": "a4c6574fae2ead8fc9993582057f0fc0",
+        "duration_ms": 1714.358
+      }
+    ],
+    "scope": "Stored scheduled public API probe; not continuous availability. First sample includes host startup; no excluded warmup."
+  },
+  "observability": {
+    "start": "2026-10-08T16:16:26.636737+00:00",
+    "end": "2026-10-08T16:17:04.671208+00:00",
+    "trace": {
+      "trace_id": "aeb867df9167e20197d9e182f11070cb",
+      "services": [
+        "recheck-api",
+        "recheck-worker"
+      ],
+      "span_count": 10,
+      "client_span_id": "5b810c6e5d760651",
+      "worker_parent": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "aeb867df9167e20197d9e182f11070cb",
+          "spanID": "5b810c6e5d760651"
+        }
+      ],
+      "span_names": [
+        "fastapi.dependencies",
+        "fastapi.endpoint",
+        "POST /infer",
+        "snapshot",
+        "decision",
+        "fastapi.serialization",
+        "model.predict",
+        "model.infer",
+        "model.http",
+        "fence.commit"
+      ]
+    },
+    "probes": {
+      "live": 200,
+      "ready": 503
+    },
+    "recovered": {
+      "status": "clear",
+      "trace_id": "dcb70c90cf4e2a0ba979677d076dac44",
+      "valid": true,
+      "model_version": "risk-v1",
+      "model_hash": "7de0929ba34aefaa313bf15354e6582133992cb755df11094ced0796125521be"
+    },
+    "firingAt": "2026-10-08T16:16:44.438925+00:00",
+    "resolvedAt": "2026-10-08T16:16:50.440239+00:00"
+  },
+  "kubernetes": {
+    "start": "2026-10-08T16:28:32.798121+00:00",
+    "end": "2026-10-08T16:30:59.271235+00:00",
+    "events": [
+      {
+        "name": "api_pod_replacement",
+        "started_at": "2026-10-08T16:28:38.352950+00:00",
+        "recovered_inference": {
+          "receipt_id": "ea5b71e5-e30b-4145-a19a-f8a5fd8a9940",
+          "status": "clear",
+          "valid": true,
+          "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71"
+        },
+        "duration_seconds": 11.686,
+        "passed": true
+      },
+      {
+        "name": "model_pod_replacement",
+        "started_at": "2026-10-08T16:28:53.038701+00:00",
+        "recovered_inference": {
+          "receipt_id": "b4581ef7-5362-4dea-9443-1dd2efd7b2ab",
+          "status": "clear",
+          "valid": true,
+          "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71"
+        },
+        "duration_seconds": 9.711,
+        "passed": true
+      },
+      {
+        "name": "rolling_restart",
+        "started_at": "2026-10-08T16:29:05.749619+00:00",
+        "recovered_inference": {
+          "receipt_id": "68c01730-4888-4707-8089-a604710d5764",
+          "status": "clear",
+          "valid": true,
+          "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71"
+        },
+        "duration_seconds": 43.143,
+        "passed": true
+      },
+      {
+        "name": "bad_model_rollout",
+        "started_at": "2026-10-08T16:29:51.892871+00:00",
+        "available_replicas_during_failed_rollout": 2,
+        "unready_pod_count": 1,
+        "recovered_inference": {
+          "receipt_id": "844fef68-375b-40eb-9eea-d9b41db30507",
+          "status": "clear",
+          "valid": true,
+          "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71"
+        },
+        "duration_seconds": 20.235,
+        "passed": true
+      },
+      {
+        "name": "rollback",
+        "started_at": "2026-10-08T16:30:15.127644+00:00",
+        "recovered_inference": {
+          "receipt_id": "b8096e24-e87f-497d-af74-ae09a58eab81",
+          "status": "clear",
+          "valid": true,
+          "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71"
+        },
+        "duration_seconds": 0.208,
+        "passed": true
+      },
+      {
+        "name": "postgres_pod_replacement",
+        "started_at": "2026-10-08T16:30:18.336181+00:00",
+        "receipt_survived": "42061cb3-41ab-4ed4-af73-24773812a8f6",
+        "pvc_uid_unchanged": "19164689-c9da-441d-80c3-f60c93ff6032",
+        "recovered_inference": {
+          "receipt_id": "6188442f-ed16-4375-9b02-e167db72b34c",
+          "status": "clear",
+          "valid": true,
+          "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71"
+        },
+        "duration_seconds": 32.717,
+        "passed": true
+      }
+    ],
+    "phases": {
+      "baseline": {
+        "attempts": 10,
+        "http_errors": 0,
+        "http_error_fraction": 0.0,
+        "receipt_outcomes": {
+          "clear:no_current_warning": 10
+        },
+        "error_timestamps": []
+      },
+      "api_pod_replacement": {
+        "attempts": 30,
+        "http_errors": 0,
+        "http_error_fraction": 0.0,
+        "receipt_outcomes": {
+          "clear:no_current_warning": 30
+        },
+        "error_timestamps": []
+      },
+      "model_pod_replacement": {
+        "attempts": 25,
+        "http_errors": 0,
+        "http_error_fraction": 0.0,
+        "receipt_outcomes": {
+          "clear:no_current_warning": 25
+        },
+        "error_timestamps": []
+      },
+      "rolling_restart": {
+        "attempts": 93,
+        "http_errors": 0,
+        "http_error_fraction": 0.0,
+        "receipt_outcomes": {
+          "clear:no_current_warning": 93
+        },
+        "error_timestamps": []
+      },
+      "bad_model_rollout": {
+        "attempts": 46,
+        "http_errors": 0,
+        "http_error_fraction": 0.0,
+        "receipt_outcomes": {
+          "clear:no_current_warning": 45,
+          "review:model_unavailable": 1
+        },
+        "error_timestamps": []
+      },
+      "rollback": {
+        "attempts": 6,
+        "http_errors": 0,
+        "http_error_fraction": 0.0,
+        "receipt_outcomes": {
+          "clear:no_current_warning": 6
+        },
+        "error_timestamps": []
+      },
+      "postgres_pod_replacement": {
+        "attempts": 72,
+        "http_errors": 5,
+        "http_error_fraction": 0.06944444444444445,
+        "receipt_outcomes": {
+          "clear:no_current_warning": 67,
+          "http_error:": 5
+        },
+        "error_timestamps": [
+          "2026-10-08T16:30:48.888104+00:00",
+          "2026-10-08T16:30:49.388328+00:00",
+          "2026-10-08T16:30:49.889413+00:00",
+          "2026-10-08T16:30:50.389521+00:00",
+          "2026-10-08T16:30:50.889624+00:00"
+        ]
+      },
+      "recovered": {
+        "attempts": 10,
+        "http_errors": 0,
+        "http_error_fraction": 0.0,
+        "receipt_outcomes": {
+          "clear:no_current_warning": 10
+        },
+        "error_timestamps": []
+      }
+    }
+  }
+}

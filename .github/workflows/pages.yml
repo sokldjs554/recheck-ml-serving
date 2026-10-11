@@ -8,6 +8,7 @@ on:
       - 'scripts/check_evidence_browser.py'
       - 'scripts/check_case_browser.py'
       - 'scripts/check_comparison_browser.py'
+      - 'scripts/check_serving_browser.py'
   workflow_dispatch:
 permissions:
   contents: read
@@ -103,6 +104,10 @@ jobs:
         run: |
           RECHECK_CHROMIUM=$(python -c 'from playwright.sync_api import sync_playwright; p=sync_playwright().start(); print(p.chromium.executable_path); p.stop()')
           python scripts/check_comparison_browser.py --base "${{ steps.deployment.outputs.page_url }}" --browser-executable "$RECHECK_CHROMIUM" --output work/public-comparison
+      - name: Verify serving evidence navigation and failure accounting
+        run: |
+          RECHECK_CHROMIUM=$(python -c 'from playwright.sync_api import sync_playwright; p=sync_playwright().start(); print(p.chromium.executable_path); p.stop()')
+          python scripts/check_serving_browser.py --base "${{ steps.deployment.outputs.page_url }}" --browser-executable "$RECHECK_CHROMIUM" --output work/public-serving
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -112,3 +117,4 @@ jobs:
             work/public-evidence
             work/public-case
             work/public-comparison
+            work/public-serving

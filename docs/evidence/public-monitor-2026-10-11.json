@@ -1,0 +1,65 @@
+{
+  "source_run": 38126563464,
+  "source_url": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/38126563464",
+  "conclusion": "failure",
+  "functional_acceptance": "success",
+  "summary": {
+    "total": 3,
+    "good": 2,
+    "bad": 1,
+    "availability": 0.6666666666666666,
+    "target": 0.99,
+    "latency_budget_ms": 5000,
+    "allowed_bad_samples": 0.030000000000000027,
+    "budget_consumed_ratio": 33.33333333333331,
+    "scope": "sampled synthetic workflow, not continuous production uptime",
+    "window_start": "2026-10-11T08:56:14.621151+00:00",
+    "window_end": "2026-10-11T08:57:53.856021+00:00",
+    "interval_seconds": 15
+  },
+  "rows": [
+    {
+      "at": "2026-10-11T08:56:14.621151+00:00",
+      "ok": true,
+      "steps": [
+        "health",
+        "session",
+        "inference",
+        "current_validation",
+        "mutation",
+        "stale_rejection"
+      ],
+      "trace_id": "feb7f6c9fcbd70528d4e32cc6839d0c9",
+      "duration_ms": 65100.243
+    },
+    {
+      "at": "2026-10-11T08:57:34.736817+00:00",
+      "ok": true,
+      "steps": [
+        "health",
+        "session",
+        "inference",
+        "current_validation",
+        "mutation",
+        "stale_rejection"
+      ],
+      "trace_id": "2f3bd7dcb8f69886064a7277c6ebad82",
+      "duration_ms": 2389.151
+    },
+    {
+      "at": "2026-10-11T08:57:52.141288+00:00",
+      "ok": true,
+      "steps": [
+        "health",
+        "session",
+        "inference",
+        "current_validation",
+        "mutation",
+        "stale_rejection"
+      ],
+      "trace_id": "a4c6574fae2ead8fc9993582057f0fc0",
+      "duration_ms": 1714.358
+    }
+  ],
+  "scope": "Stored scheduled public API probe; not continuous availability. First sample includes host startup; no excluded warmup."
+}

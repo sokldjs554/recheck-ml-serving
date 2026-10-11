@@ -1,6 +1,6 @@
 # RECHECK
 
-**AI 결과의 근거를 실행 시점에 다시 검증하는 Python 백엔드**
+**AI 결과의 실행 시점 정합성과 모델 부하·장애 경계를 검증하는 Python 백엔드**
 
 답변 생성 이후의 문서 변경, 검사와 기록 사이의 경쟁 조건, 중복 요청을 실제 SQL 트랜잭션으로 다룹니다.
 가상 상담 문서의 이체 한도를 300만 원에서 100만 원으로 바꾸면, 예전 답변을 사용하는 작업은 거절됩니다.
@@ -19,6 +19,16 @@
 [실제 API 데모](https://sokldjs554.github.io/recheck-ml-serving/) · [기술 선택과 비교 근거](docs/safety-case-study.md)
 
 ![원문은 100만 원으로 변경됐지만 300만 원 답변이 남아 있어 실행이 차단된 실제 API 재현 화면](docs/evidence/replay-instrument.png)
+
+## 세 경로로 확인하기
+
+| 확인할 내용 | 바로 열기 | 근거의 범위 |
+|---|---|---|
+| 원문 변경·중복 요청의 정합성 | [정합성 재현](https://sokldjs554.github.io/recheck-ml-serving/#case) | 지금 실행하는 실제 Python API·SQL |
+| CPU 모델의 처리 한계 | [모델 부하](https://sokldjs554.github.io/recheck-ml-serving/#serving) | 저장된 30/60 req/s 실험, 실패·메모리 포함 |
+| 장애 관측과 복구 | [장애 복구](https://sokldjs554.github.io/recheck-ml-serving/#recovery) | 실제 로컬/Kubernetes 실험과 공개 API 점검 기록 |
+
+최근 공개 API 점검은 기능 검증 3/3, 5초 내 완료 2/3입니다. 첫 표본 65.1초의 시작 지연도 실패로 보존했습니다. 저장된 실험이나 주기적 표본을 장기간 SLA 달성으로 표현하지 않습니다.
 
 ## 먼저 체험할 한 가지
 
