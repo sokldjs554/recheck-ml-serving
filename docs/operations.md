@@ -1,6 +1,6 @@
 # RECHECK operations and test SLO
 
-This is a reproducible local laboratory and a small public portfolio service, not a claim of production traffic, an uptime SLA, or years of on-call experience. The observability lab runs actual Prometheus, Grafana, an OpenTelemetry collector, Jaeger and Alertmanager. Notifications go only to an owned local HTTP receiver. SQLite in this lab is disposable; the separate Kubernetes lab uses persistent PostgreSQL.
+This is a reproducible local laboratory and a small public portfolio service, not a claim of production traffic, an uptime SLA, or years of on-call experience. The observability lab runs actual Prometheus, Grafana, an OpenTelemetry collector, Jaeger and Alertmanager. Notifications go only to an owned local HTTP receiver. Local SQLite fixtures are disposable. The public service now uses Neon PostgreSQL and a durable bounded observation journal; the separate Kubernetes lab also uses PostgreSQL. See [public runtime](public-runtime.md).
 
 ## Reproduce the observability proof
 
@@ -82,7 +82,7 @@ The lab evaluates every two seconds. `RecheckTargetDown` fires after six seconds
 6. Recover the failing target, wait for readiness and scrape recovery, execute a successful protected decision and validation, then verify the **resolved** webhook. Record recovery time and exact evidence, and calculate impact from all observed attempts. Do not call a restart alone recovery.
 7. Write the incident's cause, contributing load/resource conditions, detection gap and corrective change. The executed monitoring lab encountered shared-host disk exhaustion before startup; verification was sequenced after the Kubernetes lab rather than hiding the resource conflict. No customer incident is implied.
 
-Public checks, if configured, measure only their stated observation interval. Render free-service sleep, ephemeral public SQLite storage, missing multi-region redundancy, short local retention and single-host Kubernetes failure boundaries remain explicit limits.
+Public checks measure only their stated observation interval. Render free-service sleep, missing multi-region redundancy, short local retention and single-host Kubernetes failure boundaries remain explicit limits.
 
 ## 실제 화면
 

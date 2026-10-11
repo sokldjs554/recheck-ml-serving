@@ -141,4 +141,13 @@ backend/.venv/bin/python scripts/benchmark.py --count 60 --rate 80 --delay 80 --
 
 지원 동기·이력서 초안은 저장소의 최신 트리에서 제거하고 별도 비공개 제출용 문서로 분리했다. 데모의 소개 탭은 설계 배경·SQL 적용 범위로 정리했다. 변경된 메뉴명으로 기존 브라우저 확인 18개를 다시 통과했다.
 
-첫 공개 화면 검증 중 11:24:13 UTC의 Render 인스턴스 교체로 기존 세션의 prepare 요청이 404를 반환했다. 앱 로그에서 이전 인스턴스의 200과 새 인스턴스의 404를 확인했다. Pages 검증은 서버의 정적 번들 이름이 해당 커밋과 일치할 때까지 기다린 뒤 세션을 생성하도록 수정했다. 공개 데모의 임시 SQLite는 재배포를 넘어 세션을 보존하지 않는다.
+첫 공개 화면 검증 중 11:24:13 UTC의 Render 인스턴스 교체로 기존 세션의 prepare 요청이 404를 반환했다. 앱 로그에서 이전 인스턴스의 200과 새 인스턴스의 404를 확인했다. Pages 검증은 서버의 정적 번들 이름이 해당 커밋과 일치할 때까지 기다린 뒤 세션을 생성하도록 수정했다. 당시 공개 데모의 임시 SQLite는 재배포를 넘어 세션을 보존하지 못했다. 2026-10-12 KST에 Neon PostgreSQL로 전환했고 [재배포 전후 동일 기록](evidence/public-storage-verification.json)을 검증해 이 제한을 보완했다.
+
+## 2026-10-12 KST: 공개 영속 저장·관측·전체 경로
+
+- 공개 Render→Neon PostgreSQL 17 전환. 재배포로 실행 ID가 바뀐 뒤 같은 작업 ID·내용·단일 SQL 기록을 확인했다. [공개 검증](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/38154963293), [불변 재생 원본](evidence/public-storage-verification.json).
+- 공개 HTTP 200의 모델 실패도 사업 결과 카운터에 보존한다. 배포 중 구·신 인스턴스가 겹치는 순서 때문에 최초 점검이 실패했고, 실행 ID별 증가량과 해당 요청의 SQL 기록을 함께 검증하도록 수정했다. [실패 원본](evidence/public-observations-failed.json), [수정 후 실제 공개 검증](evidence/public-observations-proof.json).
+- API→CPU 모델→PostgreSQL 1,220회 시도. 오류·거절·HTTP 200 보류를 포함하고, 전달된 HTTP 200 기록 1,202건을 SQL과 대조했다. 연결 중단·모델 실패·기한 초과·같은 키 재생·API 재시작을 별도 검증했다. [전체 경로 기록과 한계](public-runtime.md).
+- 별도 GitHub runner/PostgreSQL 17에서도 [전체 경로 회귀](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/38154963345)를 통과했다. 로컬 성능 수치를 이 runner나 공개 Render의 용량으로 바꾸어 주장하지 않는다.
+- 공개 브라우저에서 기본 동작 18개, 근거 실험 12개, 핵심 사례 6개, 비교 7개, 서빙·운영 기록 5개를 검증했다. [공개 화면 검증](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/38154265124).
+- 무료 서버의 시작 지연은 남아 있다. 상시 실행은 별도 비용 승인이 필요한 배포 선택이다. 기능 검증이나 짧은 운영 표본을 장기 SLA로 표현하지 않는다.

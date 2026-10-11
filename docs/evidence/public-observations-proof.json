@@ -1,0 +1,4198 @@
+{
+  "at": "2026-10-11T16:19:27.914910+00:00",
+  "passed": true,
+  "scope": "public API injected model-unavailable response then normal inference; durable boot-scoped counters, not a real provider outage",
+  "before_samples": [
+    {
+      "id": "e19f90fc-5da9-428d-a0e4-24be5d4fa804",
+      "at": 1791734454.8333602,
+      "boot_id": "8c6ffe22-ea62-49ef-ab52-4853d6bf30e1",
+      "ready": true,
+      "reason": "ok",
+      "api": [],
+      "model": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "GET",
+            "route": "/health",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "HEAD",
+            "route": "unmatched",
+            "service": "model",
+            "status": "404"
+          },
+          "value": 1.0
+        }
+      ],
+      "dropped_unpersisted_samples": 0
+    },
+    {
+      "id": "87a5a4b4-a5f1-458c-a48e-1112856003ba",
+      "at": 1791734515.1329381,
+      "boot_id": "8c6ffe22-ea62-49ef-ab52-4853d6bf30e1",
+      "ready": true,
+      "reason": "ok",
+      "api": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "HEAD",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/operations",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/health",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/prepare",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/execute",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "OPTIONS",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 8.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/decisions",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/decisions/{did}/validate",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/mutations",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/evidence",
+            "status": "200"
+          },
+          "value": 10.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/use",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/events",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/releases/evaluate",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/releases/{report_id}/promote",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "service": "api",
+            "outcome": "clear",
+            "reason": "no_current_warning"
+          },
+          "value": 1.0
+        }
+      ],
+      "model": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "GET",
+            "route": "/health",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 6.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "HEAD",
+            "route": "unmatched",
+            "service": "model",
+            "status": "404"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "POST",
+            "route": "/infer",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "outcome": "success",
+            "reason": "none",
+            "service": "model"
+          },
+          "value": 1.0
+        }
+      ],
+      "dropped_unpersisted_samples": 0
+    },
+    {
+      "id": "b55e7efd-3e32-449d-a498-6515d4345e0a",
+      "at": 1791734575.2337162,
+      "boot_id": "8c6ffe22-ea62-49ef-ab52-4853d6bf30e1",
+      "ready": true,
+      "reason": "ok",
+      "api": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "HEAD",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/operations",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/health",
+            "status": "200"
+          },
+          "value": 7.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions",
+            "status": "200"
+          },
+          "value": 8.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/prepare",
+            "status": "200"
+          },
+          "value": 10.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/execute",
+            "status": "200"
+          },
+          "value": 6.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "OPTIONS",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 25.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/decisions",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/decisions/{did}/validate",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/mutations",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/evidence",
+            "status": "200"
+          },
+          "value": 25.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/use",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/events",
+            "status": "200"
+          },
+          "value": 6.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/releases/evaluate",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/releases/{report_id}/promote",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/execute",
+            "status": "409"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/evidence/actions",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "service": "api",
+            "outcome": "clear",
+            "reason": "no_current_warning"
+          },
+          "value": 1.0
+        }
+      ],
+      "model": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "GET",
+            "route": "/health",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 11.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "HEAD",
+            "route": "unmatched",
+            "service": "model",
+            "status": "404"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "POST",
+            "route": "/infer",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "outcome": "success",
+            "reason": "none",
+            "service": "model"
+          },
+          "value": 1.0
+        }
+      ],
+      "dropped_unpersisted_samples": 0
+    },
+    {
+      "id": "71d77338-ccf4-4288-8b37-6ee386c1c6e1",
+      "at": 1791734995.3502295,
+      "boot_id": "8c6ffe22-ea62-49ef-ab52-4853d6bf30e1",
+      "ready": true,
+      "reason": "ok",
+      "api": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "HEAD",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/operations",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/health",
+            "status": "200"
+          },
+          "value": 9.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions",
+            "status": "200"
+          },
+          "value": 10.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/prepare",
+            "status": "200"
+          },
+          "value": 10.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/execute",
+            "status": "200"
+          },
+          "value": 6.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "OPTIONS",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 25.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/decisions",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/decisions/{did}/validate",
+            "status": "200"
+          },
+          "value": 6.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/mutations",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/evidence",
+            "status": "200"
+          },
+          "value": 25.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/use",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/events",
+            "status": "200"
+          },
+          "value": 6.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/releases/evaluate",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/releases/{report_id}/promote",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/execute",
+            "status": "409"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/evidence/actions",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "service": "api",
+            "outcome": "clear",
+            "reason": "no_current_warning"
+          },
+          "value": 3.0
+        }
+      ],
+      "model": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "GET",
+            "route": "/health",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 14.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "HEAD",
+            "route": "unmatched",
+            "service": "model",
+            "status": "404"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "POST",
+            "route": "/infer",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "outcome": "success",
+            "reason": "none",
+            "service": "model"
+          },
+          "value": 3.0
+        }
+      ],
+      "dropped_unpersisted_samples": 0
+    },
+    {
+      "id": "4b8068f7-a5e6-4252-a83f-0f42ddd6b053",
+      "at": 1791735055.444892,
+      "boot_id": "8c6ffe22-ea62-49ef-ab52-4853d6bf30e1",
+      "ready": true,
+      "reason": "ok",
+      "api": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "HEAD",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 11.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/operations",
+            "status": "200"
+          },
+          "value": 21.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/health",
+            "status": "200"
+          },
+          "value": 12.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions",
+            "status": "200"
+          },
+          "value": 14.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/prepare",
+            "status": "200"
+          },
+          "value": 10.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/execute",
+            "status": "200"
+          },
+          "value": 6.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "OPTIONS",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 25.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/decisions",
+            "status": "200"
+          },
+          "value": 9.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/decisions/{did}/validate",
+            "status": "200"
+          },
+          "value": 9.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/mutations",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/evidence",
+            "status": "200"
+          },
+          "value": 25.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/use",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/events",
+            "status": "200"
+          },
+          "value": 6.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/releases/evaluate",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/releases/{report_id}/promote",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/execute",
+            "status": "409"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/evidence/actions",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/decisions",
+            "status": "409"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/decisions/{did}/validate",
+            "status": "404"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "service": "api",
+            "outcome": "clear",
+            "reason": "no_current_warning"
+          },
+          "value": 7.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "service": "api",
+            "outcome": "error",
+            "reason": "other"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "service": "api",
+            "outcome": "review",
+            "reason": "model_unavailable"
+          },
+          "value": 2.0
+        }
+      ],
+      "model": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "GET",
+            "route": "/health",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 18.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "HEAD",
+            "route": "unmatched",
+            "service": "model",
+            "status": "404"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "POST",
+            "route": "/infer",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 6.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "POST",
+            "route": "/infer",
+            "service": "model",
+            "status": "503"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "outcome": "success",
+            "reason": "none",
+            "service": "model"
+          },
+          "value": 6.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "outcome": "error",
+            "reason": "model_unavailable",
+            "service": "model"
+          },
+          "value": 2.0
+        }
+      ],
+      "dropped_unpersisted_samples": 0
+    },
+    {
+      "id": "9d24fe88-7f36-40cb-b1ce-d17a6cd9ef44",
+      "at": 1791735067.8488898,
+      "boot_id": "a002ff2c-e76f-4dd7-b88f-8046c1eeaf06",
+      "ready": true,
+      "reason": "ok",
+      "api": [],
+      "model": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "GET",
+            "route": "/health",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "HEAD",
+            "route": "unmatched",
+            "service": "model",
+            "status": "404"
+          },
+          "value": 1.0
+        }
+      ],
+      "dropped_unpersisted_samples": 0
+    },
+    {
+      "id": "bacfb61e-6973-418c-9d2b-9ee8fa738cf5",
+      "at": 1791735078.112886,
+      "boot_id": "8c6ffe22-ea62-49ef-ab52-4853d6bf30e1",
+      "ready": false,
+      "reason": "model_unavailable",
+      "api": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "HEAD",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 15.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/operations",
+            "status": "200"
+          },
+          "value": 27.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/health",
+            "status": "200"
+          },
+          "value": 14.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions",
+            "status": "200"
+          },
+          "value": 15.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/prepare",
+            "status": "200"
+          },
+          "value": 10.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/execute",
+            "status": "200"
+          },
+          "value": 7.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "OPTIONS",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 25.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/decisions",
+            "status": "200"
+          },
+          "value": 11.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/decisions/{did}/validate",
+            "status": "200"
+          },
+          "value": 9.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/mutations",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/evidence",
+            "status": "200"
+          },
+          "value": 25.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/use",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/events",
+            "status": "200"
+          },
+          "value": 6.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/releases/evaluate",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/releases/{report_id}/promote",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/execute",
+            "status": "409"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/evidence/actions",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/decisions",
+            "status": "409"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/decisions/{did}/validate",
+            "status": "404"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "service": "api",
+            "outcome": "clear",
+            "reason": "no_current_warning"
+          },
+          "value": 8.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "service": "api",
+            "outcome": "error",
+            "reason": "other"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "service": "api",
+            "outcome": "review",
+            "reason": "model_unavailable"
+          },
+          "value": 3.0
+        }
+      ],
+      "model": [],
+      "model_metrics_missing": true,
+      "dropped_unpersisted_samples": 0
+    },
+    {
+      "id": "70145c29-71f8-4ecf-b553-2cb23f59f774",
+      "at": 1791735128.1530845,
+      "boot_id": "a002ff2c-e76f-4dd7-b88f-8046c1eeaf06",
+      "ready": true,
+      "reason": "ok",
+      "api": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "HEAD",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/operations",
+            "status": "200"
+          },
+          "value": 9.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/health",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "OPTIONS",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 7.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/decisions",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/decisions/{did}/validate",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/mutations",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/evidence",
+            "status": "200"
+          },
+          "value": 8.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/prepare",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/use",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/events",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/releases/evaluate",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "service": "api",
+            "outcome": "clear",
+            "reason": "no_current_warning"
+          },
+          "value": 1.0
+        }
+      ],
+      "model": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "GET",
+            "route": "/health",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "HEAD",
+            "route": "unmatched",
+            "service": "model",
+            "status": "404"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "POST",
+            "route": "/infer",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "outcome": "success",
+            "reason": "none",
+            "service": "model"
+          },
+          "value": 1.0
+        }
+      ],
+      "dropped_unpersisted_samples": 0
+    },
+    {
+      "id": "a7624643-eefa-4bf3-ba9f-55014a1fbe2e",
+      "at": 1791735188.2380712,
+      "boot_id": "a002ff2c-e76f-4dd7-b88f-8046c1eeaf06",
+      "ready": true,
+      "reason": "ok",
+      "api": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "HEAD",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/operations",
+            "status": "200"
+          },
+          "value": 19.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/health",
+            "status": "200"
+          },
+          "value": 6.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "OPTIONS",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 25.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions",
+            "status": "200"
+          },
+          "value": 7.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/decisions",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/decisions/{did}/validate",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/mutations",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/evidence",
+            "status": "200"
+          },
+          "value": 25.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/prepare",
+            "status": "200"
+          },
+          "value": 9.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/use",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/events",
+            "status": "200"
+          },
+          "value": 6.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/releases/evaluate",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/releases/{report_id}/promote",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/execute",
+            "status": "409"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/execute",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/evidence/actions",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "service": "api",
+            "outcome": "clear",
+            "reason": "no_current_warning"
+          },
+          "value": 1.0
+        }
+      ],
+      "model": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "GET",
+            "route": "/health",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 10.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "HEAD",
+            "route": "unmatched",
+            "service": "model",
+            "status": "404"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "POST",
+            "route": "/infer",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "outcome": "success",
+            "reason": "none",
+            "service": "model"
+          },
+          "value": 1.0
+        }
+      ],
+      "dropped_unpersisted_samples": 0
+    }
+  ],
+  "failure": {
+    "id": "91ea9620-c4f8-48bb-91b0-88c832d90cc0",
+    "session_id": "afbeec27-cca8-4f09-828e-4a88b1dff960",
+    "status": "review",
+    "reason": "model_unavailable",
+    "risk_score": null,
+    "feature_version": 1,
+    "policy_version": 1,
+    "model_version": "risk-v1",
+    "created_at": "2026-10-11T16:19:28.797436+00:00",
+    "expires_at": "2026-10-11T16:19:43.797436+00:00",
+    "latency_ms": 41.24199040234089,
+    "trace_id": "6e3ab4bc2ed4545072c95b85269b1d9a",
+    "spans": [
+      {
+        "name": "decision",
+        "start_ms": 0.128883,
+        "duration_ms": 40.935655,
+        "status": "error"
+      },
+      {
+        "name": "snapshot",
+        "start_ms": 0.183104,
+        "duration_ms": 17.219354,
+        "status": "ok"
+      },
+      {
+        "name": "model.http",
+        "start_ms": 17.534581,
+        "duration_ms": 13.728693,
+        "status": "error"
+      },
+      {
+        "name": "fence.commit",
+        "start_ms": 31.451018,
+        "duration_ms": 9.567099,
+        "status": "ok"
+      }
+    ],
+    "protected": true,
+    "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71"
+  },
+  "recovered": {
+    "id": "0fe7211f-6be5-4ce1-826e-50748d4b53a8",
+    "session_id": "afbeec27-cca8-4f09-828e-4a88b1dff960",
+    "status": "clear",
+    "reason": "no_current_warning",
+    "risk_score": 0.009762617173452968,
+    "feature_version": 1,
+    "policy_version": 1,
+    "model_version": "risk-v1",
+    "created_at": "2026-10-11T16:19:29.394231+00:00",
+    "expires_at": "2026-10-11T16:19:44.394231+00:00",
+    "latency_ms": 28.361408039927483,
+    "trace_id": "eddca4e82968a04fd2bfe7aab3913662",
+    "spans": [
+      {
+        "name": "decision",
+        "start_ms": 0.121723,
+        "duration_ms": 28.069711,
+        "status": "ok"
+      },
+      {
+        "name": "snapshot",
+        "start_ms": 0.173444,
+        "duration_ms": 15.060314,
+        "status": "ok"
+      },
+      {
+        "name": "model.http",
+        "start_ms": 15.3392,
+        "duration_ms": 3.958791,
+        "status": "ok"
+      },
+      {
+        "name": "model.infer",
+        "start_ms": 15.439992,
+        "duration_ms": 0.904781,
+        "status": "ok"
+      },
+      {
+        "name": "model.predict",
+        "start_ms": 15.607096,
+        "duration_ms": 0.667075,
+        "status": "ok"
+      },
+      {
+        "name": "fence.commit",
+        "start_ms": 19.446354,
+        "duration_ms": 8.702168,
+        "status": "ok"
+      }
+    ],
+    "protected": true,
+    "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71"
+  },
+  "both_receipts_persisted": true,
+  "last_observed_samples": [
+    {
+      "id": "e19f90fc-5da9-428d-a0e4-24be5d4fa804",
+      "at": 1791734454.8333602,
+      "boot_id": "8c6ffe22-ea62-49ef-ab52-4853d6bf30e1",
+      "ready": true,
+      "reason": "ok",
+      "api": [],
+      "model": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "GET",
+            "route": "/health",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "HEAD",
+            "route": "unmatched",
+            "service": "model",
+            "status": "404"
+          },
+          "value": 1.0
+        }
+      ],
+      "dropped_unpersisted_samples": 0
+    },
+    {
+      "id": "87a5a4b4-a5f1-458c-a48e-1112856003ba",
+      "at": 1791734515.1329381,
+      "boot_id": "8c6ffe22-ea62-49ef-ab52-4853d6bf30e1",
+      "ready": true,
+      "reason": "ok",
+      "api": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "HEAD",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/operations",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/health",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/prepare",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/execute",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "OPTIONS",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 8.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/decisions",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/decisions/{did}/validate",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/mutations",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/evidence",
+            "status": "200"
+          },
+          "value": 10.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/use",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/events",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/releases/evaluate",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/releases/{report_id}/promote",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "service": "api",
+            "outcome": "clear",
+            "reason": "no_current_warning"
+          },
+          "value": 1.0
+        }
+      ],
+      "model": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "GET",
+            "route": "/health",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 6.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "HEAD",
+            "route": "unmatched",
+            "service": "model",
+            "status": "404"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "POST",
+            "route": "/infer",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "outcome": "success",
+            "reason": "none",
+            "service": "model"
+          },
+          "value": 1.0
+        }
+      ],
+      "dropped_unpersisted_samples": 0
+    },
+    {
+      "id": "b55e7efd-3e32-449d-a498-6515d4345e0a",
+      "at": 1791734575.2337162,
+      "boot_id": "8c6ffe22-ea62-49ef-ab52-4853d6bf30e1",
+      "ready": true,
+      "reason": "ok",
+      "api": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "HEAD",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/operations",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/health",
+            "status": "200"
+          },
+          "value": 7.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions",
+            "status": "200"
+          },
+          "value": 8.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/prepare",
+            "status": "200"
+          },
+          "value": 10.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/execute",
+            "status": "200"
+          },
+          "value": 6.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "OPTIONS",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 25.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/decisions",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/decisions/{did}/validate",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/mutations",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/evidence",
+            "status": "200"
+          },
+          "value": 25.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/use",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/events",
+            "status": "200"
+          },
+          "value": 6.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/releases/evaluate",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/releases/{report_id}/promote",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/execute",
+            "status": "409"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/evidence/actions",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "service": "api",
+            "outcome": "clear",
+            "reason": "no_current_warning"
+          },
+          "value": 1.0
+        }
+      ],
+      "model": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "GET",
+            "route": "/health",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 11.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "HEAD",
+            "route": "unmatched",
+            "service": "model",
+            "status": "404"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "POST",
+            "route": "/infer",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "outcome": "success",
+            "reason": "none",
+            "service": "model"
+          },
+          "value": 1.0
+        }
+      ],
+      "dropped_unpersisted_samples": 0
+    },
+    {
+      "id": "71d77338-ccf4-4288-8b37-6ee386c1c6e1",
+      "at": 1791734995.3502295,
+      "boot_id": "8c6ffe22-ea62-49ef-ab52-4853d6bf30e1",
+      "ready": true,
+      "reason": "ok",
+      "api": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "HEAD",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/operations",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/health",
+            "status": "200"
+          },
+          "value": 9.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions",
+            "status": "200"
+          },
+          "value": 10.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/prepare",
+            "status": "200"
+          },
+          "value": 10.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/execute",
+            "status": "200"
+          },
+          "value": 6.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "OPTIONS",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 25.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/decisions",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/decisions/{did}/validate",
+            "status": "200"
+          },
+          "value": 6.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/mutations",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/evidence",
+            "status": "200"
+          },
+          "value": 25.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/use",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/events",
+            "status": "200"
+          },
+          "value": 6.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/releases/evaluate",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/releases/{report_id}/promote",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/execute",
+            "status": "409"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/evidence/actions",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "service": "api",
+            "outcome": "clear",
+            "reason": "no_current_warning"
+          },
+          "value": 3.0
+        }
+      ],
+      "model": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "GET",
+            "route": "/health",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 14.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "HEAD",
+            "route": "unmatched",
+            "service": "model",
+            "status": "404"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "POST",
+            "route": "/infer",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "outcome": "success",
+            "reason": "none",
+            "service": "model"
+          },
+          "value": 3.0
+        }
+      ],
+      "dropped_unpersisted_samples": 0
+    },
+    {
+      "id": "4b8068f7-a5e6-4252-a83f-0f42ddd6b053",
+      "at": 1791735055.444892,
+      "boot_id": "8c6ffe22-ea62-49ef-ab52-4853d6bf30e1",
+      "ready": true,
+      "reason": "ok",
+      "api": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "HEAD",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 11.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/operations",
+            "status": "200"
+          },
+          "value": 21.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/health",
+            "status": "200"
+          },
+          "value": 12.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions",
+            "status": "200"
+          },
+          "value": 14.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/prepare",
+            "status": "200"
+          },
+          "value": 10.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/execute",
+            "status": "200"
+          },
+          "value": 6.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "OPTIONS",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 25.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/decisions",
+            "status": "200"
+          },
+          "value": 9.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/decisions/{did}/validate",
+            "status": "200"
+          },
+          "value": 9.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/mutations",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/evidence",
+            "status": "200"
+          },
+          "value": 25.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/use",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/events",
+            "status": "200"
+          },
+          "value": 6.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/releases/evaluate",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/releases/{report_id}/promote",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/execute",
+            "status": "409"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/evidence/actions",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/decisions",
+            "status": "409"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/decisions/{did}/validate",
+            "status": "404"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "service": "api",
+            "outcome": "clear",
+            "reason": "no_current_warning"
+          },
+          "value": 7.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "service": "api",
+            "outcome": "error",
+            "reason": "other"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "service": "api",
+            "outcome": "review",
+            "reason": "model_unavailable"
+          },
+          "value": 2.0
+        }
+      ],
+      "model": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "GET",
+            "route": "/health",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 18.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "HEAD",
+            "route": "unmatched",
+            "service": "model",
+            "status": "404"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "POST",
+            "route": "/infer",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 6.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "POST",
+            "route": "/infer",
+            "service": "model",
+            "status": "503"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "outcome": "success",
+            "reason": "none",
+            "service": "model"
+          },
+          "value": 6.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "outcome": "error",
+            "reason": "model_unavailable",
+            "service": "model"
+          },
+          "value": 2.0
+        }
+      ],
+      "dropped_unpersisted_samples": 0
+    },
+    {
+      "id": "9d24fe88-7f36-40cb-b1ce-d17a6cd9ef44",
+      "at": 1791735067.8488898,
+      "boot_id": "a002ff2c-e76f-4dd7-b88f-8046c1eeaf06",
+      "ready": true,
+      "reason": "ok",
+      "api": [],
+      "model": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "GET",
+            "route": "/health",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "HEAD",
+            "route": "unmatched",
+            "service": "model",
+            "status": "404"
+          },
+          "value": 1.0
+        }
+      ],
+      "dropped_unpersisted_samples": 0
+    },
+    {
+      "id": "bacfb61e-6973-418c-9d2b-9ee8fa738cf5",
+      "at": 1791735078.112886,
+      "boot_id": "8c6ffe22-ea62-49ef-ab52-4853d6bf30e1",
+      "ready": false,
+      "reason": "model_unavailable",
+      "api": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "HEAD",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 15.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/operations",
+            "status": "200"
+          },
+          "value": 27.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/health",
+            "status": "200"
+          },
+          "value": 14.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions",
+            "status": "200"
+          },
+          "value": 15.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/prepare",
+            "status": "200"
+          },
+          "value": 10.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/execute",
+            "status": "200"
+          },
+          "value": 7.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "OPTIONS",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 25.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/decisions",
+            "status": "200"
+          },
+          "value": 11.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/decisions/{did}/validate",
+            "status": "200"
+          },
+          "value": 9.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/mutations",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/evidence",
+            "status": "200"
+          },
+          "value": 25.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/use",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/events",
+            "status": "200"
+          },
+          "value": 6.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/releases/evaluate",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/releases/{report_id}/promote",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/execute",
+            "status": "409"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/evidence/actions",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/decisions",
+            "status": "409"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/decisions/{did}/validate",
+            "status": "404"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "service": "api",
+            "outcome": "clear",
+            "reason": "no_current_warning"
+          },
+          "value": 8.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "service": "api",
+            "outcome": "error",
+            "reason": "other"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "service": "api",
+            "outcome": "review",
+            "reason": "model_unavailable"
+          },
+          "value": 3.0
+        }
+      ],
+      "model": [],
+      "model_metrics_missing": true,
+      "dropped_unpersisted_samples": 0
+    },
+    {
+      "id": "70145c29-71f8-4ecf-b553-2cb23f59f774",
+      "at": 1791735128.1530845,
+      "boot_id": "a002ff2c-e76f-4dd7-b88f-8046c1eeaf06",
+      "ready": true,
+      "reason": "ok",
+      "api": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "HEAD",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/operations",
+            "status": "200"
+          },
+          "value": 9.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/health",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "OPTIONS",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 7.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/decisions",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/decisions/{did}/validate",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/mutations",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/evidence",
+            "status": "200"
+          },
+          "value": 8.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/prepare",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/use",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/events",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/releases/evaluate",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "service": "api",
+            "outcome": "clear",
+            "reason": "no_current_warning"
+          },
+          "value": 1.0
+        }
+      ],
+      "model": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "GET",
+            "route": "/health",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "HEAD",
+            "route": "unmatched",
+            "service": "model",
+            "status": "404"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "POST",
+            "route": "/infer",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "outcome": "success",
+            "reason": "none",
+            "service": "model"
+          },
+          "value": 1.0
+        }
+      ],
+      "dropped_unpersisted_samples": 0
+    },
+    {
+      "id": "a7624643-eefa-4bf3-ba9f-55014a1fbe2e",
+      "at": 1791735188.2380712,
+      "boot_id": "a002ff2c-e76f-4dd7-b88f-8046c1eeaf06",
+      "ready": true,
+      "reason": "ok",
+      "api": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "HEAD",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/operations",
+            "status": "200"
+          },
+          "value": 19.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/health",
+            "status": "200"
+          },
+          "value": 6.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "OPTIONS",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 25.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions",
+            "status": "200"
+          },
+          "value": 7.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/decisions",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/decisions/{did}/validate",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/mutations",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/evidence",
+            "status": "200"
+          },
+          "value": 25.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/prepare",
+            "status": "200"
+          },
+          "value": 9.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/use",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/events",
+            "status": "200"
+          },
+          "value": 6.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/releases/evaluate",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/releases/{report_id}/promote",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/execute",
+            "status": "409"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/execute",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/evidence/actions",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "service": "api",
+            "outcome": "clear",
+            "reason": "no_current_warning"
+          },
+          "value": 1.0
+        }
+      ],
+      "model": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "GET",
+            "route": "/health",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 10.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "HEAD",
+            "route": "unmatched",
+            "service": "model",
+            "status": "404"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "POST",
+            "route": "/infer",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "outcome": "success",
+            "reason": "none",
+            "service": "model"
+          },
+          "value": 1.0
+        }
+      ],
+      "dropped_unpersisted_samples": 0
+    },
+    {
+      "id": "49c0bb29-9851-4a89-bd55-83241c4ebc59",
+      "at": 1791735608.2776637,
+      "boot_id": "a002ff2c-e76f-4dd7-b88f-8046c1eeaf06",
+      "ready": true,
+      "reason": "ok",
+      "api": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "HEAD",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/operations",
+            "status": "200"
+          },
+          "value": 32.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/health",
+            "status": "200"
+          },
+          "value": 13.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "OPTIONS",
+            "route": "unmatched",
+            "status": "200"
+          },
+          "value": 25.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions",
+            "status": "200"
+          },
+          "value": 14.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/decisions",
+            "status": "200"
+          },
+          "value": 11.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/decisions/{did}/validate",
+            "status": "200"
+          },
+          "value": 9.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/mutations",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/evidence",
+            "status": "200"
+          },
+          "value": 25.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/prepare",
+            "status": "200"
+          },
+          "value": 9.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/use",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/events",
+            "status": "200"
+          },
+          "value": 6.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/releases/evaluate",
+            "status": "200"
+          },
+          "value": 5.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/releases/{report_id}/promote",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/execute",
+            "status": "409"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/evidence/receipts/{rid}/execute",
+            "status": "200"
+          },
+          "value": 6.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/evidence/actions",
+            "status": "200"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/decisions",
+            "status": "200"
+          },
+          "value": 2.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "POST",
+            "route": "/api/sessions/{sid}/decisions",
+            "status": "409"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "service": "api",
+            "method": "GET",
+            "route": "/api/sessions/{sid}/decisions/{did}/validate",
+            "status": "404"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "service": "api",
+            "outcome": "clear",
+            "reason": "no_current_warning"
+          },
+          "value": 8.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "service": "api",
+            "outcome": "review",
+            "reason": "model_unavailable"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "service": "api",
+            "outcome": "error",
+            "reason": "other"
+          },
+          "value": 1.0
+        }
+      ],
+      "model": [
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "GET",
+            "route": "/health",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 18.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "HEAD",
+            "route": "unmatched",
+            "service": "model",
+            "status": "404"
+          },
+          "value": 1.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "POST",
+            "route": "/infer",
+            "service": "model",
+            "status": "200"
+          },
+          "value": 7.0
+        },
+        {
+          "name": "recheck_http_requests_total",
+          "labels": {
+            "method": "POST",
+            "route": "/infer",
+            "service": "model",
+            "status": "503"
+          },
+          "value": 3.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "outcome": "success",
+            "reason": "none",
+            "service": "model"
+          },
+          "value": 7.0
+        },
+        {
+          "name": "recheck_business_outcomes_total",
+          "labels": {
+            "outcome": "error",
+            "reason": "model_unavailable",
+            "service": "model"
+          },
+          "value": 3.0
+        }
+      ],
+      "dropped_unpersisted_samples": 0
+    }
+  ],
+  "storage": "postgresql",
+  "after": {
+    "id": "49c0bb29-9851-4a89-bd55-83241c4ebc59",
+    "at": 1791735608.2776637,
+    "boot_id": "a002ff2c-e76f-4dd7-b88f-8046c1eeaf06",
+    "ready": true,
+    "reason": "ok",
+    "api": [
+      {
+        "name": "recheck_http_requests_total",
+        "labels": {
+          "service": "api",
+          "method": "HEAD",
+          "route": "unmatched",
+          "status": "200"
+        },
+        "value": 1.0
+      },
+      {
+        "name": "recheck_http_requests_total",
+        "labels": {
+          "service": "api",
+          "method": "GET",
+          "route": "unmatched",
+          "status": "200"
+        },
+        "value": 5.0
+      },
+      {
+        "name": "recheck_http_requests_total",
+        "labels": {
+          "service": "api",
+          "method": "GET",
+          "route": "/api/operations",
+          "status": "200"
+        },
+        "value": 32.0
+      },
+      {
+        "name": "recheck_http_requests_total",
+        "labels": {
+          "service": "api",
+          "method": "GET",
+          "route": "/health",
+          "status": "200"
+        },
+        "value": 13.0
+      },
+      {
+        "name": "recheck_http_requests_total",
+        "labels": {
+          "service": "api",
+          "method": "OPTIONS",
+          "route": "unmatched",
+          "status": "200"
+        },
+        "value": 25.0
+      },
+      {
+        "name": "recheck_http_requests_total",
+        "labels": {
+          "service": "api",
+          "method": "POST",
+          "route": "/api/sessions",
+          "status": "200"
+        },
+        "value": 14.0
+      },
+      {
+        "name": "recheck_http_requests_total",
+        "labels": {
+          "service": "api",
+          "method": "POST",
+          "route": "/api/sessions/{sid}/decisions",
+          "status": "200"
+        },
+        "value": 11.0
+      },
+      {
+        "name": "recheck_http_requests_total",
+        "labels": {
+          "service": "api",
+          "method": "GET",
+          "route": "/api/sessions/{sid}/decisions/{did}/validate",
+          "status": "200"
+        },
+        "value": 9.0
+      },
+      {
+        "name": "recheck_http_requests_total",
+        "labels": {
+          "service": "api",
+          "method": "POST",
+          "route": "/api/sessions/{sid}/mutations",
+          "status": "200"
+        },
+        "value": 5.0
+      },
+      {
+        "name": "recheck_http_requests_total",
+        "labels": {
+          "service": "api",
+          "method": "GET",
+          "route": "/api/sessions/{sid}/evidence",
+          "status": "200"
+        },
+        "value": 25.0
+      },
+      {
+        "name": "recheck_http_requests_total",
+        "labels": {
+          "service": "api",
+          "method": "POST",
+          "route": "/api/sessions/{sid}/evidence/prepare",
+          "status": "200"
+        },
+        "value": 9.0
+      },
+      {
+        "name": "recheck_http_requests_total",
+        "labels": {
+          "service": "api",
+          "method": "POST",
+          "route": "/api/sessions/{sid}/evidence/receipts/{rid}/use",
+          "status": "200"
+        },
+        "value": 5.0
+      },
+      {
+        "name": "recheck_http_requests_total",
+        "labels": {
+          "service": "api",
+          "method": "POST",
+          "route": "/api/sessions/{sid}/evidence/events",
+          "status": "200"
+        },
+        "value": 6.0
+      },
+      {
+        "name": "recheck_http_requests_total",
+        "labels": {
+          "service": "api",
+          "method": "POST",
+          "route": "/api/sessions/{sid}/evidence/releases/evaluate",
+          "status": "200"
+        },
+        "value": 5.0
+      },
+      {
+        "name": "recheck_http_requests_total",
+        "labels": {
+          "service": "api",
+          "method": "POST",
+          "route": "/api/sessions/{sid}/evidence/releases/{report_id}/promote",
+          "status": "200"
+        },
+        "value": 3.0
+      },
+      {
+        "name": "recheck_http_requests_total",
+        "labels": {
+          "service": "api",
+          "method": "POST",
+          "route": "/api/sessions/{sid}/evidence/receipts/{rid}/execute",
+          "status": "409"
+        },
+        "value": 2.0
+      },
+      {
+        "name": "recheck_http_requests_total",
+        "labels": {
+          "service": "api",
+          "method": "POST",
+          "route": "/api/sessions/{sid}/evidence/receipts/{rid}/execute",
+          "status": "200"
+        },
+        "value": 6.0
+      },
+      {
+        "name": "recheck_http_requests_total",
+        "labels": {
+          "service": "api",
+          "method": "GET",
+          "route": "/api/sessions/{sid}/evidence/actions",
+          "status": "200"
+        },
+        "value": 3.0
+      },
+      {
+        "name": "recheck_http_requests_total",
+        "labels": {
+          "service": "api",
+          "method": "GET",
+          "route": "/api/sessions/{sid}/decisions",
+          "status": "200"
+        },
+        "value": 2.0
+      },
+      {
+        "name": "recheck_http_requests_total",
+        "labels": {
+          "service": "api",
+          "method": "POST",
+          "route": "/api/sessions/{sid}/decisions",
+          "status": "409"
+        },
+        "value": 1.0
+      },
+      {
+        "name": "recheck_http_requests_total",
+        "labels": {
+          "service": "api",
+          "method": "GET",
+          "route": "/api/sessions/{sid}/decisions/{did}/validate",
+          "status": "404"
+        },
+        "value": 1.0
+      },
+      {
+        "name": "recheck_business_outcomes_total",
+        "labels": {
+          "service": "api",
+          "outcome": "clear",
+          "reason": "no_current_warning"
+        },
+        "value": 8.0
+      },
+      {
+        "name": "recheck_business_outcomes_total",
+        "labels": {
+          "service": "api",
+          "outcome": "review",
+          "reason": "model_unavailable"
+        },
+        "value": 3.0
+      },
+      {
+        "name": "recheck_business_outcomes_total",
+        "labels": {
+          "service": "api",
+          "outcome": "error",
+          "reason": "other"
+        },
+        "value": 1.0
+      }
+    ],
+    "model": [
+      {
+        "name": "recheck_http_requests_total",
+        "labels": {
+          "method": "GET",
+          "route": "/health",
+          "service": "model",
+          "status": "200"
+        },
+        "value": 18.0
+      },
+      {
+        "name": "recheck_http_requests_total",
+        "labels": {
+          "method": "HEAD",
+          "route": "unmatched",
+          "service": "model",
+          "status": "404"
+        },
+        "value": 1.0
+      },
+      {
+        "name": "recheck_http_requests_total",
+        "labels": {
+          "method": "POST",
+          "route": "/infer",
+          "service": "model",
+          "status": "200"
+        },
+        "value": 7.0
+      },
+      {
+        "name": "recheck_http_requests_total",
+        "labels": {
+          "method": "POST",
+          "route": "/infer",
+          "service": "model",
+          "status": "503"
+        },
+        "value": 3.0
+      },
+      {
+        "name": "recheck_business_outcomes_total",
+        "labels": {
+          "outcome": "success",
+          "reason": "none",
+          "service": "model"
+        },
+        "value": 7.0
+      },
+      {
+        "name": "recheck_business_outcomes_total",
+        "labels": {
+          "outcome": "error",
+          "reason": "model_unavailable",
+          "service": "model"
+        },
+        "value": 3.0
+      }
+    ],
+    "dropped_unpersisted_samples": 0
+  },
+  "source_run": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/38154963293"
+}

@@ -90,12 +90,12 @@ SQLite와 PostgreSQL에서 각각 동일한 **9개 고정 사건 순서, 방식�
 
 [조건과 전체 결과](docs/safety-case-study.md) · [사건별 원본 JSON](docs/evidence/safety-evaluation.json) · [재현 스크립트](scripts/evaluate_safety.py) · [동시성 테스트](backend/tests/test_evidence_actions.py)
 
-추가로 각 DB에서 **6개 동시 요청 × 12회차 × 5조건**을 세 방식에 동일하게 적용했습니다.
-검사와 기록 사이에 원문을 바꾸면 두 기준선은 각각 12회차 모두 오래된 작업을 기록했고,
-보호된 구현은 해당 요청 72회를 모두 거절했습니다. 정상적인 서로 다른 키 요청 72회와
-근거 변경 후의 과거 작업 재시도 72회는 처리했습니다. 신규 기록과 재시도 응답을 구분해 집계합니다.
+추가로 각 DB에서 **6개 동시 요청 × 3회차 × 5조건**을 세 방식에 동일하게 적용했습니다.
+검사와 기록 사이에 원문을 바꾸면 두 기준선은 각각 3회차 모두 오래된 작업을 기록했고,
+보호된 구현은 해당 요청 18회를 모두 거절했습니다. 정상적인 서로 다른 키 요청 18회와
+근거 변경 후의 과거 작업 재시도 18회는 처리했습니다. 신규 기록과 재시도 응답을 구분해 집계합니다.
 별도로 정상 기록 90회씩의 p50·p95를 측정했습니다.
-실제 DB 잠금을 유지한 시간 초과 조건에서는 처음 실패한 72개 요청과 잠금 해제 후 같은 키로 처리된 재요청을 분리해 보존합니다.
+실제 DB 잠금을 유지한 시간 초과 조건에서는 처음 실패한 18개 요청과 잠금 해제 후 같은 키로 처리된 재요청을 분리해 보존합니다.
 [감사·비교 조건과 한계](docs/action-comparison-audit.md) · [원본 요청·SQL 기록·시간 표본](docs/evidence/action-workloads.json)
 
 이 수치는 제한된 반례 검증입니다. 실서비스 사고율, 검색 정확도, 일반적인 안전성, 부하 처리 성능으로 해석하지 않습니다.
@@ -150,8 +150,8 @@ AI와 협업해 구현한 프로젝트입니다. 설계 선택과 보장 범위�
 
 실제 은행 정책·거래·고객 데이터, 외부 업무 실행의 원자성, GPU/LLM 운영, 장기간 SLA,
 고객 채택·사업 성과·합격 확률을 주장하지 않습니다. 공개 서버는 인증 없는 제한된 가상 실험이며
-임시 SQLite와 만료되는 세션을 사용합니다. 이미 기록한 작업은 이후 근거가 바뀌어도 과거 기록으로 남습니다.
+공개 저장소는 Neon PostgreSQL이며 세션은 생성 후 1시간에 만료됩니다. 이미 기록한 작업은 이후 근거가 바뀌어도 과거 기록으로 남습니다.
 
 라이선스: MIT. 번들 폰트는 동봉된 SIL Open Font License를 따릅니다.
 
-Public deployment follow-up: [PostgreSQL persistence, live observation, full-path load, and remaining paid hosting decision](docs/public-runtime.md).
+[공개 PostgreSQL·운영 관측·전체 경로 부하 검증과 상시 실행 비용](docs/public-runtime.md)

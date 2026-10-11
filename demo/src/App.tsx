@@ -1342,11 +1342,11 @@ export default function App() {
             </div>
             <div className="storage-line">
               <span>↓ 짧은 최종 검증 트랜잭션</span>
-              <strong>SQLite / PostgreSQL</strong>
+              <strong>PostgreSQL</strong>
               <p>
-                Python 호스팅 구성: SQLite · 로컬 Docker Compose: PostgreSQL
+                공개 서버: Neon PostgreSQL · 로컬 실험: SQLite / PostgreSQL
                 <br />
-                GitHub Pages·브라우저 모드: 메모리 계산
+                브라우저 시뮬레이션 모드에서만 메모리 계산
               </p>
             </div>
             <div className="design-decisions">
