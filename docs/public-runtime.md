@@ -2,7 +2,8 @@
 
 The Render Python service uses a dedicated Neon PostgreSQL 17 database in Singapore.
 `DATABASE_URL` is injected through Render; credentials never enter the repository.
-SQLite remains a local-only convenience. Demo sessions expire after one hour by design;
+SQLite remains a local-only convenience. The public launcher refuses to start if
+Render has no PostgreSQL URL; it cannot silently fall back to ephemeral SQLite. Demo sessions expire after one hour by design;
 persistence does not promise unlimited retention or transfer old ephemeral SQLite sessions.
 
 ## Database and concurrency
@@ -86,3 +87,15 @@ within 500 ms; 17 were HTTP 429 and 213 were HTTP 200 review/overload responses.
 The compressed raw JSON retains all 720 attempts, including the 60 req/s cases:
 `docs/evidence/fullpath-saturation.json.gz`. Decompress with `gzip -dc`.
 All 703 delivered HTTP 200 receipts matched SQL; replay/restart checks passed again.
+
+## Deployment overlap found by the public probe
+
+The first redeploy observation check failed even though persistence replay passed.
+At 16:11:07 UTC, the new instance emitted its first zero-counter sample; a request
+at 16:11:15 was still served by the old instance. Its final 16:11:18 sample stored
+the third model-unavailable response, and later new-instance snapshots still had
+zero failures. Comparing only the latest boot therefore missed the actual event.
+The probe now compares increases independently for **every** boot in the window,
+requires a sample after injection, and checks that both injected-failure and recovery
+receipts exist in SQL. A deterministic old-instance-final-flush regression covers
+this ordering. The failed report remains in `public-observations-failed.json`.

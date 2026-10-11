@@ -6,6 +6,7 @@ on:
     paths:
       - '.github/workflows/public-storage.yml'
       - 'scripts/verify_public_storage.py'
+      - 'scripts/verify_public_observations.py'
       - 'docs/evidence/public-storage-fixture.json'
 permissions:
   contents: read

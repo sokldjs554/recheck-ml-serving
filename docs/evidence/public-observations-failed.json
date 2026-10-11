@@ -1,0 +1,102 @@
+{
+  "at": "2026-10-11T16:11:15.604325+00:00",
+  "passed": false,
+  "scope": "public API injected model-unavailable response then normal inference; durable boot-scoped counters, not a real provider outage",
+  "failure": {
+    "id": "189b178f-7239-4956-86e8-430d66b3034c",
+    "session_id": "f3e674d8-7970-4c98-87e4-48f52b7345fa",
+    "status": "review",
+    "reason": "model_unavailable",
+    "risk_score": null,
+    "feature_version": 1,
+    "policy_version": 1,
+    "model_version": "risk-v1",
+    "created_at": "2026-10-11T16:11:16.620606+00:00",
+    "expires_at": "2026-10-11T16:11:31.620606+00:00",
+    "latency_ms": 26.529408991336823,
+    "trace_id": "d1498ad49fd6f35de430b9d471e62815",
+    "spans": [
+      {
+        "name": "decision",
+        "start_ms": 0.190325,
+        "duration_ms": 26.18061,
+        "status": "error"
+      },
+      {
+        "name": "snapshot",
+        "start_ms": 0.266316,
+        "duration_ms": 14.991636,
+        "status": "ok"
+      },
+      {
+        "name": "model.http",
+        "start_ms": 15.392745,
+        "duration_ms": 3.625106,
+        "status": "error"
+      },
+      {
+        "name": "fence.commit",
+        "start_ms": 19.153924,
+        "duration_ms": 7.179281,
+        "status": "ok"
+      }
+    ],
+    "protected": true,
+    "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71"
+  },
+  "recovered": {
+    "id": "d717bee8-e4ed-4a63-8f61-629505f1fa37",
+    "session_id": "f3e674d8-7970-4c98-87e4-48f52b7345fa",
+    "status": "clear",
+    "reason": "no_current_warning",
+    "risk_score": 0.009762617173452968,
+    "feature_version": 1,
+    "policy_version": 1,
+    "model_version": "risk-v1",
+    "created_at": "2026-10-11T16:11:16.921911+00:00",
+    "expires_at": "2026-10-11T16:11:31.921911+00:00",
+    "latency_ms": 24.167134426534176,
+    "trace_id": "62a642292e48fb74d42c688894678fd9",
+    "spans": [
+      {
+        "name": "decision",
+        "start_ms": 0.125832,
+        "duration_ms": 23.893237,
+        "status": "ok"
+      },
+      {
+        "name": "snapshot",
+        "start_ms": 0.168953,
+        "duration_ms": 13.552522,
+        "status": "ok"
+      },
+      {
+        "name": "model.http",
+        "start_ms": 13.859908,
+        "duration_ms": 3.917863,
+        "status": "ok"
+      },
+      {
+        "name": "model.infer",
+        "start_ms": 13.964041,
+        "duration_ms": 0.911291,
+        "status": "ok"
+      },
+      {
+        "name": "model.predict",
+        "start_ms": 14.105764,
+        "duration_ms": 0.697817,
+        "status": "ok"
+      },
+      {
+        "name": "fence.commit",
+        "start_ms": 17.905484,
+        "duration_ms": 6.084045,
+        "status": "ok"
+      }
+    ],
+    "protected": true,
+    "model_hash": "89c4dfbdd770b5e43801c23a690f8b67e535e589546b88042f9afaf46f66ef71"
+  },
+  "source_run": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/38154265150"
+}
