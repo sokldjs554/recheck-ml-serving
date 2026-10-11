@@ -71,7 +71,9 @@ def main():
         rejected_keys = []
         def malformed_success(route):
             rejected_keys.append(route.request.post_data_json['idempotency_key'])
-            route.fulfill(status=200, content_type='application/json', body='{}')
+            committed = route.fetch()
+            assert committed.status == 200
+            route.fulfill(response=committed, body='{}')
         page.route('**/evidence/receipts/*/execute', malformed_success)
         page.get_by_test_id('case-next').click()
         page.get_by_role('alert').filter(has_text='응답').wait_for()
@@ -81,7 +83,8 @@ def main():
         with page.expect_request('**/evidence/receipts/*/execute') as retried:
             next_step(5)
         assert retried.value.post_data_json['idempotency_key'] == rejected_keys[0]
-        checks.append('malformed HTTP 200 cannot claim success; retry retains original key')
+        checks.append('lost commit response cannot claim success; retry retains original key and displays replay')
+        assert '200 / replayed' in page.locator('.replay-gate-code').inner_text(), 'A lost commit response must display the actual replay result on retry'
         original_action = page.get_by_test_id('case-action').locator('code').inner_text()
         next_step(6)
         assert original_action == page.get_by_test_id('case-action').locator('code').inner_text()
@@ -101,6 +104,9 @@ def main():
             assert not page.evaluate('document.documentElement.scrollWidth > window.innerWidth'), f'Horizontal overflow {width}x{height}'
             page.get_by_test_id('case-reset').focus()
             assert page.get_by_test_id('case-reset').evaluate('(el) => el.getBoundingClientRect().top >= 0')
+            if width <= 760:
+                page.keyboard.press('Tab')
+                assert page.get_by_test_id('case-next').evaluate('(el) => document.activeElement === el'), 'Mobile focus must follow visible transport before old-answer details'
             page.screenshot(path=str(args.output / f'case-complete-{width}x{height}.png'), full_page=True)
         checks.append('390 portrait, 768 tablet, 844 landscape: no horizontal overflow and reset reachable')
         page.set_viewport_size({'width': 1440, 'height': 1050})

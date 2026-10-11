@@ -457,7 +457,7 @@ export default function App() {
     story: "실행 시점 검증을 선택한 이유와 보장 범위를 설명합니다.",
   };
   const sections = [
-    { id: "case" as Tab, label: "상담 검토" },
+    { id: "case" as Tab, label: "실행 재현" },
     { id: "lab" as Tab, label: "인터랙티브 데모" },
     { id: "freshness" as Tab, label: "근거 변경 실험" },
     { id: "receipts" as Tab, label: "판단 기록" },
@@ -530,9 +530,12 @@ export default function App() {
             aria-label="RECHECK 홈"
             onClick={() => setTab("case")}
           >
-            recheck<span> / </span>
+            <span className="desk-brand-symbol" aria-hidden="true">
+              ↳
+            </span>
+            recheck
           </button>
-          <span className="desk-brand-caption">답변에서 실행까지</span>
+          <span className="desk-brand-caption">실행 재현기</span>
         </div>
         <nav aria-label="주 메뉴">
           {sections.map(({ id, label }) => (

@@ -1,76 +1,92 @@
-/* Shared navigation for the review desk and its deeper engineering tools. */
+/* Shared shell for the replay instrument and its engineering tools. */
 .recheck-workbench.workspace-theme {
-  background: #f6f7f2;
+  --paper: #ededea;
+  --ink: #242728;
+  --muted: #727870;
+  --rule: #ccd0c7;
+  background: var(--paper);
+  color: var(--ink);
 }
 .desk-header {
   display: flex;
   align-items: center;
+  min-height: 69px;
+  padding: 0 34px;
   gap: 30px;
-  min-height: 76px;
-  padding: 0 36px;
-  border-bottom: 1px solid #cdd2c6;
-  background: #f6f7f2;
+  background: #fcfcfa;
+  border-bottom: 1px solid #cdd1c7;
 }
 .desk-brand {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 15px;
   flex: none;
 }
 .desk-wordmark {
   padding: 0;
-  font-size: 25px;
+  gap: 8px;
+  font-size: 24px;
+  letter-spacing: -1.2px;
   font-weight: 750;
-  letter-spacing: -1.6px;
-  gap: 9px;
 }
-.desk-wordmark span {
-  color: #87956c;
-  font-size: 23px;
-  font-weight: 400;
+.desk-wordmark .desk-brand-symbol {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 28px;
+  background: #d84a28;
+  color: #fff;
+  font:
+    26px/1 ui-monospace,
+    monospace;
 }
 .desk-brand-caption {
   font-size: 10px;
-  color: #707767;
+  padding-left: 14px;
+  border-left: 1px solid #cdd1c7;
+  color: #757c6d;
 }
 .desk-header nav {
   display: flex;
-  gap: 20px;
   align-items: center;
+  gap: 18px;
   margin-left: auto;
 }
 .desk-nav-item {
   position: relative;
-  padding: 27px 0;
-  min-height: 76px;
-  font-size: 11px;
-  color: #6d7565;
+  min-height: 69px;
+  padding: 23px 0;
+  font-size: 12px;
   white-space: nowrap;
+  color: #626a5d;
 }
 .desk-nav-item.is-active {
-  color: #263923;
+  color: #232c1b;
   font-weight: 650;
 }
 .desk-nav-item.is-active::after {
   content: "";
-  height: 2px;
-  background: #405932;
   position: absolute;
+  height: 3px;
   bottom: -1px;
   left: 0;
   right: 0;
+  background: #d84a28;
 }
 .desk-nav-item:hover {
-  color: #263923;
+  color: #b23d20;
+}
+.desk-nav-item:nth-child(4) {
+  margin-left: 12px;
 }
 .desk-source-link {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   font-size: 10px;
-  color: #777e70;
   text-decoration: none;
   white-space: nowrap;
+  color: #67705f;
 }
 .desk-source-link:hover {
   text-decoration: underline;
@@ -78,87 +94,109 @@
 }
 .recheck-workbench.workspace-theme main.desk-main {
   margin: 0 auto;
-  padding: 0 40px 28px;
-  max-width: 1360px;
+  padding: 0 36px 24px;
+  max-width: 1440px;
 }
 .desk-context {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 15px;
+  gap: 16px;
+  min-height: 45px;
+  border-bottom: 1px solid #ccd0c7;
   font-size: 10px;
-  color: #737c69;
-  min-height: 48px;
-  border-bottom: 1px solid #dce1d5;
+  color: #727b68;
+}
+.recheck-workbench.workspace-theme footer {
+  margin-top: 24px;
+  padding-top: 17px;
+  border-color: #ccd0c7;
+}
+.recheck-workbench.workspace-theme footer > span {
+  color: #59634d;
+}
+.recheck-workbench.workspace-theme footer :is(p, small) {
+  color: #7d8870;
+  font-size: 10px;
+}
+.recheck-workbench.workspace-theme .page-intro {
+  padding-block: 25px;
+}
+.recheck-workbench.workspace-theme .page-intro h1 {
+  font-size: 23px;
 }
 @media (max-width: 1200px) {
   .desk-header {
-    padding: 0 28px;
-    gap: 24px;
-    flex-wrap: wrap;
+    padding: 0 26px;
+    gap: 23px;
   }
   .desk-brand-caption {
     display: none;
   }
   .desk-header nav {
-    gap: 16px;
+    gap: 15px;
+  }
+  .desk-nav-item:nth-child(4) {
+    margin-left: 4px;
   }
   .recheck-workbench.workspace-theme main.desk-main {
-    padding: 0 28px 28px;
+    padding-inline: 26px;
   }
 }
-@media (max-width: 920px) {
+@media (max-width: 900px) {
   .desk-header {
+    flex-wrap: wrap;
+    padding-top: 13px;
     gap: 0;
-    padding-top: 12px;
   }
   .desk-brand {
-    height: 35px;
+    height: 32px;
     order: 0;
   }
+  .desk-brand-caption {
+    display: block;
+  }
   .desk-source-link {
-    margin-left: auto;
     order: 1;
+    margin-left: auto;
   }
   .desk-header nav {
+    order: 2;
+    margin: 4px 0 0;
     flex: 0 0 100%;
     width: 100%;
-    order: 2;
-    margin: 0;
     justify-content: space-between;
   }
   .desk-nav-item {
-    min-height: 49px;
-    padding: 14px 0;
+    min-height: 44px;
+    padding: 12px 0;
   }
 }
 @media (max-width: 700px) {
   .desk-header {
-    padding: 12px 20px 0;
-  }
-  .desk-wordmark {
-    font-size: 24px;
+    padding-inline: 18px;
   }
   .desk-header nav {
     gap: 18px;
-    justify-content: flex-start;
     overflow-x: auto;
     scrollbar-width: none;
+    justify-content: flex-start;
   }
   .desk-header nav::-webkit-scrollbar {
     display: none;
   }
   .desk-nav-item {
-    font-size: 11px;
     flex: none;
   }
+  .desk-nav-item:nth-child(4) {
+    margin-left: 3px;
+  }
   .recheck-workbench.workspace-theme main.desk-main {
-    padding: 0 20px 20px;
+    padding: 0 16px 20px;
   }
   .desk-context {
     flex-wrap: wrap;
-    align-content: center;
-    gap: 2px 15px;
-    padding: 9px 0;
+    padding-block: 10px;
+    gap: 3px 12px;
   }
 }

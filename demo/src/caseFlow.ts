@@ -252,8 +252,9 @@ export class CaseFlow {
         this.set({
           action,
           step: 5,
-          status:
-            "상담 작업 1건 기록 · 검증과 기록을 같은 트랜잭션에서 처리했습니다.",
+          status: action.replayed
+            ? "과거 작업 반환 · 응답을 확인하지 못한 요청의 기존 기록입니다."
+            : "상담 작업 1건 기록 · 검증과 기록을 같은 트랜잭션에서 처리했습니다.",
         });
       } else {
         const action = await take("동일 키로 작업 재요청", () =>
