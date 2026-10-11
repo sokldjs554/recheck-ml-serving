@@ -52,7 +52,10 @@ def main():
         page.get_by_role('heading', name='모델의 처리 한계').wait_for()
         page.get_by_role('button', name='60 req/s').click()
         assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
-        page.screenshot(path=str(args.output / 'serving-mobile.png'), full_page=True)
+        for width in (320, 390, 768):
+            page.set_viewport_size({'width': width, 'height': 844})
+            assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'), f'serving overflow at {width}'
+            page.screenshot(path=str(args.output / f'serving-{width}.png'), full_page=True)
         page.get_by_role('navigation', name='실험 선택').get_by_role('link', name='정합성 재현').click()
         page.get_by_test_id('case-study').wait_for()
         checks.append('back navigation, return to live case, and mobile layouts work')
