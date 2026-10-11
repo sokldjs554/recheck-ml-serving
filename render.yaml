@@ -11,7 +11,9 @@ services:
       - key: PYTHON_VERSION
         value: 3.12.8
       - key: DATABASE_URL
-        value: sqlite:////tmp/recheck-demo.db
+        sync: false
+      - key: RECHECK_OBSERVE
+        value: '1'
       - key: MODEL_SERVICE_URL
         value: http://127.0.0.1:8001
       - key: RECHECK_CORS_ORIGINS

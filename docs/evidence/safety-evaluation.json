@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "measured_at": "2026-10-11T12:26:17.654468+00:00",
+  "measured_at": "2026-10-11T15:34:06.757744+00:00",
   "environment": {
     "python": "3.12.14",
     "platform": "Linux-6.18.44-x86_64-with-glibc2.41"
@@ -18,7 +18,7 @@
     "scripts/evaluate_safety.py": "5d28bdddd8481ad60366ed049f7a61b6c8271a59b3655c642bc371a401af20b7",
     "backend/recheck/evidence.py": "3801d81a5088c0eef1b63e5f8de497546f8659c85bb248638b8a8b63143d5b0c",
     "backend/recheck/retrieval.py": "9bcc673ff5c5eb9cc685e31f46bf99be51915f19df4a0b60e719ad1df58ab389",
-    "backend/recheck/store.py": "5c54647baee04e06befd810ca171319cde3f78501a7b61dc6c3c6bc860b5ffda"
+    "backend/recheck/store.py": "f76498c87ec629695e58fd9a18326240a578c8bdb118051d161631a68202a1bf"
   },
   "postgres_status": "measured",
   "databases": [
@@ -38,7 +38,7 @@
               ],
               "expected_reason": "current",
               "receipt": {
-                "id": "8fdd877b-1a59-448e-9dbd-407f4e934aac",
+                "id": "8cbaf418-4827-48aa-88c3-3e54ffbda1b2",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -56,7 +56,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.6491939986735815,
+                "retrieval_ms": 1.5955349990690593,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -79,8 +79,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "3c366b40-f5e2-4a53-954e-e46210485d8f",
-                    "receipt_id": "8fdd877b-1a59-448e-9dbd-407f4e934aac",
+                    "action_id": "976e3c56-1f69-43ac-8d9b-dca44031f7a7",
+                    "receipt_id": "8cbaf418-4827-48aa-88c3-3e54ffbda1b2",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -98,8 +98,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "3c366b40-f5e2-4a53-954e-e46210485d8f",
-                      "receipt_id": "8fdd877b-1a59-448e-9dbd-407f4e934aac",
+                      "action_id": "976e3c56-1f69-43ac-8d9b-dca44031f7a7",
+                      "receipt_id": "8cbaf418-4827-48aa-88c3-3e54ffbda1b2",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -132,7 +132,7 @@
               ],
               "expected_reason": "source_changed",
               "receipt": {
-                "id": "ec28a5c1-688b-449f-8f00-d67658f002e7",
+                "id": "9c38f180-71af-472d-8e8f-fdda09d4f2e5",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -150,7 +150,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.4939100001356564,
+                "retrieval_ms": 1.0944300011033192,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -173,8 +173,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "a1ae21f8-173e-40c5-a57b-a704cce4e5b5",
-                    "receipt_id": "ec28a5c1-688b-449f-8f00-d67658f002e7",
+                    "action_id": "d13d8dea-bdb8-4b2c-bf58-26e81865c17c",
+                    "receipt_id": "9c38f180-71af-472d-8e8f-fdda09d4f2e5",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -192,8 +192,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "a1ae21f8-173e-40c5-a57b-a704cce4e5b5",
-                      "receipt_id": "ec28a5c1-688b-449f-8f00-d67658f002e7",
+                      "action_id": "d13d8dea-bdb8-4b2c-bf58-26e81865c17c",
+                      "receipt_id": "9c38f180-71af-472d-8e8f-fdda09d4f2e5",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -226,7 +226,7 @@
               ],
               "expected_reason": "source_changed",
               "receipt": {
-                "id": "036258dd-fbf5-4982-9d51-5923c996d727",
+                "id": "b9946012-d39c-4274-9e12-691689dfa6f2",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -244,7 +244,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.161569000032614,
+                "retrieval_ms": 1.089141002012184,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -267,8 +267,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "8d143af1-0d62-40f8-b129-0ee2abbef472",
-                    "receipt_id": "036258dd-fbf5-4982-9d51-5923c996d727",
+                    "action_id": "4965987a-d477-45f0-9998-5801c45758db",
+                    "receipt_id": "b9946012-d39c-4274-9e12-691689dfa6f2",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -286,8 +286,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "8d143af1-0d62-40f8-b129-0ee2abbef472",
-                      "receipt_id": "036258dd-fbf5-4982-9d51-5923c996d727",
+                      "action_id": "4965987a-d477-45f0-9998-5801c45758db",
+                      "receipt_id": "b9946012-d39c-4274-9e12-691689dfa6f2",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -320,7 +320,7 @@
               ],
               "expected_reason": "current",
               "receipt": {
-                "id": "7cb6dfe5-c457-4e08-86d7-e93fbc8d8964",
+                "id": "7e569ea5-35dc-4778-a6c0-72924faa3ad6",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -338,7 +338,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.1154000003443798,
+                "retrieval_ms": 1.0943790002784226,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -361,8 +361,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "19c57620-49ca-4ffc-8d38-67be46e7d337",
-                    "receipt_id": "7cb6dfe5-c457-4e08-86d7-e93fbc8d8964",
+                    "action_id": "c021f3a1-05b5-4d23-a9da-d11520b82217",
+                    "receipt_id": "7e569ea5-35dc-4778-a6c0-72924faa3ad6",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -380,8 +380,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "19c57620-49ca-4ffc-8d38-67be46e7d337",
-                      "receipt_id": "7cb6dfe5-c457-4e08-86d7-e93fbc8d8964",
+                      "action_id": "c021f3a1-05b5-4d23-a9da-d11520b82217",
+                      "receipt_id": "7e569ea5-35dc-4778-a6c0-72924faa3ad6",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -414,7 +414,7 @@
               ],
               "expected_reason": "source_deleted",
               "receipt": {
-                "id": "a22d6945-bf0a-4b95-a57b-486161b8a2ae",
+                "id": "33d33daa-e1ee-44cf-a92b-ebdac52a18db",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -432,7 +432,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.2631629997486016,
+                "retrieval_ms": 1.08098000055179,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -455,8 +455,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "8b1edcc3-2ae9-4ecc-b2db-cef27aeeebda",
-                    "receipt_id": "a22d6945-bf0a-4b95-a57b-486161b8a2ae",
+                    "action_id": "5ba91396-ee18-4b61-bb86-00621527c860",
+                    "receipt_id": "33d33daa-e1ee-44cf-a92b-ebdac52a18db",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -474,8 +474,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "8b1edcc3-2ae9-4ecc-b2db-cef27aeeebda",
-                      "receipt_id": "a22d6945-bf0a-4b95-a57b-486161b8a2ae",
+                      "action_id": "5ba91396-ee18-4b61-bb86-00621527c860",
+                      "receipt_id": "33d33daa-e1ee-44cf-a92b-ebdac52a18db",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -508,7 +508,7 @@
               ],
               "expected_reason": "receipt_expired",
               "receipt": {
-                "id": "0f312ad6-b5f4-43a9-90f0-435aae2ac66f",
+                "id": "ad1e495e-28ca-4dfa-b941-2a13f2563582",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -526,7 +526,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.098895001632627,
+                "retrieval_ms": 1.1460470013844315,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -549,8 +549,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "3cbd55d6-5ef7-4bb2-a141-cea11721db51",
-                    "receipt_id": "0f312ad6-b5f4-43a9-90f0-435aae2ac66f",
+                    "action_id": "d6d672b7-bc23-41b9-9a55-435fcfa4782e",
+                    "receipt_id": "ad1e495e-28ca-4dfa-b941-2a13f2563582",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000120.0,
                     "release_epoch": 1,
@@ -568,8 +568,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "3cbd55d6-5ef7-4bb2-a141-cea11721db51",
-                      "receipt_id": "0f312ad6-b5f4-43a9-90f0-435aae2ac66f",
+                      "action_id": "d6d672b7-bc23-41b9-9a55-435fcfa4782e",
+                      "receipt_id": "ad1e495e-28ca-4dfa-b941-2a13f2563582",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000120.0,
                       "release_epoch": 1,
@@ -602,7 +602,7 @@
               ],
               "expected_reason": "release_changed",
               "receipt": {
-                "id": "35b1df92-f20a-433a-a52f-bbecdc81cbdc",
+                "id": "647b0eb2-0ddb-4791-b53a-4f2d2bd80714",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -620,7 +620,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.125095001043519,
+                "retrieval_ms": 1.1341089993948117,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -643,8 +643,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "b3e53266-59fd-4749-803f-3f36fa9c0b81",
-                    "receipt_id": "35b1df92-f20a-433a-a52f-bbecdc81cbdc",
+                    "action_id": "a04ea68c-ffcd-436c-9669-96f612152f6a",
+                    "receipt_id": "647b0eb2-0ddb-4791-b53a-4f2d2bd80714",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -662,8 +662,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "b3e53266-59fd-4749-803f-3f36fa9c0b81",
-                      "receipt_id": "35b1df92-f20a-433a-a52f-bbecdc81cbdc",
+                      "action_id": "a04ea68c-ffcd-436c-9669-96f612152f6a",
+                      "receipt_id": "647b0eb2-0ddb-4791-b53a-4f2d2bd80714",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -696,7 +696,7 @@
               ],
               "expected_reason": "source_changed",
               "receipt": {
-                "id": "ae76f9ee-5953-47fa-9a79-c22baf0886a4",
+                "id": "ad875320-24fb-4bf1-a4ac-c69584ae94ba",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -714,7 +714,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.2801280008716276,
+                "retrieval_ms": 1.1386259975552093,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -737,8 +737,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "1c3f59df-ca1b-47f7-9500-8bbceb2f2bfa",
-                    "receipt_id": "ae76f9ee-5953-47fa-9a79-c22baf0886a4",
+                    "action_id": "56351eab-bc57-435e-bd6c-e2d6fc82bd6c",
+                    "receipt_id": "ad875320-24fb-4bf1-a4ac-c69584ae94ba",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -756,8 +756,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "1c3f59df-ca1b-47f7-9500-8bbceb2f2bfa",
-                      "receipt_id": "ae76f9ee-5953-47fa-9a79-c22baf0886a4",
+                      "action_id": "56351eab-bc57-435e-bd6c-e2d6fc82bd6c",
+                      "receipt_id": "ad875320-24fb-4bf1-a4ac-c69584ae94ba",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -790,7 +790,7 @@
               ],
               "expected_reason": "current",
               "receipt": {
-                "id": "b9f49767-1ae5-4106-83f8-00d0e694f72b",
+                "id": "bd5ca96f-5e95-44a3-9717-873243c7e82e",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -808,7 +808,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.118955999118043,
+                "retrieval_ms": 1.2014809981337748,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -831,8 +831,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "93729abc-b100-458d-841c-dfe4486b7fb8",
-                    "receipt_id": "b9f49767-1ae5-4106-83f8-00d0e694f72b",
+                    "action_id": "048f9f84-0daf-4d9c-8911-fd0f57f300d6",
+                    "receipt_id": "bd5ca96f-5e95-44a3-9717-873243c7e82e",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -850,8 +850,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "93729abc-b100-458d-841c-dfe4486b7fb8",
-                      "receipt_id": "b9f49767-1ae5-4106-83f8-00d0e694f72b",
+                      "action_id": "048f9f84-0daf-4d9c-8911-fd0f57f300d6",
+                      "receipt_id": "bd5ca96f-5e95-44a3-9717-873243c7e82e",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -878,8 +878,8 @@
                   "observed": "replayed",
                   "error": null,
                   "response": {
-                    "action_id": "93729abc-b100-458d-841c-dfe4486b7fb8",
-                    "receipt_id": "b9f49767-1ae5-4106-83f8-00d0e694f72b",
+                    "action_id": "048f9f84-0daf-4d9c-8911-fd0f57f300d6",
+                    "receipt_id": "bd5ca96f-5e95-44a3-9717-873243c7e82e",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -930,7 +930,7 @@
               ],
               "expected_reason": "current",
               "receipt": {
-                "id": "60d396ff-53ec-43b9-b8c8-7756271ffb71",
+                "id": "1ad3ee40-5436-4b7f-8aae-d258336fe6cb",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -948,7 +948,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.122300998758874,
+                "retrieval_ms": 1.6091350007627625,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -967,7 +967,7 @@
                 "valid": true,
                 "reason": "current",
                 "affected_sources": [],
-                "receipt_id": "60d396ff-53ec-43b9-b8c8-7756271ffb71",
+                "receipt_id": "1ad3ee40-5436-4b7f-8aae-d258336fe6cb",
                 "checked_at": 1800000000.0,
                 "release_epoch": 1,
                 "scope": "point-in-time validation; not an atomic external business action"
@@ -979,8 +979,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "c0a117e6-13c7-4c95-89da-05f1d7087713",
-                    "receipt_id": "60d396ff-53ec-43b9-b8c8-7756271ffb71",
+                    "action_id": "dddc339b-bd97-4843-945c-e8aac30fb6b6",
+                    "receipt_id": "1ad3ee40-5436-4b7f-8aae-d258336fe6cb",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -998,8 +998,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "c0a117e6-13c7-4c95-89da-05f1d7087713",
-                      "receipt_id": "60d396ff-53ec-43b9-b8c8-7756271ffb71",
+                      "action_id": "dddc339b-bd97-4843-945c-e8aac30fb6b6",
+                      "receipt_id": "1ad3ee40-5436-4b7f-8aae-d258336fe6cb",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -1032,7 +1032,7 @@
               ],
               "expected_reason": "source_changed",
               "receipt": {
-                "id": "3f8cf0ae-04a8-4006-8bb3-4980a2c29244",
+                "id": "f9c13529-1e2c-4022-a0ee-5ac59c67cfbb",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -1050,7 +1050,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.5279920007742476,
+                "retrieval_ms": 1.2298040019231848,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -1071,7 +1071,7 @@
                 "affected_sources": [
                   "transfer"
                 ],
-                "receipt_id": "3f8cf0ae-04a8-4006-8bb3-4980a2c29244",
+                "receipt_id": "f9c13529-1e2c-4022-a0ee-5ac59c67cfbb",
                 "checked_at": 1800000000.0,
                 "release_epoch": 1,
                 "scope": "point-in-time validation; not an atomic external business action"
@@ -1104,7 +1104,7 @@
               ],
               "expected_reason": "source_changed",
               "receipt": {
-                "id": "6f6959ce-3e09-47fd-8463-28e613e10ff7",
+                "id": "15818596-d820-4d2a-a4e8-7c0b37165d80",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -1122,7 +1122,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.735883999572252,
+                "retrieval_ms": 1.3338899989321362,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -1141,7 +1141,7 @@
                 "valid": true,
                 "reason": "current",
                 "affected_sources": [],
-                "receipt_id": "6f6959ce-3e09-47fd-8463-28e613e10ff7",
+                "receipt_id": "15818596-d820-4d2a-a4e8-7c0b37165d80",
                 "checked_at": 1800000000.0,
                 "release_epoch": 1,
                 "scope": "point-in-time validation; not an atomic external business action"
@@ -1153,8 +1153,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "4866ddcb-329d-4111-83d8-e7fae3cfe9e6",
-                    "receipt_id": "6f6959ce-3e09-47fd-8463-28e613e10ff7",
+                    "action_id": "281f130d-aaa9-4254-8eba-5be5ee06714e",
+                    "receipt_id": "15818596-d820-4d2a-a4e8-7c0b37165d80",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -1172,8 +1172,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "4866ddcb-329d-4111-83d8-e7fae3cfe9e6",
-                      "receipt_id": "6f6959ce-3e09-47fd-8463-28e613e10ff7",
+                      "action_id": "281f130d-aaa9-4254-8eba-5be5ee06714e",
+                      "receipt_id": "15818596-d820-4d2a-a4e8-7c0b37165d80",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -1206,7 +1206,7 @@
               ],
               "expected_reason": "current",
               "receipt": {
-                "id": "da508095-d7e3-42ce-83c5-16fbea7eb272",
+                "id": "6708f012-cf22-45d8-a307-088224a024af",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -1224,7 +1224,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.0948090002784738,
+                "retrieval_ms": 1.340840997727355,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -1243,7 +1243,7 @@
                 "valid": true,
                 "reason": "current",
                 "affected_sources": [],
-                "receipt_id": "da508095-d7e3-42ce-83c5-16fbea7eb272",
+                "receipt_id": "6708f012-cf22-45d8-a307-088224a024af",
                 "checked_at": 1800000000.0,
                 "release_epoch": 1,
                 "scope": "point-in-time validation; not an atomic external business action"
@@ -1255,8 +1255,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "4cc3268e-9182-4e99-bc86-db2d61825313",
-                    "receipt_id": "da508095-d7e3-42ce-83c5-16fbea7eb272",
+                    "action_id": "43cc62bf-f027-4d4b-9818-613983e01231",
+                    "receipt_id": "6708f012-cf22-45d8-a307-088224a024af",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -1274,8 +1274,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "4cc3268e-9182-4e99-bc86-db2d61825313",
-                      "receipt_id": "da508095-d7e3-42ce-83c5-16fbea7eb272",
+                      "action_id": "43cc62bf-f027-4d4b-9818-613983e01231",
+                      "receipt_id": "6708f012-cf22-45d8-a307-088224a024af",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -1308,7 +1308,7 @@
               ],
               "expected_reason": "source_deleted",
               "receipt": {
-                "id": "4bcbf319-6006-4836-b4e4-8c87f71c3c4e",
+                "id": "0f815e8f-91a1-45b3-873f-c87979df73d2",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -1326,7 +1326,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.116021001507761,
+                "retrieval_ms": 1.2650169992411975,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -1345,7 +1345,7 @@
                 "valid": true,
                 "reason": "current",
                 "affected_sources": [],
-                "receipt_id": "4bcbf319-6006-4836-b4e4-8c87f71c3c4e",
+                "receipt_id": "0f815e8f-91a1-45b3-873f-c87979df73d2",
                 "checked_at": 1800000000.0,
                 "release_epoch": 1,
                 "scope": "point-in-time validation; not an atomic external business action"
@@ -1357,8 +1357,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "0dde164e-4d8d-4bde-af81-2dcf1bfc51a9",
-                    "receipt_id": "4bcbf319-6006-4836-b4e4-8c87f71c3c4e",
+                    "action_id": "9400edc3-caec-4fb9-bcbc-20f4543ab528",
+                    "receipt_id": "0f815e8f-91a1-45b3-873f-c87979df73d2",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -1376,8 +1376,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "0dde164e-4d8d-4bde-af81-2dcf1bfc51a9",
-                      "receipt_id": "4bcbf319-6006-4836-b4e4-8c87f71c3c4e",
+                      "action_id": "9400edc3-caec-4fb9-bcbc-20f4543ab528",
+                      "receipt_id": "0f815e8f-91a1-45b3-873f-c87979df73d2",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -1410,7 +1410,7 @@
               ],
               "expected_reason": "receipt_expired",
               "receipt": {
-                "id": "3f3528b0-76c4-4a2d-81fc-63619b4d0df5",
+                "id": "1bcc5101-d420-4616-93bb-7dd9bd103d1e",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -1428,7 +1428,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.177293001092039,
+                "retrieval_ms": 1.4820039978076238,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -1447,7 +1447,7 @@
                 "valid": true,
                 "reason": "current",
                 "affected_sources": [],
-                "receipt_id": "3f3528b0-76c4-4a2d-81fc-63619b4d0df5",
+                "receipt_id": "1bcc5101-d420-4616-93bb-7dd9bd103d1e",
                 "checked_at": 1800000000.0,
                 "release_epoch": 1,
                 "scope": "point-in-time validation; not an atomic external business action"
@@ -1459,8 +1459,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "655d3af8-9e3f-41ac-9786-01dcc5362e0b",
-                    "receipt_id": "3f3528b0-76c4-4a2d-81fc-63619b4d0df5",
+                    "action_id": "11b7d201-4a8b-495b-8763-21125c52ff68",
+                    "receipt_id": "1bcc5101-d420-4616-93bb-7dd9bd103d1e",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000120.0,
                     "release_epoch": 1,
@@ -1478,8 +1478,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "655d3af8-9e3f-41ac-9786-01dcc5362e0b",
-                      "receipt_id": "3f3528b0-76c4-4a2d-81fc-63619b4d0df5",
+                      "action_id": "11b7d201-4a8b-495b-8763-21125c52ff68",
+                      "receipt_id": "1bcc5101-d420-4616-93bb-7dd9bd103d1e",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000120.0,
                       "release_epoch": 1,
@@ -1512,7 +1512,7 @@
               ],
               "expected_reason": "release_changed",
               "receipt": {
-                "id": "f54260f4-1490-43ed-91b5-9664e1bdca6c",
+                "id": "6a137b6e-b05a-4cb5-b2c9-ea17a87809a2",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -1530,7 +1530,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.1185349994775606,
+                "retrieval_ms": 1.4186379994498566,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -1549,7 +1549,7 @@
                 "valid": true,
                 "reason": "current",
                 "affected_sources": [],
-                "receipt_id": "f54260f4-1490-43ed-91b5-9664e1bdca6c",
+                "receipt_id": "6a137b6e-b05a-4cb5-b2c9-ea17a87809a2",
                 "checked_at": 1800000000.0,
                 "release_epoch": 1,
                 "scope": "point-in-time validation; not an atomic external business action"
@@ -1561,8 +1561,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "db812b0d-3a23-4d69-bbe2-4ab0f61300c4",
-                    "receipt_id": "f54260f4-1490-43ed-91b5-9664e1bdca6c",
+                    "action_id": "3e63d5f3-0f56-4cff-89d0-176a59d46099",
+                    "receipt_id": "6a137b6e-b05a-4cb5-b2c9-ea17a87809a2",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -1580,8 +1580,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "db812b0d-3a23-4d69-bbe2-4ab0f61300c4",
-                      "receipt_id": "f54260f4-1490-43ed-91b5-9664e1bdca6c",
+                      "action_id": "3e63d5f3-0f56-4cff-89d0-176a59d46099",
+                      "receipt_id": "6a137b6e-b05a-4cb5-b2c9-ea17a87809a2",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -1614,7 +1614,7 @@
               ],
               "expected_reason": "source_changed",
               "receipt": {
-                "id": "40e34f3b-cc6d-47c3-8e5f-e7cd1b789ab3",
+                "id": "cc32823c-761e-4667-b80c-c10addb6ed3d",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -1632,7 +1632,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.0995559987350134,
+                "retrieval_ms": 1.131394998083124,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -1651,7 +1651,7 @@
                 "valid": true,
                 "reason": "current",
                 "affected_sources": [],
-                "receipt_id": "40e34f3b-cc6d-47c3-8e5f-e7cd1b789ab3",
+                "receipt_id": "cc32823c-761e-4667-b80c-c10addb6ed3d",
                 "checked_at": 1800000000.0,
                 "release_epoch": 1,
                 "scope": "point-in-time validation; not an atomic external business action"
@@ -1663,8 +1663,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "e31d0357-de17-47f5-99e9-2d16f78d23f6",
-                    "receipt_id": "40e34f3b-cc6d-47c3-8e5f-e7cd1b789ab3",
+                    "action_id": "2241cbcc-a2bc-488a-8960-56ddcbda9998",
+                    "receipt_id": "cc32823c-761e-4667-b80c-c10addb6ed3d",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -1682,8 +1682,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "e31d0357-de17-47f5-99e9-2d16f78d23f6",
-                      "receipt_id": "40e34f3b-cc6d-47c3-8e5f-e7cd1b789ab3",
+                      "action_id": "2241cbcc-a2bc-488a-8960-56ddcbda9998",
+                      "receipt_id": "cc32823c-761e-4667-b80c-c10addb6ed3d",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -1716,7 +1716,7 @@
               ],
               "expected_reason": "current",
               "receipt": {
-                "id": "9972e02c-d645-41ba-ad94-31780da42d2e",
+                "id": "1f877020-8ff1-49e3-83f4-1ad1e5e133d3",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -1734,7 +1734,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.2151200007792795,
+                "retrieval_ms": 1.346639997791499,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -1753,7 +1753,7 @@
                 "valid": true,
                 "reason": "current",
                 "affected_sources": [],
-                "receipt_id": "9972e02c-d645-41ba-ad94-31780da42d2e",
+                "receipt_id": "1f877020-8ff1-49e3-83f4-1ad1e5e133d3",
                 "checked_at": 1800000000.0,
                 "release_epoch": 1,
                 "scope": "point-in-time validation; not an atomic external business action"
@@ -1765,8 +1765,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "115465f0-d4f3-419b-aa98-ee746aebdb76",
-                    "receipt_id": "9972e02c-d645-41ba-ad94-31780da42d2e",
+                    "action_id": "a32212d1-ee1f-43df-b415-73eb1676af7b",
+                    "receipt_id": "1f877020-8ff1-49e3-83f4-1ad1e5e133d3",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -1784,8 +1784,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "115465f0-d4f3-419b-aa98-ee746aebdb76",
-                      "receipt_id": "9972e02c-d645-41ba-ad94-31780da42d2e",
+                      "action_id": "a32212d1-ee1f-43df-b415-73eb1676af7b",
+                      "receipt_id": "1f877020-8ff1-49e3-83f4-1ad1e5e133d3",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -1812,8 +1812,8 @@
                   "observed": "replayed",
                   "error": null,
                   "response": {
-                    "action_id": "115465f0-d4f3-419b-aa98-ee746aebdb76",
-                    "receipt_id": "9972e02c-d645-41ba-ad94-31780da42d2e",
+                    "action_id": "a32212d1-ee1f-43df-b415-73eb1676af7b",
+                    "receipt_id": "1f877020-8ff1-49e3-83f4-1ad1e5e133d3",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -1864,7 +1864,7 @@
               ],
               "expected_reason": "current",
               "receipt": {
-                "id": "1f5b48e3-bdf0-48d2-bbab-8150291b5eb0",
+                "id": "4e00f38a-29ce-4e3e-86e8-c75ca01d1375",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -1882,7 +1882,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.4655880004283972,
+                "retrieval_ms": 1.6603930016572122,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -1905,8 +1905,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "04692483-4982-4ccc-85db-15c16c674f82",
-                    "receipt_id": "1f5b48e3-bdf0-48d2-bbab-8150291b5eb0",
+                    "action_id": "c2ca3e0d-3012-4ad1-89aa-3095ab94ca40",
+                    "receipt_id": "4e00f38a-29ce-4e3e-86e8-c75ca01d1375",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -1923,8 +1923,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "04692483-4982-4ccc-85db-15c16c674f82",
-                      "receipt_id": "1f5b48e3-bdf0-48d2-bbab-8150291b5eb0",
+                      "action_id": "c2ca3e0d-3012-4ad1-89aa-3095ab94ca40",
+                      "receipt_id": "4e00f38a-29ce-4e3e-86e8-c75ca01d1375",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -1957,7 +1957,7 @@
               ],
               "expected_reason": "source_changed",
               "receipt": {
-                "id": "fec5388b-41f9-4e5b-b5a5-4d94c0b2812b",
+                "id": "6e69a62e-b05b-40f4-b7a4-aa3bf1884867",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -1975,7 +1975,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.1391560001356993,
+                "retrieval_ms": 1.363446001050761,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -2019,7 +2019,7 @@
               ],
               "expected_reason": "source_changed",
               "receipt": {
-                "id": "16d5d965-abb4-40ed-abf6-c9b989699aa6",
+                "id": "c365d181-31c2-48b1-a8de-2f6ae867eef6",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -2037,7 +2037,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.134709000325529,
+                "retrieval_ms": 1.1636740018730052,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -2081,7 +2081,7 @@
               ],
               "expected_reason": "current",
               "receipt": {
-                "id": "cd8701ab-55da-4991-9a22-eae3e293ea57",
+                "id": "633ec67e-03a7-4324-aef8-544387d2bc54",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -2099,7 +2099,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.1365419995854609,
+                "retrieval_ms": 1.109652999730315,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -2122,8 +2122,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "64776670-8ac0-42b1-be89-793cccd118fd",
-                    "receipt_id": "cd8701ab-55da-4991-9a22-eae3e293ea57",
+                    "action_id": "4df5ebba-88cd-4faa-b9ec-4bb111376390",
+                    "receipt_id": "633ec67e-03a7-4324-aef8-544387d2bc54",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -2140,8 +2140,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "64776670-8ac0-42b1-be89-793cccd118fd",
-                      "receipt_id": "cd8701ab-55da-4991-9a22-eae3e293ea57",
+                      "action_id": "4df5ebba-88cd-4faa-b9ec-4bb111376390",
+                      "receipt_id": "633ec67e-03a7-4324-aef8-544387d2bc54",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -2174,7 +2174,7 @@
               ],
               "expected_reason": "source_deleted",
               "receipt": {
-                "id": "2888164a-489f-4d4a-9c95-1b1046fe54bf",
+                "id": "0d6b296f-2e15-4ed5-806e-89eb688827e7",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -2192,7 +2192,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.154709998445469,
+                "retrieval_ms": 1.0960319996229373,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -2236,7 +2236,7 @@
               ],
               "expected_reason": "receipt_expired",
               "receipt": {
-                "id": "4afea266-7d06-49ab-b534-8220b2c107a5",
+                "id": "076a32b2-c8ae-4812-a8e9-98875bd807b1",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -2254,7 +2254,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.1900019999302458,
+                "retrieval_ms": 1.1788769988925196,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -2298,7 +2298,7 @@
               ],
               "expected_reason": "release_changed",
               "receipt": {
-                "id": "8a178c4f-ddc7-46dd-8425-cfd599b59e28",
+                "id": "f44333de-0afb-40d8-a029-3cee165ab2a5",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -2316,7 +2316,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.127958999859402,
+                "retrieval_ms": 1.2748619992635213,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -2360,7 +2360,7 @@
               ],
               "expected_reason": "source_changed",
               "receipt": {
-                "id": "68c20161-00a6-433e-a29a-91505b07881d",
+                "id": "59254850-16e5-407d-8568-ba59b461df3c",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -2378,7 +2378,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.444584999262588,
+                "retrieval_ms": 1.3004700012970716,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -2422,7 +2422,7 @@
               ],
               "expected_reason": "current",
               "receipt": {
-                "id": "9cb6f5d9-313b-4125-9de6-287b9faecb40",
+                "id": "4ef803eb-631f-4614-8fba-93fe045a5764",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -2440,7 +2440,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.1670870007947087,
+                "retrieval_ms": 1.089552002667915,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -2463,8 +2463,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "a5d4c619-2f30-4991-8fbf-cd63a492f2b3",
-                    "receipt_id": "9cb6f5d9-313b-4125-9de6-287b9faecb40",
+                    "action_id": "cdf78453-de35-4fd7-af6a-b953c730ec8a",
+                    "receipt_id": "4ef803eb-631f-4614-8fba-93fe045a5764",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -2481,8 +2481,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "a5d4c619-2f30-4991-8fbf-cd63a492f2b3",
-                      "receipt_id": "9cb6f5d9-313b-4125-9de6-287b9faecb40",
+                      "action_id": "cdf78453-de35-4fd7-af6a-b953c730ec8a",
+                      "receipt_id": "4ef803eb-631f-4614-8fba-93fe045a5764",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -2509,8 +2509,8 @@
                   "observed": "replayed",
                   "error": null,
                   "response": {
-                    "action_id": "a5d4c619-2f30-4991-8fbf-cd63a492f2b3",
-                    "receipt_id": "9cb6f5d9-313b-4125-9de6-287b9faecb40",
+                    "action_id": "cdf78453-de35-4fd7-af6a-b953c730ec8a",
+                    "receipt_id": "4ef803eb-631f-4614-8fba-93fe045a5764",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -2566,7 +2566,7 @@
               ],
               "expected_reason": "current",
               "receipt": {
-                "id": "03013853-8724-44e6-a015-c7138cc8746c",
+                "id": "dcca8957-8041-4eba-8845-6110e05814a6",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -2584,7 +2584,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.2223210014781216,
+                "retrieval_ms": 1.3926089995948132,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -2607,8 +2607,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "2d040875-968e-48d0-a5a0-a9b7fc0c8548",
-                    "receipt_id": "03013853-8724-44e6-a015-c7138cc8746c",
+                    "action_id": "e5c61e62-fe7e-4b33-a860-c27712ee5b04",
+                    "receipt_id": "dcca8957-8041-4eba-8845-6110e05814a6",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -2626,8 +2626,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "2d040875-968e-48d0-a5a0-a9b7fc0c8548",
-                      "receipt_id": "03013853-8724-44e6-a015-c7138cc8746c",
+                      "action_id": "e5c61e62-fe7e-4b33-a860-c27712ee5b04",
+                      "receipt_id": "dcca8957-8041-4eba-8845-6110e05814a6",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -2660,7 +2660,7 @@
               ],
               "expected_reason": "source_changed",
               "receipt": {
-                "id": "c70f9eee-04f8-4054-bee7-f3a9718ce614",
+                "id": "26712a73-cf01-473f-b807-f6300f2b3e9a",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -2678,7 +2678,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.2789659995178226,
+                "retrieval_ms": 1.2272700005269144,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -2701,8 +2701,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "12a2603b-bd49-4216-b8bd-52522b43a0b2",
-                    "receipt_id": "c70f9eee-04f8-4054-bee7-f3a9718ce614",
+                    "action_id": "b72ec57c-34c2-4f32-ba8f-a081ae0b3da6",
+                    "receipt_id": "26712a73-cf01-473f-b807-f6300f2b3e9a",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -2720,8 +2720,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "12a2603b-bd49-4216-b8bd-52522b43a0b2",
-                      "receipt_id": "c70f9eee-04f8-4054-bee7-f3a9718ce614",
+                      "action_id": "b72ec57c-34c2-4f32-ba8f-a081ae0b3da6",
+                      "receipt_id": "26712a73-cf01-473f-b807-f6300f2b3e9a",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -2754,7 +2754,7 @@
               ],
               "expected_reason": "source_changed",
               "receipt": {
-                "id": "4cc77719-6d82-4c42-9418-a090d1c625bc",
+                "id": "4f584196-fd72-4c3e-ba18-1d67db84c91f",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -2772,7 +2772,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.2051859994244296,
+                "retrieval_ms": 1.7815850005717948,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -2795,8 +2795,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "2be6bee8-a74e-4b10-b8ea-8a385d872ac9",
-                    "receipt_id": "4cc77719-6d82-4c42-9418-a090d1c625bc",
+                    "action_id": "f72db955-b7c6-40bd-8409-52cfce743256",
+                    "receipt_id": "4f584196-fd72-4c3e-ba18-1d67db84c91f",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -2814,8 +2814,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "2be6bee8-a74e-4b10-b8ea-8a385d872ac9",
-                      "receipt_id": "4cc77719-6d82-4c42-9418-a090d1c625bc",
+                      "action_id": "f72db955-b7c6-40bd-8409-52cfce743256",
+                      "receipt_id": "4f584196-fd72-4c3e-ba18-1d67db84c91f",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -2848,7 +2848,7 @@
               ],
               "expected_reason": "current",
               "receipt": {
-                "id": "bd541b4f-ac51-4443-8201-9898a8042ea0",
+                "id": "6d840b54-566e-4359-b2f2-a999e4e069f1",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -2866,7 +2866,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.2469079993024934,
+                "retrieval_ms": 1.1986669996986166,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -2889,8 +2889,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "6bd6003a-35a1-4fcb-9c2d-65dfd0ac69e8",
-                    "receipt_id": "bd541b4f-ac51-4443-8201-9898a8042ea0",
+                    "action_id": "8a49a4dd-563f-4d72-aa3f-8d607b92a43b",
+                    "receipt_id": "6d840b54-566e-4359-b2f2-a999e4e069f1",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -2908,8 +2908,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "6bd6003a-35a1-4fcb-9c2d-65dfd0ac69e8",
-                      "receipt_id": "bd541b4f-ac51-4443-8201-9898a8042ea0",
+                      "action_id": "8a49a4dd-563f-4d72-aa3f-8d607b92a43b",
+                      "receipt_id": "6d840b54-566e-4359-b2f2-a999e4e069f1",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -2942,7 +2942,7 @@
               ],
               "expected_reason": "source_deleted",
               "receipt": {
-                "id": "0a37e3dc-7ad5-443b-990c-f3dc0db61310",
+                "id": "b0376105-c854-41c1-9273-13411a01871e",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -2960,7 +2960,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.2029720001009991,
+                "retrieval_ms": 1.1056570001528598,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -2983,8 +2983,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "b9a57b4b-3563-4f67-b88a-81244ba595a4",
-                    "receipt_id": "0a37e3dc-7ad5-443b-990c-f3dc0db61310",
+                    "action_id": "cc786771-d01c-45de-9500-caa234539803",
+                    "receipt_id": "b0376105-c854-41c1-9273-13411a01871e",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -3002,8 +3002,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "b9a57b4b-3563-4f67-b88a-81244ba595a4",
-                      "receipt_id": "0a37e3dc-7ad5-443b-990c-f3dc0db61310",
+                      "action_id": "cc786771-d01c-45de-9500-caa234539803",
+                      "receipt_id": "b0376105-c854-41c1-9273-13411a01871e",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -3036,7 +3036,7 @@
               ],
               "expected_reason": "receipt_expired",
               "receipt": {
-                "id": "fafe966c-5422-4867-9ce1-95b5211ab785",
+                "id": "64e43325-ab94-4b51-9241-d8196f5006fc",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -3054,7 +3054,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.2341799993009772,
+                "retrieval_ms": 1.3360440025280695,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -3077,8 +3077,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "41337479-729a-4850-aedd-41d17d0ea275",
-                    "receipt_id": "fafe966c-5422-4867-9ce1-95b5211ab785",
+                    "action_id": "0f7a48b9-b518-4947-87b9-ad064f34e02e",
+                    "receipt_id": "64e43325-ab94-4b51-9241-d8196f5006fc",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000120.0,
                     "release_epoch": 1,
@@ -3096,8 +3096,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "41337479-729a-4850-aedd-41d17d0ea275",
-                      "receipt_id": "fafe966c-5422-4867-9ce1-95b5211ab785",
+                      "action_id": "0f7a48b9-b518-4947-87b9-ad064f34e02e",
+                      "receipt_id": "64e43325-ab94-4b51-9241-d8196f5006fc",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000120.0,
                       "release_epoch": 1,
@@ -3130,7 +3130,7 @@
               ],
               "expected_reason": "release_changed",
               "receipt": {
-                "id": "eb61299d-e944-43b3-9046-ade7a5b6fe0f",
+                "id": "33333a03-c032-4758-9185-f082603a7977",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -3148,7 +3148,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.1672789987642318,
+                "retrieval_ms": 1.3104650024615694,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -3171,8 +3171,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "56724e1a-8d14-4ea1-8777-2e6b1408f801",
-                    "receipt_id": "eb61299d-e944-43b3-9046-ade7a5b6fe0f",
+                    "action_id": "77610013-cdb5-476a-a338-5f74c9aa726c",
+                    "receipt_id": "33333a03-c032-4758-9185-f082603a7977",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -3190,8 +3190,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "56724e1a-8d14-4ea1-8777-2e6b1408f801",
-                      "receipt_id": "eb61299d-e944-43b3-9046-ade7a5b6fe0f",
+                      "action_id": "77610013-cdb5-476a-a338-5f74c9aa726c",
+                      "receipt_id": "33333a03-c032-4758-9185-f082603a7977",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -3224,7 +3224,7 @@
               ],
               "expected_reason": "source_changed",
               "receipt": {
-                "id": "671cfc6a-43d4-432d-88a8-585d32c63022",
+                "id": "bdbe7a99-5455-425a-b820-8afb96ee15a5",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -3242,7 +3242,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.2279490001674276,
+                "retrieval_ms": 1.1404190008761361,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -3265,8 +3265,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "85d464a3-eb1c-461b-b8f3-f7e8b541f86d",
-                    "receipt_id": "671cfc6a-43d4-432d-88a8-585d32c63022",
+                    "action_id": "9c06c546-e7e3-4ae9-a97c-74215a47b82d",
+                    "receipt_id": "bdbe7a99-5455-425a-b820-8afb96ee15a5",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -3284,8 +3284,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "85d464a3-eb1c-461b-b8f3-f7e8b541f86d",
-                      "receipt_id": "671cfc6a-43d4-432d-88a8-585d32c63022",
+                      "action_id": "9c06c546-e7e3-4ae9-a97c-74215a47b82d",
+                      "receipt_id": "bdbe7a99-5455-425a-b820-8afb96ee15a5",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -3318,7 +3318,7 @@
               ],
               "expected_reason": "current",
               "receipt": {
-                "id": "5fce9f89-8edd-47a0-ab28-9fd134574c8a",
+                "id": "dda2adc4-daa9-4369-b8c3-83d0df8b194d",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -3336,7 +3336,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.1778039988712408,
+                "retrieval_ms": 1.1480799985292833,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -3359,8 +3359,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "f95a7ca0-f3fe-4a83-8aa2-3a26ac3206d1",
-                    "receipt_id": "5fce9f89-8edd-47a0-ab28-9fd134574c8a",
+                    "action_id": "c4548820-44f4-4e23-8fbf-a11f97614849",
+                    "receipt_id": "dda2adc4-daa9-4369-b8c3-83d0df8b194d",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -3378,8 +3378,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "f95a7ca0-f3fe-4a83-8aa2-3a26ac3206d1",
-                      "receipt_id": "5fce9f89-8edd-47a0-ab28-9fd134574c8a",
+                      "action_id": "c4548820-44f4-4e23-8fbf-a11f97614849",
+                      "receipt_id": "dda2adc4-daa9-4369-b8c3-83d0df8b194d",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -3406,8 +3406,8 @@
                   "observed": "replayed",
                   "error": null,
                   "response": {
-                    "action_id": "f95a7ca0-f3fe-4a83-8aa2-3a26ac3206d1",
-                    "receipt_id": "5fce9f89-8edd-47a0-ab28-9fd134574c8a",
+                    "action_id": "c4548820-44f4-4e23-8fbf-a11f97614849",
+                    "receipt_id": "dda2adc4-daa9-4369-b8c3-83d0df8b194d",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -3458,7 +3458,7 @@
               ],
               "expected_reason": "current",
               "receipt": {
-                "id": "3a3b84e1-3de5-4943-b3e3-5d0e7a5ce538",
+                "id": "6373ec4d-b77d-423e-b411-b4999e9561ca",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -3476,7 +3476,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.131123000959633,
+                "retrieval_ms": 1.3819129999319557,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -3495,7 +3495,7 @@
                 "valid": true,
                 "reason": "current",
                 "affected_sources": [],
-                "receipt_id": "3a3b84e1-3de5-4943-b3e3-5d0e7a5ce538",
+                "receipt_id": "6373ec4d-b77d-423e-b411-b4999e9561ca",
                 "checked_at": 1800000000.0,
                 "release_epoch": 1,
                 "scope": "point-in-time validation; not an atomic external business action"
@@ -3507,8 +3507,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "dbafa344-5435-4a7f-ba1d-9af85e8101d9",
-                    "receipt_id": "3a3b84e1-3de5-4943-b3e3-5d0e7a5ce538",
+                    "action_id": "9e6076a5-7c44-4a03-935a-c1867851fa36",
+                    "receipt_id": "6373ec4d-b77d-423e-b411-b4999e9561ca",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -3526,8 +3526,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "dbafa344-5435-4a7f-ba1d-9af85e8101d9",
-                      "receipt_id": "3a3b84e1-3de5-4943-b3e3-5d0e7a5ce538",
+                      "action_id": "9e6076a5-7c44-4a03-935a-c1867851fa36",
+                      "receipt_id": "6373ec4d-b77d-423e-b411-b4999e9561ca",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -3560,7 +3560,7 @@
               ],
               "expected_reason": "source_changed",
               "receipt": {
-                "id": "3ec63e39-1325-49ec-8edb-c2ba065c8447",
+                "id": "6deca1ea-523c-43c8-b90b-3215d33bca8a",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -3578,7 +3578,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.1315250012557954,
+                "retrieval_ms": 1.1354620000929572,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -3599,7 +3599,7 @@
                 "affected_sources": [
                   "transfer"
                 ],
-                "receipt_id": "3ec63e39-1325-49ec-8edb-c2ba065c8447",
+                "receipt_id": "6deca1ea-523c-43c8-b90b-3215d33bca8a",
                 "checked_at": 1800000000.0,
                 "release_epoch": 1,
                 "scope": "point-in-time validation; not an atomic external business action"
@@ -3632,7 +3632,7 @@
               ],
               "expected_reason": "source_changed",
               "receipt": {
-                "id": "68791b54-a3de-44c8-aa0b-8619ff73c70f",
+                "id": "3ec0eba0-3dc6-42e5-96b8-559bc41ed515",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -3650,7 +3650,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.222572000187938,
+                "retrieval_ms": 1.108660999307176,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -3669,7 +3669,7 @@
                 "valid": true,
                 "reason": "current",
                 "affected_sources": [],
-                "receipt_id": "68791b54-a3de-44c8-aa0b-8619ff73c70f",
+                "receipt_id": "3ec0eba0-3dc6-42e5-96b8-559bc41ed515",
                 "checked_at": 1800000000.0,
                 "release_epoch": 1,
                 "scope": "point-in-time validation; not an atomic external business action"
@@ -3681,8 +3681,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "1d1c8e49-e39a-48e0-af69-dfb1915cf655",
-                    "receipt_id": "68791b54-a3de-44c8-aa0b-8619ff73c70f",
+                    "action_id": "2d02db61-cabc-4df2-b7fb-06229234cea4",
+                    "receipt_id": "3ec0eba0-3dc6-42e5-96b8-559bc41ed515",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -3700,8 +3700,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "1d1c8e49-e39a-48e0-af69-dfb1915cf655",
-                      "receipt_id": "68791b54-a3de-44c8-aa0b-8619ff73c70f",
+                      "action_id": "2d02db61-cabc-4df2-b7fb-06229234cea4",
+                      "receipt_id": "3ec0eba0-3dc6-42e5-96b8-559bc41ed515",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -3734,7 +3734,7 @@
               ],
               "expected_reason": "current",
               "receipt": {
-                "id": "aad3e7ef-80bc-44b8-8dd1-e146c4e0069f",
+                "id": "f953cb12-b5ca-483c-b402-a592dd535274",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -3752,7 +3752,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.2773539983754745,
+                "retrieval_ms": 1.2880819995189086,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -3771,7 +3771,7 @@
                 "valid": true,
                 "reason": "current",
                 "affected_sources": [],
-                "receipt_id": "aad3e7ef-80bc-44b8-8dd1-e146c4e0069f",
+                "receipt_id": "f953cb12-b5ca-483c-b402-a592dd535274",
                 "checked_at": 1800000000.0,
                 "release_epoch": 1,
                 "scope": "point-in-time validation; not an atomic external business action"
@@ -3783,8 +3783,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "c3b30505-e31f-4373-91d7-1b809afafb46",
-                    "receipt_id": "aad3e7ef-80bc-44b8-8dd1-e146c4e0069f",
+                    "action_id": "3e82f8b7-bdeb-4184-8541-95cec22a0edc",
+                    "receipt_id": "f953cb12-b5ca-483c-b402-a592dd535274",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -3802,8 +3802,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "c3b30505-e31f-4373-91d7-1b809afafb46",
-                      "receipt_id": "aad3e7ef-80bc-44b8-8dd1-e146c4e0069f",
+                      "action_id": "3e82f8b7-bdeb-4184-8541-95cec22a0edc",
+                      "receipt_id": "f953cb12-b5ca-483c-b402-a592dd535274",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -3836,7 +3836,7 @@
               ],
               "expected_reason": "source_deleted",
               "receipt": {
-                "id": "73c73838-bb81-4257-9737-b3ff867d1c2b",
+                "id": "c32b6957-78f6-47f1-a4cd-86cc76cad2f0",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -3854,7 +3854,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.1489809985505417,
+                "retrieval_ms": 1.1241940010222606,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -3873,7 +3873,7 @@
                 "valid": true,
                 "reason": "current",
                 "affected_sources": [],
-                "receipt_id": "73c73838-bb81-4257-9737-b3ff867d1c2b",
+                "receipt_id": "c32b6957-78f6-47f1-a4cd-86cc76cad2f0",
                 "checked_at": 1800000000.0,
                 "release_epoch": 1,
                 "scope": "point-in-time validation; not an atomic external business action"
@@ -3885,8 +3885,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "61c2bf4a-567c-4217-ac7d-9d889cc36877",
-                    "receipt_id": "73c73838-bb81-4257-9737-b3ff867d1c2b",
+                    "action_id": "0c570df3-bf76-4a74-9062-aec3d922a5a0",
+                    "receipt_id": "c32b6957-78f6-47f1-a4cd-86cc76cad2f0",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -3904,8 +3904,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "61c2bf4a-567c-4217-ac7d-9d889cc36877",
-                      "receipt_id": "73c73838-bb81-4257-9737-b3ff867d1c2b",
+                      "action_id": "0c570df3-bf76-4a74-9062-aec3d922a5a0",
+                      "receipt_id": "c32b6957-78f6-47f1-a4cd-86cc76cad2f0",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -3938,7 +3938,7 @@
               ],
               "expected_reason": "receipt_expired",
               "receipt": {
-                "id": "cc629804-ca1c-4f4b-8600-db3977895a55",
+                "id": "bb9cdc6f-c540-41b1-bbfd-54745c4260c2",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -3956,7 +3956,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.2495320006564725,
+                "retrieval_ms": 1.126698000007309,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -3975,7 +3975,7 @@
                 "valid": true,
                 "reason": "current",
                 "affected_sources": [],
-                "receipt_id": "cc629804-ca1c-4f4b-8600-db3977895a55",
+                "receipt_id": "bb9cdc6f-c540-41b1-bbfd-54745c4260c2",
                 "checked_at": 1800000000.0,
                 "release_epoch": 1,
                 "scope": "point-in-time validation; not an atomic external business action"
@@ -3987,8 +3987,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "5495bfc0-5e48-4890-a2f9-4abe1c835d6a",
-                    "receipt_id": "cc629804-ca1c-4f4b-8600-db3977895a55",
+                    "action_id": "0bdc7ea8-5a7c-4cdd-8d11-14c962d84ff4",
+                    "receipt_id": "bb9cdc6f-c540-41b1-bbfd-54745c4260c2",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000120.0,
                     "release_epoch": 1,
@@ -4006,8 +4006,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "5495bfc0-5e48-4890-a2f9-4abe1c835d6a",
-                      "receipt_id": "cc629804-ca1c-4f4b-8600-db3977895a55",
+                      "action_id": "0bdc7ea8-5a7c-4cdd-8d11-14c962d84ff4",
+                      "receipt_id": "bb9cdc6f-c540-41b1-bbfd-54745c4260c2",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000120.0,
                       "release_epoch": 1,
@@ -4040,7 +4040,7 @@
               ],
               "expected_reason": "release_changed",
               "receipt": {
-                "id": "0d181e00-e575-41df-a478-7537d2bd3d3e",
+                "id": "3d5b9fe3-5a1a-4c20-8090-bf9d28080de7",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -4058,7 +4058,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.2435330008884193,
+                "retrieval_ms": 1.3702249998459592,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -4077,7 +4077,7 @@
                 "valid": true,
                 "reason": "current",
                 "affected_sources": [],
-                "receipt_id": "0d181e00-e575-41df-a478-7537d2bd3d3e",
+                "receipt_id": "3d5b9fe3-5a1a-4c20-8090-bf9d28080de7",
                 "checked_at": 1800000000.0,
                 "release_epoch": 1,
                 "scope": "point-in-time validation; not an atomic external business action"
@@ -4089,8 +4089,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "f5f1b348-cbd0-4197-801b-64c260161592",
-                    "receipt_id": "0d181e00-e575-41df-a478-7537d2bd3d3e",
+                    "action_id": "36e8dd3e-6c8e-4e67-b3e7-b9c943ee721e",
+                    "receipt_id": "3d5b9fe3-5a1a-4c20-8090-bf9d28080de7",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -4108,8 +4108,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "f5f1b348-cbd0-4197-801b-64c260161592",
-                      "receipt_id": "0d181e00-e575-41df-a478-7537d2bd3d3e",
+                      "action_id": "36e8dd3e-6c8e-4e67-b3e7-b9c943ee721e",
+                      "receipt_id": "3d5b9fe3-5a1a-4c20-8090-bf9d28080de7",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -4142,7 +4142,7 @@
               ],
               "expected_reason": "source_changed",
               "receipt": {
-                "id": "53d637c4-fcc4-47f0-b705-121f455b4f1a",
+                "id": "769ca421-6fd1-4868-a872-8cf09e0ae4c0",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -4160,7 +4160,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.292696999371401,
+                "retrieval_ms": 1.3680119991477113,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -4179,7 +4179,7 @@
                 "valid": true,
                 "reason": "current",
                 "affected_sources": [],
-                "receipt_id": "53d637c4-fcc4-47f0-b705-121f455b4f1a",
+                "receipt_id": "769ca421-6fd1-4868-a872-8cf09e0ae4c0",
                 "checked_at": 1800000000.0,
                 "release_epoch": 1,
                 "scope": "point-in-time validation; not an atomic external business action"
@@ -4191,8 +4191,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "b9ccdbd1-eb1b-4cc6-b4c0-aa5c4d794fd1",
-                    "receipt_id": "53d637c4-fcc4-47f0-b705-121f455b4f1a",
+                    "action_id": "1a2a68ce-d829-4124-8fba-a7e1c32b3acd",
+                    "receipt_id": "769ca421-6fd1-4868-a872-8cf09e0ae4c0",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -4210,8 +4210,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "b9ccdbd1-eb1b-4cc6-b4c0-aa5c4d794fd1",
-                      "receipt_id": "53d637c4-fcc4-47f0-b705-121f455b4f1a",
+                      "action_id": "1a2a68ce-d829-4124-8fba-a7e1c32b3acd",
+                      "receipt_id": "769ca421-6fd1-4868-a872-8cf09e0ae4c0",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -4244,7 +4244,7 @@
               ],
               "expected_reason": "current",
               "receipt": {
-                "id": "9b771fac-afcd-4856-9a18-3ca63c329024",
+                "id": "d912f2b2-1235-4314-a6c3-7032116072d7",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -4262,7 +4262,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.2911249996250262,
+                "retrieval_ms": 1.2112549993616994,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -4281,7 +4281,7 @@
                 "valid": true,
                 "reason": "current",
                 "affected_sources": [],
-                "receipt_id": "9b771fac-afcd-4856-9a18-3ca63c329024",
+                "receipt_id": "d912f2b2-1235-4314-a6c3-7032116072d7",
                 "checked_at": 1800000000.0,
                 "release_epoch": 1,
                 "scope": "point-in-time validation; not an atomic external business action"
@@ -4293,8 +4293,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "53945b0c-a7a3-4364-9003-25eebd5a0069",
-                    "receipt_id": "9b771fac-afcd-4856-9a18-3ca63c329024",
+                    "action_id": "be84b31c-34c9-4187-9e42-042e40df1654",
+                    "receipt_id": "d912f2b2-1235-4314-a6c3-7032116072d7",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -4312,8 +4312,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "53945b0c-a7a3-4364-9003-25eebd5a0069",
-                      "receipt_id": "9b771fac-afcd-4856-9a18-3ca63c329024",
+                      "action_id": "be84b31c-34c9-4187-9e42-042e40df1654",
+                      "receipt_id": "d912f2b2-1235-4314-a6c3-7032116072d7",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -4340,8 +4340,8 @@
                   "observed": "replayed",
                   "error": null,
                   "response": {
-                    "action_id": "53945b0c-a7a3-4364-9003-25eebd5a0069",
-                    "receipt_id": "9b771fac-afcd-4856-9a18-3ca63c329024",
+                    "action_id": "be84b31c-34c9-4187-9e42-042e40df1654",
+                    "receipt_id": "d912f2b2-1235-4314-a6c3-7032116072d7",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -4392,7 +4392,7 @@
               ],
               "expected_reason": "current",
               "receipt": {
-                "id": "b844639f-f15e-4db7-ab2e-3c8959c505b5",
+                "id": "ab9ac62f-6dcf-4d37-bfce-88a0e4974c6e",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -4410,7 +4410,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.139285999670392,
+                "retrieval_ms": 1.1549609989742748,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -4433,8 +4433,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "3ca0ed96-699b-4d3a-8720-77749714b518",
-                    "receipt_id": "b844639f-f15e-4db7-ab2e-3c8959c505b5",
+                    "action_id": "b4bb6aec-3fad-444c-948a-4181097c1a7e",
+                    "receipt_id": "ab9ac62f-6dcf-4d37-bfce-88a0e4974c6e",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -4451,8 +4451,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "3ca0ed96-699b-4d3a-8720-77749714b518",
-                      "receipt_id": "b844639f-f15e-4db7-ab2e-3c8959c505b5",
+                      "action_id": "b4bb6aec-3fad-444c-948a-4181097c1a7e",
+                      "receipt_id": "ab9ac62f-6dcf-4d37-bfce-88a0e4974c6e",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -4485,7 +4485,7 @@
               ],
               "expected_reason": "source_changed",
               "receipt": {
-                "id": "141a3545-abfd-4336-a949-57b3f8da0f0f",
+                "id": "6b8e0a7e-8817-4e7c-8518-2d7c926d04d8",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -4503,7 +4503,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.669383998887497,
+                "retrieval_ms": 1.1650559972622432,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -4547,7 +4547,7 @@
               ],
               "expected_reason": "source_changed",
               "receipt": {
-                "id": "398e8bda-34bb-40ac-b5df-07c3b97d7898",
+                "id": "f94f8294-38fe-4154-bb96-b4a43147d4a0",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -4565,7 +4565,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.183342001240817,
+                "retrieval_ms": 1.5743929980089888,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -4609,7 +4609,7 @@
               ],
               "expected_reason": "current",
               "receipt": {
-                "id": "fbb7c3e1-832c-4ae2-a5d3-45ccbcc83e02",
+                "id": "097ddf0e-fe10-4966-8bf1-2efc03adedf0",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -4627,7 +4627,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.6489339996041963,
+                "retrieval_ms": 1.1134490014228504,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -4650,8 +4650,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "200cc220-dadf-46f9-9629-8923446595ea",
-                    "receipt_id": "fbb7c3e1-832c-4ae2-a5d3-45ccbcc83e02",
+                    "action_id": "c1e1988d-7045-431f-8ac3-edea25ad795c",
+                    "receipt_id": "097ddf0e-fe10-4966-8bf1-2efc03adedf0",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -4668,8 +4668,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "200cc220-dadf-46f9-9629-8923446595ea",
-                      "receipt_id": "fbb7c3e1-832c-4ae2-a5d3-45ccbcc83e02",
+                      "action_id": "c1e1988d-7045-431f-8ac3-edea25ad795c",
+                      "receipt_id": "097ddf0e-fe10-4966-8bf1-2efc03adedf0",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -4702,7 +4702,7 @@
               ],
               "expected_reason": "source_deleted",
               "receipt": {
-                "id": "471975ae-f9e5-48c9-b97c-8552141992eb",
+                "id": "51301aee-a385-487b-babb-8268e07e6ddb",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -4720,7 +4720,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.163912998890737,
+                "retrieval_ms": 1.1287509987596422,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -4764,7 +4764,7 @@
               ],
               "expected_reason": "receipt_expired",
               "receipt": {
-                "id": "efc65a60-ecf1-4ba8-8712-39336cd0bd29",
+                "id": "33a669e9-113b-4ad4-9a29-ff1c0f5e1a03",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -4782,7 +4782,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.2456559998099692,
+                "retrieval_ms": 1.1948510000365786,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -4826,7 +4826,7 @@
               ],
               "expected_reason": "release_changed",
               "receipt": {
-                "id": "341dd364-72d2-442e-8195-743a095f8460",
+                "id": "d59bbc46-f42e-43d9-a4ee-392d65d750b3",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -4844,7 +4844,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.1758410000766162,
+                "retrieval_ms": 1.1721369992301334,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -4888,7 +4888,7 @@
               ],
               "expected_reason": "source_changed",
               "receipt": {
-                "id": "e0770548-c41d-448e-8902-bb5472a65093",
+                "id": "03fc57b4-12e3-477d-beed-46df8d804aa2",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -4906,7 +4906,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.3346699997782707,
+                "retrieval_ms": 1.2112849981349427,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -4950,7 +4950,7 @@
               ],
               "expected_reason": "current",
               "receipt": {
-                "id": "b943fc25-2862-4a27-988b-e91d11d8cdda",
+                "id": "20c1240c-9777-4b33-9cc4-b7af737fb730",
                 "product": "checklist",
                 "query": "하루 이체 한도",
                 "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
@@ -4968,7 +4968,7 @@
                 "expires_at": 1800000120.0,
                 "idempotency_key": "prepare",
                 "request_hash": "a4613a025ae5064cd1fe29d2a69f4c8ab6a0bc5273fd101704a0f77d3d65c6be",
-                "retrieval_ms": 1.2480799996410497,
+                "retrieval_ms": 1.1606999978539534,
                 "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
               },
               "state_at_submit": {
@@ -4991,8 +4991,8 @@
                   "observed": "committed",
                   "error": null,
                   "response": {
-                    "action_id": "27d4c557-8361-40fd-9108-999d93bcc6b5",
-                    "receipt_id": "b943fc25-2862-4a27-988b-e91d11d8cdda",
+                    "action_id": "321b7ea3-89ec-423c-83f6-2ef36d6fd7fe",
+                    "receipt_id": "20c1240c-9777-4b33-9cc4-b7af737fb730",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,
@@ -5009,8 +5009,8 @@
                   },
                   "new_actions": [
                     {
-                      "action_id": "27d4c557-8361-40fd-9108-999d93bcc6b5",
-                      "receipt_id": "b943fc25-2862-4a27-988b-e91d11d8cdda",
+                      "action_id": "321b7ea3-89ec-423c-83f6-2ef36d6fd7fe",
+                      "receipt_id": "20c1240c-9777-4b33-9cc4-b7af737fb730",
                       "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                       "committed_at": 1800000000.0,
                       "release_epoch": 1,
@@ -5037,8 +5037,8 @@
                   "observed": "replayed",
                   "error": null,
                   "response": {
-                    "action_id": "27d4c557-8361-40fd-9108-999d93bcc6b5",
-                    "receipt_id": "b943fc25-2862-4a27-988b-e91d11d8cdda",
+                    "action_id": "321b7ea3-89ec-423c-83f6-2ef36d6fd7fe",
+                    "receipt_id": "20c1240c-9777-4b33-9cc4-b7af737fb730",
                     "output": "확인할 근거: 이체 한도 안내\n□ 적용 내용 확인: 하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.\n□ 사용 직전 근거 버전 재검증",
                     "committed_at": 1800000000.0,
                     "release_epoch": 1,

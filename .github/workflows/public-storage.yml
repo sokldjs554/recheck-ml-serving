@@ -1,0 +1,54 @@
+name: Public PostgreSQL persistence
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/public-storage.yml'
+      - 'scripts/verify_public_storage.py'
+      - 'docs/evidence/public-storage-fixture.json'
+permissions:
+  contents: read
+concurrency:
+  group: public-storage
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install httpx==0.28.1
+      - name: Wait for persistent public API
+        run: |
+          python - <<'PY'
+          import time, httpx
+          until = time.monotonic() + 480
+          while time.monotonic() < until:
+              try:
+                  r = httpx.get('https://recheck-ml-serving.onrender.com/api/operations', timeout=90)
+                  if r.status_code == 200 and r.json().get('storage') == 'postgresql' and r.json().get('samples'):
+                      break
+              except (httpx.HTTPError, ValueError):
+                  pass
+              time.sleep(10)
+          else:
+              raise SystemExit('PostgreSQL observer not ready')
+          PY
+      - name: Capture or verify persisted action across deployments
+        run: |
+          mkdir -p evidence
+          if [ -f docs/evidence/public-storage-fixture.json ]; then
+            python scripts/verify_public_storage.py --base https://recheck-ml-serving.onrender.com --mode verify --fixture docs/evidence/public-storage-fixture.json --output evidence/public-storage-verification.json
+          else
+            python scripts/verify_public_storage.py --base https://recheck-ml-serving.onrender.com --mode capture --fixture evidence/public-storage-fixture.json --output evidence/public-storage-capture.json
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: public-storage-proof
+          path: evidence/
+          retention-days: 90

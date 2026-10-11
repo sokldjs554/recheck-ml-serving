@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import data from './serving-evidence.json';
+import fullpath from './fullpath-evidence.json';
+import PublicOperations from './PublicOperations';
 import './servingEvidence.css';
 
 const evidenceRoot = 'https://github.com/sokldjs554/recheck-ml-serving/blob/main/docs/evidence/';
@@ -29,6 +31,14 @@ export default function ServingEvidence({view}: {view: 'serving' | 'recovery'}) 
     </header>
     <p className="serving-record-note" data-testid="stored-evidence-note">저장된 실제 실험 기록 · 실시간 부하 실행이나 현재 서버 상태가 아닙니다.</p>
     {view === 'serving' ? <>
+      <section className="public-observation" aria-label="API 모델 PostgreSQL 전체 경로 부하">
+        <h2>API에서 SQL 기록까지</h2>
+        <p>HTTP API → CPU 추론 프로세스 2개 → PostgreSQL. 아래는 전체 경로를 호출한 별도 실험입니다. 각 요청률을 5초씩 2회 측정했고, 성공·보류·오류를 모두 셌습니다.</p>
+        <div className="recovery-table-scroll"><table className="recovery-table"><thead><tr><th>요청률 / 회차</th><th>500ms 내 유효 응답</th><th>전체 p95</th><th>HTTP 오류</th></tr></thead><tbody>{fullpath.cases.map(c => <tr key={`${c.rate_rps}-${c.repeat}`}><th>{c.rate_rps} req/s · {c.repeat}회</th><td>{c.good} / {c.requested}</td><td>{c.p95_ms.toFixed(1)} ms</td><td>{Object.entries(c.outcomes).filter(([k]) => k !== '200').map(([k,v]) => `${k}: ${v}`).join(', ') || '0'}</td></tr>)}</tbody></table></div>
+        <p>HTTP 200으로 받은 {fullpath.checks.all_delivered_receipts_equal_sql}개 응답을 DB 원본과 대조했습니다. 중복 저장 0건. 연결 중단 후 재시도와 API 재시작 후에도 같은 기록을 돌려받았습니다.</p>
+        <p>첫 구간의 DB 오류 1건도 포함합니다. 이 실행에서는 다른 SQL 검증이 같은 로컬 DB를 사용했습니다. 공유 호스트의 짧은 측정이며 공개 Render 서버의 처리 용량은 아닙니다.</p>
+        <a href={evidenceRoot + 'fullpath-load.json'} target="_blank" rel="noreferrer">전체 시도·조건·실패 원본 ↗</a>
+      </section>
       <div className="serving-instrument">
         <aside className="serving-settings">
           <h2>요청률 선택</h2>
@@ -49,6 +59,7 @@ export default function ServingEvidence({view}: {view: 'serving' | 'recovery'}) 
       <p className="serving-boundary" data-testid="serving-boundary">측정 경계: 모델 서버 HTTP 직접 호출. API·DB·브라우저 지연은 제외합니다. 두 실험의 지속 시간이 달라 요청률만의 인과 효과로 단정할 수 없습니다. RSS는 공유 페이지를 중복 집계할 수 있습니다.</p>
       <footer className="serving-source"><time>{date(sample.measuredAt)}</time><a href={evidenceRoot + sample.source} target="_blank" rel="noreferrer">측정 원본 ↗</a><a href="https://github.com/sokldjs554/recheck-ml-serving/blob/main/docs/compute-experiments.md" target="_blank" rel="noreferrer">조건과 재현 명령 ↗</a></footer>
     </> : <>
+      <PublicOperations />
       <div className="recovery-proof" data-testid="recovery-proof">
         <div className="recovery-wiring"><span>Python API</span><b>→</b><span>모델 서버</span><b>→</b><span>Collector / Jaeger</span></div>
         <p>같은 trace의 {observed.trace.span_count}개 span에서 API 호출과 모델 추론의 부모 관계를 확인했습니다.</p>

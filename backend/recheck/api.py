@@ -31,6 +31,17 @@ def iso(timestamp):
     return datetime.fromtimestamp(timestamp, timezone.utc).isoformat()
 
 
+async def database_call(fn, *args, **kwargs):
+    # Remote SQL must not block the event loop. Join cancelled transactions
+    # before releasing admission; cancellation cannot stop a running DB thread.
+    task = asyncio.create_task(asyncio.to_thread(fn, *args, **kwargs))
+    try:
+        return await asyncio.shield(task)
+    except asyncio.CancelledError:
+        await task
+        raise
+
+
 def create_app(settings=None, model_client=None):
     settings = settings or Settings.from_env()
     store = Store(settings)
@@ -41,7 +52,11 @@ def create_app(settings=None, model_client=None):
 
     @asynccontextmanager
     async def lifespan(app):
+        observer_task = asyncio.create_task(app.state.observer.run()) if settings.observe else None
         yield
+        if observer_task:
+            app.state.observer.stop.set()
+            await observer_task
         if not supplied_client:
             await model_client.aclose()
         store.engine.dispose()
@@ -82,23 +97,23 @@ def create_app(settings=None, model_client=None):
 
     @app.post("/api/sessions")
     async def create_session():
-        return store.create_session()
+        return await database_call(store.create_session)
 
     @app.post("/api/sessions/{sid}/mutations")
     async def mutate(sid: str, body: MutationRequest):
-        return store.mutate(sid, body.kind)
+        return await database_call(store.mutate, sid, body.kind)
 
     @app.get("/api/sessions/{sid}/decisions")
     async def receipts(sid: str):
-        return {"receipts": store.receipts(sid)}
+        return {"receipts": await database_call(store.receipts, sid)}
 
     @app.get("/api/sessions/{sid}/decisions/{did}/validate")
     async def validate(sid: str, did: str):
-        return store.validate(sid, did)
+        return await database_call(store.validate, sid, did)
 
     @app.get("/api/sessions/{sid}/metrics")
     async def metrics(sid: str):
-        return store.metrics(sid, app.state.active_sessions[sid])
+        return await database_call(store.metrics, sid, app.state.active_sessions[sid])
 
     @app.post("/api/sessions/{sid}/decisions")
     async def decide(sid: str, body: DecisionRequest, request: Request):
@@ -130,12 +145,12 @@ def create_app(settings=None, model_client=None):
         with finishing_span(tracer, "decision", context=propagate.extract(dict(request.headers)), kind=trace.SpanKind.SERVER) as root:
             trace_id = f"{root.get_span_context().trace_id:032x}"
             with tracer.start_as_current_span("snapshot"):
-                did, snapshot, existing = store.reserve(sid, body.idempotency_key, fingerprint)
+                did, snapshot, existing = await database_call(store.reserve, sid, body.idempotency_key, fingerprint)
             if existing is not None:
                 return existing
             if snapshot is None:
                 while time.monotonic() < deadline:
-                    receipt, reserved_at = store.pending(sid, did)
+                    receipt, reserved_at = await database_call(store.pending, sid, did)
                     if receipt is not None:
                         return receipt
                     # A crashed owner is never silently replaced by another model
@@ -221,7 +236,7 @@ def create_app(settings=None, model_client=None):
                     fenced_receipt["spans"] = sorted(local_spans, key=lambda span: span["start_ms"])
                     fenced_receipt["latency_ms"] = (time.monotonic() - started) * 1000
                     return fenced_receipt
-                receipt = store.finish(sid, did, snapshot, receipt, finalize=finalize)
+                receipt = await database_call(store.finish, sid, did, snapshot, receipt, finalize=finalize)
         logger.info(json.dumps({"receipt_id": did, "session_id": sid, "trace_id": trace_id,
                                 "status": receipt["status"], "reason": receipt["reason"]}))
         if cancelled:
@@ -232,6 +247,14 @@ def create_app(settings=None, model_client=None):
             if time.time() >= datetime.fromisoformat(receipt["expires_at"]).timestamp():
                 raise HTTPException(409, "receipt_expired_after_commit")
         return receipt
+
+    if settings.observe:
+        from .operations import Observer
+        app.state.observer = Observer(store.engine, app.state.prometheus, model_client, health)
+
+        @app.get('/api/operations')
+        async def operations():
+            return await database_call(app.state.observer.journal.read)
 
     return app
 

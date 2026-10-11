@@ -18,6 +18,7 @@ class Settings:
     execution_mode: str = "inline"
     max_sessions: int = 1000
     max_receipts: int = 100
+    observe: int = 0
     cors_origins: tuple[str, ...] = ("http://localhost:5173", "http://127.0.0.1:5173")
 
     def __post_init__(self):

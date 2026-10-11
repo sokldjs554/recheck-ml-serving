@@ -1,0 +1,133 @@
+{
+  "measured_at": "2026-10-11T15:33:55.761655+00:00",
+  "boundary": "real HTTP API -> HTTP CPU model/process pool -> PostgreSQL transactions",
+  "environment": "single shared local Linux host; PostgreSQL Docker container; not public Render capacity",
+  "deadline_ms": 500,
+  "checks": {
+    "unavailable": "model_unavailable",
+    "timeout": "deadline_exceeded",
+    "disconnect_retry_single_sql_row": true,
+    "api_restart_immutable_replay": true,
+    "conflicting_replay_rejected": true,
+    "all_delivered_receipts_equal_sql": 499,
+    "duplicate_rows": 0
+  },
+  "database_version": "PostgreSQL 16.15 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit",
+  "resource_scope": "API/model process trees only; summed RSS can double-count shared pages; DB resources excluded",
+  "cases": [
+    {
+      "rate_rps": 5,
+      "repeat": 1,
+      "duration_seconds": 5,
+      "observed_seconds": 5,
+      "requested": 25,
+      "good": 24,
+      "goodput_rps": 4.8,
+      "outcomes": {
+        "200": 24,
+        "503": 1
+      },
+      "reasons": {
+        "no_current_warning": 24,
+        "database_unavailable": 1
+      },
+      "p95_ms": 93.83309400072903,
+      "cpu_seconds": 1.04,
+      "peak_api_model_rss_bytes": 680493056
+    },
+    {
+      "rate_rps": 5,
+      "repeat": 2,
+      "duration_seconds": 5,
+      "observed_seconds": 5,
+      "requested": 25,
+      "good": 25,
+      "goodput_rps": 5.0,
+      "outcomes": {
+        "200": 25
+      },
+      "reasons": {
+        "no_current_warning": 25
+      },
+      "p95_ms": 64.64672799847904,
+      "cpu_seconds": 0.9500000000000002,
+      "peak_api_model_rss_bytes": 680624128
+    },
+    {
+      "rate_rps": 15,
+      "repeat": 1,
+      "duration_seconds": 5,
+      "observed_seconds": 5,
+      "requested": 75,
+      "good": 75,
+      "goodput_rps": 15.0,
+      "outcomes": {
+        "200": 75
+      },
+      "reasons": {
+        "no_current_warning": 75
+      },
+      "p95_ms": 64.16614033150836,
+      "cpu_seconds": 2.789999999999999,
+      "peak_api_model_rss_bytes": 680886272
+    },
+    {
+      "rate_rps": 15,
+      "repeat": 2,
+      "duration_seconds": 5,
+      "observed_seconds": 5,
+      "requested": 75,
+      "good": 75,
+      "goodput_rps": 15.0,
+      "outcomes": {
+        "200": 75
+      },
+      "reasons": {
+        "no_current_warning": 75
+      },
+      "p95_ms": 71.43981766785146,
+      "cpu_seconds": 2.910000000000002,
+      "peak_api_model_rss_bytes": 681541632
+    },
+    {
+      "rate_rps": 30,
+      "repeat": 1,
+      "duration_seconds": 5,
+      "observed_seconds": 5.009834026997851,
+      "requested": 150,
+      "good": 150,
+      "goodput_rps": 29.94111165991814,
+      "outcomes": {
+        "200": 150
+      },
+      "reasons": {
+        "no_current_warning": 150
+      },
+      "p95_ms": 80.02828000098816,
+      "cpu_seconds": 5.710000000000001,
+      "peak_api_model_rss_bytes": 682065920
+    },
+    {
+      "rate_rps": 30,
+      "repeat": 2,
+      "duration_seconds": 5,
+      "observed_seconds": 5.017473048999818,
+      "requested": 150,
+      "good": 150,
+      "goodput_rps": 29.895526799072883,
+      "outcomes": {
+        "200": 150
+      },
+      "reasons": {
+        "no_current_warning": 150
+      },
+      "p95_ms": 74.98890200076858,
+      "cpu_seconds": 5.639999999999997,
+      "peak_api_model_rss_bytes": 682983424
+    }
+  ],
+  "limitations": [
+    "Short shared-host experiment, not public hosting capacity or SLA.",
+    "One 503 is retained; a concurrent local SQL evaluator shared this database during this run."
+  ]
+}

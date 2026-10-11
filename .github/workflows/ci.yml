@@ -60,5 +60,6 @@ jobs:
         working-directory: demo
       - run: python scripts/build_safety_summary.py --check
       - run: python scripts/build_serving_summary.py --check
+      - run: python scripts/build_fullpath_summary.py --check
       - run: diff -qr demo/dist web_static
       - run: python -m compileall -q scripts backend/recheck

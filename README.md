@@ -153,3 +153,5 @@ AI와 협업해 구현한 프로젝트입니다. 설계 선택과 보장 범위�
 임시 SQLite와 만료되는 세션을 사용합니다. 이미 기록한 작업은 이후 근거가 바뀌어도 과거 기록으로 남습니다.
 
 라이선스: MIT. 번들 폰트는 동봉된 SIL Open Font License를 따릅니다.
+
+Public deployment follow-up: [PostgreSQL persistence, live observation, full-path load, and remaining paid hosting decision](docs/public-runtime.md).

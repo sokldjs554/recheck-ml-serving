@@ -50,7 +50,8 @@ class Store:
         elif url.startswith("postgresql://"):
             url = "postgresql+psycopg://" + url[len("postgresql://"):]
         sqlite = url.startswith("sqlite:")
-        self.engine = create_engine(url, connect_args={"check_same_thread": False, "timeout": 0.1} if sqlite else {"connect_timeout": 3, "options": "-c statement_timeout=150 -c lock_timeout=100"}, pool_pre_ping=True)
+        pool = {} if sqlite else dict(pool_size=4, max_overflow=0, pool_timeout=0.3, pool_recycle=240)
+        self.engine = create_engine(url, connect_args={"check_same_thread": False, "timeout": 0.1} if sqlite else {"connect_timeout": 3, "options": "-c statement_timeout=150 -c lock_timeout=100"}, pool_pre_ping=True, **pool)
         if sqlite:
             @event.listens_for(self.engine, "connect")
             def pragma(connection, _):
