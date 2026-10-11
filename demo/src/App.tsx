@@ -445,7 +445,7 @@ export default function App() {
     receipts: "판단 기록",
     architecture: "요청 처리 구조",
     evidence: "실행 증거",
-    story: "설계자의 관점",
+    story: "설계 배경",
   };
   const pageDescriptions: Record<Tab, string> = {
     case: "문서가 바뀐 뒤에도 이 답변을 사용해도 될까요? 직접 바꾸고 확인하세요.",
@@ -454,7 +454,7 @@ export default function App() {
     receipts: "생성 당시의 정보와 판단 원본을 확인합니다.",
     architecture: "요청 접수부터 최종 검증까지의 처리 경로입니다.",
     evidence: "실행 환경과 관측 시각이 기록된 검증 자료입니다.",
-    story: "문제 정의, 기술 선택, 기여하고 싶은 일을 설명합니다.",
+    story: "실행 시점 검증을 선택한 이유와 보장 범위를 설명합니다.",
   };
   const sections = [
     { id: "case" as Tab, label: "핵심 사례" },
@@ -463,7 +463,7 @@ export default function App() {
     { id: "receipts" as Tab, label: "판단 기록" },
     { id: "architecture" as Tab, label: "서버 설계" },
     { id: "evidence" as Tab, label: "검증 기록" },
-    { id: "story" as Tab, label: "지원자의 관점" },
+    { id: "story" as Tab, label: "설계 배경" },
   ];
   const versions = [
     {
@@ -1381,14 +1381,13 @@ export default function App() {
               <span className="eyebrow">이 프로젝트를 만든 이유</span>
               <h2>오류 재현과 해결책 검증</h2>
               <p>
-                저는 Python과 LLM·AI/ML을 경험한 신입 개발자입니다. AI와 함께
-                개발하며 반복되는 오류를 직접 조사하고, 서로 다른 해결 방법을
-                비교해 해결해 왔습니다.
+                답변 생성이 성공해도 실행할 때 근거가 바뀌어 있을 수 있습니다.
+                RECHECK는 이 시간 차이와 재시도로 생기는 중복 기록을 재현합니다.
               </p>
               <p>
-                RECHECK에서는 그 태도를 서버 설계로 확장합니다. 실패를 재현하고,
-                원인 가설을 검증하고, 같은 오류의 재발을 막는 과정을 보여주고
-                싶습니다.
+                생성 결과 신뢰, 별도 재검증, 검증과 기록의 원자적 처리를 같은
+                사건 순서로 비교합니다. 각 방식이 막는 실패와 남기는 한계를 실제
+                SQL 기록으로 확인합니다.
               </p>
             </div>
             <div className="story-method">
@@ -1411,8 +1410,8 @@ export default function App() {
                 },
                 {
                   n: "04",
-                  title: "확인한 것만 성과로 말하기",
-                  text: "브라우저 모사와 실측을 구분하고, AI의 도움과 직접 검토한 판단을 설명합니다.",
+                  title: "검증 범위를 명시하기",
+                  text: "브라우저 모사와 실제 API 측정을 구분하고, 고정 반례의 결과를 일반 사고율로 환산하지 않습니다.",
                 },
               ].map((item) => (
                 <div key={item.n}>
@@ -1425,40 +1424,32 @@ export default function App() {
               ))}
             </div>
             <div className="ownership-next">
-              <span className="eyebrow">직접 판단할 수 있는가</span>
-              <h3>설명을 읽고, 반례로 확인하기</h3>
+              <span className="eyebrow">설계 검증</span>
+              <h3>검사와 기록 사이에 변경을 넣으면</h3>
               <p>
-                AI와 함께 구현한 결과물입니다. 지원자가 직접 검토·수정한 범위는
-                실제 작업 기록으로 설명해야 합니다. 검사와 기록을 분리하면 어떤
-                테스트가 깨지는지, 응답을 잃은 재시도는 어떻게 처리하는지 직접
-                확인할 수 있는 과제를 공개합니다.
+                검사 직후에 원문을 바꾸면 별도 재검증 방식도 오래된 답변을
+                기록할 수 있습니다. 같은 트랜잭션에서 검사와 기록을 수행하는
+                방식과 비교한 사건 순서·측정 원본을 공개합니다.
               </p>
               <a
-                href="https://github.com/sokldjs554/recheck-ml-serving/blob/main/docs/ownership-workbook.md"
+                href="https://github.com/sokldjs554/recheck-ml-serving/blob/main/docs/safety-case-study.md"
                 target="_blank"
                 rel="noreferrer"
               >
-                직접 수정하는 개발 과제 ↗
-              </a>
-              <a
-                href="https://github.com/sokldjs554/recheck-ml-serving/blob/main/docs/usability-protocol.md"
-                target="_blank"
-                rel="noreferrer"
-              >
-                아직 검증하지 못한 사용자 이해도 ↗
+                세 방식의 비교 실험 ↗
               </a>
             </div>
             <div className="contribution">
-              <span className="eyebrow">토스뱅크에서 기여하고 싶은 일</span>
-              <h3>여러 AI 제품이 공유하는 검증 기능</h3>
+              <span className="eyebrow">적용 범위</span>
+              <h3>같은 데이터베이스 안의 작업 기록</h3>
               <p>
-                모델 응답이 늦거나 입력 정보가 바뀌었을 때의 처리, 실패 원인을
-                찾을 수 있는 기록을 공통 서버 기능으로 만드는 데 기여하고
-                싶습니다. 팀의 실제 운영 환경을 이해하며 이 프로젝트의 검증
-                방법을 발전시키겠습니다.
+                근거 검증과 내부 작업 기록을 같은 SQL 트랜잭션으로 처리합니다.
+                외부 메시지 발송이나 송금까지 원자적으로 처리하는 시스템은
+                아닙니다. AI와 협업해 구현했으며, 재현 가능한 코드와 검증 기록을
+                함께 제공합니다.
               </p>
               <small>
-                Python · FastAPI · 독립 모델 서버 · 버전 재검증 · 장애 재현
+                Python · FastAPI · SQL 트랜잭션 · 버전 재검증 · 멱등 재시도
               </small>
             </div>
           </section>

@@ -132,7 +132,7 @@ def main() -> None:
             click("서버 설계")
             page.get_by_role("heading", name="모델 추론과 최종 검증을 분리했습니다.", exact=True).wait_for()
             page.get_by_text("Python 호스팅 구성: SQLite", exact=False).wait_for()
-            click("지원자의 관점")
+            click("설계 배경")
             page.get_by_role("heading", name="오류 재현과 해결책 검증").wait_for()
             click("검증 기록")
             page.get_by_role("heading", name="운영 실험 결과", exact=True).wait_for()
@@ -153,7 +153,7 @@ def main() -> None:
                 click(name)
                 page.wait_for_timeout(600)
             page.get_by_text("재검증 전후 비교 완료", exact=True).wait_for()
-            passed("architecture, authentic applicant story, receipts, and successful guided comparison")
+            passed("architecture, design rationale, receipts, and successful guided comparison")
 
             click("초기화")
             clear_request()
@@ -175,12 +175,12 @@ def main() -> None:
                 assert not page.evaluate("document.documentElement.scrollWidth > window.innerWidth"), f"Horizontal overflow at {width}px"
                 if width == 390:
                     page.screenshot(path=str(args.output / "demo-mobile.png"), full_page=True)
-                    assert page.get_by_role("button", name="지원자의 관점", exact=True).is_visible()
+                    assert page.get_by_role("button", name="설계 배경", exact=True).is_visible()
                 passed("responsive layout without horizontal overflow", width=width)
             page.set_viewport_size({"width": 844, "height": 390})
             page.get_by_role("button", name="검증 기록", exact=True).focus()
             page.keyboard.press("Tab")
-            last_nav = page.get_by_role("button", name="지원자의 관점", exact=True)
+            last_nav = page.get_by_role("button", name="설계 배경", exact=True)
             assert last_nav.evaluate("el => document.activeElement === el")
             bounds = last_nav.bounding_box()
             assert bounds and bounds["y"] >= 0 and bounds["y"] + bounds["height"] <= 390, bounds

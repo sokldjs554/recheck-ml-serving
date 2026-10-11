@@ -44,6 +44,28 @@ jobs:
         run: |
           python -m pip install playwright==1.55.0
           python -m playwright install --with-deps chromium
+      - name: Wait for matching Python deployment
+        run: |
+          python - <<'PYCODE'
+          import re, time, urllib.request
+          from pathlib import Path
+          expected = re.search(r'/assets/index-[^" ]+\.js', Path('web_static/index.html').read_text()).group()
+          deadline = time.monotonic() + 300
+          while time.monotonic() < deadline:
+              try:
+                  request = urllib.request.Request('https://recheck-ml-serving.onrender.com/', headers={'Cache-Control': 'no-cache'})
+                  with urllib.request.urlopen(request, timeout=15) as response:
+                      html = response.read().decode()
+                  if expected in html:
+                      print('Matching Python deployment is serving', expected)
+                      break
+                  print('Waiting for Python-hosted bundle', expected, flush=True)
+              except Exception as exc:
+                  print(type(exc).__name__, flush=True)
+              time.sleep(5)
+          else:
+              raise SystemExit('Matching Python deployment did not become available')
+          PYCODE
       - name: Verify public demo interactions
         env:
           DEMO_URL: ${{ steps.deployment.outputs.page_url }}

@@ -10,13 +10,13 @@ RECHECK는 이 질문을 Python 서버, 실제 SQL 트랜잭션, 직접 조작�
 
 ## 빠르게 살펴보기
 
-**Python ML 백엔드의 최신성·동시성·장애 경계를 다룬 AI 협업 포트폴리오입니다.**
+**Python ML 백엔드의 최신성·동시성·장애 경계를 재현하고 검증합니다.**
 
 - **문제:** 생성 시점에는 맞았던 결과가 실행 시점에는 오래된 정보가 되는 상황.
 - **핵심 선택:** 근거 검증과 내부 작업 기록을 같은 SQL 트랜잭션으로 처리하고, 재시도는 같은 작업 ID로 수렴.
 - **검증:** 같은 9개 사건 순서를 SQLite·PostgreSQL에서 각각 비교하고, 실제 잠금 경쟁·취소·과부하·복구를 별도로 재현.
 
-[지원용 프로젝트 소개](docs/application-brief.md) → [실제 API 데모](https://sokldjs554.github.io/recheck-ml-serving/) → [기술 선택과 비교 근거](docs/safety-case-study.md)
+[실제 API 데모](https://sokldjs554.github.io/recheck-ml-serving/) · [기술 선택과 비교 근거](docs/safety-case-study.md)
 
 ![근거 변경을 감지해 이전 답변의 실행을 거절하는 실제 API 화면](docs/evidence/ui-refinement-desktop.png)
 
@@ -88,7 +88,6 @@ SQLite와 PostgreSQL에서 각각 동일한 **9개 고정 사건 순서, 방식�
 | 모델과 인덱스가 서로 다르면? | [실제 검색·배포 게이트](docs/evidence-release.md) | 가상 문서 4개, 일반 검색 품질 증거 아님 |
 | 장애와 복구가 보이는가? | [OpenTelemetry·알림](docs/operations.md), [Kubernetes 복구](docs/kubernetes.md) | 단일 호스트 클러스터, DB 교체 오류도 공개 |
 | 사람이 설명 없이 이해하는가? | [사용성 조사 절차](docs/usability-protocol.md) | **실제 참여자 조사 미수행** |
-| 지원자가 직접 판단·수정할 수 있는가? | [재현·수정 과제와 기록 양식](docs/ownership-workbook.md) | **본인의 수행 기록은 별도로 필요** |
 
 ## 실행과 재현
 
@@ -121,16 +120,10 @@ npm run build
 CI는 PostgreSQL 테스트, 프런트 테스트, 정적 번들 일치, 공개 주소의 브라우저 동작을 확인합니다.
 [전체 검증 기록](docs/verification.md)
 
-## 지원자로서 보여주려는 태도
+## 개발 방식
 
-사용자는 Python·LLM·AI/ML을 경험한 신입이며, AI와 개발하면서 반복되는 오류를 직접 조사하고
-서로 다른 해결책을 비교·통합했던 경험을 제공했습니다. 이 프로젝트는 그 방향에 맞춰 AI와 함께 제작했습니다.
-에이전트가 구현·측정한 일을 사용자가 혼자 수행한 과거 성과로 바꾸지 않습니다.
-
-회사에 기여하고 싶은 방향은 여러 AI 제품이 공통으로 필요한 근거 최신성, 실행 시점 검증,
-시간 예산, 장애 관측을 재사용 가능한 서버 기능으로 만드는 것입니다.
-지원 전에는 [직접 수정하는 과제](docs/ownership-workbook.md)를 수행하고, 설명 가능한 범위를 자신의 기여로 제시해야 합니다.
-[공고와 증거의 연결](docs/job-coverage.md) · [조사 출처와 한계](docs/research.md) · [기술 선택](docs/decisions.md)
+AI와 협업해 구현한 프로젝트입니다. 설계 선택과 보장 범위는 코드·비교 실험·실행 기록으로 확인할 수 있습니다.
+[기술 선택](docs/decisions.md) · [조사 출처와 한계](docs/research.md)
 
 ## 보장하지 않는 것
 
