@@ -33,7 +33,7 @@ jobs:
       - name: Repeat scheduling-sensitive correctness and timeout contracts
         run: |
           for attempt in 1 2 3; do
-            python -m pytest backend/tests/test_database.py backend/tests/test_http_processes.py -q
+            python -m pytest backend/tests/test_database.py backend/tests/test_http_processes.py backend/tests/test_recheck.py::test_expiry_is_checked_at_use backend/tests/test_compute.py::test_dead_pool_fails_inference_readiness_health_and_liveness_closed -q
           done
         env:
           PYTHONPATH: backend

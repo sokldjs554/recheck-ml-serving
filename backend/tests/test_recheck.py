@@ -118,12 +118,18 @@ async def test_use_time_validation_rejects_later_updates_and_session_isolation(t
         assert (await client.get(f"/api/sessions/{other}/decisions/{receipt['id']}/validate")).status_code == 404
 
 
-async def test_expiry_is_checked_at_use(tmp_path):
-    app, worker, model, client, sid = await setup(tmp_path, receipt_ttl_ms=30)
+async def test_expiry_is_checked_at_use(tmp_path, monkeypatch):
+    app, worker, model, client, sid = await setup(tmp_path, deadline_ms=2000)
+    clock = gateway_clock(monkeypatch)
     async with closing_clients(model, client):
         receipt = (await client.post(f"/api/sessions/{sid}/decisions", json=body())).json()
-        await asyncio.sleep(0.05)
-        validation = (await client.get(f"/api/sessions/{sid}/decisions/{receipt['id']}/validate")).json()
+        assert receipt.get('status') == 'clear', receipt
+        url = f"/api/sessions/{sid}/decisions/{receipt['id']}/validate"
+        assert (await client.get(url)).json()['valid'] is True
+        # Advance only the application's wall clock beyond its 15-second TTL;
+        # do not depend on a 30 ms issuance window or delay asyncio/DB clocks.
+        clock['wall'] = 16
+        validation = (await client.get(url)).json()
         assert validation["valid"] is False
         assert validation["reason"] == "expired"
 

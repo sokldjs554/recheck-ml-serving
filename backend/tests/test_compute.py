@@ -74,9 +74,10 @@ async def test_dead_pool_fails_inference_readiness_health_and_liveness_closed():
             # Abrupt failure of an owned CPU child, not a mock executor exception.
             child = next(iter(worker.state.execution.pool._processes.values()))
             child.kill()
-            await asyncio.to_thread(child.join, 2)
-            assert not child.is_alive()
-            until = time.monotonic() + 2
+            # ProcessPoolExecutor's manager owns reaping/joining this child.
+            # Concurrent Process.join from another thread races its waitpid.
+            # Verify the observable failure contract once the owner detects death.
+            until = time.monotonic() + 5
             while (await client.get('/ready')).status_code != 503:
                 assert time.monotonic() < until, 'idle pool death never failed readiness'
                 await asyncio.sleep(0.001)
