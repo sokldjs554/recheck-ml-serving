@@ -1,0 +1,164 @@
+/* Shared navigation for the review desk and its deeper engineering tools. */
+.recheck-workbench.workspace-theme {
+  background: #f6f7f2;
+}
+.desk-header {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  min-height: 76px;
+  padding: 0 36px;
+  border-bottom: 1px solid #cdd2c6;
+  background: #f6f7f2;
+}
+.desk-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: none;
+}
+.desk-wordmark {
+  padding: 0;
+  font-size: 25px;
+  font-weight: 750;
+  letter-spacing: -1.6px;
+  gap: 9px;
+}
+.desk-wordmark span {
+  color: #87956c;
+  font-size: 23px;
+  font-weight: 400;
+}
+.desk-brand-caption {
+  font-size: 10px;
+  color: #707767;
+}
+.desk-header nav {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-left: auto;
+}
+.desk-nav-item {
+  position: relative;
+  padding: 27px 0;
+  min-height: 76px;
+  font-size: 11px;
+  color: #6d7565;
+  white-space: nowrap;
+}
+.desk-nav-item.is-active {
+  color: #263923;
+  font-weight: 650;
+}
+.desk-nav-item.is-active::after {
+  content: "";
+  height: 2px;
+  background: #405932;
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+}
+.desk-nav-item:hover {
+  color: #263923;
+}
+.desk-source-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: #777e70;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.desk-source-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.recheck-workbench.workspace-theme main.desk-main {
+  margin: 0 auto;
+  padding: 0 40px 28px;
+  max-width: 1360px;
+}
+.desk-context {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  font-size: 10px;
+  color: #737c69;
+  min-height: 48px;
+  border-bottom: 1px solid #dce1d5;
+}
+@media (max-width: 1200px) {
+  .desk-header {
+    padding: 0 28px;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .desk-brand-caption {
+    display: none;
+  }
+  .desk-header nav {
+    gap: 16px;
+  }
+  .recheck-workbench.workspace-theme main.desk-main {
+    padding: 0 28px 28px;
+  }
+}
+@media (max-width: 920px) {
+  .desk-header {
+    gap: 0;
+    padding-top: 12px;
+  }
+  .desk-brand {
+    height: 35px;
+    order: 0;
+  }
+  .desk-source-link {
+    margin-left: auto;
+    order: 1;
+  }
+  .desk-header nav {
+    flex: 0 0 100%;
+    width: 100%;
+    order: 2;
+    margin: 0;
+    justify-content: space-between;
+  }
+  .desk-nav-item {
+    min-height: 49px;
+    padding: 14px 0;
+  }
+}
+@media (max-width: 700px) {
+  .desk-header {
+    padding: 12px 20px 0;
+  }
+  .desk-wordmark {
+    font-size: 24px;
+  }
+  .desk-header nav {
+    gap: 18px;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .desk-header nav::-webkit-scrollbar {
+    display: none;
+  }
+  .desk-nav-item {
+    font-size: 11px;
+    flex: none;
+  }
+  .recheck-workbench.workspace-theme main.desk-main {
+    padding: 0 20px 20px;
+  }
+  .desk-context {
+    flex-wrap: wrap;
+    align-content: center;
+    gap: 2px 15px;
+    padding: 9px 0;
+  }
+}

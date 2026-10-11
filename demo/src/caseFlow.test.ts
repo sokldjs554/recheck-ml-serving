@@ -42,6 +42,77 @@ function fixture() {
 }
 
 describe("guided case lifecycle", () => {
+  it("runs the complete case and retains both the blocked draft and the single recorded action", async () => {
+    const { api, flow } = fixture();
+    api.evaluate.mockResolvedValue({ id: "report", passed: true });
+    api.promote.mockResolvedValue({ release_epoch: 2 });
+    api.prepare
+      .mockResolvedValueOnce({ id: "old", output: "300만 원", references: [] })
+      .mockResolvedValueOnce({
+        id: "fresh",
+        output: "100만 원",
+        references: [],
+      });
+    api.execute
+      .mockRejectedValueOnce(new CaseApiError(409, "source_changed"))
+      .mockResolvedValueOnce({
+        action_id: "one",
+        receipt_id: "fresh",
+        replayed: false,
+      })
+      .mockResolvedValueOnce({
+        action_id: "one",
+        receipt_id: "fresh",
+        replayed: true,
+      });
+    await flow.runAll();
+    expect(flow.getSnapshot()).toMatchObject({
+      step: 6,
+      running: false,
+      error: "",
+      oldReceipt: { output: "300만 원" },
+      freshReceipt: { output: "100만 원" },
+      action: { action_id: "one", replayed: true },
+    });
+    expect(
+      flow.getSnapshot().events.some((e) => e.label === "이전 답변 실행 차단"),
+    ).toBe(true);
+  });
+  it("stops a continuous run on network failure and resumes at the failed stage", async () => {
+    const { api, flow } = fixture();
+    api.event.mockRejectedValue(new Error("offline"));
+    await flow.runAll();
+    expect(flow.getSnapshot()).toMatchObject({
+      step: 1,
+      running: false,
+      busy: false,
+      error: "offline",
+    });
+    api.event.mockResolvedValue({ applied: true });
+    api.execute.mockRejectedValue(new CaseApiError(503, "unavailable"));
+    await flow.runAll();
+    expect(flow.getSnapshot()).toMatchObject({ step: 2, running: false });
+    expect(flow.getSnapshot().error).toContain("503");
+  });
+  it("does not let reset or duplicate clicks continue an obsolete automatic run", async () => {
+    const { api, flow } = fixture();
+    const pending = deferred<{ session_id: string }>();
+    api.connect.mockReturnValue(pending.promise);
+    const request = flow.runAll();
+    await flow.runAll();
+    await flow.next();
+    flow.reset();
+    pending.resolve({ session_id: "late" });
+    await request;
+    expect(flow.getSnapshot()).toMatchObject({
+      step: 0,
+      running: false,
+      events: [],
+      oldReceipt: null,
+    });
+    expect(api.connect).toHaveBeenCalledTimes(1);
+    expect(api.event).not.toHaveBeenCalled();
+  });
   it("discards an old session completion after reset, without preparing a draft", async () => {
     const { api, flow } = fixture();
     const pending = deferred<{ session_id: string }>();

@@ -9,6 +9,7 @@ export type CaseSnapshot = {
   step: number;
   canReprepare: boolean;
   busy: boolean;
+  running: boolean;
   error: string;
   status: string;
   session: string;
@@ -23,6 +24,7 @@ const initial = (): CaseSnapshot => ({
   step: 0,
   canReprepare: false,
   busy: false,
+  running: false,
   error: "",
   status: "",
   session: "",
@@ -86,6 +88,35 @@ export class CaseFlow {
     this.disposed = false;
   };
   next = async () => {
+    if (this.value.running) return;
+    await this.advance();
+  };
+  runAll = async () => {
+    if (
+      this.value.busy ||
+      this.value.running ||
+      this.value.step >= 6 ||
+      this.disposed
+    )
+      return;
+    const generation = this.generation;
+    this.set({ running: true });
+    try {
+      while (
+        !this.disposed &&
+        generation === this.generation &&
+        this.value.step < 6
+      ) {
+        const before = this.value.step;
+        await this.advance();
+        if (this.value.error || this.value.step <= before) break;
+      }
+    } finally {
+      if (!this.disposed && generation === this.generation)
+        this.set({ running: false });
+    }
+  };
+  private advance = async () => {
     if (this.value.busy || this.value.step >= 6 || this.disposed) return;
     const generation = this.generation;
     const current = this.value;

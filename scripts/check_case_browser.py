@@ -39,6 +39,23 @@ def main():
             page.get_by_role('button', name='주소 적용', exact=True).click()
             details.locator('summary').click()
         configure(args.api)
+        page.screenshot(path=str(args.output / 'case-initial-desktop.png'), full_page=True)
+        page.get_by_test_id('case-run-all').click()
+        step(6)
+        assert '300만 원' in page.get_by_test_id('case-old-draft').inner_text()
+        assert '100만 원' in page.get_by_test_id('case-draft').inner_text()
+        assert '실행 차단' in page.get_by_test_id('case-outcomes').inner_text()
+        with page.expect_download() as automatic_download:
+            page.get_by_role('button', name='사건 기록 JSON', exact=True).click()
+        automatic_file = args.output / 'automatic-case.json'
+        automatic_download.value.save_as(automatic_file)
+        automatic_data = json.loads(automatic_file.read_text())
+        automatic_actions = page.request.get(f"{args.api}/api/sessions/{automatic_data['session_id']}/evidence/actions").json()['actions']
+        assert len(automatic_actions) == 1
+        assert automatic_actions[0]['action_id'] == page.get_by_test_id('case-action').locator('code').inner_text()
+        checks.append('one-click actual HTTP run preserves old/new answers and produces exactly one persisted task')
+        page.get_by_test_id('case-reset').click()
+        step(0)
         next_step(1)
         assert '300만 원' in page.get_by_test_id('case-source').inner_text()
         assert '300만 원' in page.get_by_test_id('case-draft').inner_text()
@@ -119,7 +136,7 @@ def main():
         page.wait_for_timeout(150)
         assert case.get_attribute('data-step') == '0'
         assert page.get_by_test_id('case-events').count() == 0
-        assert '아직 답변이 없습니다' in page.get_by_test_id('case-draft').inner_text()
+        assert page.get_by_test_id('case-draft').locator('.case-answer-text').count() == 0
         checks.append('pending controls locked; late session completion after reset does not restore old state')
         assert not errors, errors
         (args.output / 'case-browser.json').write_text(json.dumps({'frontend': args.base, 'api': args.api, 'checks': checks, 'page_errors': errors}, ensure_ascii=False, indent=2) + '\n')

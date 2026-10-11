@@ -457,7 +457,7 @@ export default function App() {
     story: "실행 시점 검증을 선택한 이유와 보장 범위를 설명합니다.",
   };
   const sections = [
-    { id: "case" as Tab, label: "핵심 사례" },
+    { id: "case" as Tab, label: "상담 검토" },
     { id: "lab" as Tab, label: "인터랙티브 데모" },
     { id: "freshness" as Tab, label: "근거 변경 실험" },
     { id: "receipts" as Tab, label: "판단 기록" },
@@ -523,61 +523,45 @@ export default function App() {
 
   return (
     <div className={`recheck-workbench workspace-theme workspace-${tab}`}>
-      <header className="site-header">
-        <button
-          className="wordmark"
-          aria-label="RECHECK 홈"
-          onClick={() => setTab("case")}
-        >
-          RECHECK<span className="brand-period">.</span>
-        </button>
-        <div className="rail-caption">AI 응답의 실행 조건</div>
-        <nav aria-label="주 메뉴">
-          {sections.map(({ id, label }, index) => {
-            return (
-              <div className="rail-item" key={id}>
-                {(index === 0 || index === 1 || index === 3) && (
-                  <span className="rail-group">
-                    {index === 0
-                      ? "사례"
-                      : index === 1
-                        ? "실험"
-                        : "기록과 설계"}
-                  </span>
-                )}
-                <button
-                  className={`nav-item ${tab === id ? "active" : ""}`}
-                  aria-current={tab === id ? "page" : undefined}
-                  aria-label={label}
-                  onClick={() => setTab(id)}
-                >
-                  <span>{label}</span>
-                </button>
-              </div>
-            );
-          })}
-        </nav>
-        <div className="rail-note">
-          <a
-            href="https://github.com/sokldjs554/recheck-ml-serving"
-            target="_blank"
-            rel="noreferrer"
+      <header className="desk-header">
+        <div className="desk-brand">
+          <button
+            className="desk-wordmark"
+            aria-label="RECHECK 홈"
+            onClick={() => setTab("case")}
           >
-            GitHub 저장소 <ArrowUpRight size={14} />
-          </a>
+            recheck<span> / </span>
+          </button>
+          <span className="desk-brand-caption">답변에서 실행까지</span>
         </div>
+        <nav aria-label="주 메뉴">
+          {sections.map(({ id, label }) => (
+            <button
+              key={id}
+              className={`desk-nav-item ${tab === id ? "is-active" : ""}`}
+              aria-current={tab === id ? "page" : undefined}
+              onClick={() => setTab(id)}
+            >
+              {label}
+            </button>
+          ))}
+        </nav>
+        <a
+          className="desk-source-link"
+          href="https://github.com/sokldjs554/recheck-ml-serving"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Source <ArrowUpRight size={12} />
+        </a>
       </header>
-      <main>
-        <div className="workspace-toolbar">
-          <span>
-            RECHECK <span>/</span>{" "}
-            {tab === "lab" || tab === "freshness" ? "실험실" : "프로젝트"}{" "}
-            <span>/</span> {pageNames[tab]}
-          </span>
-          <span className="workspace-scope">
-            합성 데이터 · 실제 금융 업무 없음
-          </span>
-        </div>
+      <main className="desk-main">
+        {tab !== "case" && (
+          <div className="desk-context">
+            <span>RECHECK / {pageNames[tab]}</span>
+            <span>합성 데이터 · 실제 금융 업무 없음</span>
+          </div>
+        )}
         {tab !== "case" && (
           <section className="page-intro">
             <div className="intro-title">
