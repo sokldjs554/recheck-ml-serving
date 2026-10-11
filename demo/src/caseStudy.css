@@ -265,6 +265,7 @@
   word-break: keep-all;
 }
 .case-answer-text mark {
+  white-space: nowrap;
   color: inherit;
   background: #f3e1cb;
   padding: 1px 4px;

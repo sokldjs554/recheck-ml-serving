@@ -460,7 +460,7 @@ export default function CaseStudy({
             <h2>
               {state.action
                 ? state.action.replayed
-                  ? "기존 기록 반환"
+                  ? "기록 반환"
                   : "기록 완료"
                 : blocked && !state.freshReceipt
                   ? "실행 차단"
