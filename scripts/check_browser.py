@@ -66,6 +66,7 @@ def main() -> None:
 
         try:
             page.goto(args.base, wait_until="networkidle")
+            click("인터랙티브 데모")
             page.locator(".mode-label").filter(has_text="브라우저 시뮬레이션").wait_for()
             assert page.locator(".feature-row .snapshot-version").inner_text().strip() == "—", "Unissued snapshot must stay empty"
             clear_request()

@@ -12,6 +12,7 @@ from .store import Base
 from .retrieval import SCOPE, initial_sources, digest, build_artifact, retrieve, evaluate_release, compatible
 
 now = time.time
+ACTION_SCOPE = 'atomic local synthetic support task recording; no external action'
 
 
 class EvidenceState(Base):
@@ -33,7 +34,7 @@ class EvidenceStore:
                 sources = initial_sources()
                 row = EvidenceState(session_id=sid, payload=dict(sources=sources,
                     active=dict(epoch=1, artifact=build_artifact(sources, 'baseline')),
-                    receipts=[], reports=[], events=[]))
+                    receipts=[], reports=[], events=[], actions=[]))
                 db.add(row)
             state = deepcopy(row.payload)
             yield state
@@ -119,18 +120,59 @@ class EvidenceStore:
 
     def use(self, sid, rid):
         with self.locked(sid) as state:
-            receipt = next((r for r in state['receipts'] if r['id'] == rid), None)
-            if receipt is None:
-                raise HTTPException(404, 'evidence_receipt_missing')
-            changed = [ref['source_id'] for ref in receipt['references']
-                       if state['sources'][ref['source_id']]['revision'] != ref['revision']]
-            deleted = [ref['source_id'] for ref in receipt['references'] if state['sources'][ref['source_id']]['deleted']]
-            reason = ('source_deleted' if deleted else 'source_changed' if changed else
-                      'release_changed' if receipt['release_epoch'] != state['active']['epoch'] else
-                      'receipt_expired' if now() >= receipt['expires_at'] else 'current')
-            return dict(valid=reason=='current', reason=reason, affected_sources=sorted(set(changed+deleted)),
-                        receipt_id=rid, checked_at=now(), release_epoch=state['active']['epoch'],
-                        scope='point-in-time validation; not an atomic external business action')
+            return self.validity(state, self.receipt(state, rid), now())
+
+    @staticmethod
+    def receipt(state, rid):
+        receipt = next((r for r in state['receipts'] if r['id'] == rid), None)
+        if receipt is None:
+            raise HTTPException(404, 'evidence_receipt_missing')
+        return receipt
+
+    @staticmethod
+    def validity(state, receipt, checked_at):
+        changed = [ref['source_id'] for ref in receipt['references']
+                   if state['sources'][ref['source_id']]['revision'] != ref['revision']]
+        deleted = [ref['source_id'] for ref in receipt['references'] if state['sources'][ref['source_id']]['deleted']]
+        reason = ('source_deleted' if deleted else 'source_changed' if changed else
+                  'release_changed' if receipt['release_epoch'] != state['active']['epoch'] else
+                  'receipt_expired' if checked_at >= receipt['expires_at'] else 'current')
+        return dict(valid=reason=='current', reason=reason, affected_sources=sorted(set(changed+deleted)),
+                    receipt_id=receipt['id'], checked_at=checked_at, release_epoch=state['active']['epoch'],
+                    scope='point-in-time validation; not an atomic external business action')
+
+    @staticmethod
+    def public_action(action, replayed=False):
+        return dict({key: value for key, value in action.items() if key != 'idempotency_key'}, replayed=replayed)
+
+    def actions(self, sid):
+        with self.locked(sid) as state:
+            return dict(actions=[self.public_action(action) for action in state.get('actions', [])])
+
+    def execute(self, sid, rid, body):
+        with self.locked(sid) as state:
+            # Older session payloads have no actions field. Preserve their evidence.
+            actions = state.setdefault('actions', [])
+            previous = next((action for action in actions if action['idempotency_key'] == body.idempotency_key), None)
+            if previous:
+                if previous['receipt_id'] != rid:
+                    raise HTTPException(409, 'action_idempotency_conflict')
+                # This is the original historical result, not renewed validation.
+                return self.public_action(previous, replayed=True)
+            receipt = self.receipt(state, rid)
+            committed_at = now()
+            validity = self.validity(state, receipt, committed_at)
+            if not validity['valid']:
+                raise HTTPException(409, validity['reason'])
+            if len(actions) >= 40:
+                raise HTTPException(429, 'evidence_action_capacity')
+            action = dict(action_id=str(uuid.uuid4()), receipt_id=rid, output=receipt['output'],
+                committed_at=committed_at, release_epoch=receipt['release_epoch'],
+                references=deepcopy(receipt['references']), scope=ACTION_SCOPE,
+                idempotency_key=body.idempotency_key)
+            actions.insert(0, action)
+            # Context-manager exit persists this append and commits before return.
+            return self.public_action(action)
 
     def evaluate(self, sid, candidate):
         state = self.snapshot(sid)

@@ -1,0 +1,125 @@
+{
+  "measured_at": "2026-10-11T10:15:05.726792+00:00",
+  "scope": "Nine deterministic ordered schedules per strategy, real SQL + production retrieval and guard. Owned synthetic task recording only; no external side effect, randomized load, general retrieval accuracy, or production SLA claim.",
+  "limitations": [
+    "Ordered boundary counterexamples, not concurrent stress; see backend/tests/test_evidence_actions.py for real race tests.",
+    "Six stale opportunities, three valid first-action opportunities and one retry per strategy per database; repeated engines are not independent random trials.",
+    "No measured latency/throughput, retrieval quality, user study, deployed reliability or external atomicity claim."
+  ],
+  "source_sha256": {
+    "scripts/evaluate_safety.py": "0fae79234cc915ad90f18329ab4c7c38c7b71583aa55f7b7a6185b2998bef494",
+    "backend/recheck/evidence.py": "3801d81a5088c0eef1b63e5f8de497546f8659c85bb248638b8a8b63143d5b0c",
+    "backend/recheck/retrieval.py": "9bcc673ff5c5eb9cc685e31f46bf99be51915f19df4a0b60e719ad1df58ab389",
+    "backend/recheck/store.py": "5c54647baee04e06befd810ca171319cde3f78501a7b61dc6c3c6bc860b5ffda"
+  },
+  "databases": [
+    {
+      "database": "sqlite",
+      "database_version": "3.53.1",
+      "results": [
+        {
+          "strategy": "trust_at_creation",
+          "totals": {
+            "cases": 9,
+            "submissions": 10,
+            "stale_opportunities": 6,
+            "valid_first_action_opportunities": 3,
+            "retry_opportunities": 1,
+            "commits": 9,
+            "rejections": 0,
+            "replays": 1,
+            "stale_accepts": 6,
+            "false_rejects": 0,
+            "duplicate_commits": 0
+          }
+        },
+        {
+          "strategy": "check_then_act",
+          "totals": {
+            "cases": 9,
+            "submissions": 10,
+            "stale_opportunities": 6,
+            "valid_first_action_opportunities": 3,
+            "retry_opportunities": 1,
+            "commits": 8,
+            "rejections": 1,
+            "replays": 1,
+            "stale_accepts": 5,
+            "false_rejects": 0,
+            "duplicate_commits": 0
+          }
+        },
+        {
+          "strategy": "atomic_guard",
+          "totals": {
+            "cases": 9,
+            "submissions": 10,
+            "stale_opportunities": 6,
+            "valid_first_action_opportunities": 3,
+            "retry_opportunities": 1,
+            "commits": 3,
+            "rejections": 6,
+            "replays": 1,
+            "stale_accepts": 0,
+            "false_rejects": 0,
+            "duplicate_commits": 0
+          }
+        }
+      ]
+    },
+    {
+      "database": "postgresql",
+      "database_version": "PostgreSQL 16.15 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit",
+      "results": [
+        {
+          "strategy": "trust_at_creation",
+          "totals": {
+            "cases": 9,
+            "submissions": 10,
+            "stale_opportunities": 6,
+            "valid_first_action_opportunities": 3,
+            "retry_opportunities": 1,
+            "commits": 9,
+            "rejections": 0,
+            "replays": 1,
+            "stale_accepts": 6,
+            "false_rejects": 0,
+            "duplicate_commits": 0
+          }
+        },
+        {
+          "strategy": "check_then_act",
+          "totals": {
+            "cases": 9,
+            "submissions": 10,
+            "stale_opportunities": 6,
+            "valid_first_action_opportunities": 3,
+            "retry_opportunities": 1,
+            "commits": 8,
+            "rejections": 1,
+            "replays": 1,
+            "stale_accepts": 5,
+            "false_rejects": 0,
+            "duplicate_commits": 0
+          }
+        },
+        {
+          "strategy": "atomic_guard",
+          "totals": {
+            "cases": 9,
+            "submissions": 10,
+            "stale_opportunities": 6,
+            "valid_first_action_opportunities": 3,
+            "retry_opportunities": 1,
+            "commits": 3,
+            "rejections": 6,
+            "replays": 1,
+            "stale_accepts": 0,
+            "false_rejects": 0,
+            "duplicate_commits": 0
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,5 +1,7 @@
 # 검증 기록
 
+최신 확장: [2026-10-11 핵심 사례 검증](#2026-10-11-근거에서-실행까지). 아래의 이전 숫자와 화면은 해당 시점의 기록입니다.
+
 2026-10-08, Linux 개발 컨테이너, Python 3.12.14, Node 24.19, PostgreSQL 16. 합성 데이터만 사용했다. CI 설정의 존재와 실제 실행을 구분한다.
 
 [GitHub Actions 원격 검증](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/37719089551)에서 PostgreSQL+HTTP 테스트 32 통과·1 생략, TypeScript 10 통과, production build와 저장된 배포 번들 일치 검사가 통과했다. [GitHub Pages 배포](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/37719089545)도 성공했다. 공개 URL의 한국어 화면과 모드 표시를 확인했다. 개발 의존성의 알려진 취약점은 Vitest 5.0.3으로 수정했고, 당시 `npm audit`는 0개였다([원자료](evidence/npm-audit.json)).
@@ -110,3 +112,20 @@ backend/.venv/bin/python scripts/benchmark.py --count 60 --rate 80 --delay 80 --
 390/768/1440px에서 가로 넘침 없이 표시되고, 기존 21개 프런트엔드 테스트 및 실제 브라우저 30항목이 통과했습니다.
 
 844×390px 가로 화면에서 키보드로 마지막 메뉴에 이동하면 메뉴가 화면 안으로 스크롤되는지도 검증했습니다.
+
+
+## 2026-10-11 근거에서 실행까지
+
+첫 화면을 실제 API 기반 근거 변경/내부 작업 기록 사례로 재구성했습니다.
+검증과 기록을 같은 SQL 트랜잭션으로 처리하며, 재시도는 원래 작업을 돌려줍니다.
+[실제 데스크톱](evidence/case-study-desktop.png) · [모바일](evidence/case-study-mobile.png) · [브라우저 검사 기록](evidence/case-study-browser.json).
+
+- 백엔드 SQLite 전체 95개 통과(실제 HTTP 프로세스 테스트 포함). PostgreSQL 전체 93개 통과/2개 생략으로 수행한 뒤 HTTP 프로세스 검사는 별도로 통과했습니다. 그 PostgreSQL 실행의 생략 항목은 SQLite 전용 용량 사례와 환경 플래그로 꺼진 HTTP 검사였습니다.
+- 새 작업/기존 근거 검사 31개는 SQLite와 PostgreSQL 모두 통과했습니다. 두 SQL 연결의 실제 잠금 대기, 변경/실행 양쪽 순서, 동일 키 동시 실행을 포함합니다.
+- 프런트엔드 전체 35개 통과. 초기화·언마운트 후 늦은 응답, 잘못된 HTTP200 본문, 답변 ID 불일치, 만료 재준비, 완료 여부를 모르는 실행 재시도의 키 보존을 확인했습니다.
+- 기존 브라우저 18개와 근거 실험 12개는 실제 HTTP로 통과했습니다. 새 기본 사례는 최종 production 번들에서 실제 기록/거절/재시도/JSON, 잘못된 응답, 연결 실패 복구, 초기화 경쟁, 390·768·844 가로 화면의 5개 검사 그룹을 통과했습니다.
+- 독립 리뷰에서 발견한 잘못된 HTTP200 성공 표시는 실패하는 테스트를 먼저 관측하고 수정했습니다. 390px 비교표 넘침도 재현 후 해결했습니다.
+- [동일 사건 비교](safety-case-study.md)는 SQLite/PostgreSQL 각각 측정했습니다. UI 표는 원본 JSON에서 생성하고 CI가 일치를 확인합니다. CI는 두 DB 비교 실험을 새로 실행해 별도 artifact로 보존합니다.
+
+자동 검증과 실제 사용자 조사, 지원자 본인의 과제 수행은 다릅니다. [사용성 조사](usability-protocol.md)와 [개인 판단 기록](ownership-workbook.md)은 아직 완료됐다고 주장하지 않습니다.
+공개 배포의 검증 결과는 이 로컬 기록과 별도로 해당 commit의 Pages/CI 실행에서 확인합니다.

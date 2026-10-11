@@ -30,7 +30,16 @@ jobs:
           PYTHONPATH: backend
           RECHECK_TEST_DATABASE_URL: postgresql+psycopg://recheck:local-demo-only@127.0.0.1:5432/recheck
           RECHECK_NETWORK_TESTS: '1'
+      - name: Reproduce safety counterexamples on both databases
+        run: python scripts/evaluate_safety.py --postgres-url-env RECHECK_EVAL_DATABASE_URL --output work/safety-evaluation.json
+        env:
+          RECHECK_EVAL_DATABASE_URL: postgresql+psycopg://recheck:local-demo-only@127.0.0.1:5432/recheck
+      - uses: actions/upload-artifact@v4
+        with:
+          name: safety-evaluation
+          path: work/safety-evaluation.json
       - run: npm ci && npm test && npm run build
         working-directory: demo
+      - run: python scripts/build_safety_summary.py --check
       - run: diff -qr demo/dist web_static
       - run: python -m compileall -q scripts backend/recheck

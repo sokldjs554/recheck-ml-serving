@@ -48,6 +48,18 @@ class Candidate(BaseModel):
     candidate: Literal['paired', 'mismatch', 'regressed']
 
 
+class Execute(BaseModel):
+    model_config = ConfigDict(extra='forbid')
+    idempotency_key: str = Field(min_length=1, max_length=128)
+
+    @field_validator('idempotency_key')
+    @classmethod
+    def nonblank_key(cls, value):
+        if not value.strip():
+            raise ValueError('idempotency key must not be blank')
+        return value
+
+
 def evidence_router(store):
     lab = EvidenceStore(store)
     router = APIRouter(prefix='/api/sessions/{sid}/evidence', tags=['evidence-lab'])
@@ -68,6 +80,14 @@ def evidence_router(store):
     @router.post('/receipts/{rid}/use')
     def use(sid: str, rid: str):
         return lab.use(sid, rid)
+
+    @router.post('/receipts/{rid}/execute')
+    def execute(sid: str, rid: str, body: Execute):
+        return lab.execute(sid, rid, body)
+
+    @router.get('/actions')
+    def actions(sid: str):
+        return lab.actions(sid)
 
     @router.post('/releases/evaluate')
     async def evaluate(sid: str, body: Candidate):

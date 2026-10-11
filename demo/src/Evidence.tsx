@@ -1,4 +1,5 @@
 import { ArrowUpRight, Check, Clock3, FlaskConical } from "lucide-react";
+import SafetyComparison from "./SafetyComparison";
 import evidenceData from "./operations-evidence.json";
 import { PUBLIC_API_BASE } from "./api";
 
@@ -40,6 +41,7 @@ export default function Evidence() {
   ).length;
   return (
     <section className="evidence-page" aria-label="운영 검증 기록">
+      <SafetyComparison />
       <div className="evidence-summary">
         <div>
           <span className="eyebrow">실행으로 남긴 근거</span>

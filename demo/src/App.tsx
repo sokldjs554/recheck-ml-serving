@@ -23,6 +23,7 @@ import { Simulation } from "./simulation";
 import { defaultApiBase, LiveApi } from "./api";
 import Evidence from "./Evidence";
 import EvidenceLab from "./EvidenceLab";
+import CaseStudy from "./CaseStudy";
 import {
   comparisonConfirmed,
   currentValidation,
@@ -37,6 +38,7 @@ import type {
   Validation,
 } from "./types";
 type Tab =
+  | "case"
   | "freshness"
   | "lab"
   | "receipts"
@@ -107,7 +109,7 @@ function exportReceipt(receipt: Receipt) {
   URL.revokeObjectURL(url);
 }
 export default function App() {
-  const [tab, setTab] = useState<Tab>("lab");
+  const [tab, setTab] = useState<Tab>("case");
   const [mode, setMode] = useState<"browser" | "live">("browser");
   const [session, setSession] = useState<Session | null>(null);
   const [observedAt, setObservedAt] = useState<string | null>(null);
@@ -443,6 +445,7 @@ export default function App() {
   };
 
   const navIcons = {
+    case: ShieldCheck,
     lab: Activity,
     freshness: Files,
     receipts: ListChecks,
@@ -451,6 +454,7 @@ export default function App() {
     story: UserRound,
   };
   const pageNames: Record<Tab, string> = {
+    case: "답변에서 실행까지",
     lab: "판단 재검증",
     freshness: "문서와 답변",
     receipts: "판단 기록",
@@ -459,6 +463,7 @@ export default function App() {
     story: "설계자의 관점",
   };
   const pageDescriptions: Record<Tab, string> = {
+    case: "문서가 바뀐 뒤에도 이 답변을 사용해도 될까요? 직접 바꾸고 확인하세요.",
     lab: "조건을 바꾸고, 같은 판단을 다시 검증합니다.",
     freshness: "원문 변경이 답변과 배포에 미치는 영향을 확인합니다.",
     receipts: "생성 당시의 정보와 판단 원본을 확인합니다.",
@@ -467,6 +472,7 @@ export default function App() {
     story: "문제 정의, 기술 선택, 기여하고 싶은 일을 설명합니다.",
   };
   const sections = [
+    { id: "case" as Tab, label: "핵심 사례" },
     { id: "lab" as Tab, label: "인터랙티브 데모" },
     { id: "freshness" as Tab, label: "근거 변경 실험" },
     { id: "receipts" as Tab, label: "판단 기록" },
@@ -536,7 +542,7 @@ export default function App() {
         <button
           className="wordmark"
           aria-label="RECHECK 홈"
-          onClick={() => setTab("lab")}
+          onClick={() => setTab("case")}
         >
           <span className="brand-glyph">r/</span> RECHECK
         </button>
@@ -546,9 +552,13 @@ export default function App() {
             const Icon = navIcons[id];
             return (
               <div className="rail-item" key={id}>
-                {(index === 0 || index === 2) && (
+                {(index === 0 || index === 1 || index === 3) && (
                   <span className="rail-group">
-                    {index === 0 ? "실험" : "기록과 설계"}
+                    {index === 0
+                      ? "처음이라면"
+                      : index === 1
+                        ? "직접 실험"
+                        : "기록과 설계"}
                   </span>
                 )}
                 <button
@@ -606,7 +616,7 @@ export default function App() {
             </button>
           )}
         </section>
-        {tab !== "freshness" && (
+        {tab !== "freshness" && tab !== "case" && (
           <>
             <div className={`mode-banner ${mode === "live" ? "is-live" : ""}`}>
               <div className="mode-label">
@@ -712,6 +722,13 @@ export default function App() {
               </div>
             )}
           </>
+        )}
+        {tab === "case" && (
+          <CaseStudy
+            defaultBase={base}
+            onExplore={() => setTab("freshness")}
+            onEvidence={() => setTab("evidence")}
+          />
         )}
         {tab === "freshness" && <EvidenceLab defaultBase={base} />}
         {tab === "lab" && (
@@ -1429,6 +1446,30 @@ export default function App() {
                   </section>
                 </div>
               ))}
+            </div>
+            <div className="ownership-next">
+              <span className="eyebrow">직접 판단할 수 있는가</span>
+              <h3>설명을 읽고, 반례로 확인하기</h3>
+              <p>
+                AI와 함께 구현한 결과물입니다. 지원자가 직접 검토·수정한 범위는
+                실제 작업 기록으로 설명해야 합니다. 검사와 기록을 분리하면 어떤
+                테스트가 깨지는지, 응답을 잃은 재시도는 어떻게 처리하는지 직접
+                확인할 수 있는 과제를 공개합니다.
+              </p>
+              <a
+                href="https://github.com/sokldjs554/recheck-ml-serving/blob/main/docs/ownership-workbook.md"
+                target="_blank"
+                rel="noreferrer"
+              >
+                직접 수정하는 개발 과제 ↗
+              </a>
+              <a
+                href="https://github.com/sokldjs554/recheck-ml-serving/blob/main/docs/usability-protocol.md"
+                target="_blank"
+                rel="noreferrer"
+              >
+                아직 검증하지 못한 사용자 이해도 ↗
+              </a>
             </div>
             <div className="contribution">
               <span className="eyebrow">토스뱅크에서 기여하고 싶은 일</span>
