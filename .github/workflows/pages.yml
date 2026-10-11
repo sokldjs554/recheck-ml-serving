@@ -5,6 +5,7 @@ on:
     paths:
       - 'demo/**'
       - '.github/workflows/pages.yml'
+      - 'scripts/check_browser.py'
       - 'scripts/check_evidence_browser.py'
       - 'scripts/check_case_browser.py'
       - 'scripts/check_comparison_browser.py'

@@ -131,7 +131,7 @@ def main() -> None:
 
             click("서버 설계")
             page.get_by_role("heading", name="모델 추론과 최종 검증을 분리했습니다.", exact=True).wait_for()
-            page.get_by_text("Python 호스팅 구성: SQLite", exact=False).wait_for()
+            page.locator(".storage-line p").filter(has_text="공개 서버: Neon PostgreSQL · 로컬 실험: SQLite / PostgreSQL").wait_for()
             click("설계 배경")
             page.get_by_role("heading", name="오류 재현과 해결책 검증").wait_for()
             click("검증 기록")

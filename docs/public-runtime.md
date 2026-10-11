@@ -40,24 +40,25 @@ separate local observability lab still demonstrates OTLP trace propagation,
 Prometheus scraping and alert firing/resolution. Long-term operational experience and
 production banking reliability are not claimed.
 
-## Always-on deployment: prepared, not purchased
+## Hosting decision: keep the free service
 
 As checked on 2026-10-12 KST, Render's official pricing lists the `0.5c-512mb` plan
 (legacy `starter`, 0.5 CPU / 512 MB) at US$7/month, prorated by running time, before
 tax/extra usage. This is the minimum candidate for the existing lightweight demo.
 The free runtime still sleeps. Upgrading an existing service requires changing its
 compute plan in the Render dashboard; changing this repository's YAML alone does not
-prove the live service changed. No paid upgrade has been made without approval.
+prove the live service changed. The owner chose to keep the free service without
+additional cost on 2026-10-12 KST. No paid resource was created; first-access startup
+delay remains an accepted demo constraint.
 
 - Existing service: https://dashboard.render.com/web/srv-db3rmj3ncjis73bi8fl0
 - Pricing: https://render.com/pricing
 - Plan names: https://render.com/docs/compute-plans-update
 
-After approval: change only this service to the paid plan, verify the live plan and
-memory, leave it idle for over 15 minutes, then measure first-access latency without
-warming the API first. Keep the failed/slow result if any. Free Neon may also suspend;
-no claim of zero cold-start latency is made. CPU ensemble load requires more memory
-than 512 MB and stays in the explicitly separate benchmark environment.
+Free Neon may also suspend; no claim of zero cold-start latency is made. A future
+hosting change would need separate authorization and an idle first-access measurement
+without warming the API first. CPU ensemble load requires more memory than 512 MB
+and stays in the explicitly separate benchmark environment.
 
 ## Full-path experiment
 
