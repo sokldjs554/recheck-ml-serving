@@ -314,14 +314,38 @@ async def test_expired_at_issuance_is_not_clear(tmp_path):
 
 
 async def test_worker_queue_rejects_overload_and_cleans_up_timeouts(tmp_path):
-    app, worker, model, client, sid = await setup(tmp_path, worker_concurrency=1, worker_queue=1, deadline_ms=70)
+    app, worker, model, client, sid = await setup(tmp_path, worker_concurrency=1, worker_queue=1, deadline_ms=2000)
     async with closing_clients(model, client):
+        admission = worker.state.admission
+        # Keep capacity occupied until every overload probe has completed.
+        # Scheduling 12 HTTP calls is not proof that they all arrive within 70ms.
+        async with admission.slot(time.monotonic() + 10):
+            async def queue_owner():
+                async with admission.slot(time.monotonic() + 10):
+                    pytest.fail('queued owner entered an occupied worker')
+            queued = asyncio.create_task(queue_owner())
+            try:
+                async with asyncio.timeout(2):
+                    while admission.admitted != 2:
+                        await asyncio.sleep(0)
+                assert admission.active == 1
+                probes = await asyncio.gather(*[model.post('/infer', json=dict(
+                    features=[0.1, 0, 0, 0.1], model_version='risk-v1',
+                    delay_ms=0, fault='none', deadline_ms=2000)) for _ in range(10)])
+                assert all(r.status_code == 429 and r.json()['detail'] == 'overloaded' for r in probes)
+                assert admission.admitted == 2 and admission.active == 1
+            finally:
+                queued.cancel()
+                await asyncio.gather(queued, return_exceptions=True)
+        assert admission.admitted == 0 and admission.active == 0
+        # Separately exercise real worker timeouts and cancellation cleanup.
         requests = [model.post("/infer", json=dict(features=[0.1, 0, 0, 0.1], model_version="risk-v1",
-                    delay_ms=120, fault="none", deadline_ms=70)) for _ in range(12)]
+                    delay_ms=120, fault="none", deadline_ms=70)) for _ in range(2)]
         responses = await asyncio.gather(*requests)
-        assert sum(r.status_code == 429 for r in responses) == 10
         assert sum(r.status_code == 504 for r in responses) == 2
         assert worker.state.admission.admitted == 0
+        assert worker.state.admission.active == 0
+        assert not worker.state.inflight
         assert worker.state.completed == 0
 
 
