@@ -8,6 +8,16 @@ RECHECK는 이 질문을 Python 서버, 실제 SQL 트랜잭션, 직접 조작�
 
 [직접 체험하기](https://sokldjs554.github.io/recheck-ml-serving/) · [실제 Python 호스트](https://recheck-ml-serving.onrender.com/) · [세 방식의 비교 실험](docs/safety-case-study.md) · [핵심 코드](backend/recheck/evidence.py)
 
+## 빠르게 살펴보기
+
+**Python ML 백엔드의 최신성·동시성·장애 경계를 다룬 AI 협업 포트폴리오입니다.**
+
+- **문제:** 생성 시점에는 맞았던 결과가 실행 시점에는 오래된 정보가 되는 상황.
+- **핵심 선택:** 근거 검증과 내부 작업 기록을 같은 SQL 트랜잭션으로 처리하고, 재시도는 같은 작업 ID로 수렴.
+- **검증:** 같은 9개 사건 순서를 SQLite·PostgreSQL에서 각각 비교하고, 실제 잠금 경쟁·취소·과부하·복구를 별도로 재현.
+
+[지원용 프로젝트 소개](docs/application-brief.md) → [실제 API 데모](https://sokldjs554.github.io/recheck-ml-serving/) → [기술 선택과 비교 근거](docs/safety-case-study.md)
+
 ![근거 변경을 감지해 이전 답변의 실행을 거절하는 실제 API 화면](docs/evidence/case-study-desktop.png)
 
 ## 먼저 체험할 한 가지
