@@ -29,7 +29,7 @@ RECHECK_TEST_DATABASE_URL=postgresql+psycopg://recheck:local-demo-only@127.0.0.1
   .venv/bin/pytest -q
 ```
 
-From the repository root use `PYTHONPATH=backend backend/.venv/bin/pytest backend/tests -q`.
+From the repository root use `PYTHONPATH=backend backend/.venv/bin/python -m pytest backend/tests -q`.
 The PostgreSQL test database must be disposable: tests create synthetic sessions
 and decisions, and retain them until the session cleanup policy runs. The socket
 test binds random local ports, independently of the demo's 8000/8001 ports.
@@ -39,8 +39,10 @@ test binds random local ports, independently of the demo's 8000/8001 ports.
 ```
 
 This generates `.joblib` artifacts, an artifact-file SHA-256 and a model-parameter
-SHA-256. The server reproducibly trains the two small base models at startup rather
-than deserializing arbitrary pickles. `model_hash` identifies the deployment epoch,
+SHA-256. The public launcher loads a verified, repository-built bundle instead of
+retraining at startup. Docker exports the bundle during its build. Only trusted
+build artifacts are accepted; joblib is not a safe format for untrusted uploads.
+See [handoff checks and reproduction](../docs/model-handoff.md). `model_hash` identifies the deployment epoch,
 seed, learned scaler and classifier parameters. It is an identity, not a signature.
 The exact serialized artifact hash can differ across library versions.
 

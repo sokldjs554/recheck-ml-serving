@@ -93,7 +93,9 @@ def create_app(settings=None, model_client=None):
                 raise HTTPException(503, "model_registry_mismatch")
         except (httpx.HTTPError, ValueError) as exc:
             raise HTTPException(503, "model_unavailable") from exc
-        return {"status": "ok", "service": "recheck-api", "mode": "live", "model_service": settings.model_service_url}
+        return {"status": "ok", "service": "recheck-api", "mode": "live", "model_service": settings.model_service_url,
+                "model_source": response.json().get("model_source", "unknown"),
+                "bundle_sha256": response.json().get("bundle_sha256")}
 
     @app.post("/api/sessions")
     async def create_session():

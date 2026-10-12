@@ -1,0 +1,224 @@
+{
+  "measured_at": "2026-10-12T02:52:11.453963+00:00",
+  "runtime": {
+    "python": "3.12",
+    "scikit-learn": "1.9.1",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "joblib": "1.6.0"
+  },
+  "scope": "Synthetic logistic models; fresh Python worker per case, in-process ASGI HTTP transport. Not a public server benchmark.",
+  "source_sha256": {
+    "backend/recheck/model.py": "e7b94ca108ef672d392fd13f167d07b91d6b90181d6a550339ba273b4c402706",
+    "backend/recheck/model_bundle.py": "cfd72e68ff65d9b40ae34891c8950de9b3147ec421f0b8a3ad3cf5c453100cff",
+    "scripts/verify_model_handoff.py": "5099931085c4ef09a996eb6d75a103a304d0e9b453eb97b02a9ed68ec215bdaa"
+  },
+  "manifest": {
+    "format": 1,
+    "workload": "lightweight",
+    "features": [
+      "amount_ratio",
+      "recipient_unfamiliar",
+      "recent_changes",
+      "velocity_ratio"
+    ],
+    "input": {
+      "dtype": "float64",
+      "range": [
+        0,
+        1
+      ],
+      "shape": [
+        4
+      ]
+    },
+    "runtime": {
+      "python": "3.12",
+      "scikit-learn": "1.9.1",
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "joblib": "1.6.0"
+    },
+    "probes": [
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.2,
+        0.0,
+        1.0,
+        0.4
+      ],
+      [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    ],
+    "models": [
+      {
+        "version": "risk-v1",
+        "file": "risk-v1.joblib",
+        "artifact_sha256": "e96d9e22374fe1821149ba0e528c2d6c9c30a48d2f3161ea389080fe7733d291",
+        "model_hash": "7de0929ba34aefaa313bf15354e6582133992cb755df11094ced0796125521be",
+        "report": {
+          "seed": 660065,
+          "rows": 4000,
+          "train_rows": 3000,
+          "test_rows": 1000,
+          "features": [
+            "amount_ratio",
+            "recipient_unfamiliar",
+            "recent_changes",
+            "velocity_ratio"
+          ],
+          "test_auc": 0.8601128472222221,
+          "auc_scope": "point predictions on synthetic holdout, before scenario aggregation",
+          "workload": "lightweight",
+          "scenario_rows": 1,
+          "scope": "synthetic data only; not real fraud detection accuracy"
+        },
+        "probe_scores": [
+          0.005562348269279913,
+          0.17401865717618464,
+          0.986846943198137
+        ]
+      },
+      {
+        "version": "risk-v2",
+        "file": "risk-v2.joblib",
+        "artifact_sha256": "9cc618d72d3144c7cb687c67c14d8ea075bca2faa9b9bd856b2f13b534a7f77d",
+        "model_hash": "bf828d9fc64816ed1a8eb6f8832c43a875ac7730e0cf1945c82830f4e034d907",
+        "report": {
+          "seed": 660065,
+          "rows": 4000,
+          "train_rows": 3000,
+          "test_rows": 1000,
+          "features": [
+            "amount_ratio",
+            "recipient_unfamiliar",
+            "recent_changes",
+            "velocity_ratio"
+          ],
+          "test_auc": 0.8600868055555556,
+          "auc_scope": "point predictions on synthetic holdout, before scenario aggregation",
+          "workload": "lightweight",
+          "scenario_rows": 1,
+          "scope": "synthetic data only; not real fraud detection accuracy"
+        },
+        "probe_scores": [
+          0.005765109197670501,
+          0.17531625265024744,
+          0.9863821348579853
+        ]
+      }
+    ]
+  },
+  "cases": [
+    {
+      "case": "none",
+      "exit_code": 0,
+      "state": "served",
+      "training_disabled": true,
+      "health": {
+        "status": "ok",
+        "service": "recheck-worker",
+        "models": {
+          "risk-v1": "7de0929ba34aefaa313bf15354e6582133992cb755df11094ced0796125521be",
+          "risk-v2": "bf828d9fc64816ed1a8eb6f8832c43a875ac7730e0cf1945c82830f4e034d907"
+        },
+        "workload": "lightweight",
+        "execution_mode": "inline",
+        "model_source": "bundle",
+        "bundle_sha256": "cd3d533e1105097680ba48a9620bd7773d72db399ef1c418ccb7b1f6afe252a4",
+        "active": 0,
+        "admitted": 0,
+        "completed": 0,
+        "failures": 0,
+        "peak_active": 0,
+        "peak_admitted": 0
+      },
+      "predictions": [
+        {
+          "model_version": "risk-v1",
+          "model_hash": "7de0929ba34aefaa313bf15354e6582133992cb755df11094ced0796125521be",
+          "risk_score": 0.005562348269279913
+        },
+        {
+          "model_version": "risk-v1",
+          "model_hash": "7de0929ba34aefaa313bf15354e6582133992cb755df11094ced0796125521be",
+          "risk_score": 0.17401865717618464
+        },
+        {
+          "model_version": "risk-v1",
+          "model_hash": "7de0929ba34aefaa313bf15354e6582133992cb755df11094ced0796125521be",
+          "risk_score": 0.986846943198137
+        },
+        {
+          "model_version": "risk-v2",
+          "model_hash": "bf828d9fc64816ed1a8eb6f8832c43a875ac7730e0cf1945c82830f4e034d907",
+          "risk_score": 0.005765109197670501
+        },
+        {
+          "model_version": "risk-v2",
+          "model_hash": "bf828d9fc64816ed1a8eb6f8832c43a875ac7730e0cf1945c82830f4e034d907",
+          "risk_score": 0.17531625265024744
+        },
+        {
+          "model_version": "risk-v2",
+          "model_hash": "bf828d9fc64816ed1a8eb6f8832c43a875ac7730e0cf1945c82830f4e034d907",
+          "risk_score": 0.9863821348579853
+        },
+        {
+          "model_version": "risk-v3",
+          "model_hash": "e50bf43d6d6188aaeb8af25d8c079a00a1f0a5a8d89a4f6feeb38362eecea72d",
+          "risk_score": 0.005562348269279913
+        },
+        {
+          "model_version": "risk-v3",
+          "model_hash": "e50bf43d6d6188aaeb8af25d8c079a00a1f0a5a8d89a4f6feeb38362eecea72d",
+          "risk_score": 0.17401865717618464
+        },
+        {
+          "model_version": "risk-v3",
+          "model_hash": "e50bf43d6d6188aaeb8af25d8c079a00a1f0a5a8d89a4f6feeb38362eecea72d",
+          "risk_score": 0.986846943198137
+        }
+      ]
+    },
+    {
+      "case": "checksum",
+      "exit_code": 2,
+      "state": "blocked",
+      "reason": "artifact_checksum"
+    },
+    {
+      "case": "feature_order",
+      "exit_code": 2,
+      "state": "blocked",
+      "reason": "feature_contract"
+    },
+    {
+      "case": "runtime",
+      "exit_code": 2,
+      "state": "blocked",
+      "reason": "runtime_versions"
+    },
+    {
+      "case": "missing",
+      "exit_code": 2,
+      "state": "blocked",
+      "reason": "artifact_missing"
+    },
+    {
+      "case": "prediction",
+      "exit_code": 2,
+      "state": "blocked",
+      "reason": "prediction_contract"
+    }
+  ]
+}

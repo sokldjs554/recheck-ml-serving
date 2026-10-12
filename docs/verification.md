@@ -151,3 +151,11 @@ backend/.venv/bin/python scripts/benchmark.py --count 60 --rate 80 --delay 80 --
 - 별도 GitHub runner/PostgreSQL 17에서도 [전체 경로 회귀](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/38154963345)를 통과했다. 로컬 성능 수치를 이 runner나 공개 Render의 용량으로 바꾸어 주장하지 않는다.
 - 공개 브라우저에서 기본 동작 18개, 근거 실험 12개, 핵심 사례 6개, 비교 7개, 서빙·운영 기록 5개를 검증했다. [공개 화면 검증](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/38154265124).
 - 무료 서버의 시작 지연은 남아 있다. 상시 실행은 별도 비용 승인이 필요한 배포 선택이다. 기능 검증이나 짧은 운영 표본을 장기 SLA로 표현하지 않는다.
+
+## 2026-10-12: 학습 산출물 인계
+
+별도 PostgreSQL 테스트 DB에서 백엔드 125개 통과, SQLite 전용 용량 검사 1개 별도 통과. 새 모델 인계 테스트 12개 포함. 프런트 38개 통과·TypeScript/Vite 빌드 성공·정적 번들 일치 확인. 원본 3개 요약 생성기의 일치 검사도 통과했다.
+
+새 Python 프로세스 6회에서 정상 모델 9개 예측값 일치와 잘못된 산출물 5종 시작 차단을 확인했다. [모델 인계 원본](evidence/model-handoff.json).
+
+로컬 실제 Chromium에서 320·390·768·1440px 가로 넘침 없음, 표 6개 사례·실패 5개 표시, 키보드로 상세 펼침, deep link 새로고침, 기존 요청률 전환을 확인했다. 브라우저 pageerror 0건. 로컬 공개 실행기의 `/health`는 `model_source=bundle`과 실제 manifest 해시를 반환했다. 공개 배포 검증은 로컬 확인과 별도로 수행한다.

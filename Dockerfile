@@ -14,9 +14,10 @@ RUN --mount=type=secret,id=proxy_ca \
     if [ -f /run/secrets/proxy_ca ]; then PIP_CERT=/run/secrets/proxy_ca pip install --no-cache-dir -r backend/requirements.txt; else pip install --no-cache-dir -r backend/requirements.txt; fi
 COPY backend/ /app/backend/
 COPY scripts/ /app/scripts/
+RUN PYTHONPATH=/app/backend python -m recheck.model --output /app/backend/model_artifacts > /dev/null
 COPY --from=frontend /build/dist /app/web_static
 RUN useradd -u 10001 -m runner && chown -R runner:runner /app
 USER runner
-ENV PYTHONPATH=/app/backend PYTHONUNBUFFERED=1
+ENV PYTHONPATH=/app/backend PYTHONUNBUFFERED=1 RECHECK_MODEL_BUNDLE=/app/backend/model_artifacts
 EXPOSE 8000
 CMD ["python", "scripts/serve_demo.py"]

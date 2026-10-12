@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def main() -> int:
     env = os.environ.copy()
     env["PYTHONPATH"] = str(ROOT / "backend")
+    env.setdefault("RECHECK_MODEL_BUNDLE", str(ROOT / "backend" / "model_artifacts"))
     env.setdefault("MODEL_SERVICE_URL", "http://127.0.0.1:8001")
     if env.get('RENDER') == 'true' and not env.get('DATABASE_URL', '').startswith(('postgres://', 'postgresql://', 'postgresql+psycopg://')):
         print('Public Render deployment requires a PostgreSQL DATABASE_URL; refusing ephemeral fallback', file=sys.stderr)

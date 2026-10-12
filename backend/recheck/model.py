@@ -2,12 +2,9 @@
 from dataclasses import dataclass
 from functools import lru_cache
 import hashlib
-import json
 import os
 import re
-from pathlib import Path
 
-import joblib
 import numpy as np
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import ExtraTreesClassifier
@@ -108,7 +105,13 @@ def get_model(version="risk-v1", workload=None):
     if not re.fullmatch(r"risk-v[1-9][0-9]{0,5}", version):
         raise ValueError("unsupported model version")
     epoch = int(version.split("v")[1])
-    base = _base_model("risk-v1" if epoch % 2 else "risk-v2", workload)
+    base_version = "risk-v1" if epoch % 2 else "risk-v2"
+    bundle = os.getenv("RECHECK_MODEL_BUNDLE")
+    if bundle:
+        from .model_bundle import prepared_bundle
+        base = prepared_bundle(bundle, workload)[base_version]
+    else:
+        base = _base_model(base_version, workload)
     # Two pre-trained artifacts rotate under monotonic deployment epochs. Version
     # identity includes the epoch, preventing an old receipt surviving an ABA switch.
     return base if epoch <= 2 else TrainedModel(base.estimator, version, estimator_hash(base.estimator, version), base.report)
@@ -116,17 +119,12 @@ def get_model(version="risk-v1", workload=None):
 
 if __name__ == "__main__":
     import argparse
+    import json
+    # Import the canonical module so custom estimators are never pickled under
+    # __main__; a different worker process must be able to deserialize them.
+    from recheck.model_bundle import export_bundle
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", default="artifacts")
+    parser.add_argument("--workload", choices=("lightweight", "cpu-ensemble"), default="lightweight")
     args = parser.parse_args()
-    destination = Path(args.output)
-    destination.mkdir(parents=True, exist_ok=True)
-    manifests = []
-    for version in ("risk-v1", "risk-v2"):
-        model = train_model(version)
-        artifact = destination / f"{version}.joblib"
-        joblib.dump(model.estimator, artifact)
-        manifests.append(dict(model_version=version, model_hash=model.model_hash,
-                              artifact_sha256=hashlib.sha256(artifact.read_bytes()).hexdigest(), **model.report))
-    (destination / "manifest.json").write_text(json.dumps(manifests, indent=2) + "\n")
-    print(json.dumps(manifests, indent=2))
+    print(json.dumps(export_bundle(args.output, args.workload), indent=2))

@@ -107,6 +107,7 @@ SQLite와 PostgreSQL에서 각각 동일한 **9개 고정 사건 순서, 방식�
 | 모델이 응답하는 사이 입력이 바뀌면? | [추론 예약·최종 검증](backend/recheck/store.py), 멱등 키, 불변 판단 기록 | 실제 금융 원장과는 연결하지 않음 |
 | 요청을 취소하면 CPU도 멈추는가? | [CPU 격리 비교](docs/compute-experiments.md), 실행 슬롯 보존, 지연·goodput·RSS | 합성 CPU 모델, 짧은 공유 호스트 실험 |
 | 모델과 인덱스가 서로 다르면? | [실제 검색·배포 게이트](docs/evidence-release.md) | 가상 문서 4개, 일반 검색 품질 증거 아님 |
+| 학습한 모델이 그대로 서비스되는가? | [모델 인계 검증](docs/model-handoff.md), 새 프로세스 예측 일치·잘못된 배포물 시작 차단 | 합성 모델·신뢰된 자체 산출물, 서명 검증 없음 |
 | 장애와 복구가 보이는가? | [OpenTelemetry·알림](docs/operations.md), [Kubernetes 복구](docs/kubernetes.md) | 단일 호스트 클러스터, DB 교체 오류도 공개 |
 | 사람이 설명 없이 이해하는가? | [사용성 조사 절차](docs/usability-protocol.md) | **실제 참여자 조사 미수행** |
 
@@ -129,7 +130,7 @@ backend/.venv/bin/python scripts/serve_demo.py
 ```
 
 ```bash
-PYTHONPATH=backend backend/.venv/bin/pytest backend/tests -q
+PYTHONPATH=backend backend/.venv/bin/python -m pytest backend/tests -q
 backend/.venv/bin/python scripts/evaluate_safety.py --help
 cd demo
 npm ci

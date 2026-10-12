@@ -42,3 +42,9 @@
 .operations-load { padding: .6rem 1rem; border: 1px solid currentColor; background: transparent; color: inherit; font: inherit; cursor: pointer; }
 .operations-load:disabled { cursor: wait; opacity: .6; }
 .public-observation code { overflow-wrap: anywhere; }
+
+.model-handoff{margin:24px 0 36px;border-top:2px solid #30382c;border-bottom:1px solid #ccd0c7;padding:20px 0}
+.handoff-intro h2{font-size:17px;margin:0 0 8px}.handoff-intro p,.model-handoff details p{font-size:12px;line-height:1.8;color:#626b59;max-width:850px;word-break:keep-all}
+.handoff-contract{display:flex;flex-wrap:wrap;gap:10px 16px;margin:22px 0;font-size:12px}.handoff-contract [aria-hidden]{color:#9b482f}
+.model-handoff details{margin-top:18px;padding:14px 0;border-bottom:1px solid #ccd0c7}.model-handoff summary{cursor:pointer;font-size:12px;min-height:28px;line-height:28px}.model-handoff summary:focus-visible{outline:2px solid #9b482f;outline-offset:4px}
+.handoff-scores{display:flex;flex-wrap:wrap;gap:20px;font:12px ui-monospace,monospace}.handoff-scores dd{margin:8px 0 0}.model-handoff .serving-source{margin-bottom:4px}

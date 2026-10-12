@@ -1,0 +1,105 @@
+{
+  "format": 1,
+  "workload": "lightweight",
+  "features": [
+    "amount_ratio",
+    "recipient_unfamiliar",
+    "recent_changes",
+    "velocity_ratio"
+  ],
+  "input": {
+    "dtype": "float64",
+    "range": [
+      0,
+      1
+    ],
+    "shape": [
+      4
+    ]
+  },
+  "runtime": {
+    "python": "3.12",
+    "scikit-learn": "1.9.1",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "joblib": "1.6.0"
+  },
+  "probes": [
+    [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.2,
+      0.0,
+      1.0,
+      0.4
+    ],
+    [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  ],
+  "models": [
+    {
+      "version": "risk-v1",
+      "file": "risk-v1.joblib",
+      "artifact_sha256": "e96d9e22374fe1821149ba0e528c2d6c9c30a48d2f3161ea389080fe7733d291",
+      "model_hash": "7de0929ba34aefaa313bf15354e6582133992cb755df11094ced0796125521be",
+      "report": {
+        "seed": 660065,
+        "rows": 4000,
+        "train_rows": 3000,
+        "test_rows": 1000,
+        "features": [
+          "amount_ratio",
+          "recipient_unfamiliar",
+          "recent_changes",
+          "velocity_ratio"
+        ],
+        "test_auc": 0.8601128472222221,
+        "auc_scope": "point predictions on synthetic holdout, before scenario aggregation",
+        "workload": "lightweight",
+        "scenario_rows": 1,
+        "scope": "synthetic data only; not real fraud detection accuracy"
+      },
+      "probe_scores": [
+        0.005562348269279913,
+        0.17401865717618464,
+        0.986846943198137
+      ]
+    },
+    {
+      "version": "risk-v2",
+      "file": "risk-v2.joblib",
+      "artifact_sha256": "9cc618d72d3144c7cb687c67c14d8ea075bca2faa9b9bd856b2f13b534a7f77d",
+      "model_hash": "bf828d9fc64816ed1a8eb6f8832c43a875ac7730e0cf1945c82830f4e034d907",
+      "report": {
+        "seed": 660065,
+        "rows": 4000,
+        "train_rows": 3000,
+        "test_rows": 1000,
+        "features": [
+          "amount_ratio",
+          "recipient_unfamiliar",
+          "recent_changes",
+          "velocity_ratio"
+        ],
+        "test_auc": 0.8600868055555556,
+        "auc_scope": "point predictions on synthetic holdout, before scenario aggregation",
+        "workload": "lightweight",
+        "scenario_rows": 1,
+        "scope": "synthetic data only; not real fraud detection accuracy"
+      },
+      "probe_scores": [
+        0.005765109197670501,
+        0.17531625265024744,
+        0.9863821348579853
+      ]
+    }
+  ]
+}

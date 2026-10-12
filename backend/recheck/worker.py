@@ -63,6 +63,8 @@ def create_app(settings=None):
             raise HTTPException(503, "model_executor_unavailable")
         return {"status": "ok", "service": "recheck-worker", "models": {v: m.model_hash for v, m in models.items()},
                 "workload": settings.workload, "execution_mode": settings.execution_mode,
+                "model_source": models["risk-v1"].report.get("source", "startup-training"),
+                "bundle_sha256": models["risk-v1"].report.get("bundle_sha256"),
                 "active": app.state.admission.active, "admitted": app.state.admission.admitted,
                 "completed": app.state.completed, "failures": app.state.failures,
                 "peak_active": app.state.admission.peak_active, "peak_admitted": app.state.admission.peak_admitted}

@@ -25,6 +25,12 @@ def main():
         assert page.get_by_test_id('serving-good').inner_text() == '896 / 900'
         assert '실시간' in page.get_by_test_id('stored-evidence-note').inner_text()
         assert page.locator('.mode-banner').count() == 0, 'Stored results must not be labeled browser simulation'
+        handoff = page.get_by_role('region', name='학습 모델 인계 검증', exact=True)
+        assert handoff.get_by_role('row').count() == 7
+        assert handoff.get_by_role('cell', name='시작 차단', exact=True).count() == 5
+        handoff.locator('summary').click()
+        assert handoff.locator('.handoff-scores').is_visible()
+        checks.append('model handoff shows startup rejection cases and expandable prediction values')
         page.get_by_role('button', name='60 req/s').click()
         assert page.get_by_test_id('serving-good').inner_text() == '2,572 / 3,600'
         counts = page.get_by_test_id('serving-outcomes').inner_text()

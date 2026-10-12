@@ -2,6 +2,7 @@ import { useState } from 'react';
 import data from './serving-evidence.json';
 import fullpath from './fullpath-evidence.json';
 import PublicOperations from './PublicOperations';
+import ModelHandoff from './ModelHandoff';
 import './servingEvidence.css';
 
 const evidenceRoot = 'https://github.com/sokldjs554/recheck-ml-serving/blob/main/docs/evidence/';
@@ -31,6 +32,7 @@ export default function ServingEvidence({view}: {view: 'serving' | 'recovery'}) 
     </header>
     <p className="serving-record-note" data-testid="stored-evidence-note">{view === 'serving' ? '저장된 실제 실험 기록 · 실시간 부하 실행이나 현재 서버 상태가 아닙니다.' : '운영 기록은 버튼을 눌러 공개 API에서 조회합니다. 아래 장애 주입 실험은 저장된 기록입니다.'}</p>
     {view === 'serving' ? <>
+      <ModelHandoff />
       <section className="public-observation" aria-label="API 모델 PostgreSQL 전체 경로 부하">
         <h2>API에서 SQL 기록까지</h2>
         <p>HTTP API → CPU 추론 프로세스 2개 → PostgreSQL. 아래는 전체 경로를 호출한 별도 실험입니다. 각 요청률을 5초씩 2회 측정했고, 성공·보류·오류를 모두 셌습니다.</p>

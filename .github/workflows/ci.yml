@@ -30,6 +30,15 @@ jobs:
           PYTHONPATH: backend
           RECHECK_TEST_DATABASE_URL: postgresql+psycopg://recheck:local-demo-only@127.0.0.1:5432/recheck
           RECHECK_NETWORK_TESTS: '1'
+      - name: Verify training-to-serving handoff
+        run: |
+          PYTHONPATH=backend RECHECK_MODEL_BUNDLE="$PWD/backend/model_artifacts" python -c 'from recheck.model import get_model; assert get_model().report["source"] == "bundle"'
+          python scripts/verify_model_handoff.py --output work/model-handoff.json
+          cmp docs/evidence/model-handoff.json demo/src/model-handoff.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: model-handoff-evidence
+          path: work/model-handoff.json
       - name: Repeat scheduling-sensitive correctness and timeout contracts
         run: |
           for attempt in 1 2 3; do
