@@ -258,19 +258,19 @@
     },
     "presentation": {
       "checks": [
-        "actual MP4 decodes while live health request is pending; stored label, live state, and shared controls remain distinct",
+        "actual recording decodes while live health request is pending; stored label, live state, and shared controls remain distinct",
         "1440/768/390/320: top control, expanded recording and case have no page overflow",
         "serving: visible scope/results, collapsed conditions/raw data, expanded layout and contained table scrolling at four widths",
         "recovery: visible scope/results, collapsed conditions/raw data, expanded layout and contained table scrolling at four widths"
       ],
       "media": {
-        "source": "http://127.0.0.1:5178/media/recheck-walkthrough.mp4",
+        "source": "http://127.0.0.1:5178/media/recheck-walkthrough.webm",
         "duration": 36.36,
         "width": 1280,
         "height": 1080,
         "poster": "http://127.0.0.1:5178/media/recheck-poster.webp"
       },
-      "action_id": "d81e9b67-4548-4b0b-aa1e-a4dcd7fb3ee0",
+      "action_id": "691c3623-0f3f-4530-bd79-cef9ec880718",
       "page_errors": []
     },
     "serving": {
@@ -478,12 +478,12 @@
   },
   "files_sha256": {
     "README.md": "70172ff69d0f29fe1e278728be2e9f9147b2d4e4848b2d44adff2712eb44e628",
-    ".github/workflows/pages.yml": "459538984d85ca7375320746b32c80c90e553c4332536f0540226e08e870abb4",
+    ".github/workflows/pages.yml": "348a446f81acadd05c316cb9c66e1699b85c89363579def390041b7105fb05c5",
     "scripts/check_case_browser.py": "3a920aa225a1e088ba5b3d08710d01dcc4b67ffe8c31178712956f254fe9a7ee",
-    "scripts/check_presentation_browser.py": "b15b9b8c9ed60b0f823ee3f1a0a44b2bdd54741c65166d13dfadeaba55c3c578",
-    "scripts/record_demo.py": "88d9654443cc79f259529f3510b7436c7ade30eab04dca7e9ecf523fb5744dd8",
+    "scripts/check_presentation_browser.py": "48dc6843440eb4c697a82097d2dff9807edc141f290a4cd435a51fd4e7b87abf",
+    "scripts/record_demo.py": "e4bb982315882f5270f86cc1076bf941dc1546b2f06e41c983295f40c43eecb0",
     "demo/src/CaseRunButton.tsx": "feb13ae53a8a0f6047fe30afc916e26d7bab76d62631fa62dc957e5dec2cc7df",
-    "demo/src/RecordedDemo.tsx": "2f9aae8177116ebd619ba71df4f249c1263195527743e12de6945cbbaa2a31b5",
+    "demo/src/RecordedDemo.tsx": "185234c887b11599e7df168892a9e036736168f7426c3f69a6e3cad82816edfe",
     "demo/src/App.tsx": "69bdd4414c1d6604279a0ff80a5f61849d8b10264ea7b270ff80cc351208e3d1",
     "demo/src/CaseStudy.tsx": "79632af2c3a11148ed881e86bdc8bfb02f77cdcdfd84c015a7a263e3f8b5cce6",
     "demo/src/MeasuredReview.tsx": "65c1f856f93a975792c52bab36d59c7082d4ca967f71659c970af76c469fcdd1",
@@ -491,6 +491,17 @@
     "demo/src/servingEvidence.css": "507b007adfa946a5606ca809ad2a3aee4288e63c6fc990793d4de026966308b0",
     "demo/public/media/recheck-walkthrough.mp4": "2008a049a79066529b5cd44d71601b29d64b3b16b6a04f04e76a2f3858968f73",
     "demo/public/media/recheck-poster.webp": "aaeb85c44e20e5cccd70087de3ed45017e5eacc768ad0072fa66b542dd802372",
-    "web_static/index.html": "24280e8d05f9ef395e9aa10e664a81d6618900673b4534c05c662cb8d4d65f72"
+    "web_static/index.html": "2a3ae7990321c49f39e03044e0675cc3661878237128b30acd7824cd85f91870",
+    "demo/public/media/recheck-walkthrough.webm": "0faef0a1538106bf24e483b7d72a38ff4f67f129f2723046df73ca32d99ffc3a"
+  },
+  "backend_after_fixture_correction": {
+    "postgresql": {
+      "passed": 139,
+      "skipped": 1
+    },
+    "sqlite_database_tests": {
+      "passed": 5
+    },
+    "production_code_changed": false
   }
 }

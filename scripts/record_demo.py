@@ -42,3 +42,4 @@ with sync_playwright() as p:
     subprocess.run(['ffmpeg','-y','-ss','1','-i',str(path),'-an','-c:v','libx264','-preset','fast','-crf','23','-pix_fmt','yuv420p','-movflags','+faststart',str(root/'demo/public/media/recheck-walkthrough.mp4')],check=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 
     subprocess.run(['ffmpeg','-y','-i',str(out/'poster.png'),'-quality','85',str(root/'demo/public/media/recheck-poster.webp'),'-loglevel','error'],check=True)
+    subprocess.run(['ffmpeg','-y','-ss','1','-i',str(path),'-an','-c:v','libvpx-vp9','-b:v','0','-crf','32','-deadline','realtime','-cpu-used','6','-row-mt','1',str(root/'demo/public/media/recheck-walkthrough.webm'),'-loglevel','error'],check=True)

@@ -55,7 +55,7 @@
   "duration_seconds": 36.36,
   "width": 1280,
   "height": 1080,
-  "encoding": "H.264 yuv420p, faststart; silent. Initial 1s of browser startup trimmed; no speed changes or artificial frames.",
+  "encoding": "H.264 MP4 / VP9 WebM, silent. Initial 1s browser startup trimmed; no speed changes or artificial frames.",
   "session_id": "0f23a786-d039-4386-b54d-3a85f3239d14",
   "case_events": [
     {
@@ -770,6 +770,7 @@
   ],
   "media_sha256": {
     "demo/public/media/recheck-poster.webp": "aaeb85c44e20e5cccd70087de3ed45017e5eacc768ad0072fa66b542dd802372",
-    "demo/public/media/recheck-walkthrough.mp4": "2008a049a79066529b5cd44d71601b29d64b3b16b6a04f04e76a2f3858968f73"
+    "demo/public/media/recheck-walkthrough.mp4": "2008a049a79066529b5cd44d71601b29d64b3b16b6a04f04e76a2f3858968f73",
+    "demo/public/media/recheck-walkthrough.webm": "0faef0a1538106bf24e483b7d72a38ff4f67f129f2723046df73ca32d99ffc3a"
   }
 }

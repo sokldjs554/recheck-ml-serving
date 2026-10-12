@@ -2,6 +2,7 @@
 import argparse
 import json
 from pathlib import Path
+from urllib.parse import urljoin
 from playwright.sync_api import sync_playwright
 
 
@@ -30,6 +31,15 @@ def main():
         assert '현재 요청' in page.get_by_test_id('recorded-demo').inner_text()
         assert '실행 중' in page.get_by_test_id('case-run-top').inner_text()
         video = page.locator('video')
+        for source in video.locator('source').all():
+            url = urljoin(page.url, source.get_attribute('src'))
+            response = page.request.get(url)
+            assert response.status == 200, f'Media delivery: {url} returned {response.status}'
+            assert source.get_attribute('type') in response.headers.get('content-type', '')
+            assert len(response.body()) > 10000
+            print('Media delivered', url, response.status, response.headers.get('content-type'), flush=True)
+        codecs = video.evaluate('''(v) => ({h264: v.canPlayType('video/mp4; codecs="avc1.640020"'), vp9: v.canPlayType('video/webm; codecs="vp9"')})''')
+        print('Browser codecs', json.dumps(codecs), flush=True)
         print('Checking actual video playback while live health is pending', flush=True)
         video.evaluate('(v) => { v.muted = true; v.play().catch(e => { v.dataset.playbackError = String(e); }); }')
         try:
@@ -50,7 +60,7 @@ def main():
         page.unroute('**/health')
         page.wait_for_function('document.querySelector("[data-testid=case-study]").dataset.step === "6"', timeout=110000)
         action = page.get_by_test_id('case-action').locator('code').inner_text()
-        checks.append('actual MP4 decodes while live health request is pending; stored label, live state, and shared controls remain distinct')
+        checks.append('actual recording decodes while live health request is pending; stored label, live state, and shared controls remain distinct')
         for width in (1440, 768, 390, 320):
             page.set_viewport_size({'width':width,'height':960})
             page.evaluate('scrollTo(0,0)')
