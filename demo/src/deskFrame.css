@@ -1,202 +1,315 @@
-/* Shared shell for the replay instrument and its engineering tools. */
+/* Three review paths; supporting tools remain available without competing with them. */
 .recheck-workbench.workspace-theme {
-  --paper: #ededea;
-  --ink: #242728;
-  --muted: #727870;
-  --rule: #ccd0c7;
+  --paper: #fff;
+  --ink: #17212c;
+  --muted: #596777;
+  --rule: #dce2e8;
   background: var(--paper);
   color: var(--ink);
 }
 .desk-header {
   display: flex;
   align-items: center;
-  min-height: 69px;
-  padding: 0 34px;
-  gap: 30px;
-  background: #fcfcfa;
-  border-bottom: 1px solid #cdd1c7;
+  min-height: 76px;
+  padding: 0 max(24px, calc((100vw - 1280px) / 2));
+  gap: 32px;
+  border-bottom: 1px solid var(--rule);
+  background: #fff;
 }
 .desk-brand {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 16px;
   flex: none;
 }
 .desk-wordmark {
   padding: 0;
-  gap: 8px;
-  font-size: 24px;
-  letter-spacing: -1.2px;
+  font-size: 25px;
+  letter-spacing: -1px;
   font-weight: 750;
 }
-.desk-wordmark .desk-brand-symbol {
-  display: grid;
-  place-items: center;
-  width: 26px;
-  height: 28px;
-  background: #d84a28;
-  color: #fff;
-  font:
-    26px/1 ui-monospace,
-    monospace;
+.desk-brand-symbol {
+  display: none;
 }
 .desk-brand-caption {
-  font-size: 10px;
-  padding-left: 14px;
-  border-left: 1px solid #cdd1c7;
-  color: #757c6d;
+  color: #637182;
+  font-size: 12px;
 }
 .desk-header nav {
   display: flex;
-  align-items: center;
-  gap: 18px;
+  align-items: stretch;
+  gap: 28px;
   margin-left: auto;
 }
 .desk-nav-item {
   position: relative;
-  min-height: 69px;
-  padding: 23px 0;
-  font-size: 12px;
+  display: flex;
+  align-items: center;
+  min-height: 76px;
+  color: #536071;
+  padding: 0;
+  font-size: 14px;
+  text-decoration: none;
   white-space: nowrap;
-  color: #626a5d;
 }
 .desk-nav-item.is-active {
-  color: #232c1b;
-  font-weight: 650;
+  color: #153b72;
+  font-weight: 700;
 }
 .desk-nav-item.is-active::after {
   content: "";
   position: absolute;
+  bottom: 0;
+  inset-inline: 0;
   height: 3px;
-  bottom: -1px;
-  left: 0;
-  right: 0;
-  background: #d84a28;
-}
-.desk-nav-item:hover {
-  color: #b23d20;
-}
-.desk-nav-item:nth-child(4) {
-  margin-left: 12px;
+  background: #2459a3;
 }
 .desk-source-link {
+  font-size: 12px;
+  color: #536071;
   display: flex;
-  align-items: center;
   gap: 4px;
-  font-size: 10px;
   text-decoration: none;
   white-space: nowrap;
-  color: #67705f;
 }
-.desk-source-link:hover {
-  text-decoration: underline;
-  text-underline-offset: 4px;
+.supporting-menu {
+  position: relative;
+  flex: none;
+  font-size: 12px;
+}
+.supporting-menu summary {
+  cursor: pointer;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #536071;
+}
+.supporting-menu summary::after {
+  content: "⌄";
+}
+.supporting-menu > div {
+  position: absolute;
+  z-index: 40;
+  right: 0;
+  top: 44px;
+  width: 205px;
+  padding: 8px;
+  background: #fff;
+  border: 1px solid #bcc8d4;
+  box-shadow: 0 8px 20px #14233914;
+}
+.supporting-menu button {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  text-align: left;
+  padding: 12px;
+  font-size: 13px;
+  color: #263b53;
+  border-radius: 0;
+}
+.supporting-menu button:hover {
+  background: #f0f4f8;
 }
 .recheck-workbench.workspace-theme main.desk-main {
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 0 36px 24px;
-  max-width: 1440px;
+  padding: 0 24px 24px;
+}
+.project-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  padding: 48px 0 38px;
+  border-bottom: 1px solid var(--rule);
+}
+.project-purpose > span {
+  color: #556476;
+  font-size: 12px;
+}
+.project-purpose h1 {
+  margin: 14px 0 18px;
+  font-size: 38px;
+  line-height: 1.3;
+  letter-spacing: -1.5px;
+  font-weight: 650;
+}
+.project-purpose p {
+  max-width: 470px;
+  font-size: 15px;
+  line-height: 1.85;
+  color: #506073;
+  word-break: keep-all;
+}
+.review-routes {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0;
+}
+.review-routes li {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 7px 12px;
+  border-bottom: 1px solid #e3e8ed;
+  padding: 17px 0;
+}
+.review-routes li:first-child {
+  padding-top: 0;
+}
+.review-routes li:last-child {
+  border: 0;
+  padding-bottom: 0;
+}
+.review-routes li > span {
+  grid-row: 1/3;
+  font-size: 11px;
+  color: #506786;
+  padding-top: 4px;
+}
+.review-routes :is(a, strong) {
+  font-size: 16px;
+  font-weight: 650;
+  color: #253c56;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.review-routes a:hover {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.review-routes p {
+  font-size: 12px;
+  line-height: 1.8;
+  color: #596a7c;
+}
+.return-to-case {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-top: 24px;
+  font-size: 12px;
+  color: #647083;
+}
+.return-to-case button {
+  padding: 8px 0;
+  color: #2459a3;
 }
 .desk-context {
   display: flex;
-  align-items: center;
   justify-content: space-between;
   gap: 16px;
-  min-height: 45px;
-  border-bottom: 1px solid #ccd0c7;
-  font-size: 10px;
-  color: #727b68;
-}
-.recheck-workbench.workspace-theme footer {
-  margin-top: 24px;
-  padding-top: 17px;
-  border-color: #ccd0c7;
-}
-.recheck-workbench.workspace-theme footer > span {
-  color: #59634d;
-}
-.recheck-workbench.workspace-theme footer :is(p, small) {
-  color: #7d8870;
-  font-size: 10px;
+  padding: 20px 0 10px;
+  font-size: 11px;
+  color: #697687;
 }
 .recheck-workbench.workspace-theme .page-intro {
-  padding-block: 25px;
+  padding-block: 20px;
 }
 .recheck-workbench.workspace-theme .page-intro h1 {
-  font-size: 23px;
+  font-size: 26px;
 }
-@media (max-width: 1200px) {
+.recheck-workbench.workspace-theme footer {
+  margin-top: 32px;
+  border-color: #dce2e8;
+  padding-top: 20px;
+}
+.recheck-workbench.workspace-theme footer :is(span, p, small) {
+  color: #627185;
+}
+:is(.desk-header, .desk-main) :is(button, a, summary):focus-visible {
+  outline: 2px solid #2459a3;
+  outline-offset: 4px;
+}
+@media (max-width: 1000px) {
   .desk-header {
-    padding: 0 26px;
-    gap: 23px;
+    gap: 22px;
+    flex-wrap: wrap;
+    padding-top: 18px;
   }
   .desk-brand-caption {
     display: none;
   }
   .desk-header nav {
-    gap: 15px;
-  }
-  .desk-nav-item:nth-child(4) {
-    margin-left: 4px;
-  }
-  .recheck-workbench.workspace-theme main.desk-main {
-    padding-inline: 26px;
-  }
-}
-@media (max-width: 900px) {
-  .desk-header {
-    flex-wrap: wrap;
-    padding-top: 13px;
-    gap: 0;
-  }
-  .desk-brand {
-    height: 32px;
-    order: 0;
-  }
-  .desk-brand-caption {
-    display: block;
-  }
-  .desk-source-link {
-    order: 1;
-    margin-left: auto;
-  }
-  .desk-header nav {
-    order: 2;
-    margin: 4px 0 0;
-    flex: 0 0 100%;
+    order: 3;
     width: 100%;
-    justify-content: space-between;
+    margin-left: 0;
+    gap: 32px;
   }
   .desk-nav-item {
-    min-height: 44px;
-    padding: 12px 0;
+    min-height: 48px;
+  }
+  .supporting-menu {
+    margin-left: auto;
+  }
+  .project-intro {
+    gap: 32px;
+  }
+  .project-purpose h1 {
+    font-size: 32px;
   }
 }
 @media (max-width: 700px) {
   .desk-header {
-    padding-inline: 18px;
+    padding-inline: 20px;
+    gap: 14px;
+  }
+  .desk-wordmark {
+    font-size: 22px;
+  }
+  .desk-source-link {
+    font-size: 11px;
+  }
+  .supporting-menu summary {
+    font-size: 11px;
   }
   .desk-header nav {
-    gap: 18px;
-    overflow-x: auto;
-    scrollbar-width: none;
-    justify-content: flex-start;
-  }
-  .desk-header nav::-webkit-scrollbar {
-    display: none;
+    justify-content: space-between;
+    gap: 16px;
   }
   .desk-nav-item {
-    flex: none;
-  }
-  .desk-nav-item:nth-child(4) {
-    margin-left: 3px;
+    font-size: 13px;
   }
   .recheck-workbench.workspace-theme main.desk-main {
-    padding: 0 16px 20px;
+    padding-inline: 20px;
+  }
+  .project-intro {
+    grid-template-columns: 1fr;
+    padding: 28px 0;
+    gap: 24px;
+  }
+  .project-purpose h1 {
+    font-size: 29px;
+    margin: 10px 0 12px;
+  }
+  .project-purpose p {
+    font-size: 13px;
+  }
+  .review-routes li {
+    padding: 12px 0;
+    grid-template-columns: 74px 1fr;
+    gap: 4px 10px;
+  }
+  .review-routes :is(a, strong) {
+    font-size: 13px;
+  }
+  .review-routes p {
+    font-size: 11px;
+  }
+  .review-routes li > span {
+    font-size: 10px;
+  }
+  .return-to-case {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 3px;
   }
   .desk-context {
     flex-wrap: wrap;
-    padding-block: 10px;
-    gap: 3px 12px;
+    gap: 5px;
   }
 }

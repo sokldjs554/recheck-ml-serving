@@ -8,27 +8,37 @@
 
 [직접 체험하기](https://sokldjs554.github.io/recheck-ml-serving/) · [실제 Python 호스트](https://recheck-ml-serving.onrender.com/) · [세 방식의 비교 실험](docs/safety-case-study.md) · [핵심 코드](backend/recheck/evidence.py)
 
-## 빠르게 살펴보기
+## 중요한 선택과 실제 결과
 
-**Python ML 백엔드의 최신성·동시성·장애 경계를 재현하고 검증합니다.**
-
-- **문제:** 생성 시점에는 맞았던 결과가 실행 시점에는 오래된 정보가 되는 상황.
-- **핵심 선택:** 근거 검증과 내부 작업 기록을 같은 SQL 트랜잭션으로 처리하고, 재시도는 같은 작업 ID로 수렴.
-- **검증:** 같은 9개 사건 순서를 SQLite·PostgreSQL에서 각각 비교하고, 실제 잠금 경쟁·취소·과부하·복구를 별도로 재현.
-
-[실제 API 데모](https://sokldjs554.github.io/recheck-ml-serving/) · [기술 선택과 비교 근거](docs/safety-case-study.md)
-
-![원문은 100만 원으로 변경됐지만 300만 원 답변이 남아 있어 실행이 차단된 실제 API 재현 화면](docs/evidence/replay-instrument.png)
+- **검증과 기록을 같은 SQL 트랜잭션으로**: 같은 세션의 변경/실행은 직렬화합니다. 정합성 대신 얻는 성능 손실을 숨기지 않고, 세션 경합·변경 빈도·지원 범위 내 상태 크기별로 [비용을 측정](docs/consistency-costs.md)했습니다.
+- **CPU 연산 격리 + 수용량·시간 예산 제한**: 같은 API·모델·PostgreSQL에서 180초 동안 정상→과부하→정상 복귀를 두 번 반복했습니다. 과부하 120 req/s에서 약 67.6건/s만 300ms 안의 유효 응답이었습니다. 정상/복귀 구간은 각각 300/300건이었습니다. [조건과 전체 결과](docs/fullpath-sustained.md)
+- **실패 응답도 최종 SQL과 대조**: 8,305개 수신 receipt가 SQL과 일치했습니다. 별도 HTTP 504 한 건은 이미 저장되어 있었습니다. 중복·누락·불일치·pending은 0건. 실패를 성공으로 바꾸지 않고 응답과 기록의 경계를 남겼습니다.
+- **추적과 저장 확인을 함께**: API→모델의 실제 실패 trace·로그와 PostgreSQL 기록을 연결했습니다. 기존 Kubernetes DB 교체 복구는 별도 실행의 근거로 재사용했습니다. [실패부터 복구까지](docs/failure-walkthrough.md)
 
 ## 세 경로로 확인하기
 
 | 확인할 내용 | 바로 열기 | 근거의 범위 |
 |---|---|---|
-| 원문 변경·중복 요청의 정합성 | [정합성 재현](https://sokldjs554.github.io/recheck-ml-serving/#case) | 지금 실행하는 실제 Python API·SQL |
-| CPU 모델의 처리 한계 | [모델 부하](https://sokldjs554.github.io/recheck-ml-serving/#serving) | 저장된 30/60 req/s 실험, 실패·메모리 포함 |
-| 장애 관측과 복구 | [장애 복구](https://sokldjs554.github.io/recheck-ml-serving/#recovery) | 실제 로컬/Kubernetes 실험과 공개 API 점검 기록 |
+| 원문 변경·중복 요청의 정합성 | [실행 재현](https://sokldjs554.github.io/recheck-ml-serving/#case) | 지금 실행하는 `/evidence/…/execute` 실제 API·SQL |
+| CPU 모델 보호와 정합성 비용 | [모델 부하](https://sokldjs554.github.io/recheck-ml-serving/#serving) | 저장된 `/decisions` 180초 실험과 별도 SQL 경합 측정 |
+| 실패 위치·복구·공개 관측 | [장애 복구](https://sokldjs554.github.io/recheck-ml-serving/#recovery) | 저장된 로컬/Kubernetes 실험, 별도 공개 API 조회 |
 
-최근 공개 API 점검은 기능 검증 3/3, 5초 내 완료 2/3입니다. 첫 표본 65.1초의 시작 지연도 실패로 보존했습니다. 저장된 실험이나 주기적 표본을 장기간 SLA 달성으로 표현하지 않습니다.
+상담 체험은 TF-IDF 근거 발췌이며 CPU 부하 실험과 다른 실행 경로입니다. CPU 수치를 상담 성능으로 표시하지 않습니다.
+3분의 개인 실험은 장기 처리 용량이나 SLA 보장이 아닙니다. 무료 공개 API의 첫 응답 65.1초도 [실패한 점검](docs/public-runtime.md)으로 보존했습니다.
+
+## 바로 실행하기
+
+```sh
+git clone https://github.com/sokldjs554/recheck-ml-serving.git
+cd recheck-ml-serving
+docker compose up --build
+# http://localhost:8000
+```
+
+격리된 로컬 부하·경합 실험의 명령과 조건은 [지속 부하](docs/fullpath-sustained.md), [정합성 비용](docs/consistency-costs.md)에 있습니다.
+공개 무료 서버에 부하 실험을 실행하지 않습니다. [공고 요구와 구현·실행·한계](docs/job-coverage.md)
+
+![변경된 원문과 보존한 답변, 실행 차단을 구분하는 실제 API 화면](docs/evidence/replay-instrument.png)
 
 ## 먼저 체험할 한 가지
 
@@ -36,6 +46,9 @@
 옆의 **세 방식 비교**에서는 저장된 실제 SQL 실험의 사건·데이터베이스를 골라 결과를 비교합니다.
 답변 아래 버튼으로 한 단계씩 실행할 수도 있습니다. 중간 실패 시 해당 단계에 멈추고, 같은 요청으로 재시도합니다.
 완료 후에는 차단된 최초 답변과 갱신한 답변, 동일 작업 ID를 한 화면에서 비교할 수 있습니다.
+비교·상세 화면에 다녀와도 진행 중 요청과 결과·로그를 유지합니다. 화면 복귀는 요청을 재전송하지 않습니다.
+명시적 ‘처음부터’는 새 실행을 시작하며, 서버가 세션 만료를 알리면 과거 근거를 보존하고 재시작을 안내합니다.
+새로고침·탭 닫기 이후 클라이언트 실행 상태 복원은 지원하지 않습니다.
 
 1. **답변 준비:** 가상 문서에서 300만 원이라는 근거를 검색합니다.
 2. **원문 변경:** 한도를 100만 원으로 바꿉니다. 이미 만들어진 답변은 그대로 보존됩니다.
@@ -46,7 +59,7 @@
 
 실제 메시지를 발송하거나 송금하지 않습니다. 출력은 TF-IDF 검색의 근거 발췌이며 LLM 생성이 아닙니다.
 첫 연결은 무료 호스트 시작으로 늦어질 수 있습니다. 연결 실패를 성공이나 브라우저 시뮬레이션으로 바꾸지 않습니다.
-기존 **인터랙티브 데모**는 별도로 명시된 브라우저 시뮬레이션이며 **근거 변경 실험**은 자유롭게 조작하는 실제 API 실험입니다.
+보조 메뉴의 **브라우저 시뮬레이션**은 별도로 명시된 브라우저 시뮬레이션이며 **근거 변경 실험**은 자유롭게 조작하는 실제 API 실험입니다.
 
 ## 핵심 기술 판단: 확인과 실행 사이의 빈틈
 

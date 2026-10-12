@@ -25,7 +25,16 @@ def build():
     observe = read('observability-latest.json')
     checks = observe['checks']
     k8s = read('kubernetes-proof.json')
-    return dict(samples=samples, public=read('public-monitor-2026-10-11.json'), observability=dict(start=observe['started_at'], end=observe['finished_at'],
+    sustained = read('fullpath-sustained-summary.json')
+    failure = read('failure-trace-proof.json')
+    assert sustained['validation_passed'] and sustained['reconciliation']['passed']
+    assert failure['success']
+    consistency = read('consistency-costs-summary.json')
+    assert all(cell['sql_reconciled'] for cell in consistency['cells'])
+    return dict(consistency=consistency,
+        sustained={key: sustained[key] for key in ('measured_at', 'phases', 'settings', 'reconciliation', 'retention', 'cost', 'raw_file', 'raw_sha256')},
+        failure={key: failure[key] for key in ('started_at', 'failed', 'recovered')},
+        samples=samples, public=read('public-monitor-2026-10-11.json'), observability=dict(start=observe['started_at'], end=observe['finished_at'],
         trace=checks['exported_cross_service_trace'], probes=checks['dependency_failure_probes'],
         recovered=checks['recovered_inference'],
         firingAt=checks['alert_firing'][0]['received_at'], resolvedAt=checks['alert_resolved'][0]['received_at']),

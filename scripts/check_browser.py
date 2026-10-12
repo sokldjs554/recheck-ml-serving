@@ -54,7 +54,11 @@ def main() -> None:
         page.on("pageerror", lambda error: report["page_errors"].append(str(error)))
 
         def click(name: str) -> None:
-            page.get_by_role("button", name=name, exact=True).click()
+            target = page.get_by_role("button", name=name, exact=True, include_hidden=True)
+            menu = page.locator('.supporting-menu')
+            if menu.get_by_role('button', name=name, exact=True, include_hidden=True).count() and not target.is_visible():
+                menu.locator('summary').click()
+            target.click()
 
         def clear_request() -> None:
             click("새 판단 요청")
@@ -66,7 +70,7 @@ def main() -> None:
 
         try:
             page.goto(args.base, wait_until="networkidle")
-            click("인터랙티브 데모")
+            click("브라우저 시뮬레이션")
             page.locator(".mode-label").filter(has_text="브라우저 시뮬레이션").wait_for()
             assert page.locator(".feature-row .snapshot-version").inner_text().strip() == "—", "Unissued snapshot must stay empty"
             clear_request()
@@ -147,7 +151,7 @@ def main() -> None:
             passed("dated operations evidence and source links are readable on desktop and mobile")
             click("판단 기록")
             page.get_by_role("table", name="판단 기록").wait_for()
-            click("인터랙티브 데모")
+            click("브라우저 시뮬레이션")
             click("90초 체험 시작")
             for name in ("이 단계 실행", "이 단계 실행", "이 단계 실행", "재검증 전후 비교"):
                 click(name)
@@ -175,16 +179,29 @@ def main() -> None:
                 assert not page.evaluate("document.documentElement.scrollWidth > window.innerWidth"), f"Horizontal overflow at {width}px"
                 if width == 390:
                     page.screenshot(path=str(args.output / "demo-mobile.png"), full_page=True)
-                    assert page.get_by_role("button", name="설계 배경", exact=True).is_visible()
+                    menu = page.locator('.supporting-menu')
+                    menu.locator('summary').click()
+                    assert menu.get_by_role("button", name="설계 배경", exact=True).is_visible()
+                    menu.locator('summary').click()
                 passed("responsive layout without horizontal overflow", width=width)
             page.set_viewport_size({"width": 844, "height": 390})
-            page.get_by_role("button", name="검증 기록", exact=True).focus()
+            menu = page.locator('.supporting-menu')
+            summary = menu.locator('summary')
+            if menu.evaluate('(el) => el.open'):
+                summary.click()
+            summary.focus()
+            page.keyboard.press('Enter')
+            assert menu.evaluate('(el) => el.open'), 'Keyboard must open supporting evidence menu'
             page.keyboard.press("Tab")
-            last_nav = page.get_by_role("button", name="설계 배경", exact=True)
-            assert last_nav.evaluate("el => document.activeElement === el")
-            bounds = last_nav.bounding_box()
+            first_item = menu.get_by_role("button", name="검증 기록", exact=True)
+            assert first_item.evaluate("el => document.activeElement === el")
+            bounds = first_item.bounding_box()
             assert bounds and bounds["y"] >= 0 and bounds["y"] + bounds["height"] <= 390, bounds
-            passed("keyboard navigation reveals offscreen rail item on short landscape viewport")
+            for label in ('근거 변경 실험', '서버 설계', '설계 배경', '브라우저 시뮬레이션', '판단 기록'):
+                page.keyboard.press('Tab')
+                assert menu.get_by_role('button', name=label, exact=True).evaluate('(el) => document.activeElement === el')
+            summary.click()
+            passed("supporting evidence menu opens by keyboard and all six destinations are focusable on landscape")
             page.set_viewport_size({"width": 1440, "height": 1050})
 
             if args.api:

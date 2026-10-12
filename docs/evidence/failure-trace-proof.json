@@ -1,0 +1,467 @@
+{
+  "started_at": "2026-10-12T05:55:20.575410+00:00",
+  "success": true,
+  "scope": "owned loopback API/model processes and dedicated local PostgreSQL; two decisions; no public traffic",
+  "capture": "actual SDK OTLP HTTP protobuf exports to a focused local receiver; not Jaeger",
+  "source_sha256": {
+    "backend/recheck/__init__.py": "172675a3dd4a3e8b3047cafd141232062c71b035d77aa5f3e298d852670a755e",
+    "backend/recheck/admission.py": "8402363de55dc66de0ec80451c60fc00895dcca110cb4e5aba6eafba239ec353",
+    "backend/recheck/api.py": "4ca3d89c783d7a7f759ccad6d8c6552717057ac4b1033aeee15166ca1109ff47",
+    "backend/recheck/config.py": "831facd7b3c45483ed822afa8027bf09420225945e13ba9bfa2d1629d1fca7cd",
+    "backend/recheck/evidence.py": "3801d81a5088c0eef1b63e5f8de497546f8659c85bb248638b8a8b63143d5b0c",
+    "backend/recheck/evidence_routes.py": "3f59f8fbc4c36414f08fc7ca0713b807b38451928d6a9eab420a98c10b44b23b",
+    "backend/recheck/execution.py": "ab8786b3d5f0eda75114b97cadbc07b08cc40aabaf906f243f6ca7fd32cb2f71",
+    "backend/recheck/model.py": "e7b94ca108ef672d392fd13f167d07b91d6b90181d6a550339ba273b4c402706",
+    "backend/recheck/model_bundle.py": "cfd72e68ff65d9b40ae34891c8950de9b3147ec421f0b8a3ad3cf5c453100cff",
+    "backend/recheck/observability.py": "0e62ec60fa69d5d914c5735f6893dedd23fdaf3960addba6db68b655c3774bd3",
+    "backend/recheck/operations.py": "76eb2a369674865f2419a205a6616491fcd7dfddf189f2c74af6269f5f917a08",
+    "backend/recheck/retrieval.py": "9bcc673ff5c5eb9cc685e31f46bf99be51915f19df4a0b60e719ad1df58ab389",
+    "backend/recheck/schemas.py": "5d2d5afb839674977801121cb17f5b25dcafda10d31fe8160591a826fb08886a",
+    "backend/recheck/sdk.py": "6a3635ba1880b4f4538b06486645c363ac37b3f66d79795d55c531a6bd71009a",
+    "backend/recheck/store.py": "f76498c87ec629695e58fd9a18326240a578c8bdb118051d161631a68202a1bf",
+    "backend/recheck/telemetry.py": "ea7db57583e8103f35b666c6db6c48616443ec290c4f353c9e6a62bc2fe7138d",
+    "backend/recheck/worker.py": "4ca232976d62e03ab56af442616b277f7c0d7b68d779bce12018ccc136a52141"
+  },
+  "conditions": {
+    "workload": "lightweight",
+    "execution": "inline",
+    "deadline_ms": 300,
+    "ports": [
+      18310,
+      18311,
+      18312
+    ],
+    "database": "recheck_failure_walkthrough"
+  },
+  "session_id": "9acab7ac-0359-4c54-b805-9c6b4bb82f53",
+  "failed": {
+    "at": "2026-10-12T05:55:22.592232+00:00",
+    "request": {
+      "idempotency_key": "failure-walkthrough-failed",
+      "fault": "unavailable"
+    },
+    "http_status": 200,
+    "receipt": {
+      "id": "c97efa86-a21d-43c5-a7ac-911b84bb0e8c",
+      "session_id": "9acab7ac-0359-4c54-b805-9c6b4bb82f53",
+      "status": "review",
+      "reason": "model_unavailable",
+      "risk_score": null,
+      "feature_version": 1,
+      "policy_version": 1,
+      "model_version": "risk-v1",
+      "created_at": "2026-10-12T05:55:22.604971+00:00",
+      "expires_at": "2026-10-12T05:55:37.604971+00:00",
+      "latency_ms": 23.60383400809951,
+      "trace_id": "6a7b91369b9b3e7d85341d5b6c846e7b",
+      "spans": [
+        {
+          "name": "decision",
+          "start_ms": 0.120762,
+          "duration_ms": 23.339256,
+          "status": "error"
+        },
+        {
+          "name": "snapshot",
+          "start_ms": 0.171769,
+          "duration_ms": 14.845041,
+          "status": "ok"
+        },
+        {
+          "name": "model.http",
+          "start_ms": 15.167417,
+          "duration_ms": 4.873206,
+          "status": "error"
+        },
+        {
+          "name": "fence.commit",
+          "start_ms": 20.181446,
+          "duration_ms": 3.238211,
+          "status": "ok"
+        }
+      ],
+      "protected": true,
+      "model_hash": "7de0929ba34aefaa313bf15354e6582133992cb755df11094ced0796125521be"
+    },
+    "validation": {
+      "valid": false,
+      "reason": "model_unavailable",
+      "current_versions": {
+        "feature_version": 1,
+        "policy_version": 1,
+        "model_version": "risk-v1"
+      }
+    },
+    "sql_row": {
+      "id": "c97efa86-a21d-43c5-a7ac-911b84bb0e8c",
+      "session_id": "9acab7ac-0359-4c54-b805-9c6b4bb82f53",
+      "idempotency_key": "failure-walkthrough-failed",
+      "payload": {
+        "id": "c97efa86-a21d-43c5-a7ac-911b84bb0e8c",
+        "session_id": "9acab7ac-0359-4c54-b805-9c6b4bb82f53",
+        "status": "review",
+        "reason": "model_unavailable",
+        "risk_score": null,
+        "feature_version": 1,
+        "policy_version": 1,
+        "model_version": "risk-v1",
+        "created_at": "2026-10-12T05:55:22.604971+00:00",
+        "expires_at": "2026-10-12T05:55:37.604971+00:00",
+        "latency_ms": 23.60383400809951,
+        "trace_id": "6a7b91369b9b3e7d85341d5b6c846e7b",
+        "spans": [
+          {
+            "name": "decision",
+            "start_ms": 0.120762,
+            "duration_ms": 23.339256,
+            "status": "error"
+          },
+          {
+            "name": "snapshot",
+            "start_ms": 0.171769,
+            "duration_ms": 14.845041,
+            "status": "ok"
+          },
+          {
+            "name": "model.http",
+            "start_ms": 15.167417,
+            "duration_ms": 4.873206,
+            "status": "error"
+          },
+          {
+            "name": "fence.commit",
+            "start_ms": 20.181446,
+            "duration_ms": 3.238211,
+            "status": "ok"
+          }
+        ],
+        "protected": true,
+        "model_hash": "7de0929ba34aefaa313bf15354e6582133992cb755df11094ced0796125521be"
+      }
+    },
+    "exported_spans": [
+      {
+        "service": "recheck-api",
+        "trace_id": "6a7b91369b9b3e7d85341d5b6c846e7b",
+        "span_id": "a01004a40a4ef03a",
+        "parent_span_id": "",
+        "name": "decision",
+        "status_code": 2,
+        "status_message": "model_unavailable",
+        "start_ns": 1791784522593595817,
+        "end_ns": 1791784522616935073,
+        "events": []
+      },
+      {
+        "service": "recheck-api",
+        "trace_id": "6a7b91369b9b3e7d85341d5b6c846e7b",
+        "span_id": "cc8cda9fe75aa516",
+        "parent_span_id": "a01004a40a4ef03a",
+        "name": "snapshot",
+        "status_code": 0,
+        "status_message": "",
+        "start_ns": 1791784522593646824,
+        "end_ns": 1791784522608491865,
+        "events": []
+      },
+      {
+        "service": "recheck-api",
+        "trace_id": "6a7b91369b9b3e7d85341d5b6c846e7b",
+        "span_id": "b36ec6cf9809c7a7",
+        "parent_span_id": "a01004a40a4ef03a",
+        "name": "model.http",
+        "status_code": 2,
+        "status_message": "model_unavailable",
+        "start_ns": 1791784522608642472,
+        "end_ns": 1791784522613515678,
+        "events": []
+      },
+      {
+        "service": "recheck-worker",
+        "trace_id": "6a7b91369b9b3e7d85341d5b6c846e7b",
+        "span_id": "0483dc21912eaca6",
+        "parent_span_id": "b36ec6cf9809c7a7",
+        "name": "model.infer",
+        "status_code": 2,
+        "status_message": "HTTPException: 503: model_unavailable",
+        "start_ns": 1791784522611243883,
+        "end_ns": 1791784522612353826,
+        "events": [
+          {
+            "name": "exception",
+            "time_ns": 1791784522612335048,
+            "attributes": {
+              "exception.type": "fastapi.exceptions.HTTPException",
+              "exception.message": "503: model_unavailable",
+              "exception.stacktrace": "Traceback (most recent call last):\n  File \"/workspace/work/recheck-review/backend/.venv/lib/python3.12/site-packages/opentelemetry/trace/__init__.py\", line 602, in use_span\n    yield span\n  File \"/workspace/work/recheck-review/backend/.venv/lib/python3.12/site-packages/opentelemetry/sdk/trace/__init__.py\", line 1136, in start_as_current_span\n    yield span\n  File \"/workspace/work/recheck-review/backend/recheck/worker.py\", line 116, in infer\n    score = await asyncio.wait_for(asyncio.shield(task), timeout=max(0, deadline - time.monotonic()))\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/workspace/work/recheck-review/backend/recheck/worker.py\", line 91, in compute\n    raise HTTPException(503, \"model_unavailable\")\nfastapi.exceptions.HTTPException: 503: model_unavailable\n",
+              "exception.escaped": "False"
+            }
+          }
+        ]
+      },
+      {
+        "service": "recheck-api",
+        "trace_id": "6a7b91369b9b3e7d85341d5b6c846e7b",
+        "span_id": "dbfd1eb25e771205",
+        "parent_span_id": "a01004a40a4ef03a",
+        "name": "fence.commit",
+        "status_code": 0,
+        "status_message": "",
+        "start_ns": 1791784522613656501,
+        "end_ns": 1791784522616894712,
+        "events": []
+      }
+    ],
+    "structured_log": [
+      "INFO:recheck:{\"receipt_id\": \"c97efa86-a21d-43c5-a7ac-911b84bb0e8c\", \"session_id\": \"9acab7ac-0359-4c54-b805-9c6b4bb82f53\", \"trace_id\": \"6a7b91369b9b3e7d85341d5b6c846e7b\", \"status\": \"review\", \"reason\": \"model_unavailable\"}"
+    ]
+  },
+  "recovered": {
+    "at": "2026-10-12T05:55:22.628089+00:00",
+    "request": {
+      "idempotency_key": "failure-walkthrough-recovered"
+    },
+    "http_status": 200,
+    "receipt": {
+      "id": "21fe3c1a-28f1-4360-ade8-e88c5ef2a996",
+      "session_id": "9acab7ac-0359-4c54-b805-9c6b4bb82f53",
+      "status": "clear",
+      "reason": "no_current_warning",
+      "risk_score": 0.00976261717345296,
+      "feature_version": 1,
+      "policy_version": 1,
+      "model_version": "risk-v1",
+      "created_at": "2026-10-12T05:55:22.632123+00:00",
+      "expires_at": "2026-10-12T05:55:37.632123+00:00",
+      "latency_ms": 21.816135005792603,
+      "trace_id": "8113074c95987bc85cbe12848382d313",
+      "spans": [
+        {
+          "name": "decision",
+          "start_ms": 0.075144,
+          "duration_ms": 21.637465,
+          "status": "ok"
+        },
+        {
+          "name": "snapshot",
+          "start_ms": 0.105159,
+          "duration_ms": 6.240138,
+          "status": "ok"
+        },
+        {
+          "name": "model.http",
+          "start_ms": 6.556475,
+          "duration_ms": 5.298363,
+          "status": "ok"
+        },
+        {
+          "name": "model.infer",
+          "start_ms": 6.683246,
+          "duration_ms": 1.268903,
+          "status": "ok"
+        },
+        {
+          "name": "model.predict",
+          "start_ms": 7.0058229999999995,
+          "duration_ms": 0.871453,
+          "status": "ok"
+        },
+        {
+          "name": "fence.commit",
+          "start_ms": 11.983371,
+          "duration_ms": 9.69768,
+          "status": "ok"
+        }
+      ],
+      "protected": true,
+      "model_hash": "7de0929ba34aefaa313bf15354e6582133992cb755df11094ced0796125521be"
+    },
+    "validation": {
+      "valid": true,
+      "reason": "current",
+      "current_versions": {
+        "feature_version": 1,
+        "policy_version": 1,
+        "model_version": "risk-v1"
+      }
+    },
+    "sql_row": {
+      "id": "21fe3c1a-28f1-4360-ade8-e88c5ef2a996",
+      "session_id": "9acab7ac-0359-4c54-b805-9c6b4bb82f53",
+      "idempotency_key": "failure-walkthrough-recovered",
+      "payload": {
+        "id": "21fe3c1a-28f1-4360-ade8-e88c5ef2a996",
+        "session_id": "9acab7ac-0359-4c54-b805-9c6b4bb82f53",
+        "status": "clear",
+        "reason": "no_current_warning",
+        "risk_score": 0.00976261717345296,
+        "feature_version": 1,
+        "policy_version": 1,
+        "model_version": "risk-v1",
+        "created_at": "2026-10-12T05:55:22.632123+00:00",
+        "expires_at": "2026-10-12T05:55:37.632123+00:00",
+        "latency_ms": 21.816135005792603,
+        "trace_id": "8113074c95987bc85cbe12848382d313",
+        "spans": [
+          {
+            "name": "decision",
+            "start_ms": 0.075144,
+            "duration_ms": 21.637465,
+            "status": "ok"
+          },
+          {
+            "name": "snapshot",
+            "start_ms": 0.105159,
+            "duration_ms": 6.240138,
+            "status": "ok"
+          },
+          {
+            "name": "model.http",
+            "start_ms": 6.556475,
+            "duration_ms": 5.298363,
+            "status": "ok"
+          },
+          {
+            "name": "model.infer",
+            "start_ms": 6.683246,
+            "duration_ms": 1.268903,
+            "status": "ok"
+          },
+          {
+            "name": "model.predict",
+            "start_ms": 7.0058229999999995,
+            "duration_ms": 0.871453,
+            "status": "ok"
+          },
+          {
+            "name": "fence.commit",
+            "start_ms": 11.983371,
+            "duration_ms": 9.69768,
+            "status": "ok"
+          }
+        ],
+        "protected": true,
+        "model_hash": "7de0929ba34aefaa313bf15354e6582133992cb755df11094ced0796125521be"
+      }
+    },
+    "exported_spans": [
+      {
+        "service": "recheck-api",
+        "trace_id": "8113074c95987bc85cbe12848382d313",
+        "span_id": "ee7c112a79d7951d",
+        "parent_span_id": "",
+        "name": "decision",
+        "status_code": 0,
+        "status_message": "",
+        "start_ns": 1791784522629023117,
+        "end_ns": 1791784522650660582,
+        "events": []
+      },
+      {
+        "service": "recheck-api",
+        "trace_id": "8113074c95987bc85cbe12848382d313",
+        "span_id": "0faceb6492a4245d",
+        "parent_span_id": "ee7c112a79d7951d",
+        "name": "snapshot",
+        "status_code": 0,
+        "status_message": "",
+        "start_ns": 1791784522629053132,
+        "end_ns": 1791784522635293270,
+        "events": []
+      },
+      {
+        "service": "recheck-api",
+        "trace_id": "8113074c95987bc85cbe12848382d313",
+        "span_id": "1caf9d257f931040",
+        "parent_span_id": "ee7c112a79d7951d",
+        "name": "model.http",
+        "status_code": 0,
+        "status_message": "",
+        "start_ns": 1791784522635504448,
+        "end_ns": 1791784522640802811,
+        "events": []
+      },
+      {
+        "service": "recheck-worker",
+        "trace_id": "8113074c95987bc85cbe12848382d313",
+        "span_id": "fe85c7cc5c9cc068",
+        "parent_span_id": "1caf9d257f931040",
+        "name": "model.infer",
+        "status_code": 0,
+        "status_message": "",
+        "start_ns": 1791784522637475444,
+        "end_ns": 1791784522638744347,
+        "events": []
+      },
+      {
+        "service": "recheck-worker",
+        "trace_id": "8113074c95987bc85cbe12848382d313",
+        "span_id": "0ae486e37c8b4644",
+        "parent_span_id": "fe85c7cc5c9cc068",
+        "name": "model.predict",
+        "status_code": 0,
+        "status_message": "",
+        "start_ns": 1791784522637798021,
+        "end_ns": 1791784522638669474,
+        "events": []
+      },
+      {
+        "service": "recheck-api",
+        "trace_id": "8113074c95987bc85cbe12848382d313",
+        "span_id": "e2430d03c712558f",
+        "parent_span_id": "ee7c112a79d7951d",
+        "name": "fence.commit",
+        "status_code": 0,
+        "status_message": "",
+        "start_ns": 1791784522640931344,
+        "end_ns": 1791784522650629024,
+        "events": []
+      }
+    ],
+    "structured_log": [
+      "INFO:recheck:{\"receipt_id\": \"21fe3c1a-28f1-4360-ade8-e88c5ef2a996\", \"session_id\": \"9acab7ac-0359-4c54-b805-9c6b4bb82f53\", \"trace_id\": \"8113074c95987bc85cbe12848382d313\", \"status\": \"clear\", \"reason\": \"no_current_warning\"}"
+    ]
+  },
+  "metrics": [
+    "recheck_business_outcomes_total{outcome=\"review\",reason=\"model_unavailable\",service=\"api\"} 1.0",
+    "recheck_business_outcomes_total{outcome=\"clear\",reason=\"no_current_warning\",service=\"api\"} 1.0"
+  ],
+  "logs": {
+    "api": [
+      "INFO:     Started server process [136421]",
+      "INFO:     Waiting for application startup.",
+      "INFO:     Application startup complete.",
+      "INFO:     Uvicorn running on http://127.0.0.1:18310 (Press CTRL+C to quit)",
+      "INFO:httpx:HTTP Request: GET http://127.0.0.1:18311/health \"HTTP/1.1 200 OK\"",
+      "INFO:     127.0.0.1:35590 - \"GET /ready HTTP/1.1\" 200 OK",
+      "INFO:     127.0.0.1:35590 - \"POST /api/sessions HTTP/1.1\" 200 OK",
+      "INFO:httpx:HTTP Request: POST http://127.0.0.1:18311/infer \"HTTP/1.1 503 Service Unavailable\"",
+      "INFO:recheck:{\"receipt_id\": \"c97efa86-a21d-43c5-a7ac-911b84bb0e8c\", \"session_id\": \"9acab7ac-0359-4c54-b805-9c6b4bb82f53\", \"trace_id\": \"6a7b91369b9b3e7d85341d5b6c846e7b\", \"status\": \"review\", \"reason\": \"model_unavailable\"}",
+      "INFO:     127.0.0.1:35590 - \"POST /api/sessions/9acab7ac-0359-4c54-b805-9c6b4bb82f53/decisions HTTP/1.1\" 200 OK",
+      "INFO:     127.0.0.1:35590 - \"GET /api/sessions/9acab7ac-0359-4c54-b805-9c6b4bb82f53/decisions/c97efa86-a21d-43c5-a7ac-911b84bb0e8c/validate HTTP/1.1\" 200 OK",
+      "INFO:httpx:HTTP Request: POST http://127.0.0.1:18311/infer \"HTTP/1.1 200 OK\"",
+      "INFO:recheck:{\"receipt_id\": \"21fe3c1a-28f1-4360-ade8-e88c5ef2a996\", \"session_id\": \"9acab7ac-0359-4c54-b805-9c6b4bb82f53\", \"trace_id\": \"8113074c95987bc85cbe12848382d313\", \"status\": \"clear\", \"reason\": \"no_current_warning\"}",
+      "INFO:     127.0.0.1:35590 - \"POST /api/sessions/9acab7ac-0359-4c54-b805-9c6b4bb82f53/decisions HTTP/1.1\" 200 OK",
+      "INFO:     127.0.0.1:35590 - \"GET /api/sessions/9acab7ac-0359-4c54-b805-9c6b4bb82f53/decisions/21fe3c1a-28f1-4360-ade8-e88c5ef2a996/validate HTTP/1.1\" 200 OK",
+      "INFO:     127.0.0.1:35590 - \"GET /metrics HTTP/1.1\" 200 OK",
+      "INFO:     Shutting down",
+      "INFO:     Waiting for application shutdown.",
+      "INFO:     Application shutdown complete.",
+      "INFO:     Finished server process [136421]"
+    ],
+    "model": [
+      "INFO:     Started server process [136420]",
+      "INFO:     Waiting for application startup.",
+      "INFO:     Application startup complete.",
+      "INFO:     Uvicorn running on http://127.0.0.1:18311 (Press CTRL+C to quit)",
+      "INFO:     127.0.0.1:35170 - \"GET /health HTTP/1.1\" 200 OK",
+      "INFO:     127.0.0.1:35170 - \"POST /infer HTTP/1.1\" 503 Service Unavailable",
+      "INFO:     127.0.0.1:35170 - \"POST /infer HTTP/1.1\" 200 OK",
+      "INFO:     Shutting down",
+      "INFO:     Waiting for application shutdown.",
+      "INFO:     Application shutdown complete.",
+      "INFO:     Finished server process [136420]"
+    ]
+  },
+  "finished_at": "2026-10-12T05:55:23.254974+00:00"
+}

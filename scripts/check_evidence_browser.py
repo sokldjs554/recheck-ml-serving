@@ -24,7 +24,11 @@ def main():
         page.set_default_timeout(12000)
         page.on('pageerror',lambda e:report['page_errors'].append(str(e)))
         def click(name):
-            page.get_by_role('button',name=name,exact=True).click()
+            target=page.get_by_role('button',name=name,exact=True,include_hidden=True)
+            menu=page.locator('.supporting-menu')
+            if menu.get_by_role('button',name=name,exact=True,include_hidden=True).count() and not target.is_visible():
+                menu.locator('summary').click()
+            target.click()
         try:
             page.goto(args.base,wait_until='networkidle')
             click('근거 변경 실험')

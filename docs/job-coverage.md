@@ -1,53 +1,34 @@
-# 공고 요구와 실행 증거
+# 공고 요구 → 구현 → 실행 근거 → 한계
 
-기준: [토스뱅크 ML Backend Engineer](https://toss.im/career/job-detail?job_id=6600650003), 2026-10-09 KST. 이 문서는 코드 작성, 실행 검증, 실제 경력을 구분한다. Python·Kotlin·Go 중 하나 이상의 경험을 요구하는 공고이므로 사용하지 않은 언어를 추가했다고 표현하지 않는다.
+기준 공고: [토스뱅크 ML Backend Engineer](https://toss.im/career/job-detail?job_id=6600650003), **2026-10-12 재확인**.
+ML Service Team의 AI 제품 백엔드·공통 플랫폼, 연산량이 큰 AI 서비스의 지연·처리량,
+분산 환경 장애 추적과 복구 요구에 맞춰 실제 확인할 경로를 연결한다.
+Python/Kotlin/Go 중 하나 이상의 경험을 요구하므로 언어 수를 채우기 위한 구현은 추가하지 않았다.
 
-| 항목 | 구현과 검증 경로 | 범위 |
-|---|---|---|
-| Python 서버 개발·운영 | [실제 공개 API](https://recheck-ml-serving.onrender.com/), [예약 합성 점검](https://github.com/sokldjs554/recheck-ml-serving/actions/workflows/synthetic-monitor.yml) | 합성 포트폴리오 서비스. 운영 관측은 배포 후 실제 수집된 기간만 해당 |
-| 안정적인 서버 아키텍처 | 멱등 예약, 짧은 DB 잠금, 최종 버전 검증, 시간 예산·수용 제한, 취소 후 CPU 슬롯 보존 | 실제 거래 원장과의 원자적 커밋은 별도 문제 |
-| 실제 연산 모델의 서빙 | [CPU 비교·용량 실험](compute-experiments.md), 128트리 ×4,096시나리오, 프로세스 격리 | 학습된 CPU 모델이며 GPU·LLM 운영 경험으로 주장하지 않음 |
-| 트래픽·확장 | 1/2 독립 모델 서버, [API→CPU→PostgreSQL 1,220건](public-runtime.md), 전 요청 결과·CPU·메모리, Kubernetes 복제본 | 측정된 요청률까지의 실험. 은행 규모의 실제 고객 트래픽으로 환산하지 않음 |
-| 분산 추적·장애 관측 | [관측·알림 절차](operations.md), SDK→collector→Jaeger, Prometheus·Grafana, 발화·해제 webhook | OTLP·대시보드는 로컬 실험. 공개 요청·오류는 PostgreSQL 관측 기록과 외부 점검으로 별도 보존. 실제 온콜 이력 없음 |
-| Kubernetes | [배포·복구 기록](kubernetes.md), [자동 재현](https://github.com/sokldjs554/recheck-ml-serving/actions/workflows/kubernetes.yml) | 단일 호스트 실험의 실패 경계를 명시. readiness만으로 실제 추론 성공을 대신하지 않음 |
-| 높은 SLA | 요청 기반 SLO·오류 예산, 주기적 외부 합성 점검, 전체 성공·실패 기록 | 목표를 정의하고 관측을 시작함. 장기간 SLA 실적은 아직 없음 |
-| 복잡한 문제·비용 비교 | 오래된 판단 재현과 방어, [설계 선택](decisions.md), CPU 격리의 메모리·goodput 비교 | 임의의 클라우드 단가·절감액·사용자 성과를 만들지 않음 |
-| 성과 지표로 개선 | 처리 방식별 지연·기준 내 성공·거절·메모리 측정 후 잠정 요청률 선택 | 실험상의 개선이며 실제 비즈니스 성과와 구분 |
-| 지원자·회사 기여 | [면접 시연](interview-demo.md), 데모 ‘설계 배경’과 ‘검증 기록’ | 본인이 설명·수정·재검증할 수 있는 범위를 자신의 기여로 말해야 함 |
+기준 검토 커밋 `af69d2daa9b4d5a71335d7f741fb691c980749d5` 이후 기존 SQL·멱등성·관측·Kubernetes 구현을 재사용했다.
+이번 작업은 UI 수명 결함, 반복 지속 부하, 정합성 비용의 측정 공백과 요청 단위 장애 근거를 보완한다.
 
-## 면접에서 전달할 이야기
+| 공고 요구 / 평가 질문 | 구현 위치 | 실행 근거 | 보장하지 않는 범위 |
+|---|---|---|---|
+| Python 백엔드: 어떤 문제를 푸는가 | [`api.py`](../backend/recheck/api.py), [`evidence_routes.py`](../backend/recheck/evidence_routes.py), [`evidence.py`](../backend/recheck/evidence.py) | [실시간 정합성 체험](https://sokldjs554.github.io/recheck-ml-serving/#case): 답변 이후 원문 변경 → 이전 답변 실행 409 → 새 근거 기록 → 같은 작업 ID 재시도 | 합성 상담 문서와 내부 SQL 작업 기록. 실제 상담 발송·송금·금융 원장·LLM 생성 없음 |
+| AI 제품을 위한 공통 기능 | [`sdk.py`](../backend/recheck/sdk.py), [`retrieval.py`](../backend/recheck/retrieval.py), [`model_bundle.py`](../backend/recheck/model_bundle.py) | [근거·릴리스 검증](evidence-release.md), [모델 인계](model-handoff.md): 문서 수정/삭제·역순 이벤트, 모델·인덱스 쌍 평가, bundle 무결성·시작 차단 | 작은 TF-IDF fixture와 합성 모델. 실사용 제품 조직의 공통 플랫폼 운영 경험이 아님 |
+| 큰 모델 연산과 트래픽에서 서버 보호 | [`execution.py`](../backend/recheck/execution.py), [`admission.py`](../backend/recheck/admission.py), [`worker.py`](../backend/recheck/worker.py) | [180초 전체 경로 지속 부하](fullpath-sustained.md): 같은 자원에서 10→120→10 req/s 두 회차, 유효 응답·보류·거절·지연·RSS·CPU·대기열·회복·SQL 대조 | 개인 공유 호스트 3분 실험. 은행 처리량·장기 안정성·GPU/LLM 용량·공개 호스트 처리량 아님 |
+| 안정적인 아키텍처 / 성능과 비용 선택 | [`store.py`](../backend/recheck/store.py), [`evidence.py`](../backend/recheck/evidence.py) | [기존 3방식 SQL 비교](safety-case-study.md), [세션 경합·상태 크기 비용](consistency-costs.md), [CPU 격리 비교](compute-experiments.md) | 전체 JSON 유지·세션 직렬화의 비용을 측정. 측정되지 않은 새 구조의 성능이나 금전적 절감 주장 없음 |
+| MSA의 장애 위치 추적 | [`telemetry.py`](../backend/recheck/telemetry.py), [`observability.py`](../backend/recheck/observability.py), [`verify_failure_trace.py`](../scripts/verify_failure_trace.py) | [실패 요청 한 건](failure-walkthrough.md): API 구조화 로그 → 실제 OTLP 모델 exception → review receipt → 독립 PostgreSQL 조회. 기존 Jaeger·Prometheus 검증 재사용 | `fence.commit`은 ORM 커밋 전의 앱 span. 네이티브 SQL span 없음. 로컬 trace 수신 실험과 공개 관측은 별도 |
+| 장애 최소화 / 복구 확인 | [`infra/k8s`](../infra/k8s), [`k8s_verify.py`](../scripts/k8s_verify.py), readiness/liveness | [기존 DB Pod 교체](kubernetes.md), [복구 타임라인](failure-walkthrough.md): 503 탐지 → 같은 PVC 재기동 → 정상 추론과 기존 기록 확인 | 단일 노드 kind. 실제 은행 온콜, 다중 노드/리전 가용성, 무중단 실적 아님 |
+| 높은 SLA·운영 관측에 대한 이해 | [`synthetic_monitor.py`](../scripts/synthetic_monitor.py), [`operations.py`](../backend/recheck/operations.py), Prometheus rules | [공개 API 관측](public-runtime.md): 저장된 점검의 정확성 3/3·5초 내 2/3, 첫 응답 65.1초 실패 보존. 데모에서 운영 기록을 별도 조회 | 주기적 표본 사이 가용성 미확인. 무료 호스트 시작 지연 유지. 장기간 SLA 달성 주장 없음 |
+| 문제 해결·성과 지표 / 기술 선택 설명 | [`benchmark_fullpath_sustained.py`](../scripts/benchmark_fullpath_sustained.py), [`benchmark_consistency_costs.py`](../scripts/benchmark_consistency_costs.py) | 전 시도 분모, 시간 예산 내 유효 응답, uncertain commit·최종 SQL, 지연·자원 비용. [설계 판단](decisions.md) | 실험 지표를 실제 고객 효과·매출·업무 시간 절감으로 바꾸지 않음 |
+| 평가자가 재현할 수 있는 전달 방식 | [`App.tsx`](../demo/src/App.tsx), [`caseFlow.ts`](../demo/src/caseFlow.ts), [`MeasuredReview.tsx`](../demo/src/MeasuredReview.tsx) | [UI 변경·회귀 근거](reviewer-update.md), 세 경로와 원본 링크. 비교 화면 이동 중에도 실행 상태 보존 | 사용자 조사 없이 이해도 향상이 입증됐다고 주장하지 않음. 브라우저 새로고침/닫기 후 클라이언트 상태 복원은 지원하지 않음 |
 
-문제는 추론의 성공 응답만으로 현재 사용 가능성을 판단할 수 없다는 점이다. 생성 시점과 사용 시점의 버전을 분리해 기록하고, 보호가 없는 기준선과 같은 변경을 비교한다. 서버를 확장하는 단계에서는 응답 시간뿐 아니라 시간 안에 사용 가능한 결과의 수와 거절, 상태 확인의 응답성, 메모리 비용을 함께 측정한다.
+## 측정 경계를 섞지 않기
 
-지원자는 Python·LLM·AI/ML 경험이 있는 신입이며 AI와 서로 다른 해결책을 비교해 문제를 풀었던 경험을 제공했다. 이번 프로젝트에서는 그 태도를 실패 재현·반례·검증 기록으로 구체화했다. 회사에서는 여러 AI 제품이 공통으로 필요한 최신성 검증, 시간 예산, 수용 제한, 실패 분류와 추적을 재사용할 수 있도록 기여한다는 방향을 제시한다. 이번 AI 지원 개발에서 에이전트가 발견·수정한 내용을 사용자의 과거 개인 성과로 바꾸지 않는다.
+- **실시간 상담 정합성**: `/api/sessions/{sid}/evidence/receipts/{id}/execute`. 원문·릴리스 최신성 확인과 내부 작업 기록을 같은 트랜잭션에서 수행한다.
+- **저장된 CPU 전체 경로 부하**: `/api/sessions/{sid}/decisions` → 별도 CPU 모델 → PostgreSQL receipt. 상담 화면의 처리 성능으로 표시하지 않는다.
+- **저장된 worker 단독 비교**: 모델 서버 직접 호출. API·DB가 제외되고 200ms 예산이다. 전체 경로의 300ms 결과와 직접 합산하지 않는다.
+- **브라우저 시뮬레이션**: 보조 메뉴에서만 시작하며 실제 API로 표시하지 않는다. 별도 명시적 API 연결 기능을 유지한다.
 
-## 시간과 실제 사용이 필요한 항목
+## 검증 근거와 실제 경력은 다르다
 
-긴 기간의 가용성, 실제 고객 수, 매출·업무 시간 절감, 은행 운영 경력은 지금 코드를 추가해 완료할 수 있는 항목이 아니다. 대신 실행 가능한 공개 서버, 시간대가 기록된 자동 점검, SLO 계산 기준, 재현 가능한 장애 절차를 준비한다. 실패한 점검도 보존하며 관측 기간이 쌓이면 그 기간과 표본 수를 함께 갱신한다. ‘프로덕션 경험을 모두 충족’ 또는 ‘합격 보장’으로 표현하지 않는다.
-
-## 자료 기반 추가 업데이트: 공통 근거 서비스와 배포 전 검증
-
-[근거 변경 실험](evidence-release.md)은 동일한 API를 쓰는 상담 초안/업무 체크리스트,
-Python SDK 두 실행 예제, 문서의 수정·삭제·역순 이벤트 처리, 검색 중 변경의 최종 검증,
-모델·인덱스 원자적 전환, 실제 검색 품질과 지연시간 기반의 배포 차단을 추가합니다.
-공통 서비스 플랫폼과 기술 선택을 구체적으로 설명할 수 있는 사례입니다.
-
-이는 공식 공고의 필수 스택을 새로 해석한 것이 아닙니다. 합성 문서 4개를 대상으로 한
-어휘 검색과 개발 fixture 평가이며, 실제 고객 트래픽/장기 운영 성과/사업 성과를 대신하지 않습니다.
-
-
-## 2026-10-11: 실행 경계의 보완
-
-핵심 사례를 근거 변경 → 오래된 작업 거절 → 새 근거로 작업 기록 → 멱등 재시도로 좁혔다.
-검증과 내부 기록을 같은 SQL 트랜잭션으로 묶고, SQLite/PostgreSQL에서 같은 사건 순서에 세 접근을 비교했다.
-동일 키의 동시 요청과 변경/실행의 잠금 순서도 테스트한다. [사건별 증거](safety-case-study.md).
-이는 실제 외부 업무 실행이나 사업 성과를 대신하지 않는다. [본인 검증 과제](ownership-workbook.md)와
-[실제 참여자 조사](usability-protocol.md)는 아직 사용자가 수행했다는 증거가 없는 별도 단계다.
-
-## 2026-10-11: 서빙·복구 근거의 직접 탐색
-
-첫 화면에 `정합성 재현 / 모델 부하 / 장애 복구` 경로를 연결했다. `#serving`과 `#recovery`로 각 실험을 직접 열 수 있다. CPU 부하 화면은 늦은 HTTP 200, 429, 504를 모두 표시하고 API·DB 제외 경계를 명시한다. 복구 화면은 실제 추적, 준비 상태 실패, Kubernetes 단계별 HTTP 오류와 최신 공개 API 실패 점검을 보존한다. 수치는 저장된 실험이며 화면을 열어 새 부하를 발생시키지 않는다.
-
-최근 외부 점검은 정확성 3/3, 5초 내 완료 2/3이었다. 첫 표본 65.1초의 시작 지연이 남아 있으므로 운영 안정성이 완성됐다고 평가하지 않는다.
-
-[간헐 실패의 검증 경계 수정](test-timing-contracts.md): 운영 시간 제한은 유지하고 정합성 검사와 실제 시간 초과 검사를 분리했다. 반복 CI의 실패는 숨기지 않는다.
+이 저장소는 개인 실험과 AI 지원 개발의 코드·실행 결과다. 실제 은행 규모의 운영 경력,
+장기 SLA, 실사용자 개선·사업 성과, 지원자 본인의 독립적인 설명 능력을 코드 추가로 대신하지 않는다.
+이력서·자소서·포트폴리오 문서를 이번 작업에서 작성하지 않았다.

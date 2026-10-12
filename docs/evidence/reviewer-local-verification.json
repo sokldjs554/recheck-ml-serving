@@ -1,0 +1,528 @@
+{
+  "at": "2026-10-12T06:22:45.918641+00:00",
+  "baseline": "af69d2daa9b4d5a71335d7f741fb691c980749d5",
+  "scope": "local loopback browser plus isolated PostgreSQL regression; public verification recorded separately after deployment",
+  "backend": {
+    "passed": 139,
+    "skipped": 1,
+    "skip_reason": "SQLite-only capacity fixture under PostgreSQL run",
+    "separate_capacity_passed": 1
+  },
+  "frontend": {
+    "passed": 44,
+    "build": "TypeScript + Vite",
+    "static_export_equal": true
+  },
+  "navigation_bug_before": {
+    "before": {
+      "step": "6",
+      "action": "작업 ID\nfc80e76d-8549-45d5-9c06-c60178cb6e9f\n동일 작업 · 과거 기록"
+    },
+    "after": {
+      "step": "0",
+      "action_count": 0
+    },
+    "reproduced": true
+  },
+  "browser_reports": {
+    "guided_case": {
+      "frontend": "http://127.0.0.1:5178",
+      "api": "http://127.0.0.1:8023",
+      "checks": [
+        "one-click actual HTTP run preserves old/new answers and produces exactly one persisted task",
+        "completed compare -> primary execution navigation preserves exact downloaded evidence and action with zero API requests",
+        "held actual HTTP mutation continues while case view is absent; return preserves session, event prefix and one persisted action without duplicate navigation requests",
+        "lost commit response cannot claim success; retry retains original key and displays replay",
+        "actual HTTP: old answer blocked, fresh task recorded, replay returns one historical action, JSON contains actual responses",
+        "390 portrait, 768 tablet, 844 landscape: no horizontal overflow and reset reachable",
+        "network failure clears success and same-step retry completes with actual HTTP",
+        "injected HTTP404 session_missing_or_expired preserves historical evidence across navigation, disables continuation and requires explicit reset for a new real session",
+        "pending controls locked; late session completion after reset does not restore old state"
+      ],
+      "page_errors": [],
+      "api_requests": [
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/health"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/api/sessions/a0655114-8c89-44d6-adb5-0353fc8f1d25/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/a0655114-8c89-44d6-adb5-0353fc8f1d25/evidence/prepare"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/a0655114-8c89-44d6-adb5-0353fc8f1d25/evidence/events"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/api/sessions/a0655114-8c89-44d6-adb5-0353fc8f1d25/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/a0655114-8c89-44d6-adb5-0353fc8f1d25/evidence/receipts/063a8e79-5e7c-4c0a-960e-bc764f8046db/execute"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/a0655114-8c89-44d6-adb5-0353fc8f1d25/evidence/releases/evaluate"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/a0655114-8c89-44d6-adb5-0353fc8f1d25/evidence/releases/04268cab-d064-462a-9895-bb4dc77b0f7f/promote"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/a0655114-8c89-44d6-adb5-0353fc8f1d25/evidence/prepare"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/api/sessions/a0655114-8c89-44d6-adb5-0353fc8f1d25/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/a0655114-8c89-44d6-adb5-0353fc8f1d25/evidence/receipts/f8bb43d6-e3df-4896-a064-f5d00ac1503a/execute"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/a0655114-8c89-44d6-adb5-0353fc8f1d25/evidence/receipts/f8bb43d6-e3df-4896-a064-f5d00ac1503a/execute"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/health"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/api/sessions/9dc7849f-40e1-4a5f-9ba8-ba29fc024538/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/9dc7849f-40e1-4a5f-9ba8-ba29fc024538/evidence/prepare"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/9dc7849f-40e1-4a5f-9ba8-ba29fc024538/evidence/events"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/api/sessions/9dc7849f-40e1-4a5f-9ba8-ba29fc024538/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/9dc7849f-40e1-4a5f-9ba8-ba29fc024538/evidence/receipts/aab0baa5-c068-459b-956e-8a88733d6e61/execute"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/9dc7849f-40e1-4a5f-9ba8-ba29fc024538/evidence/releases/evaluate"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/9dc7849f-40e1-4a5f-9ba8-ba29fc024538/evidence/releases/30c7b02c-25cd-4d47-b65f-4c330b1e894b/promote"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/9dc7849f-40e1-4a5f-9ba8-ba29fc024538/evidence/prepare"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/api/sessions/9dc7849f-40e1-4a5f-9ba8-ba29fc024538/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/9dc7849f-40e1-4a5f-9ba8-ba29fc024538/evidence/receipts/54ba8260-dbe5-4915-b0f4-3f9245e03d4b/execute"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/9dc7849f-40e1-4a5f-9ba8-ba29fc024538/evidence/receipts/54ba8260-dbe5-4915-b0f4-3f9245e03d4b/execute"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/health"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/api/sessions/e96122a9-e16e-464d-b755-6f950383dc47/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/e96122a9-e16e-464d-b755-6f950383dc47/evidence/prepare"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/e96122a9-e16e-464d-b755-6f950383dc47/evidence/events"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/api/sessions/e96122a9-e16e-464d-b755-6f950383dc47/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/e96122a9-e16e-464d-b755-6f950383dc47/evidence/receipts/2352259b-5c51-4e67-99d6-ec0074b5c8d1/execute"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/e96122a9-e16e-464d-b755-6f950383dc47/evidence/releases/evaluate"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/e96122a9-e16e-464d-b755-6f950383dc47/evidence/releases/c6df9496-c9cb-4093-b87b-9a56b089d0c3/promote"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/e96122a9-e16e-464d-b755-6f950383dc47/evidence/prepare"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/api/sessions/e96122a9-e16e-464d-b755-6f950383dc47/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/e96122a9-e16e-464d-b755-6f950383dc47/evidence/receipts/aeaeacba-9149-4e05-bdde-7b77b6d9f0f0/execute"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/e96122a9-e16e-464d-b755-6f950383dc47/evidence/receipts/aeaeacba-9149-4e05-bdde-7b77b6d9f0f0/execute"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/e96122a9-e16e-464d-b755-6f950383dc47/evidence/receipts/aeaeacba-9149-4e05-bdde-7b77b6d9f0f0/execute"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/health"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/api/sessions/12295a27-8e33-4304-b42c-b2de59d7813f/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/12295a27-8e33-4304-b42c-b2de59d7813f/evidence/prepare"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/12295a27-8e33-4304-b42c-b2de59d7813f/evidence/events"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/12295a27-8e33-4304-b42c-b2de59d7813f/evidence/events"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/api/sessions/12295a27-8e33-4304-b42c-b2de59d7813f/evidence"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/health"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/api/sessions/026559b5-54e2-4331-8aad-94241157d440/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/026559b5-54e2-4331-8aad-94241157d440/evidence/prepare"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/026559b5-54e2-4331-8aad-94241157d440/evidence/events"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/health"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/api/sessions/b5ae5f6e-8845-4742-b88c-ee14b0b438f1/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/b5ae5f6e-8845-4742-b88c-ee14b0b438f1/evidence/prepare"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/health"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions"
+        }
+      ],
+      "expiry_scope": "controlled HTTP404 response injection; real SQL-age expiry is a separate server check"
+    },
+    "general": {
+      "captured_at": "2026-10-12T06:13:44.536510+00:00",
+      "frontend": "http://127.0.0.1:5178",
+      "api": "http://127.0.0.1:8023",
+      "browser_executable": "/usr/bin/chromium",
+      "checks": [
+        {
+          "name": "browser valid receipt then feature change refuses use",
+          "passed": true
+        },
+        {
+          "name": "immutable receipt amount stays unchanged while the next request is pending",
+          "passed": true
+        },
+        {
+          "name": "browser 정책 갱신 refuses stale receipt",
+          "passed": true
+        },
+        {
+          "name": "browser 모델 교체 refuses stale receipt",
+          "passed": true
+        },
+        {
+          "name": "protected inference race invalidates stale result",
+          "passed": true
+        },
+        {
+          "name": "unsafe baseline is visible but validation refuses; JSON download and Escape",
+          "passed": true,
+          "downloaded": "recheck-87ac387c-cb07-44f4-8990-6642ae8c3d39.json"
+        },
+        {
+          "name": "browser fault 시간 초과 produces explicit review reason",
+          "passed": true
+        },
+        {
+          "name": "browser fault 응답 불가 produces explicit review reason",
+          "passed": true
+        },
+        {
+          "name": "dated operations evidence and source links are readable on desktop and mobile",
+          "passed": true
+        },
+        {
+          "name": "architecture, design rationale, receipts, and successful guided comparison",
+          "passed": true
+        },
+        {
+          "name": "a previous successful browser validation becomes refusal after actual expiry",
+          "passed": true,
+          "waited_ms": 21000
+        },
+        {
+          "name": "responsive layout without horizontal overflow",
+          "passed": true,
+          "width": 390
+        },
+        {
+          "name": "responsive layout without horizontal overflow",
+          "passed": true,
+          "width": 768
+        },
+        {
+          "name": "responsive layout without horizontal overflow",
+          "passed": true,
+          "width": 1024
+        },
+        {
+          "name": "supporting evidence menu opens by keyboard and all six destinations are focusable on landscape",
+          "passed": true
+        },
+        {
+          "name": "live revalidation waits for mutation response before checking current state",
+          "passed": true
+        },
+        {
+          "name": "live Python HTTP mode validates clear result and refuses feature-stale use",
+          "passed": true
+        },
+        {
+          "name": "no browser page errors",
+          "passed": true
+        }
+      ],
+      "page_errors": [],
+      "notes": [
+        "Browser mode is a synthetic local state machine, not Python inference or a backend benchmark.",
+        "Live checks use actual HTTP requests only when --api is supplied.",
+        "Acceptance duration is test runtime, not model or serving performance."
+      ],
+      "passed": true,
+      "screenshots": [
+        "demo-desktop.png",
+        "demo-comparison.png",
+        "demo-mobile.png"
+      ],
+      "test_duration_seconds": 33.856
+    },
+    "evidence": {
+      "captured_at": "2026-10-12T06:14:18.574900+00:00",
+      "frontend": "http://127.0.0.1:5178",
+      "api": "http://127.0.0.1:8023",
+      "checks": [
+        {
+          "name": "real Python connection and isolated persistent session",
+          "passed": true
+        },
+        {
+          "name": "actual retrieval creates a currently usable receipt",
+          "passed": true
+        },
+        {
+          "name": "actual source edit preserves historical output and refuses its use",
+          "passed": true
+        },
+        {
+          "name": "same dimension incompatible model/index cannot deploy",
+          "passed": true
+        },
+        {
+          "name": "computed quality regression fails and real report is downloadable",
+          "passed": true
+        },
+        {
+          "name": "paired rebuild switches atomically and new receipt cites edited content",
+          "passed": true
+        },
+        {
+          "name": "second product reuses the evidence lifecycle",
+          "passed": true
+        },
+        {
+          "name": "deleted evidence cannot be used",
+          "passed": true
+        },
+        {
+          "name": "390/768/1440 responsive layout without document overflow",
+          "passed": true
+        },
+        {
+          "name": "HTTP failure clears previous validation instead of showing success",
+          "passed": true
+        },
+        {
+          "name": "failed document update leaves no stale success assertion",
+          "passed": true
+        },
+        {
+          "name": "pending mutation disables reuse and late completion cannot overwrite a new lab",
+          "passed": true
+        }
+      ],
+      "page_errors": [],
+      "scope": "actual HTTP API; fictional lexical retrieval; not LLM"
+    },
+    "comparison": {
+      "captured_at": "2026-10-12T06:14:24.860854+00:00",
+      "frontend": "http://127.0.0.1:5178",
+      "scope": "browser inspection of stored actual SQL experiments; no live comparison writes",
+      "checks": [
+        {
+          "name": "comparison is reachable from the first screen and identifies stored evidence",
+          "passed": true
+        },
+        {
+          "name": "sqlite: stale rejection, selective invalidation, ABA and retry match SQL evidence",
+          "passed": true
+        },
+        {
+          "name": "postgresql: stale rejection, selective invalidation, ABA and retry match SQL evidence",
+          "passed": true
+        },
+        {
+          "name": "contended outcomes and separate normal-path latency have visible denominators",
+          "passed": true
+        },
+        {
+          "name": "real lock-timeout errors remain visible beside separately recorded recovery",
+          "passed": true
+        },
+        {
+          "name": "record inspection never triggers unsafe API execution",
+          "passed": true
+        },
+        {
+          "name": "390/768/1440 layouts fit and native controls are keyboard reachable",
+          "passed": true
+        }
+      ],
+      "page_errors": []
+    },
+    "serving": {
+      "checks": [
+        "model handoff shows startup rejection cases and expandable prediction values",
+        "all request outcomes including late HTTP 200 are visible; boundary and stored evidence are labeled",
+        "serving deep link survives reload",
+        "actual dependency failure and nonzero DB restart errors are retained",
+        "public PostgreSQL journal is fetched and labeled as boot-scoped observations",
+        "back navigation, return to live case, and mobile layouts work"
+      ],
+      "page_errors": []
+    }
+  },
+  "source_sha256": {
+    "demo/src/App.tsx": "f4371f4f5463cf4af703d0b915e9f30fc6eeff28b1efb954d5a070831222d3a9",
+    "demo/src/CaseStudy.tsx": "fcaa58395a2db6bbe2206ae49aecf7ecf9d53443342105e452896fa77f1ad3fc",
+    "demo/src/Evidence.tsx": "7ef7977b28b3a789550500d7775c18d45345d9884eb70f84e9a084f7bd2fb837",
+    "demo/src/EvidenceLab.tsx": "5ac5e90e6c353808a80c44e8ca6d4b59009f512892739a930d6b90c607a53e8e",
+    "demo/src/MeasuredReview.test.tsx": "dc649385a2dd71af21ea8c1dcfb5df9b1c90bcaab176617fd18aa2d9e8786053",
+    "demo/src/MeasuredReview.tsx": "36f3d24ce3f2726d8212dac1eb94a6b4e90d5312229b3b2c6490cf83e834173e",
+    "demo/src/ModelHandoff.tsx": "8684bd3ed32565ae461f4b37be4167261695d74cb05fda58366c09f248218633",
+    "demo/src/PublicOperations.tsx": "0801eab16125ade13bfe1e7572d4643da895cd2ab16ae4c1f7f5025f43c4f788",
+    "demo/src/SafetyComparison.tsx": "97efe3eeb2c62ef2d1b58e62456e11c9026f248aaea6471c58c140869a4166c6",
+    "demo/src/ServingEvidence.tsx": "386d6a7d5684404c0e8342fddfdc56f02ce1d1173c0f1f86b489dd3a2683fac4",
+    "demo/src/api.test.ts": "7fe221ec7a0e54cc14c234370fbfa0cd651271e5b448badb9478efa8c1f68d2a",
+    "demo/src/api.ts": "07619dff8cb2adff62f965dbb2a50ec3f7761a81883498d197e4347b7eac45e5",
+    "demo/src/caseApi.test.ts": "6a54140dbb8e14f4b62d54447c0981f594d20fbfa080029b9aa13f3f9482e14f",
+    "demo/src/caseApi.ts": "94d351363f473b509a3415221b3d8f6d8753bae64ebd98c08364f7b61f194e08",
+    "demo/src/caseFlow.test.ts": "21e57cc34bd175b21b7ab51d65e46d221ed1b7279d67be9ecbde1aaf646c4cbe",
+    "demo/src/caseFlow.ts": "380d512d4a4be5c45ed6d4c8f5db344626ab29bf136005a6d1521a6f726fe4bf",
+    "demo/src/caseStudy.css": "f671e97d499902533bf74e8e3970d94caca9d40191af429e3173311b4cb5fd6f",
+    "demo/src/deskFrame.css": "68db9026d412eeff51c571f72c3f8548a03827d69a0ad0ced555f780c9833ad9",
+    "demo/src/evidenceApi.test.ts": "fd1827bb6e87dd3d8fdfdf04e7ad557e1b75e34652cc8016215aeaec6deff6f8",
+    "demo/src/evidenceApi.ts": "23cf7b5c5bf22ca1ffc0405001fc4cf89507c0626b4571198c68cf79805085e1",
+    "demo/src/evidencePresentation.test.ts": "a6376638aeb739e2facffe225e7012c05b69628dd7a062fe2a361f5c62e0df43",
+    "demo/src/evidencePresentation.ts": "f7908fdb2ec916479c6539308f35a64939689bd814a4469de916bc1d91c00833",
+    "demo/src/main.tsx": "ef245ef83227c73d618d1a207400ebdce1cf6c7121a15c604059db58235471ed",
+    "demo/src/presentation.test.ts": "95d7397d104cc5b5796e6dd6634750f7e5bfb66447b125582c4ec797447b1acf",
+    "demo/src/presentation.ts": "2214ef9a990d98d52a44eb83ba2ab9f0809f0bf0c2d25f1a2882ba92952ae76f",
+    "demo/src/safetyComparison.css": "2c1a067ba496a9ef3b31bf9429e6ce3ebaf8c31adaa2fbeabb58e12f03ee4bd9",
+    "demo/src/servingEvidence.css": "4dd1c07f00f7e4b8d92998b0addcb37aee1c6c474c220c550317a0584ca4267f",
+    "demo/src/simulation.test.ts": "4b374db738fc4d15dc241e74bf6afcfdcafd378e1c6ba687b14e17f8d3177000",
+    "demo/src/simulation.ts": "87120d9c39b60fecde68bd614c3374320a1ed2b91a187c9b03088059702c15d6",
+    "demo/src/styles.css": "e06ee8ca9f408e56bcfdcb30fec054ba5fc32da8a96a6dde6939fb2c9aee1d8e",
+    "demo/src/types.ts": "5e920d0af1f3bbb439ae1ec107da4e8285dca0383a65dbaadec8ffc7c03cc78e",
+    "demo/src/workspace.css": "5c6e8e670fd8082bb8b3d81e2e2800e1932125fe1a8c8b1bb4e91dc82cd47ec6"
+  },
+  "independent_review": {
+    "findings": "no Critical/Important assigned; two Minor regraded and fixed for evidence/context correctness",
+    "fixed": [
+      "external original evidence opens separately; three regression cases failed before fix and pass after",
+      "wave wording states wait after each wave"
+    ]
+  },
+  "consistency_archive": {
+    "file": "consistency-costs.json.gz",
+    "sha256": "1949b485f7c9885d2b57b3cb0dfc438e3a85efd7f279bafa427448ea2f6e957b",
+    "uncompressed_sha256": "367bc6b31f77cc0d388dbdb137274246b9bbb429b19be3101f2db0b7bfb15d6a"
+  }
+}

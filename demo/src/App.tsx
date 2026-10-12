@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -18,6 +18,8 @@ import { defaultApiBase, LiveApi } from "./api";
 const Evidence = lazy(() => import("./Evidence"));
 import EvidenceLab from "./EvidenceLab";
 import CaseStudy from "./CaseStudy";
+import { CaseFlow } from "./caseFlow";
+import { CaseApi } from "./caseApi";
 import "./servingEvidence.css";
 const ServingEvidence = lazy(() => import("./ServingEvidence"));
 import {
@@ -109,7 +111,19 @@ function exportReceipt(receipt: Receipt) {
 export default function App() {
   const readTab = (): Tab => {
     const value = window.location.hash.slice(1);
-    return ["case", "serving", "recovery", "freshness", "lab", "receipts", "architecture", "evidence", "story"].includes(value) ? value as Tab : "case";
+    return [
+      "case",
+      "serving",
+      "recovery",
+      "freshness",
+      "lab",
+      "receipts",
+      "architecture",
+      "evidence",
+      "story",
+    ].includes(value)
+      ? (value as Tab)
+      : "case";
   };
   const [tab, setCurrentTab] = useState<Tab>(readTab);
   const setTab = (value: Tab) => {
@@ -121,7 +135,8 @@ export default function App() {
     window.addEventListener("hashchange", change);
     return () => window.removeEventListener("hashchange", change);
   }, []);
-  const isExperiment = tab === "case" || tab === "serving" || tab === "recovery";
+  const isExperiment =
+    tab === "case" || tab === "serving" || tab === "recovery";
   const [mode, setMode] = useState<"browser" | "live">("browser");
   const [session, setSession] = useState<Session | null>(null);
   const [observedAt, setObservedAt] = useState<string | null>(null);
@@ -146,6 +161,17 @@ export default function App() {
     ),
   );
   const [showConnect, setShowConnect] = useState(false);
+  // The execution belongs to this app session, not to a mounted tab.
+  // Navigation only subscribes/unsubscribes; it never creates or retries a request.
+  const [caseBase, setCaseBase] = useState(base);
+  const caseFlow = useMemo(
+    () => new CaseFlow(new CaseApi(caseBase)),
+    [caseBase],
+  );
+  useEffect(() => {
+    caseFlow.activate();
+    return () => caseFlow.dispose();
+  }, [caseFlow]);
   const [, tick] = useState(0);
   const api = useRef<Adapter>(new Simulation());
   const validationEpoch = useRef(0);
@@ -478,14 +504,13 @@ export default function App() {
     evidence: "실행 환경과 관측 시각이 기록된 검증 자료입니다.",
     story: "실행 시점 검증을 선택한 이유와 보장 범위를 설명합니다.",
   };
-  const sections = [
-    { id: "case" as Tab, label: "실행 재현" },
-    { id: "lab" as Tab, label: "인터랙티브 데모" },
-    { id: "freshness" as Tab, label: "근거 변경 실험" },
-    { id: "receipts" as Tab, label: "판단 기록" },
-    { id: "architecture" as Tab, label: "서버 설계" },
-    { id: "evidence" as Tab, label: "검증 기록" },
-    { id: "story" as Tab, label: "설계 배경" },
+  const supportingSections: { id: Tab; label: string }[] = [
+    { id: "evidence", label: "검증 기록" },
+    { id: "freshness", label: "근거 변경 실험" },
+    { id: "architecture", label: "서버 설계" },
+    { id: "story", label: "설계 배경" },
+    { id: "lab", label: "브라우저 시뮬레이션" },
+    { id: "receipts", label: "판단 기록" },
   ];
   const versions = [
     {
@@ -557,20 +582,49 @@ export default function App() {
             </span>
             recheck
           </button>
-          <span className="desk-brand-caption">실행 재현기</span>
+          <span className="desk-brand-caption">ML backend</span>
         </div>
-        <nav aria-label="주 메뉴">
-          {sections.map(({ id, label }) => (
-            <button
-              key={id}
-              className={`desk-nav-item ${tab === id ? "is-active" : ""}`}
-              aria-current={tab === id ? "page" : undefined}
-              onClick={() => setTab(id)}
-            >
-              {label}
-            </button>
-          ))}
+        <nav aria-label="실험 선택">
+          <button
+            className={`desk-nav-item ${tab === "case" ? "is-active" : ""}`}
+            aria-current={tab === "case" ? "page" : undefined}
+            onClick={() => setTab("case")}
+          >
+            실행 재현
+          </button>
+          <a
+            className={`desk-nav-item ${tab === "serving" ? "is-active" : ""}`}
+            href="#serving"
+            aria-current={tab === "serving" ? "page" : undefined}
+          >
+            모델 부하
+          </a>
+          <a
+            className={`desk-nav-item ${tab === "recovery" ? "is-active" : ""}`}
+            href="#recovery"
+            aria-current={tab === "recovery" ? "page" : undefined}
+          >
+            장애 복구
+          </a>
         </nav>
+        <details className="supporting-menu">
+          <summary>코드와 상세 근거</summary>
+          <div>
+            {supportingSections.map(({ id, label }) => (
+              <button
+                key={id}
+                onClick={(event) => {
+                  setTab(id);
+                  event.currentTarget
+                    .closest("details")
+                    ?.removeAttribute("open");
+                }}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </details>
         <a
           className="desk-source-link"
           href="https://github.com/sokldjs554/recheck-ml-serving"
@@ -581,13 +635,59 @@ export default function App() {
         </a>
       </header>
       <main className="desk-main">
-        {isExperiment && <nav className="experiment-nav" aria-label="실험 선택">
-          <a href="#case" aria-current={tab === "case" ? "page" : undefined}><span aria-hidden="true">01</span>정합성 재현</a>
-          <a href="#serving" aria-current={tab === "serving" ? "page" : undefined}><span aria-hidden="true">02</span>모델 부하</a>
-          <a href="#recovery" aria-current={tab === "recovery" ? "page" : undefined}><span aria-hidden="true">03</span>장애 복구</a>
-          <small>실행 시점 검증 / CPU 서빙 / 운영 실험</small>
-        </nav>}
-        {(tab === "serving" || tab === "recovery") && <Suspense fallback={<p role="status">측정 기록 불러오는 중…</p>}><ServingEvidence view={tab} /></Suspense>}
+        {tab === "case" && (
+          <section
+            className="project-intro"
+            aria-label="프로젝트 목적과 확인 경로"
+          >
+            <div className="project-purpose">
+              <span>Python ML backend · 개인 실험</span>
+              <h1>
+                추론이 끝나도,
+                <br />
+                실행 조건은 바뀝니다.
+              </h1>
+              <p>
+                RECHECK는 오래된 답변의 기록을 차단하고, 모델 부하와 의존 서비스
+                장애에서 서버를 보호하는 방법을 검증합니다.
+              </p>
+            </div>
+            <ol className="review-routes">
+              <li>
+                <span>직접 실행</span>
+                <strong>답변 이후 원문이 바뀐다면</strong>
+                <p>아래에서 실제 API로 차단과 중복 없는 기록을 확인하세요.</p>
+              </li>
+              <li>
+                <span>저장된 측정</span>
+                <a href="#serving">
+                  요청이 처리량을 넘어선다면 <ArrowUpRight size={16} />
+                </a>
+                <p>CPU 모델의 지속 부하·거절·회복과 정합성 비용</p>
+              </li>
+              <li>
+                <span>저장된 추적</span>
+                <a href="#recovery">
+                  어디서 실패했고 어떻게 복구했나 <ArrowUpRight size={16} />
+                </a>
+                <p>실패 trace, SQL 기록, 장애 주입 후 정상 추론</p>
+              </li>
+            </ol>
+          </section>
+        )}
+        {!isExperiment && (
+          <div className="return-to-case">
+            <button onClick={() => setTab("case")}>
+              ← 실행 재현으로 돌아가기
+            </button>
+            <span>화면을 이동해도 진행 상황과 실행 기록은 유지됩니다.</span>
+          </div>
+        )}
+        {(tab === "serving" || tab === "recovery") && (
+          <Suspense fallback={<p role="status">측정 기록 불러오는 중…</p>}>
+            <ServingEvidence view={tab} />
+          </Suspense>
+        )}
         {!isExperiment && (
           <div className="desk-context">
             <span>RECHECK / {pageNames[tab]}</span>
@@ -718,7 +818,9 @@ export default function App() {
         )}
         {tab === "case" && (
           <CaseStudy
-            defaultBase={base}
+            flow={caseFlow}
+            configuredBase={caseBase}
+            onConfigure={setCaseBase}
             onExplore={() => setTab("freshness")}
             onEvidence={() => setTab("evidence")}
           />
@@ -1390,7 +1492,11 @@ export default function App() {
             </div>
           </section>
         )}
-        {tab === "evidence" && <Suspense fallback={<p role="status">검증 기록 불러오는 중…</p>}><Evidence /></Suspense>}
+        {tab === "evidence" && (
+          <Suspense fallback={<p role="status">검증 기록 불러오는 중…</p>}>
+            <Evidence />
+          </Suspense>
+        )}
         {tab === "story" && (
           <section className="story-page">
             <div className="story-statement">

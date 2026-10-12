@@ -42,6 +42,52 @@ function fixture() {
 }
 
 describe("guided case lifecycle", () => {
+  it("keeps an in-flight run alive across view unsubscribe and resubscribe", async () => {
+    const { api, flow } = fixture();
+    const pending = deferred<{ session_id: string }>();
+    api.connect.mockReturnValue(pending.promise);
+    const unmount = flow.subscribe(vi.fn());
+    const request = flow.next();
+    unmount();
+    pending.resolve({ session_id: "kept-session" });
+    await request;
+    const render = vi.fn();
+    const remount = flow.subscribe(render);
+    expect(flow.getSnapshot()).toMatchObject({
+      step: 1,
+      session: "kept-session",
+      busy: false,
+    });
+    expect(api.connect).toHaveBeenCalledTimes(1);
+    expect(api.prepare).toHaveBeenCalledTimes(1);
+    expect(flow.getSnapshot().events).toHaveLength(3);
+    remount();
+  });
+  it("preserves expired session evidence and requires explicit restart", async () => {
+    const { api, flow } = fixture();
+    await flow.next();
+    const receipt = flow.getSnapshot().oldReceipt;
+    api.event.mockRejectedValue(
+      new CaseApiError(404, "session_missing_or_expired"),
+    );
+    await flow.next();
+    expect(flow.getSnapshot()).toMatchObject({
+      sessionExpired: true,
+      step: 1,
+      session: "session",
+      oldReceipt: receipt,
+    });
+    await flow.next();
+    await flow.runAll();
+    expect(api.event).toHaveBeenCalledTimes(1);
+    flow.reset();
+    expect(flow.getSnapshot()).toMatchObject({
+      sessionExpired: false,
+      session: "",
+      step: 0,
+      events: [],
+    });
+  });
   it("runs the complete case and retains both the blocked draft and the single recorded action", async () => {
     const { api, flow } = fixture();
     api.evaluate.mockResolvedValue({ id: "report", passed: true });

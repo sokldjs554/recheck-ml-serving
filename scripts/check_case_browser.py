@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Exercise the default guided case against an actual API, plus real HTTP failure and delayed reset."""
+"""Actual HTTP case, navigation lifetime, delayed reset and explicitly injected expiry response."""
 from __future__ import annotations
 import argparse
 import json
 import time
 from pathlib import Path
+from urllib.parse import urlparse
 from playwright.sync_api import sync_playwright
 
 
@@ -22,7 +23,13 @@ def main():
         page = browser.new_page(viewport={'width': 1440, 'height': 1050})
         page.set_default_timeout(15000)
         errors = []
+        api_requests = []
         page.on('pageerror', lambda err: errors.append(str(err)))
+        def record_request(request):
+            parsed = urlparse(request.url)
+            if parsed.netloc == urlparse(args.api).netloc and (parsed.path.startswith('/api/') or parsed.path in ('/health', '/ready')):
+                api_requests.append({'method': request.method, 'url': request.url})
+        page.on('request', record_request)
         page.goto(args.base, wait_until='networkidle')
         case = page.get_by_test_id('case-study')
         assert case.count() == 1, 'Guided case must be the default entry'
@@ -31,6 +38,20 @@ def main():
         def next_step(number):
             page.get_by_test_id('case-next').click()
             step(number)
+        def navigate(name):
+            target = page.get_by_role('button', name=name, exact=True, include_hidden=True)
+            menu = page.locator('.supporting-menu')
+            if menu.get_by_role('button', name=name, exact=True, include_hidden=True).count() and not target.is_visible():
+                menu.locator('summary').click()
+            target.click()
+        def return_to_case():
+            page.get_by_role('navigation', name='실험 선택').get_by_role('button', name='실행 재현', exact=True).click()
+        def download_case(name):
+            with page.expect_download() as download:
+                page.get_by_role('button', name='사건 기록 JSON', exact=True).click()
+            filename = args.output / name
+            download.value.save_as(filename)
+            return json.loads(filename.read_text())
         def configure(base):
             details = page.locator('.case-connection-config')
             if not details.evaluate('(el) => el.open'):
@@ -54,6 +75,52 @@ def main():
         assert len(automatic_actions) == 1
         assert automatic_actions[0]['action_id'] == page.get_by_test_id('case-action').locator('code').inner_text()
         checks.append('one-click actual HTTP run preserves old/new answers and produces exactly one persisted task')
+        completed_action = page.get_by_test_id('case-action').locator('code').inner_text()
+        requests_before_navigation = len(api_requests)
+        page.get_by_role('button', name='세 방식 비교', exact=True).click()
+        page.get_by_test_id('case-study').wait_for(state='hidden')
+        return_to_case()
+        step(6)
+        page.wait_for_timeout(150)
+        assert len(api_requests) == requests_before_navigation, 'Completed navigation must issue zero API operations'
+        returned_data = download_case('completed-after-navigation.json')
+        assert returned_data == automatic_data, 'Navigation must preserve the exact downloaded session, snapshot and event history'
+        assert page.get_by_test_id('case-action').locator('code').inner_text() == completed_action
+        checks.append('completed compare -> primary execution navigation preserves exact downloaded evidence and action with zero API requests')
+
+        # Pause a real HTTP mutation while the application-owned flow is running.
+        page.get_by_test_id('case-reset').click()
+        next_step(1)
+        inflight_before = download_case('inflight-before-navigation.json')
+        held_events = []
+        def hold_event(route):
+            held_events.append(route)
+        page.route('**/evidence/events', hold_event)
+        with page.expect_request('**/evidence/events'):
+            page.get_by_test_id('case-run-all').click()
+        assert len(held_events) == 1
+        requests_before_navigation = len(api_requests)
+        navigate('서버 설계')
+        page.get_by_test_id('case-study').wait_for(state='hidden')
+        page.wait_for_timeout(100)
+        assert len(api_requests) == requests_before_navigation, 'Unmounting the case view must not issue API operations'
+        with page.expect_response(lambda response: '/execute' in response.url and response.status == 200 and response.json().get('replayed') is True, timeout=110000):
+            held_events[0].continue_()
+        page.unroute('**/evidence/events', hold_event)
+        page.wait_for_timeout(150)
+        requests_before_return = len(api_requests)
+        return_to_case()
+        step(6)
+        page.wait_for_timeout(100)
+        assert len(api_requests) == requests_before_return, 'Returning must not restart the completed hidden flow'
+        inflight_after = download_case('inflight-after-navigation.json')
+        assert inflight_after['session_id'] == inflight_before['session_id']
+        assert inflight_after['events'][:len(inflight_before['events'])] == inflight_before['events']
+        assert len([r for r in api_requests if r['url'].endswith(f"/api/sessions/{inflight_before['session_id']}/evidence/events")]) == 1
+        inflight_actions = page.request.get(f"{args.api}/api/sessions/{inflight_after['session_id']}/evidence/actions").json()['actions']
+        assert len(inflight_actions) == 1
+        assert inflight_actions[0]['action_id'] == page.get_by_test_id('case-action').locator('code').inner_text()
+        checks.append('held actual HTTP mutation continues while case view is absent; return preserves session, event prefix and one persisted action without duplicate navigation requests')
         page.get_by_test_id('case-reset').click()
         step(0)
         next_step(1)
@@ -123,6 +190,38 @@ def main():
         page.unroute('**/evidence/events', fail_event)
         next_step(2)
         checks.append('network failure clears success and same-step retry completes with actual HTTP')
+
+        # This is a controlled HTTP 404 response, not a claim of real server TTL expiry.
+        page.get_by_test_id('case-reset').click()
+        next_step(1)
+        before_expiry = download_case('before-injected-expiry.json')
+        injected_expiry = []
+        def expire_session(route):
+            injected_expiry.append(route.request.url)
+            route.fulfill(status=404, content_type='application/json', body='{"detail":"session_missing_or_expired"}')
+        page.route('**/evidence/events', expire_session)
+        page.get_by_test_id('case-next').click()
+        page.get_by_role('alert').wait_for()
+        page.unroute('**/evidence/events', expire_session)
+        assert len(injected_expiry) == 1
+        assert case.get_attribute('data-step') == '1'
+        assert page.get_by_test_id('case-next').is_disabled()
+        assert page.get_by_test_id('case-run-all').is_disabled()
+        expired_data = download_case('injected-expiry-preserved.json')
+        assert expired_data['session_id'] == before_expiry['session_id']
+        assert expired_data['events'] == before_expiry['events']
+        requests_before_navigation = len(api_requests)
+        navigate('서버 설계')
+        return_to_case()
+        assert page.get_by_test_id('case-next').is_disabled()
+        page.wait_for_timeout(100)
+        assert len(api_requests) == requests_before_navigation
+        assert download_case('injected-expiry-after-navigation.json') == expired_data
+        page.get_by_test_id('case-reset').click()
+        next_step(1)
+        restarted_data = download_case('after-explicit-expiry-restart.json')
+        assert restarted_data['session_id'] != expired_data['session_id']
+        checks.append('injected HTTP404 session_missing_or_expired preserves historical evidence across navigation, disables continuation and requires explicit reset for a new real session')
         page.get_by_test_id('case-reset').click()
         held = []
         def hold_session(route):
@@ -145,7 +244,7 @@ def main():
         assert page.get_by_test_id('case-draft').locator('.case-answer-text').count() == 0
         checks.append('pending controls locked; late session completion after reset does not restore old state')
         assert not errors, errors
-        (args.output / 'case-browser.json').write_text(json.dumps({'frontend': args.base, 'api': args.api, 'checks': checks, 'page_errors': errors}, ensure_ascii=False, indent=2) + '\n')
+        (args.output / 'case-browser.json').write_text(json.dumps({'frontend': args.base, 'api': args.api, 'checks': checks, 'page_errors': errors, 'api_requests': api_requests, 'expiry_scope': 'controlled HTTP404 response injection; real SQL-age expiry is a separate server check'}, ensure_ascii=False, indent=2) + '\n')
         for check in checks:
             print('PASS', check)
         browser.close()

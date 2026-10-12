@@ -1,4 +1,5 @@
 import { CaseApiError, type CaseAction, type CaseApi } from "./caseApi";
+import { EvidenceApiError } from "./evidenceApi";
 import type {
   EvidenceReceipt,
   EvidenceState,
@@ -13,6 +14,7 @@ export type CaseSnapshot = {
   error: string;
   status: string;
   session: string;
+  sessionExpired: boolean;
   state: EvidenceState | null;
   oldReceipt: EvidenceReceipt | null;
   freshReceipt: EvidenceReceipt | null;
@@ -28,6 +30,7 @@ const initial = (): CaseSnapshot => ({
   error: "",
   status: "",
   session: "",
+  sessionExpired: false,
   state: null,
   oldReceipt: null,
   freshReceipt: null,
@@ -66,6 +69,7 @@ export class CaseFlow {
   reprepare = () => {
     if (
       this.disposed ||
+      this.value.sessionExpired ||
       this.value.busy ||
       this.value.step !== 4 ||
       this.value.action ||
@@ -95,6 +99,7 @@ export class CaseFlow {
     if (
       this.value.busy ||
       this.value.running ||
+      this.value.sessionExpired ||
       this.value.step >= 6 ||
       this.disposed
     )
@@ -117,7 +122,13 @@ export class CaseFlow {
     }
   };
   private advance = async () => {
-    if (this.value.busy || this.value.step >= 6 || this.disposed) return;
+    if (
+      this.value.busy ||
+      this.value.step >= 6 ||
+      this.disposed ||
+      this.value.sessionExpired
+    )
+      return;
     const generation = this.generation;
     const current = this.value;
     const check = () => {
@@ -282,6 +293,10 @@ export class CaseFlow {
         !this.disposed
       )
         this.set({
+          sessionExpired:
+            error instanceof EvidenceApiError &&
+            error.status === 404 &&
+            error.detail === "session_missing_or_expired",
           canReprepare:
             current.step === 4
               ? error instanceof CaseApiError &&

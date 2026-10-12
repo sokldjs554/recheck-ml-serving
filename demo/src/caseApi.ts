@@ -1,4 +1,4 @@
-import { EvidenceApi, type Source } from "./evidenceApi";
+import { EvidenceApi, EvidenceApiError, type Source } from "./evidenceApi";
 export type CaseAction = {
   action_id: string;
   receipt_id: string;
@@ -9,12 +9,12 @@ export type CaseAction = {
   scope: string;
   replayed: boolean;
 };
-export class CaseApiError extends Error {
+export class CaseApiError extends EvidenceApiError {
   constructor(
     readonly status: number,
     readonly detail: string,
   ) {
-    super(`API ${status} · ${detail}`);
+    super(status, detail);
     this.name = "CaseApiError";
   }
 }

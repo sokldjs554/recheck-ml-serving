@@ -92,6 +92,18 @@ const errors: Record<string, string> = {
   conflicting_event_revision:
     "같은 버전에 다른 내용이 들어왔습니다. 새 실험에서 다시 확인하세요.",
 };
+export class EvidenceApiError extends Error {
+  constructor(
+    readonly status: number,
+    readonly detail: string,
+  ) {
+    super(
+      errors[detail] ||
+        `API ${status} · ${detail || "요청을 완료하지 못했습니다. 다시 시도해 주세요."}`,
+    );
+    this.name = "EvidenceApiError";
+  }
+}
 export class EvidenceApi {
   readonly base: string;
   constructor(base: string) {
@@ -123,9 +135,9 @@ export class EvidenceApi {
       } catch {
         /* non-JSON proxy failure */
       }
-      throw new Error(
-        errors[detail] ||
-          `API ${response.status} · 요청을 완료하지 못했습니다. 다시 시도해 주세요.`,
+      throw new EvidenceApiError(
+        response.status,
+        typeof detail === "string" ? detail : "",
       );
     }
     return response.json() as Promise<T>;

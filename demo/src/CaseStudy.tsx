@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -8,7 +8,7 @@ import {
   RotateCcw,
 } from "lucide-react";
 import { CaseApi } from "./caseApi";
-import { CaseFlow } from "./caseFlow";
+import type { CaseFlow } from "./caseFlow";
 import "./caseStudy.css";
 
 const compactMedia = "(max-width: 760px)";
@@ -60,11 +60,15 @@ function Highlight({ text }: { text: string }) {
 }
 
 export default function CaseStudy({
-  defaultBase,
+  flow,
+  configuredBase,
+  onConfigure,
   onExplore,
   onEvidence,
 }: {
-  defaultBase: string;
+  flow: CaseFlow;
+  configuredBase: string;
+  onConfigure: (base: string) => void;
   onExplore: () => void;
   onEvidence: () => void;
 }) {
@@ -73,23 +77,14 @@ export default function CaseStudy({
     compactLayout,
     () => false,
   );
-  const [base, setBase] = useState(defaultBase);
-  const [configuredBase, setConfiguredBase] = useState(defaultBase);
+  const [base, setBase] = useState(configuredBase);
   const [configError, setConfigError] = useState("");
   const [now, setNow] = useState(Date.now());
   useEffect(() => {
     const id = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(id);
   }, []);
-  const flow = useMemo(
-    () => new CaseFlow(new CaseApi(configuredBase)),
-    [configuredBase],
-  );
   const state = useSyncExternalStore(flow.subscribe, flow.getSnapshot);
-  useEffect(() => {
-    flow.activate();
-    return () => flow.dispose();
-  }, [flow]);
   const source = state.state?.sources.find(
     (item) => item.source_id === "transfer",
   );
@@ -115,7 +110,7 @@ export default function CaseStudy({
     try {
       new CaseApi(base);
       flow.reset();
-      setConfiguredBase(base);
+      onConfigure(base);
       setConfigError("");
     } catch (error) {
       setConfigError(error instanceof Error ? error.message : String(error));
@@ -130,6 +125,7 @@ export default function CaseStudy({
               "Actual API responses from a synthetic local support-task case; no external message or transfer",
             api: configuredBase || window.location.origin,
             session_id: state.session,
+            snapshot: state,
             events: state.events,
           },
           null,
@@ -190,7 +186,7 @@ export default function CaseStudy({
           <button
             data-testid="case-next"
             className="case-next"
-            disabled={locked || expired}
+            disabled={locked || expired || state.sessionExpired}
             onClick={state.step < 6 ? () => void flow.next() : onEvidence}
           >
             {state.busy && !state.running ? (
@@ -207,7 +203,7 @@ export default function CaseStudy({
             <button
               className="case-run"
               data-testid="case-run-all"
-              disabled={locked || expired}
+              disabled={locked || expired || state.sessionExpired}
               onClick={() => void flow.runAll()}
             >
               {state.running ? (
@@ -239,9 +235,13 @@ export default function CaseStudy({
       >
         {state.error ? (
           <>
-            <strong>요청 실패</strong>
+            <strong>{state.sessionExpired ? "세션 만료" : "요청 실패"}</strong>
             <span>{state.error}</span>
-            <span>이 단계에서 다시 시도할 수 있습니다.</span>
+            <span>
+              {state.sessionExpired
+                ? "기존 결과와 로그는 보존했습니다. ‘처음부터’로 새 세션을 시작하세요."
+                : "이 단계에서 다시 시도할 수 있습니다."}
+            </span>
           </>
         ) : state.busy ? (
           <>
@@ -266,7 +266,7 @@ export default function CaseStudy({
                 : "유효기간이 지났습니다. 답변을 다시 준비하세요."}
           </span>
           <button
-            disabled={locked || !state.canReprepare}
+            disabled={locked || !state.canReprepare || state.sessionExpired}
             onClick={flow.reprepare}
           >
             새 답변 다시 준비
@@ -287,8 +287,14 @@ export default function CaseStudy({
         <div className="replay-title">
           <span className="replay-case-number">01</span>
           <div>
-            <h1>이체 한도 변경</h1>
-            <p>답변을 만든 뒤 원문을 바꾸고, 기록을 시도합니다.</p>
+            <span className="case-route-label">
+              실시간 API · /evidence/…/execute
+            </span>
+            <h2>300만 원이라고 답한 뒤, 한도가 바뀌었습니다.</h2>
+            <p>
+              300만 → 100만 원 변경을 적용하고, 이전 답변의 기록이 차단되는지
+              확인합니다.
+            </p>
           </div>
         </div>
         <div className="replay-heading-tools">
@@ -296,7 +302,11 @@ export default function CaseStudy({
             className={`case-connection ${state.session ? "is-connected" : ""}`}
           >
             <i />
-            {state.session ? "API 연결됨" : "API 연결 전"}
+            {state.sessionExpired
+              ? "세션 만료 · 과거 기록"
+              : state.session
+                ? "API 연결됨"
+                : "API 연결 전"}
           </span>
           <button
             className="case-quiet"
@@ -313,9 +323,9 @@ export default function CaseStudy({
       <div className={`replay-machine gate-${gate}`}>
         {compact && transport}
         <div className="replay-ruler" aria-hidden="true">
-          <span>INPUT / SOURCE</span>
-          <span>PREPARED ANSWER</span>
-          <span>COMMIT GATE</span>
+          <span>문제 상황 · 변경된 원문</span>
+          <span>비교 대상 · 준비된 답변</span>
+          <span>실행 판단 · 차단 또는 기록</span>
         </div>
         <div className="replay-canvas">
           <aside className="replay-source" data-testid="case-source">
@@ -592,11 +602,7 @@ export default function CaseStudy({
               <span>실제 API로 차단과 재시도를 확인합니다.</span>
             </div>
           )}
-          <button
-            className="case-compare"
-            disabled={locked}
-            onClick={onEvidence}
-          >
+          <button className="case-compare" onClick={onEvidence}>
             세 방식 비교
             <ArrowUpRight size={16} />
           </button>
@@ -628,7 +634,7 @@ export default function CaseStudy({
             {configError && <p role="alert">{configError}</p>}
           </div>
         </details>
-        <button disabled={locked} onClick={onExplore}>
+        <button onClick={onExplore}>
           조건을 직접 바꾸기
           <ArrowUpRight size={14} />
         </button>

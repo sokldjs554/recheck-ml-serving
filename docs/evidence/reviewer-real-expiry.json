@@ -1,0 +1,10 @@
+{
+  "scope": "real loopback server TTL expiry; SQLite; no route mocks or clock patch",
+  "ttl_seconds": 2,
+  "response_status": 404,
+  "old_session": "e6de8b8b-fc47-438f-b27a-88c4ba1087a4",
+  "new_session": "bb581dd0-1885-4743-bae5-e554325aec43",
+  "historical_events_preserved": true,
+  "navigation_requests": 0,
+  "explicit_restart_verified": true
+}

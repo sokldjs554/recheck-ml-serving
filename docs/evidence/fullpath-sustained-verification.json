@@ -1,0 +1,49 @@
+{
+  "checked_at": "2026-10-12T06:04:31.609626+00:00",
+  "harness_tests": {
+    "command": "PYTHONPATH=backend backend/.venv/bin/python -m pytest backend/tests/test_fullpath_sustained.py -q",
+    "result": "7 passed in 0.31s",
+    "test_first_history": [
+      "Initial four accounting tests failed because sustained harness did not exist.",
+      "Probe-error recovery regression failed: expected no recovery confirmation, got 10 seconds; corrected.",
+      "Interruption preservation regression failed: partial argument absent; added retained partial result."
+    ]
+  },
+  "full_backend_suite": "Deferred to root integration pass to avoid overlap with the separately coordinated contention benchmark.",
+  "preflight_attempt": {
+    "result": "Sandbox denied localhost socket with EPERM; no requests or databases created on that attempt. Approved local-only escalation then created new databases and ran smoke/full successfully."
+  },
+  "host_limits": {
+    "cpu_max": "400000 100000",
+    "cpu_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "memory_max_bytes": 17179869184
+  },
+  "runs": [
+    {
+      "name": "fullpath-sustained-smoke",
+      "warmup_attempts": 10,
+      "measured_attempts": 280,
+      "delivered_equal_sql": 290,
+      "archive_hash_matches": true,
+      "all_measured_source_hashes_match_current_files": true,
+      "independent_good_predicate_and_unique_attempt_keys": true,
+      "validation_passed": true
+    },
+    {
+      "name": "fullpath-sustained",
+      "warmup_attempts": 50,
+      "measured_attempts": 8400,
+      "delivered_equal_sql": 8305,
+      "archive_hash_matches": true,
+      "all_measured_source_hashes_match_current_files": true,
+      "independent_good_predicate_and_unique_attempt_keys": true,
+      "validation_passed": true
+    }
+  ]
+}
