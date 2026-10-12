@@ -50,3 +50,11 @@ npm --prefix demo run build
 ## 남는 한계
 
 무료 서버의 시작 지연, 새로고침 이후 클라이언트 상태 소실, 가상 문서·합성 모델·단기 실험 범위는 그대로다. 영상은 데스크톱 Chromium 촬영이며 반응형 검증도 Chromium의 viewport 검사다. 실기기 Safari·Firefox·스크린리더와 실제 참여자 사용성은 이번 작업에서 검증하지 않았다.
+
+## 배포 중 발견한 기존 CI 대기 제한
+
+소개 화면 커밋 `fc59117`의 [전체 CI](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/38226653978)에서 `test_threaded_mutations_do_not_lose_version_increments`가 연결 풀 대기 시간 초과로 실패했다(138 통과·1 실패·1 제외). SQL 잠금과 statement의 정합성 테스트 예산은 이미 5초·10초였지만, checkout 이전의 연결 획득은 운영 기본값 300ms를 그대로 사용하고 있었다.
+
+전용 로컬 PostgreSQL의 실제 연결 4개를 500ms 동안 점유하자 같은 `QueuePool ... timeout 0.30` 오류를 재현했다. 테스트 helper의 엔진 생성에만 pool 대기 5초를 적용한 뒤에는 동일 조건에서 버전 2 기록이 완료됐다. 동시성·버전 증가 검증을 제거하거나 재시도로 실패를 숨기지 않았다. 연결 개수 4, overflow 0, 실제 DB 잠금은 유지했다.
+
+**운영 코드·설정은 변경하지 않았다.** 운영 잠금 시간 초과 테스트는 이 helper를 사용하지 않는다. 합성 pool timeout을 분류하는 테스트를 실제 300ms 운영 기한의 통합 검증으로 해석하지 않는다.

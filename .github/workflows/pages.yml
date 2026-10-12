@@ -18,7 +18,7 @@ permissions:
   id-token: write
 concurrency:
   group: pages
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   deploy:
     environment:
@@ -111,6 +111,7 @@ jobs:
           RECHECK_CHROMIUM=$(python -c 'from playwright.sync_api import sync_playwright; p=sync_playwright().start(); print(p.chromium.executable_path); p.stop()')
           python scripts/check_serving_browser.py --base "${{ steps.deployment.outputs.page_url }}" --browser-executable "$RECHECK_CHROMIUM" --output work/public-serving
       - name: Verify submitted demo media and responsive disclosures
+        timeout-minutes: 3
         run: |
           RECHECK_CHROMIUM=$(python -c 'from playwright.sync_api import sync_playwright; p=sync_playwright().start(); print(p.chromium.executable_path); p.stop()')
           python scripts/check_presentation_browser.py --base "${{ steps.deployment.outputs.page_url }}" --api https://recheck-ml-serving.onrender.com --browser-executable "$RECHECK_CHROMIUM" --output work/public-presentation

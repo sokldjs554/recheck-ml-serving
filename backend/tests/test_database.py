@@ -3,6 +3,7 @@ from concurrent.futures import ThreadPoolExecutor
 import os
 import threading
 import time
+from unittest.mock import patch
 
 import pytest
 
@@ -10,7 +11,16 @@ import pytest
 def store(tmp_path, **overrides):
     from recheck.config import Settings
     from recheck.store import Store
-    db = Store(Settings(database_url=os.getenv("RECHECK_TEST_DATABASE_URL", f"sqlite:///{tmp_path / 'concurrency.db'}"), **overrides))
+    from sqlalchemy import create_engine
+    def correctness_engine(*args, **kwargs):
+        # Pool checkout happens before the checkout listener below. The
+        # correctness fixture must allow the same 5s waiting budget there too.
+        # Keep four connections and zero overflow; only the test wait changes.
+        if "pool_timeout" in kwargs:
+            kwargs["pool_timeout"] = 5
+        return create_engine(*args, **kwargs)
+    with patch("recheck.store.create_engine", correctness_engine):
+        db = Store(Settings(database_url=os.getenv("RECHECK_TEST_DATABASE_URL", f"sqlite:///{tmp_path / 'concurrency.db'}"), **overrides))
     # These tests verify serialization, not the production 100 ms admission
     # budget. A descheduled lock holder must not turn a correct fence into a
     # flaky assertion. Production timeouts remain unchanged and have separate

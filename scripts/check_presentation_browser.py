@@ -30,8 +30,14 @@ def main():
         assert '현재 요청' in page.get_by_test_id('recorded-demo').inner_text()
         assert '실행 중' in page.get_by_test_id('case-run-top').inner_text()
         video = page.locator('video')
-        video.evaluate('(v) => { v.muted = true; return v.play(); }')
-        page.wait_for_function('document.querySelector("video").currentTime > .2 && document.querySelector("video").videoWidth === 1280')
+        print('Checking actual video playback while live health is pending', flush=True)
+        video.evaluate('(v) => { v.muted = true; v.play().catch(e => { v.dataset.playbackError = String(e); }); }')
+        try:
+            page.wait_for_function('document.querySelector("video").currentTime > .2 && document.querySelector("video").videoWidth === 1280', timeout=20000)
+        except Exception:
+            diagnostic = video.evaluate('(v) => ({source:v.currentSrc,ready:v.readyState,network:v.networkState,error:v.error?.message,playbackError:v.dataset.playbackError,codec:v.canPlayType("video/mp4")})')
+            print('VIDEO FAILURE', json.dumps(diagnostic), flush=True)
+            raise
         media = video.evaluate('(v) => ({source:v.currentSrc,duration:v.duration,width:v.videoWidth,height:v.videoHeight,poster:v.poster})')
         assert 20 < media['duration'] < 90
         assert media['source'].startswith(args.base.rstrip('/') + '/media/')
