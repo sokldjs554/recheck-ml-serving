@@ -473,7 +473,7 @@
         "all request outcomes including late HTTP 200 are visible; boundary and stored evidence are labeled",
         "serving deep link survives reload",
         "actual dependency failure and nonzero DB restart errors are retained",
-        "public PostgreSQL journal is fetched and labeled as boot-scoped observations",
+        "sqlite API journal is fetched and labeled as boot-scoped observations",
         "back navigation, return to live case, and mobile layouts work"
       ],
       "page_errors": []

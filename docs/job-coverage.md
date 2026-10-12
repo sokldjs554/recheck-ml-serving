@@ -20,6 +20,10 @@ Python/Kotlin/Go 중 하나 이상의 경험을 요구하므로 언어 수를 �
 | 문제 해결·성과 지표 / 기술 선택 설명 | [`benchmark_fullpath_sustained.py`](../scripts/benchmark_fullpath_sustained.py), [`benchmark_consistency_costs.py`](../scripts/benchmark_consistency_costs.py) | 전 시도 분모, 시간 예산 내 유효 응답, uncertain commit·최종 SQL, 지연·자원 비용. [설계 판단](decisions.md) | 실험 지표를 실제 고객 효과·매출·업무 시간 절감으로 바꾸지 않음 |
 | 평가자가 재현할 수 있는 전달 방식 | [`App.tsx`](../demo/src/App.tsx), [`caseFlow.ts`](../demo/src/caseFlow.ts), [`MeasuredReview.tsx`](../demo/src/MeasuredReview.tsx) | [UI 변경·회귀 근거](reviewer-update.md), 세 경로와 원본 링크. 비교 화면 이동 중에도 실행 상태 보존 | 사용자 조사 없이 이해도 향상이 입증됐다고 주장하지 않음. 브라우저 새로고침/닫기 후 클라이언트 상태 복원은 지원하지 않음 |
 
+## 공개 반영 근거
+
+구현 커밋 `0b99e35`의 [공개 브라우저 검사](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/38212388240), [전체 회귀](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/38212388408), [Kubernetes 재검증](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/38212388305)이 모두 통과했다. [배포·검사 기록](evidence/reviewer-public-verification.json). 이 결과는 각 실행의 확인 범위이며 장기 운영 실적이 아니다.
+
 ## 측정 경계를 섞지 않기
 
 - **실시간 상담 정합성**: `/api/sessions/{sid}/evidence/receipts/{id}/execute`. 원문·릴리스 최신성 확인과 내부 작업 기록을 같은 트랜잭션에서 수행한다.

@@ -65,3 +65,19 @@ backend/.venv/bin/python scripts/check_case_expiry_browser.py --base http://127.
 
 공개 배포는 기존 main→GitHub Pages/Render 절차를 사용한다. 공개에서는 기능·화면 이동만 검사하며 부하/장애를 주입하는 용량 실험을 실행하지 않는다.
 최종 커밋·공개 브라우저 실행은 이 문서의 후속 검증 기록과 GitHub Actions에서 확인한다.
+
+## 공개 반영 확인
+
+구현 커밋: [`0b99e35`](https://github.com/sokldjs554/recheck-ml-serving/commit/0b99e35cf7d59f624cbc8eab5c31bc1359ca4108).
+기존 무료 Render 서비스의 자동 배포 `dep-db67qb7avr4c73fopqk0`가 2026-10-12 06:26:37 UTC에 live가 되었다.
+GitHub Pages는 같은 소스에서 배포하며, 공개 브라우저 검사 시작 전에 Python 호스트의 `web_static` 번들 해시 일치를 기다린다.
+
+[전체 회귀 CI](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/38212388408) ·
+[공개 브라우저 검사와 스크린샷 artifact](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/38212388240) ·
+[Kubernetes 재검증](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/38212388305).
+
+세 실행 모두 **success**로 종료됐다. 공개 Chromium에서 대표 체험 완료 후/진행 중 이동과 API 중복 없음, 모바일, 비교 자료, 서빙·복구, PostgreSQL 운영 기록 조회를 확인했다.
+
+[공개 배포·검사 원문 발췌](evidence/reviewer-public-verification.json). 공개 스크린샷은 해당 Actions artifact에 보존한다.
+로컬에서 변경 전후 UI를 직접 확인했으며, 공개 자동 검증은 동일 번들 확인과 실제 렌더링·조작 검증이다.
+공개 세션 만료 404는 클라이언트 동작 확인용 주입이며, 실제 서버 TTL 만료는 별도의 로컬 2초 fixture에서 검증했다.

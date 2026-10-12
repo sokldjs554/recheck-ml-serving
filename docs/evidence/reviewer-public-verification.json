@@ -1,0 +1,99 @@
+{
+  "implementation_commit": "0b99e35cf7d59f624cbc8eab5c31bc1359ca4108",
+  "scope": "GitHub Actions real Chromium against the deployed GitHub Pages UI and Render API; local raw experiments are separate",
+  "frontend": "https://sokldjs554.github.io/recheck-ml-serving/",
+  "api": "https://recheck-ml-serving.onrender.com",
+  "render": {
+    "deploy_id": "dep-db67qb7avr4c73fopqk0",
+    "status": "live",
+    "finished_at": "2026-10-12T06:26:37.291847Z",
+    "plan": "free"
+  },
+  "ci": {
+    "run_id": 38212388408,
+    "conclusion": "success",
+    "backend_passed": 139,
+    "backend_skipped": 1,
+    "frontend_passed": 44,
+    "static_export_matches": true
+  },
+  "public_browser": {
+    "run_id": 38212388240,
+    "job_id": 114689253713,
+    "conclusion": "success",
+    "checks": [
+      "2026-10-12T06:27:33.5144166Z Matching Python deployment is serving /assets/index-lsMJUVfY.js",
+      "2026-10-12T06:27:35.8983663Z PASS browser valid receipt then feature change refuses use",
+      "2026-10-12T06:27:36.3753137Z PASS immutable receipt amount stays unchanged while the next request is pending",
+      "2026-10-12T06:27:36.5137647Z PASS browser 정책 갱신 refuses stale receipt",
+      "2026-10-12T06:27:36.6633653Z PASS browser 모델 교체 refuses stale receipt",
+      "2026-10-12T06:27:37.1323102Z PASS protected inference race invalidates stale result",
+      "2026-10-12T06:27:37.6312072Z PASS unsafe baseline is visible but validation refuses; JSON download and Escape",
+      "2026-10-12T06:27:38.5057445Z PASS browser fault 시간 초과 produces explicit review reason",
+      "2026-10-12T06:27:38.5981937Z PASS browser fault 응답 불가 produces explicit review reason",
+      "2026-10-12T06:27:39.4792599Z PASS dated operations evidence and source links are readable on desktop and mobile",
+      "2026-10-12T06:27:42.1986036Z PASS architecture, design rationale, receipts, and successful guided comparison",
+      "2026-10-12T06:28:03.3047728Z PASS a previous successful browser validation becomes refusal after actual expiry",
+      "2026-10-12T06:28:03.8729697Z PASS responsive layout without horizontal overflow",
+      "2026-10-12T06:28:04.0466618Z PASS responsive layout without horizontal overflow",
+      "2026-10-12T06:28:04.2264672Z PASS responsive layout without horizontal overflow",
+      "2026-10-12T06:28:04.3397649Z PASS supporting evidence menu opens by keyboard and all six destinations are focusable on landscape",
+      "2026-10-12T06:28:07.5549558Z PASS live revalidation waits for mutation response before checking current state",
+      "2026-10-12T06:28:07.5549990Z PASS live Python HTTP mode validates clear result and refuses feature-stale use",
+      "2026-10-12T06:28:07.5550364Z PASS no browser page errors",
+      "2026-10-12T06:28:11.7412442Z PASS real Python connection and isolated persistent session",
+      "2026-10-12T06:28:13.6288338Z PASS actual retrieval creates a currently usable receipt",
+      "2026-10-12T06:28:16.5455385Z PASS actual source edit preserves historical output and refuses its use",
+      "2026-10-12T06:28:18.4560615Z PASS same dimension incompatible model/index cannot deploy",
+      "2026-10-12T06:28:19.5352779Z PASS computed quality regression fails and real report is downloadable",
+      "2026-10-12T06:28:23.0821084Z PASS paired rebuild switches atomically and new receipt cites edited content",
+      "2026-10-12T06:28:23.9991280Z PASS second product reuses the evidence lifecycle",
+      "2026-10-12T06:28:25.7803970Z PASS deleted evidence cannot be used",
+      "2026-10-12T06:28:26.1463398Z PASS 390/768/1440 responsive layout without document overflow",
+      "2026-10-12T06:28:28.9622947Z PASS HTTP failure clears previous validation instead of showing success",
+      "2026-10-12T06:28:29.1128888Z PASS failed document update leaves no stale success assertion",
+      "2026-10-12T06:28:29.4276949Z PASS pending mutation disables reuse and late completion cannot overwrite a new lab",
+      "2026-10-12T06:28:56.1963078Z PASS one-click actual HTTP run preserves old/new answers and produces exactly one persisted task",
+      "2026-10-12T06:28:56.1963646Z PASS completed compare -> primary execution navigation preserves exact downloaded evidence and action with zero API requests",
+      "2026-10-12T06:28:56.1964258Z PASS held actual HTTP mutation continues while case view is absent; return preserves session, event prefix and one persisted action without duplicate navigation requests",
+      "2026-10-12T06:28:56.1964806Z PASS lost commit response cannot claim success; retry retains original key and displays replay",
+      "2026-10-12T06:28:56.1965281Z PASS actual HTTP: old answer blocked, fresh task recorded, replay returns one historical action, JSON contains actual responses",
+      "2026-10-12T06:28:56.1965708Z PASS 390 portrait, 768 tablet, 844 landscape: no horizontal overflow and reset reachable",
+      "2026-10-12T06:28:56.1966063Z PASS network failure clears success and same-step retry completes with actual HTTP",
+      "2026-10-12T06:28:56.1966599Z PASS injected HTTP404 session_missing_or_expired preserves historical evidence across navigation, disables continuation and requires explicit reset for a new real session",
+      "2026-10-12T06:28:56.1967672Z PASS pending controls locked; late session completion after reset does not restore old state",
+      "2026-10-12T06:28:58.1883295Z PASS comparison is reachable from the first screen and identifies stored evidence",
+      "2026-10-12T06:28:58.2633352Z PASS sqlite: stale rejection, selective invalidation, ABA and retry match SQL evidence",
+      "2026-10-12T06:28:58.3400438Z PASS postgresql: stale rejection, selective invalidation, ABA and retry match SQL evidence",
+      "2026-10-12T06:28:58.3549521Z PASS contended outcomes and separate normal-path latency have visible denominators",
+      "2026-10-12T06:28:58.3671111Z PASS real lock-timeout errors remain visible beside separately recorded recovery",
+      "2026-10-12T06:28:58.3671641Z PASS record inspection never triggers unsafe API execution",
+      "2026-10-12T06:28:58.8888280Z PASS 390/768/1440 layouts fit and native controls are keyboard reachable",
+      "2026-10-12T06:29:04.3309050Z {\"checks\": [\"model handoff shows startup rejection cases and expandable prediction values\", \"all request outcomes including late HTTP 200 are visible; boundary and stored evidence are labeled\", \"serving deep link survives reload\", \"actual dependency failure and nonzero DB restart errors are retained\", \"postgresql API journal is fetched and labeled as boot-scoped observations\", \"back navigation, return to live case, and mobile layouts work\"], \"page_errors\": []}"
+    ],
+    "artifacts": [
+      {
+        "id": 11729792667,
+        "name": "public-browser-evidence",
+        "size_in_bytes": 8753915,
+        "expired": false
+      },
+      {
+        "id": 11729701298,
+        "name": "github-pages",
+        "size_in_bytes": 302181,
+        "expired": false
+      }
+    ]
+  },
+  "kubernetes": {
+    "run_id": 38212388305,
+    "job_id": 114689253768,
+    "conclusion": "success"
+  },
+  "limits": [
+    "Public case session-expiry response was injected for client behavior; actual server session TTL expiry was tested in an isolated local two-second fixture.",
+    "Sustained load and SQL contention were run only locally; public browser success does not establish capacity or SLA.",
+    "Public screenshot files remain in the linked workflow artifact; local before/after images were visually inspected."
+  ]
+}

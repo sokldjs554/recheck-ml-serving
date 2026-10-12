@@ -45,5 +45,5 @@ Files: demo/src/App.tsx, styles.css, CaseStudy.tsx/caseStudy.css, ServingEvidenc
 Files: README.md, docs/job-coverage.md, affected workflows/browser scripts and web_static.
 - [x] Run affected and existing regression suites, evidence consistency checks and browser paths.
 - [x] Independent review of changes; resolve findings.
-- [ ] Commit, push using established deployment; inspect CI/public demo proof for matching revision.
-- [ ] Report changes, costs, measurements, limitations and reproduction links.
+- [x] Commit, push using established deployment; inspect CI/public demo proof for matching revision.
+- [x] Report changes, costs, measurements, limitations and reproduction links.
