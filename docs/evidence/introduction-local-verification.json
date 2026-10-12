@@ -1,0 +1,496 @@
+{
+  "verified_at_utc": "2026-10-12T08:55:39.450686+00:00",
+  "baseline_commit": "da7a26f612f44b0b2c43797b983a5dbe2719baad",
+  "scope": "Local Chromium + actual local Python API / SQLite. No new load experiments. Public verification is a separate post-deploy CI run.",
+  "frontend_tests": 44,
+  "browser_reports": {
+    "case": {
+      "frontend": "http://127.0.0.1:5178",
+      "api": "http://127.0.0.1:8023",
+      "checks": [
+        "top and existing run buttons clicked in one turn create one session and one flow",
+        "one-click actual HTTP run preserves old/new answers and produces exactly one persisted task",
+        "completed compare -> primary execution navigation preserves exact downloaded evidence and action with zero API requests",
+        "held actual HTTP mutation continues while case view is absent; return preserves session, event prefix and one persisted action without duplicate navigation requests",
+        "lost commit response cannot claim success; retry retains original key and displays replay",
+        "actual HTTP: old answer blocked, fresh task recorded, replay returns one historical action, JSON contains actual responses",
+        "390 portrait, 768 tablet, 844 landscape: no horizontal overflow and reset reachable",
+        "network failure clears success and same-step retry completes with actual HTTP",
+        "injected HTTP404 session_missing_or_expired preserves historical evidence across navigation, disables continuation and requires explicit reset for a new real session",
+        "pending controls locked; late session completion after reset does not restore old state"
+      ],
+      "page_errors": [],
+      "api_requests": [
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/health"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/api/sessions/cfa76610-7dbc-4fa0-afda-15444fc21e04/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/cfa76610-7dbc-4fa0-afda-15444fc21e04/evidence/prepare"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/cfa76610-7dbc-4fa0-afda-15444fc21e04/evidence/events"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/api/sessions/cfa76610-7dbc-4fa0-afda-15444fc21e04/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/cfa76610-7dbc-4fa0-afda-15444fc21e04/evidence/receipts/50193da1-1666-440e-bbe7-6f89d183ffee/execute"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/cfa76610-7dbc-4fa0-afda-15444fc21e04/evidence/releases/evaluate"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/cfa76610-7dbc-4fa0-afda-15444fc21e04/evidence/releases/91e58f0d-a750-4aee-aebc-30972e4672e6/promote"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/cfa76610-7dbc-4fa0-afda-15444fc21e04/evidence/prepare"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/api/sessions/cfa76610-7dbc-4fa0-afda-15444fc21e04/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/cfa76610-7dbc-4fa0-afda-15444fc21e04/evidence/receipts/208041b6-53fc-4f30-a67e-1f3375b5acb9/execute"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/cfa76610-7dbc-4fa0-afda-15444fc21e04/evidence/receipts/208041b6-53fc-4f30-a67e-1f3375b5acb9/execute"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/health"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/api/sessions/514f2564-6b61-4eb2-b48e-6e56d2f95f4e/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/514f2564-6b61-4eb2-b48e-6e56d2f95f4e/evidence/prepare"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/514f2564-6b61-4eb2-b48e-6e56d2f95f4e/evidence/events"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/api/sessions/514f2564-6b61-4eb2-b48e-6e56d2f95f4e/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/514f2564-6b61-4eb2-b48e-6e56d2f95f4e/evidence/receipts/5e13d5c3-3149-476b-9141-e4b87a20a17f/execute"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/514f2564-6b61-4eb2-b48e-6e56d2f95f4e/evidence/releases/evaluate"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/514f2564-6b61-4eb2-b48e-6e56d2f95f4e/evidence/releases/0a86437e-d639-4ee7-ae2d-0bd1160c7ca7/promote"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/514f2564-6b61-4eb2-b48e-6e56d2f95f4e/evidence/prepare"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/api/sessions/514f2564-6b61-4eb2-b48e-6e56d2f95f4e/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/514f2564-6b61-4eb2-b48e-6e56d2f95f4e/evidence/receipts/dea8971e-a6a6-4eb5-97a7-05f3305e620d/execute"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/514f2564-6b61-4eb2-b48e-6e56d2f95f4e/evidence/receipts/dea8971e-a6a6-4eb5-97a7-05f3305e620d/execute"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/health"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/api/sessions/55cc8765-024f-407b-8c9a-f110adaf019e/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/55cc8765-024f-407b-8c9a-f110adaf019e/evidence/prepare"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/55cc8765-024f-407b-8c9a-f110adaf019e/evidence/events"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/api/sessions/55cc8765-024f-407b-8c9a-f110adaf019e/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/55cc8765-024f-407b-8c9a-f110adaf019e/evidence/receipts/b317f33a-04ab-496f-b5d8-5b44851e9fe6/execute"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/55cc8765-024f-407b-8c9a-f110adaf019e/evidence/releases/evaluate"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/55cc8765-024f-407b-8c9a-f110adaf019e/evidence/releases/900de4f4-5b6a-4256-b768-3ccab5a834c5/promote"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/55cc8765-024f-407b-8c9a-f110adaf019e/evidence/prepare"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/api/sessions/55cc8765-024f-407b-8c9a-f110adaf019e/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/55cc8765-024f-407b-8c9a-f110adaf019e/evidence/receipts/a1f7d483-bd20-4db5-9271-b074570990d2/execute"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/55cc8765-024f-407b-8c9a-f110adaf019e/evidence/receipts/a1f7d483-bd20-4db5-9271-b074570990d2/execute"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/55cc8765-024f-407b-8c9a-f110adaf019e/evidence/receipts/a1f7d483-bd20-4db5-9271-b074570990d2/execute"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/health"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/api/sessions/3b2c80ca-63a8-4de1-9c0b-416382686016/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/3b2c80ca-63a8-4de1-9c0b-416382686016/evidence/prepare"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/3b2c80ca-63a8-4de1-9c0b-416382686016/evidence/events"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/3b2c80ca-63a8-4de1-9c0b-416382686016/evidence/events"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/api/sessions/3b2c80ca-63a8-4de1-9c0b-416382686016/evidence"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/health"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/api/sessions/33637564-827e-417e-abe7-5c0e0cca35b8/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/33637564-827e-417e-abe7-5c0e0cca35b8/evidence/prepare"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/33637564-827e-417e-abe7-5c0e0cca35b8/evidence/events"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/health"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/api/sessions/5e047d0e-3f7a-49ef-8666-4555d7b6932d/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions/5e047d0e-3f7a-49ef-8666-4555d7b6932d/evidence/prepare"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8023/health"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8023/api/sessions"
+        }
+      ],
+      "expiry_scope": "controlled HTTP404 response injection; real SQL-age expiry is a separate server check"
+    },
+    "presentation": {
+      "checks": [
+        "actual MP4 decodes while live health request is pending; stored label, live state, and shared controls remain distinct",
+        "1440/768/390/320: top control, expanded recording and case have no page overflow",
+        "serving: visible scope/results, collapsed conditions/raw data, expanded layout and contained table scrolling at four widths",
+        "recovery: visible scope/results, collapsed conditions/raw data, expanded layout and contained table scrolling at four widths"
+      ],
+      "media": {
+        "source": "http://127.0.0.1:5178/media/recheck-walkthrough.mp4",
+        "duration": 36.36,
+        "width": 1280,
+        "height": 1080,
+        "poster": "http://127.0.0.1:5178/media/recheck-poster.webp"
+      },
+      "action_id": "d81e9b67-4548-4b0b-aa1e-a4dcd7fb3ee0",
+      "page_errors": []
+    },
+    "serving": {
+      "checks": [
+        "model handoff shows startup rejection cases and expandable prediction values",
+        "all request outcomes including late HTTP 200 are visible; boundary and stored evidence are labeled",
+        "serving deep link survives reload",
+        "actual dependency failure and nonzero DB restart errors are retained",
+        "sqlite API journal is fetched and labeled as boot-scoped observations",
+        "back navigation, return to live case, and mobile layouts work"
+      ],
+      "page_errors": []
+    },
+    "general": {
+      "captured_at": "2026-10-12T08:49:55.882350+00:00",
+      "frontend": "http://127.0.0.1:5178",
+      "api": "http://127.0.0.1:8023",
+      "browser_executable": "/usr/bin/chromium",
+      "checks": [
+        {
+          "name": "browser valid receipt then feature change refuses use",
+          "passed": true
+        },
+        {
+          "name": "immutable receipt amount stays unchanged while the next request is pending",
+          "passed": true
+        },
+        {
+          "name": "browser 정책 갱신 refuses stale receipt",
+          "passed": true
+        },
+        {
+          "name": "browser 모델 교체 refuses stale receipt",
+          "passed": true
+        },
+        {
+          "name": "protected inference race invalidates stale result",
+          "passed": true
+        },
+        {
+          "name": "unsafe baseline is visible but validation refuses; JSON download and Escape",
+          "passed": true,
+          "downloaded": "recheck-6df7d050-fbb0-4789-8866-d5b21dabe95e.json"
+        },
+        {
+          "name": "browser fault 시간 초과 produces explicit review reason",
+          "passed": true
+        },
+        {
+          "name": "browser fault 응답 불가 produces explicit review reason",
+          "passed": true
+        },
+        {
+          "name": "dated operations evidence and source links are readable on desktop and mobile",
+          "passed": true
+        },
+        {
+          "name": "architecture, design rationale, receipts, and successful guided comparison",
+          "passed": true
+        },
+        {
+          "name": "a previous successful browser validation becomes refusal after actual expiry",
+          "passed": true,
+          "waited_ms": 21000
+        },
+        {
+          "name": "responsive layout without horizontal overflow",
+          "passed": true,
+          "width": 390
+        },
+        {
+          "name": "responsive layout without horizontal overflow",
+          "passed": true,
+          "width": 768
+        },
+        {
+          "name": "responsive layout without horizontal overflow",
+          "passed": true,
+          "width": 1024
+        },
+        {
+          "name": "supporting evidence menu opens by keyboard and all six destinations are focusable on landscape",
+          "passed": true
+        },
+        {
+          "name": "live revalidation waits for mutation response before checking current state",
+          "passed": true
+        },
+        {
+          "name": "live Python HTTP mode validates clear result and refuses feature-stale use",
+          "passed": true
+        },
+        {
+          "name": "no browser page errors",
+          "passed": true
+        }
+      ],
+      "page_errors": [],
+      "notes": [
+        "Browser mode is a synthetic local state machine, not Python inference or a backend benchmark.",
+        "Live checks use actual HTTP requests only when --api is supplied.",
+        "Acceptance duration is test runtime, not model or serving performance."
+      ],
+      "passed": true,
+      "screenshots": [
+        "demo-desktop.png",
+        "demo-comparison.png",
+        "demo-mobile.png"
+      ],
+      "test_duration_seconds": 34.339
+    },
+    "evidence": {
+      "captured_at": "2026-10-12T08:48:47.053025+00:00",
+      "frontend": "http://127.0.0.1:5178",
+      "api": "http://127.0.0.1:8023",
+      "checks": [
+        {
+          "name": "real Python connection and isolated persistent session",
+          "passed": true
+        },
+        {
+          "name": "actual retrieval creates a currently usable receipt",
+          "passed": true
+        },
+        {
+          "name": "actual source edit preserves historical output and refuses its use",
+          "passed": true
+        },
+        {
+          "name": "same dimension incompatible model/index cannot deploy",
+          "passed": true
+        },
+        {
+          "name": "computed quality regression fails and real report is downloadable",
+          "passed": true
+        },
+        {
+          "name": "paired rebuild switches atomically and new receipt cites edited content",
+          "passed": true
+        },
+        {
+          "name": "second product reuses the evidence lifecycle",
+          "passed": true
+        },
+        {
+          "name": "deleted evidence cannot be used",
+          "passed": true
+        },
+        {
+          "name": "390/768/1440 responsive layout without document overflow",
+          "passed": true
+        },
+        {
+          "name": "HTTP failure clears previous validation instead of showing success",
+          "passed": true
+        },
+        {
+          "name": "failed document update leaves no stale success assertion",
+          "passed": true
+        },
+        {
+          "name": "pending mutation disables reuse and late completion cannot overwrite a new lab",
+          "passed": true
+        }
+      ],
+      "page_errors": [],
+      "scope": "actual HTTP API; fictional lexical retrieval; not LLM"
+    },
+    "comparison": {
+      "captured_at": "2026-10-12T08:51:52.320259+00:00",
+      "frontend": "http://127.0.0.1:5178",
+      "scope": "browser inspection of stored actual SQL experiments; no live comparison writes",
+      "checks": [
+        {
+          "name": "comparison is reachable from the first screen and identifies stored evidence",
+          "passed": true
+        },
+        {
+          "name": "sqlite: stale rejection, selective invalidation, ABA and retry match SQL evidence",
+          "passed": true
+        },
+        {
+          "name": "postgresql: stale rejection, selective invalidation, ABA and retry match SQL evidence",
+          "passed": true
+        },
+        {
+          "name": "contended outcomes and separate normal-path latency have visible denominators",
+          "passed": true
+        },
+        {
+          "name": "real lock-timeout errors remain visible beside separately recorded recovery",
+          "passed": true
+        },
+        {
+          "name": "record inspection never triggers unsafe API execution",
+          "passed": true
+        },
+        {
+          "name": "390/768/1440 layouts fit and native controls are keyboard reachable",
+          "passed": true
+        }
+      ],
+      "page_errors": []
+    }
+  },
+  "files_sha256": {
+    "README.md": "70172ff69d0f29fe1e278728be2e9f9147b2d4e4848b2d44adff2712eb44e628",
+    ".github/workflows/pages.yml": "459538984d85ca7375320746b32c80c90e553c4332536f0540226e08e870abb4",
+    "scripts/check_case_browser.py": "3a920aa225a1e088ba5b3d08710d01dcc4b67ffe8c31178712956f254fe9a7ee",
+    "scripts/check_presentation_browser.py": "b15b9b8c9ed60b0f823ee3f1a0a44b2bdd54741c65166d13dfadeaba55c3c578",
+    "scripts/record_demo.py": "88d9654443cc79f259529f3510b7436c7ade30eab04dca7e9ecf523fb5744dd8",
+    "demo/src/CaseRunButton.tsx": "feb13ae53a8a0f6047fe30afc916e26d7bab76d62631fa62dc957e5dec2cc7df",
+    "demo/src/RecordedDemo.tsx": "2f9aae8177116ebd619ba71df4f249c1263195527743e12de6945cbbaa2a31b5",
+    "demo/src/App.tsx": "69bdd4414c1d6604279a0ff80a5f61849d8b10264ea7b270ff80cc351208e3d1",
+    "demo/src/CaseStudy.tsx": "79632af2c3a11148ed881e86bdc8bfb02f77cdcdfd84c015a7a263e3f8b5cce6",
+    "demo/src/MeasuredReview.tsx": "65c1f856f93a975792c52bab36d59c7082d4ca967f71659c970af76c469fcdd1",
+    "demo/src/deskFrame.css": "aba2113c4b6ca8589cc911345179240eedf98b95644e566163a37fd379bfa698",
+    "demo/src/servingEvidence.css": "507b007adfa946a5606ca809ad2a3aee4288e63c6fc990793d4de026966308b0",
+    "demo/public/media/recheck-walkthrough.mp4": "2008a049a79066529b5cd44d71601b29d64b3b16b6a04f04e76a2f3858968f73",
+    "demo/public/media/recheck-poster.webp": "aaeb85c44e20e5cccd70087de3ed45017e5eacc768ad0072fa66b542dd802372",
+    "web_static/index.html": "24280e8d05f9ef395e9aa10e664a81d6618900673b4534c05c662cb8d4d65f72"
+  }
+}

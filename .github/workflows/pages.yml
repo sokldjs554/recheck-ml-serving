@@ -10,6 +10,7 @@ on:
       - 'scripts/check_case_browser.py'
       - 'scripts/check_comparison_browser.py'
       - 'scripts/check_serving_browser.py'
+      - 'scripts/check_presentation_browser.py'
   workflow_dispatch:
 permissions:
   contents: read
@@ -109,6 +110,10 @@ jobs:
         run: |
           RECHECK_CHROMIUM=$(python -c 'from playwright.sync_api import sync_playwright; p=sync_playwright().start(); print(p.chromium.executable_path); p.stop()')
           python scripts/check_serving_browser.py --base "${{ steps.deployment.outputs.page_url }}" --browser-executable "$RECHECK_CHROMIUM" --output work/public-serving
+      - name: Verify submitted demo media and responsive disclosures
+        run: |
+          RECHECK_CHROMIUM=$(python -c 'from playwright.sync_api import sync_playwright; p=sync_playwright().start(); print(p.chromium.executable_path); p.stop()')
+          python scripts/check_presentation_browser.py --base "${{ steps.deployment.outputs.page_url }}" --api https://recheck-ml-serving.onrender.com --browser-executable "$RECHECK_CHROMIUM" --output work/public-presentation
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -119,3 +124,4 @@ jobs:
             work/public-case
             work/public-comparison
             work/public-serving
+            work/public-presentation

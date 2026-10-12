@@ -61,8 +61,20 @@ def main():
             details.locator('summary').click()
         configure(args.api)
         page.screenshot(path=str(args.output / 'case-initial-desktop.png'), full_page=True)
-        page.get_by_test_id('case-run-all').click()
+        assert page.get_by_test_id('case-run-top').is_visible(), 'Top entry must start the real shared case'
+        top_box = page.get_by_test_id('case-run-top').bounding_box()
+        assert top_box['y'] + top_box['height'] < 760, 'Start must be visible without scrolling on desktop'
+        # Same JS turn: both controls are clicked before React can paint disabled state.
+        page.evaluate('''() => {
+            document.querySelector('[data-testid=case-run-top]').click();
+            document.querySelector('[data-testid=case-run-all]').click();
+            document.querySelector('[data-testid=case-run-top]').click();
+        }''')
         step(6)
+        session_posts = [r for r in api_requests if r['method'] == 'POST' and r['url'].endswith('/api/sessions')]
+        assert len(session_posts) == 1, 'Shared entry controls must create exactly one session'
+        assert page.get_by_test_id('case-run-top').is_disabled()
+        checks.append('top and existing run buttons clicked in one turn create one session and one flow')
         assert '300만 원' in page.get_by_test_id('case-old-draft').inner_text()
         assert '100만 원' in page.get_by_test_id('case-draft').inner_text()
         assert '실행 차단' in page.get_by_test_id('case-outcomes').inner_text()
@@ -99,6 +111,8 @@ def main():
         with page.expect_request('**/evidence/events'):
             page.get_by_test_id('case-run-all').click()
         assert len(held_events) == 1
+        assert page.get_by_test_id('case-run-top').is_disabled()
+        assert page.get_by_test_id('case-run-all').is_disabled()
         requests_before_navigation = len(api_requests)
         navigate('서버 설계')
         page.get_by_test_id('case-study').wait_for(state='hidden')
@@ -207,6 +221,7 @@ def main():
         assert case.get_attribute('data-step') == '1'
         assert page.get_by_test_id('case-next').is_disabled()
         assert page.get_by_test_id('case-run-all').is_disabled()
+        assert page.get_by_test_id('case-run-top').is_disabled()
         expired_data = download_case('injected-expiry-preserved.json')
         assert expired_data['session_id'] == before_expiry['session_id']
         assert expired_data['events'] == before_expiry['events']

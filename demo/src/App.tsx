@@ -1,3 +1,5 @@
+import CaseRunButton from "./CaseRunButton";
+import RecordedDemo from "./RecordedDemo";
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
@@ -651,6 +653,11 @@ export default function App() {
                 RECHECK는 오래된 답변의 기록을 차단하고, 모델 부하와 의존 서비스
                 장애에서 서버를 보호하는 방법을 검증합니다.
               </p>
+              <div className="project-start">
+                <CaseRunButton flow={caseFlow} top />
+                <span>실제 API · 가상 상담 데이터 · 6단계</span>
+              </div>
+              <RecordedDemo />
             </div>
             <ol className="review-routes">
               <li>

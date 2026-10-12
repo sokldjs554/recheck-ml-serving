@@ -885,3 +885,26 @@
     font-size: 12px;
   }
 }
+
+.review-scope {
+  padding: 12px 0;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #566879;
+  border-bottom: 1px solid #dce2e8;
+}
+.recovery-outline {
+  padding: 20px 0;
+  border-top: 1px solid #dce2e8;
+}
+.recovery-outline > strong {
+  font-size: 15px;
+}
+.recovery-outline > p {
+  font-size: 13px;
+  line-height: 1.8;
+  color: #566879;
+}
+.review-details .review-section {
+  margin-top: 12px;
+}

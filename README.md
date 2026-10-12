@@ -1,32 +1,124 @@
 # RECHECK
 
-**AI 결과의 실행 시점 정합성과 모델 부하·장애 경계를 검증하는 Python 백엔드**
+**답변의 근거가 바뀌면 실행을 멈추고, 모델의 부하·장애까지 검증하는 Python ML 백엔드 프로젝트입니다.**
 
-답변 생성 이후의 문서 변경, 검사와 기록 사이의 경쟁 조건, 중복 요청을 실제 SQL 트랜잭션으로 다룹니다.
-가상 상담 문서의 이체 한도를 300만 원에서 100만 원으로 바꾸면, 예전 답변을 사용하는 작업은 거절됩니다.
-새 근거로 답변을 다시 준비한 뒤에만 내부 작업 기록이 생깁니다.
+[공개 데모 바로 실행](https://sokldjs554.github.io/recheck-ml-serving/) · [실제 API 시연 영상](https://sokldjs554.github.io/recheck-ml-serving/media/recheck-walkthrough.mp4)
 
-[직접 체험하기](https://sokldjs554.github.io/recheck-ml-serving/) · [실제 Python 호스트](https://recheck-ml-serving.onrender.com/) · [세 방식의 비교 실험](docs/safety-case-study.md) · [핵심 코드](backend/recheck/evidence.py)
+[![이전 답변의 실행 차단과 새 답변의 기록을 확인하는 실제 화면](demo/public/media/recheck-poster.webp)](https://sokldjs554.github.io/recheck-ml-serving/media/recheck-walkthrough.mp4)
 
-## 중요한 선택과 실제 결과
+화면을 누르면 짧은 실제 시연 영상이 열립니다. **로컬 Python API·SQLite에서 촬영한 저장 영상**이며 공개 서버의 현재 상태가 아닙니다. 영상은 아래 6단계와 화면 이동 후 결과 유지를 보여줍니다. 공개 데모는 무료 Python 서버·PostgreSQL에 연결하며 첫 응답이 늦어질 수 있습니다. 기다리는 동안 첫 화면에서 같은 영상을 볼 수 있습니다.
 
-- **검증과 기록을 같은 SQL 트랜잭션으로**: 같은 세션의 변경/실행은 직렬화합니다. 정합성 대신 얻는 성능 손실을 숨기지 않고, 세션 경합·변경 빈도·지원 범위 내 상태 크기별로 [비용을 측정](docs/consistency-costs.md)했습니다.
-- **CPU 연산 격리 + 수용량·시간 예산 제한**: 같은 API·모델·PostgreSQL에서 180초 동안 정상→과부하→정상 복귀를 두 번 반복했습니다. 과부하 120 req/s에서 약 67.6건/s만 300ms 안의 유효 응답이었습니다. 정상/복귀 구간은 각각 300/300건이었습니다. [조건과 전체 결과](docs/fullpath-sustained.md)
-- **실패 응답도 최종 SQL과 대조**: 8,305개 수신 receipt가 SQL과 일치했습니다. 별도 HTTP 504 한 건은 이미 저장되어 있었습니다. 중복·누락·불일치·pending은 0건. 실패를 성공으로 바꾸지 않고 응답과 기록의 경계를 남겼습니다.
-- **추적과 저장 확인을 함께**: API→모델의 실제 실패 trace·로그와 PostgreSQL 기록을 연결했습니다. 기존 Kubernetes DB 교체 복구는 별도 실행의 근거로 재사용했습니다. [실패부터 복구까지](docs/failure-walkthrough.md)
+## 어떤 문제를 해결하나요?
 
-## 세 경로로 확인하기
+답변을 만들 때는 맞았던 정보가 실행할 때도 맞는 것은 아닙니다. RECHECK는 **답변 생성 이후 원문이 바뀐 상황에서 오래된 답변으로 작업이 기록되는 문제**를 다룹니다. 확인이 끝난 직후 원문이 바뀌거나, 응답을 받지 못해 같은 요청을 다시 보내는 경우도 포함합니다.
 
-| 확인할 내용 | 바로 열기 | 근거의 범위 |
+대표 상황은 가상 상담의 이체 한도 안내입니다. 실제 송금이나 메시지 발송은 하지 않습니다.
+
+1. **답변 준비:** 문서를 검색해 “하루 300만 원”이라는 답변을 준비합니다.
+2. **원문 변경:** 문서의 한도를 100만 원으로 바꿉니다. 기존 답변은 보존합니다.
+3. **이전 답변 차단:** 근거 버전이 달라졌으므로 `409 source_changed`를 반환하고 기록하지 않습니다.
+4. **다시 준비:** 모델·인덱스 묶음을 평가·교체하고 현재 문서에서 새 답변을 준비합니다.
+5. **상담 기록:** 근거 검증과 내부 작업 기록을 같은 SQL 트랜잭션에서 처리합니다.
+6. **같은 키로 재시도:** 처음 기록한 작업 ID를 반환하고 중복 기록을 만들지 않습니다.
+
+첫 화면의 **전체 과정 실행**으로 시작하거나 한 단계씩 실행할 수 있습니다. 비교·상세 화면을 다녀와도 진행 상황과 작업 ID, 로그가 유지됩니다. 상담 답변은 **TF-IDF 검색의 근거 발췌**이며 LLM 생성이 아닙니다.
+
+| 데모 경로 | 확인하는 내용 | 실행 방식 |
 |---|---|---|
-| 원문 변경·중복 요청의 정합성 | [실행 재현](https://sokldjs554.github.io/recheck-ml-serving/#case) | 지금 실행하는 `/evidence/…/execute` 실제 API·SQL |
-| CPU 모델 보호와 정합성 비용 | [모델 부하](https://sokldjs554.github.io/recheck-ml-serving/#serving) | 저장된 `/decisions` 180초 실험과 별도 SQL 경합 측정 |
-| 실패 위치·복구·공개 관측 | [장애 복구](https://sokldjs554.github.io/recheck-ml-serving/#recovery) | 저장된 로컬/Kubernetes 실험, 별도 공개 API 조회 |
+| [실행 재현](https://sokldjs554.github.io/recheck-ml-serving/#case) | 원문 변경 → 차단 → 새 기록 → 멱등 재시도 | 실제 API `/evidence/…/execute` |
+| [모델 부하](https://sokldjs554.github.io/recheck-ml-serving/#serving) | CPU 모델 보호, 과부하·회복, 정합성 비용 | 저장된 로컬 `/decisions` 실험 및 별도 SQL 측정 |
+| [장애 복구](https://sokldjs554.github.io/recheck-ml-serving/#recovery) | 실패 trace·로그·SQL 대조, 복구 후 추론·저장 | 저장된 로컬·Kubernetes 실험, 버튼으로 별도 공개 API 조회 |
 
-상담 체험은 TF-IDF 근거 발췌이며 CPU 부하 실험과 다른 실행 경로입니다. CPU 수치를 상담 성능으로 표시하지 않습니다.
-3분의 개인 실험은 장기 처리 용량이나 SLA 보장이 아닙니다. 무료 공개 API의 첫 응답 65.1초도 [실패한 점검](docs/public-runtime.md)으로 보존했습니다.
+## 전체 시스템 구조
 
-## 바로 실행하기
+**공개 상담 체험과 CPU 모델 부하 실험은 서로 다른 실행 경로입니다.** CPU 부하 실험의 수치를 상담 체험의 성능으로 해석하지 않습니다.
+
+```mermaid
+flowchart TB
+    subgraph public["공개 환경 · 무료 운영"]
+        UI["GitHub Pages · React 데모"]
+        API["Render · Python FastAPI"]
+        Search["TF-IDF 근거 검색 · 모델/인덱스 평가"]
+        Guard["/evidence/.../execute · 세션 잠금 · 검증 · 멱등성"]
+        PG["Neon PostgreSQL · 세션 상태 · 내부 작업 기록"]
+        UI -->|상담 체험 HTTP| API
+        API --> Search
+        API --> Guard
+        Search --> PG
+        Guard -->|같은 SQL 트랜잭션| PG
+    end
+    subgraph local["격리된 로컬 실험 · 공개 서버에 부하를 보내지 않음"]
+        Load["부하 생성기"]
+        LocalAPI["FastAPI · /decisions · 시간 예산"]
+        Model["HTTP 모델 서비스 · 수용 제한 · CPU 프로세스 풀"]
+        LocalPG["로컬 PostgreSQL · 판단 기록"]
+        Observe["OpenTelemetry / Jaeger · Prometheus / 알림"]
+        Load --> LocalAPI
+        LocalAPI --> Model
+        LocalAPI -->|최종 검증 · 저장| LocalPG
+        LocalAPI -.-> Observe
+        Model -.-> Observe
+        K8s["별도 단일 노드 kind · DB Pod 교체 복구 실험"]
+    end
+    Saved["저장된 측정 결과 · trace · SQL 대조"]
+    local -.-> Saved
+    Saved -.->|모델 부하 / 장애 복구 화면| UI
+```
+
+상담 경로의 핵심은 [근거 검증·작업 기록](backend/recheck/evidence.py), CPU 경로의 핵심은 [API](backend/recheck/api.py)·[모델 서비스](backend/recheck/worker.py)·[최종 검증과 저장](backend/recheck/store.py)입니다. 관측 도구와 kind는 로컬 검증 구성입니다. 실패 추적에서는 OpenTelemetry SDK의 OTLP 출력을 수집했고, SQL 영속화는 별도 조회로 대조했습니다.
+
+## 핵심 설계 선택과 측정 결과
+
+### 검증과 기록을 하나의 트랜잭션으로 묶었습니다
+
+문서 변경과 실행이 같은 세션의 잠금을 사용합니다. 잠금 안에서 버전·삭제·만료·배포 버전을 확인하고 작업을 기록합니다. 긴 검색·평가는 잠금 밖에서 수행합니다. 같은 키의 재요청에는 과거 작업을 반환합니다.
+
+SQLite와 PostgreSQL **각각 동일한 9개 사건 순서**를 넣은 비교에서, 오래된 결과를 허용한 횟수는 다음과 같았습니다. 중복 처리는 세 방식에 동일하게 적용했습니다.
+
+| 방식 | 오래된 결과 허용 / 6회 | 정상 결과 오거절 / 3회 | 재시도 중복 기록 / 1회 |
+|---|---:|---:|---:|
+| 생성 당시 결과 신뢰 | 6 / 6 | 0 / 3 | 0 / 1 |
+| 사용 직전 확인 후 별도 기록 | 5 / 6 | 0 / 3 | 0 / 1 |
+| 같은 트랜잭션에서 검증·기록 | 0 / 6 | 0 / 3 | 0 / 1 |
+
+**정합성을 지키는 비용**은 같은 세션의 직렬화와 상태 저장입니다. 별도 로컬 PostgreSQL 직접 호출 실험(54조건 × 3회, 각 4개 동기화 wave)에서 동시 8개·큰 상태·문서 변경 없음일 때, 같은 세션은 **91.89건/s·p95 86.87ms**, 서로 다른 세션은 **111.43건/s·p95 78.64ms**였습니다. HTTP 처리량이 아니며 JSON이나 잠금 하나를 유일한 병목으로 단정하지 않았습니다.
+
+[정합성 계약](docs/action-contract.md) · [세 방식 비교 조건](docs/safety-case-study.md) · [동시 요청·잠금 시간 초과 비교](docs/action-comparison-audit.md) · [경합·변경 빈도·상태 크기별 비용](docs/consistency-costs.md)
+
+### CPU 연산을 격리하고, 받을 수 있는 요청을 제한했습니다
+
+API → HTTP 모델 서비스 → CPU 추론 프로세스 2개 → PostgreSQL을 연결했습니다. 수용량과 시간 예산을 제한하고, 시간 예산이 끝나도 이미 시작한 CPU 작업은 실제 종료할 때까지 슬롯을 점유하게 했습니다. 비용은 프로세스 메모리와 거절·보류되는 요청입니다.
+
+**공유 호스트(CPU quota 4코어)의 격리된 로컬 실험**, 5초 워밍업 이후 **180초** 동안 `30초 정상 10 → 30초 과부하 120 → 30초 정상 10 req/s`를 두 번 반복했습니다.
+
+| 관측 | 결과와 의미 |
+|---|---|
+| 과부하 목표 요청률 | **120 req/s 투입**. 유효 처리량을 뜻하지 않음 |
+| 과부하 유효 응답률 | **약 67.6 req/s**. 예정 시점부터 300ms 이내 도착한 유효 결과 기준 |
+| 과부하 두 구간 | 7,200건 중 유효 4,072 · 보류 2,983 · HTTP 429 144 · HTTP 504 1 |
+| 정상·복귀 네 구간 | 각 300 / 300건 유효. 복귀 직후의 5초 창 2개가 조건을 만족해 10초 시점에 회복 확인 |
+| 자원 비용 | API·모델 최대 합산 RSS 652.6 MiB, 유효 응답당 CPU 41.0ms. DB·부하 생성기는 제외 |
+| 응답과 SQL | 워밍업 포함 HTTP 200 기록 8,305건 일치. 별도 504 한 건도 이미 저장되어 SQL 총 8,306건. 중복·누락·불일치·pending 0건 |
+
+회복 확인 시점은 실제 회복에 걸린 시간과 다릅니다. 세션 만료·기록 개수 제한에는 도달하지 않았습니다. **3분의 관측은 장기 처리 용량이나 SLA 실적이 아닙니다.** 프로세스 격리 효과는 기존 worker 단독 비교로 확인하며 측정 경계가 다른 수치를 합치지 않습니다.
+
+[지속 부하·전체 요청·자원·SQL 원본](docs/fullpath-sustained.md) · [프로세스 격리 비교](docs/compute-experiments.md) · [학습 모델 인계 검증](docs/model-handoff.md)
+
+### HTTP 상태만으로 실패와 복구를 판단하지 않았습니다
+
+로컬 모델 오류 요청 하나의 API→모델 trace·예외 로그·`model_unavailable` 응답을 연결하고, 반환 receipt를 PostgreSQL에서 대조했습니다. 오류를 해제한 다음 요청의 정상 추론·저장도 확인했습니다. HTTP 200인 보류 응답을 유효 추론으로 세지 않습니다.
+
+별도 단일 노드 kind 실험에서는 **DB Pod 교체 → readiness 실패/503 탐지 → 같은 PVC로 재기동 → 정상 추론·새 기록·기존 기록 보존**을 확인했습니다. 첫 실패와 첫 성공의 관측 간격은 2.502초이며 공개 서비스의 복구 실적이 아닙니다. `fence.commit` span은 ORM 커밋 전에 끝나므로 SQL 커밋 시간으로 해석하지 않습니다.
+
+[실패 trace·로그·SQL과 복구 절차](docs/failure-walkthrough.md) · [관측 구성](docs/operations.md) · [Kubernetes 검증](docs/kubernetes.md)
+
+## 본인 역할과 AI 활용
+
+AI와 주제 후보를 비교한 뒤 최종 주제와 진행 방향을 결정했습니다. 초기 결과물을 검토하며 필요한 기능을 추가로 요구하고, 기존 기능의 동작과 구현 범위를 조정했습니다. 의도한 결과가 나오지 않을 때는 관련 프로젝트와 구체적인 예시로 수정 방향을 전달했고, 변경된 결과를 검토해 반영 여부를 판단했습니다.
+
+**코드 작성과 데모 제작은 AI가 주로 담당했습니다.** 위 기술 설명과 측정 결과는 프로젝트에 구현·기록된 내용이며, 제가 직접 설계·코딩·실험을 수행했다는 개인 기여 주장과 구분합니다.
+
+## 실행 방법
 
 ```sh
 git clone https://github.com/sokldjs554/recheck-ml-serving.git
@@ -35,137 +127,37 @@ docker compose up --build
 # http://localhost:8000
 ```
 
-격리된 로컬 부하·경합 실험의 명령과 조건은 [지속 부하](docs/fullpath-sustained.md), [정합성 비용](docs/consistency-costs.md)에 있습니다.
-공개 무료 서버에 부하 실험을 실행하지 않습니다. [공고 요구와 구현·실행·한계](docs/job-coverage.md)
+<details>
+<summary>Docker 없이 실행 · 프런트 개발 · 테스트</summary>
 
-![변경된 원문과 보존한 답변, 실행 차단을 구분하는 실제 API 화면](docs/evidence/replay-instrument.png)
-
-## 먼저 체험할 한 가지
-
-첫 화면 **실행 재현**에서 **전체 과정 실행**을 누르면 아래 과정을 실제 Python API·검색·DB로 실행합니다.
-옆의 **세 방식 비교**에서는 저장된 실제 SQL 실험의 사건·데이터베이스를 골라 결과를 비교합니다.
-답변 아래 버튼으로 한 단계씩 실행할 수도 있습니다. 중간 실패 시 해당 단계에 멈추고, 같은 요청으로 재시도합니다.
-완료 후에는 차단된 최초 답변과 갱신한 답변, 동일 작업 ID를 한 화면에서 비교할 수 있습니다.
-비교·상세 화면에 다녀와도 진행 중 요청과 결과·로그를 유지합니다. 화면 복귀는 요청을 재전송하지 않습니다.
-명시적 ‘처음부터’는 새 실행을 시작하며, 서버가 세션 만료를 알리면 과거 근거를 보존하고 재시작을 안내합니다.
-새로고침·탭 닫기 이후 클라이언트 실행 상태 복원은 지원하지 않습니다.
-
-1. **답변 준비:** 가상 문서에서 300만 원이라는 근거를 검색합니다.
-2. **원문 변경:** 한도를 100만 원으로 바꿉니다. 이미 만들어진 답변은 그대로 보존됩니다.
-3. **이전 답변 실행:** 서버가 버전 차이를 확인해 작업 기록을 거절합니다.
-4. **새 근거로 다시 준비:** 모델·인덱스 묶음을 평가·교체하고 현재 문서를 검색합니다.
-5. **내부 작업 기록:** 근거 검증과 작업 기록을 한 DB 트랜잭션으로 처리합니다.
-6. **같은 요청 재시도:** 같은 작업 ID를 반환하며 중복 기록이 생기지 않습니다.
-
-실제 메시지를 발송하거나 송금하지 않습니다. 출력은 TF-IDF 검색의 근거 발췌이며 LLM 생성이 아닙니다.
-첫 연결은 무료 호스트 시작으로 늦어질 수 있습니다. 연결 실패를 성공이나 브라우저 시뮬레이션으로 바꾸지 않습니다.
-보조 메뉴의 **브라우저 시뮬레이션**은 별도로 명시된 브라우저 시뮬레이션이며 **근거 변경 실험**은 자유롭게 조작하는 실제 API 실험입니다.
-
-## 핵심 기술 판단: 확인과 실행 사이의 빈틈
-
-사용 직전 확인만 추가해도 충분할 것 같지만, 확인이 끝난 뒤 기록하기 전에 문서가 바뀔 수 있습니다.
-그래서 내부 작업에 대해서는 문서 변경과 같은 세션 행 잠금을 사용하고, 버전·삭제·만료·배포 버전을 확인한 뒤
-같은 트랜잭션에서 불변 작업 기록을 남깁니다. 모델 검색과 평가 같은 긴 작업은 이 잠금 밖에서 수행합니다.
-
-```mermaid
-sequenceDiagram
-    participant UI as 사용 화면
-    participant API as Python API
-    participant DB as SQL 상태와 작업 기록
-    UI->>API: 답변 준비
-    API-->>UI: 근거 v1을 인용한 답변
-    UI->>API: 원문을 v2로 변경
-    API->>DB: 같은 세션 잠금으로 revision 증가
-    UI->>API: v1 답변으로 내부 작업 기록
-    API->>DB: 잠금 → 현재 근거 검사
-    DB-->>API: 근거 변경, 작업 기록 없음
-    API-->>UI: 409 source_changed
-    Note over API,DB: 유효한 새 답변은 검사와 기록을 한 트랜잭션으로 커밋
-```
-
-이는 새 동시성 기법의 발명이 아닙니다. 모델/인덱스 교체, 변경된 근거, 멱등 재시도, 실패 기록을
-한 흐름에서 재현하고 보장 범위를 코드로 확인하는 사례입니다.
-[트랜잭션·멱등성 계약과 한계](docs/action-contract.md)
-
-## 같은 사건을 넣으면 무엇이 달라지는가
-
-SQLite와 PostgreSQL에서 각각 동일한 **9개 고정 사건 순서, 방식별 10회 제출**을 실행했습니다.
-생성 결과 신뢰와 검사 후 실행에도 같은 멱등 처리를 적용해, 검증 시점의 차이만 비교했습니다.
-
-| 방식 | 오래된 결과 허용 / 6회 | 정상 결과 오거절 / 3회 | 중복 기록 / 1회 재시도 |
-|---|---:|---:|---:|
-| 생성 당시 결과 신뢰 | 6 / 6 | 0 / 3 | 0 / 1 |
-| 사용 직전 확인 후 별도 기록 | 5 / 6 | 0 / 3 | 0 / 1 |
-| 검증과 기록을 한 트랜잭션으로 | 0 / 6 | 0 / 3 | 0 / 1 |
-
-두 DB에서 각각 관측된 결과이며 분모를 합치지 않았습니다. 수정·삭제·만료·모델 교체·본문이 돌아오는 ABA·무관한 문서 변경·재시도를 포함합니다.
-별도의 실제 동시성 테스트는 변경/실행 두 가지 잠금 순서와 같은 키의 동시 제출을 검사합니다.
-
-[조건과 전체 결과](docs/safety-case-study.md) · [사건별 원본 JSON](docs/evidence/safety-evaluation.json) · [재현 스크립트](scripts/evaluate_safety.py) · [동시성 테스트](backend/tests/test_evidence_actions.py)
-
-추가로 각 DB에서 **6개 동시 요청 × 3회차 × 5조건**을 세 방식에 동일하게 적용했습니다.
-검사와 기록 사이에 원문을 바꾸면 두 기준선은 각각 3회차 모두 오래된 작업을 기록했고,
-보호된 구현은 해당 요청 18회를 모두 거절했습니다. 정상적인 서로 다른 키 요청 18회와
-근거 변경 후의 과거 작업 재시도 18회는 처리했습니다. 신규 기록과 재시도 응답을 구분해 집계합니다.
-별도로 정상 기록 90회씩의 p50·p95를 측정했습니다.
-실제 DB 잠금을 유지한 시간 초과 조건에서는 처음 실패한 18개 요청과 잠금 해제 후 같은 키로 처리된 재요청을 분리해 보존합니다.
-[감사·비교 조건과 한계](docs/action-comparison-audit.md) · [원본 요청·SQL 기록·시간 표본](docs/evidence/action-workloads.json)
-
-이 수치는 제한된 반례 검증입니다. 실서비스 사고율, 검색 정확도, 일반적인 안전성, 부하 처리 성능으로 해석하지 않습니다.
-
-## 더 깊이 볼 근거
-
-| 질문 | 구현·실험 | 범위 |
-|---|---|---|
-| 모델이 응답하는 사이 입력이 바뀌면? | [추론 예약·최종 검증](backend/recheck/store.py), 멱등 키, 불변 판단 기록 | 실제 금융 원장과는 연결하지 않음 |
-| 요청을 취소하면 CPU도 멈추는가? | [CPU 격리 비교](docs/compute-experiments.md), 실행 슬롯 보존, 지연·goodput·RSS | 합성 CPU 모델, 짧은 공유 호스트 실험 |
-| 모델과 인덱스가 서로 다르면? | [실제 검색·배포 게이트](docs/evidence-release.md) | 가상 문서 4개, 일반 검색 품질 증거 아님 |
-| 학습한 모델이 그대로 서비스되는가? | [모델 인계 검증](docs/model-handoff.md), 새 프로세스 예측 일치·잘못된 배포물 시작 차단 | 합성 모델·신뢰된 자체 산출물, 서명 검증 없음 |
-| 장애와 복구가 보이는가? | [OpenTelemetry·알림](docs/operations.md), [Kubernetes 복구](docs/kubernetes.md) | 단일 호스트 클러스터, DB 교체 오류도 공개 |
-| 사람이 설명 없이 이해하는가? | [사용성 조사 절차](docs/usability-protocol.md) | **실제 참여자 조사 미수행** |
-
-## 실행과 재현
-
-```bash
-git clone https://github.com/sokldjs554/recheck-ml-serving.git
-cd recheck-ml-serving
-docker compose up --build
-# http://localhost:8000
-```
-
-Python으로 실행하려면:
-
-```bash
+```sh
 python3.12 -m venv backend/.venv
 backend/.venv/bin/pip install -r backend/requirements.txt
 backend/.venv/bin/python scripts/serve_demo.py
 # http://localhost:8000
 ```
 
-```bash
+```sh
 PYTHONPATH=backend backend/.venv/bin/python -m pytest backend/tests -q
-backend/.venv/bin/python scripts/evaluate_safety.py --help
-cd demo
-npm ci
-npm test
-npm run build
+npm --prefix demo ci
+npm --prefix demo test
+npm --prefix demo run dev
 ```
 
-프런트 수정 후 Node 24에서 `python scripts/build_demo.py`로 서버용 정적 번들도 갱신합니다.
-CI는 PostgreSQL 테스트, 프런트 테스트, 정적 번들 일치, 공개 주소의 브라우저 동작을 확인합니다.
-[전체 검증 기록](docs/verification.md)
+프런트 수정 후 Node 24에서 `python scripts/build_demo.py`로 서버용 정적 번들을 갱신합니다. CI는 PostgreSQL·프런트 테스트, 번들 일치, 공개 주소의 브라우저 동작을 확인합니다. [검증 명령과 기록](docs/verification.md)
 
-## 개발 방식
+</details>
 
-AI와 협업해 구현한 프로젝트입니다. 설계 선택과 보장 범위는 코드·비교 실험·실행 기록으로 확인할 수 있습니다.
-[기술 선택](docs/decisions.md) · [조사 출처와 한계](docs/research.md)
+부하 실험은 위 상세 문서의 명령으로 격리된 로컬 환경에서만 재현합니다. **공개 무료 서버에는 부하를 보내지 않습니다.**
 
-## 보장하지 않는 것
+## 검증 범위와 한계
 
-실제 은행 정책·거래·고객 데이터, 외부 업무 실행의 원자성, GPU/LLM 운영, 장기간 SLA,
-고객 채택·사업 성과·합격 확률을 주장하지 않습니다. 공개 서버는 인증 없는 제한된 가상 실험이며
-공개 저장소는 Neon PostgreSQL이며 세션은 생성 후 1시간에 만료됩니다. 이미 기록한 작업은 이후 근거가 바뀌어도 과거 기록으로 남습니다.
+- 가상 문서·합성 모델·내부 작업 기록을 사용하는 개인 프로젝트입니다. 실제 은행 정책·거래·고객 데이터와 연결하지 않습니다. 고객 채택이나 사업 성과, 은행 규모의 운영 경험을 주장하지 않습니다.
+- 검색 품질은 가상 문서 4개의 제한된 평가입니다. GPU/LLM 운영, 외부 송금·메시지의 원자성, 장기 SLA를 보장하지 않습니다.
+- 공개 저장소는 Neon PostgreSQL입니다. 세션은 생성 후 1시간에 만료됩니다. 화면 이동 시 결과를 유지하지만 새로고침·탭 닫기 이후의 클라이언트 상태 복원은 지원하지 않습니다.
+- 공개 무료 API의 시작 지연과 실패도 [운영 관측](docs/public-runtime.md)에 남겼습니다. 저장된 측정·시연·브라우저 시뮬레이션은 실시간 API와 구분합니다.
+- PC·모바일의 동작과 배치는 브라우저로 검증합니다. 실제 참여자 사용성 조사는 수행하지 않았으므로 이해도 향상이 입증됐다고 주장하지 않습니다.
+
+[공고 요구 → 구현 → 실행 근거 → 한계](docs/job-coverage.md) · [기술 선택](docs/decisions.md) · [검색·배포 게이트](docs/evidence-release.md) · [전체 검증](docs/verification.md) · [시연·화면 개선과 재현](docs/introduction-update.md) · [조사 출처](docs/research.md)
 
 라이선스: MIT. 번들 폰트는 동봉된 SIL Open Font License를 따릅니다.
-
-[공개 PostgreSQL·운영 관측·전체 경로 부하 검증과 상시 실행 비용](docs/public-runtime.md)

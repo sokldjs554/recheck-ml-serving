@@ -20,6 +20,10 @@ Python/Kotlin/Go 중 하나 이상의 경험을 요구하므로 언어 수를 �
 | 문제 해결·성과 지표 / 기술 선택 설명 | [`benchmark_fullpath_sustained.py`](../scripts/benchmark_fullpath_sustained.py), [`benchmark_consistency_costs.py`](../scripts/benchmark_consistency_costs.py) | 전 시도 분모, 시간 예산 내 유효 응답, uncertain commit·최종 SQL, 지연·자원 비용. [설계 판단](decisions.md) | 실험 지표를 실제 고객 효과·매출·업무 시간 절감으로 바꾸지 않음 |
 | 평가자가 재현할 수 있는 전달 방식 | [`App.tsx`](../demo/src/App.tsx), [`caseFlow.ts`](../demo/src/caseFlow.ts), [`MeasuredReview.tsx`](../demo/src/MeasuredReview.tsx) | [UI 변경·회귀 근거](reviewer-update.md), 세 경로와 원본 링크. 비교 화면 이동 중에도 실행 상태 보존 | 사용자 조사 없이 이해도 향상이 입증됐다고 주장하지 않음. 브라우저 새로고침/닫기 후 클라이언트 상태 복원은 지원하지 않음 |
 
+## 소개 자료의 전달 경로
+
+`da7a26f` 이후 [README와 데모 소개 개선](introduction-update.md)에서 상단 실행 버튼, 실제 로컬 시연 영상, 결과 중심의 부하·복구 화면을 추가했다. 공고 대응 구현과 측정 자체는 재사용했다. [README의 본인 역할과 AI 활용](../README.md#본인-역할과-ai-활용)은 확인된 사용자 역할을 별도로 설명하며 기술 구현 전체를 개인 기여로 표현하지 않는다.
+
 ## 공개 반영 근거
 
 구현 커밋 `0b99e35`의 [공개 브라우저 검사](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/38212388240), [전체 회귀](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/38212388408), [Kubernetes 재검증](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/38212388305)이 모두 통과했다. [배포·검사 기록](evidence/reviewer-public-verification.json). 이 결과는 각 실행의 확인 범위이며 장기 운영 실적이 아니다.

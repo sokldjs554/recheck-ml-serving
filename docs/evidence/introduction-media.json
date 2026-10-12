@@ -1,0 +1,775 @@
+{
+  "recorded_at_utc": "2026-10-12T08:50:09Z",
+  "scope": "Actual local Python API and SQLite; six manually advanced steps, then comparison and return. No intercepted or fabricated API responses. No speed changes.",
+  "responses": [
+    {
+      "url": "http://127.0.0.1:8023/api/sessions",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8023/api/sessions/0f23a786-d039-4386-b54d-3a85f3239d14/evidence",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8023/api/sessions/0f23a786-d039-4386-b54d-3a85f3239d14/evidence/prepare",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8023/api/sessions/0f23a786-d039-4386-b54d-3a85f3239d14/evidence/events",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8023/api/sessions/0f23a786-d039-4386-b54d-3a85f3239d14/evidence",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8023/api/sessions/0f23a786-d039-4386-b54d-3a85f3239d14/evidence/receipts/a99d3fc5-cda4-4dba-a178-3e37c9581d1d/execute",
+      "status": 409
+    },
+    {
+      "url": "http://127.0.0.1:8023/api/sessions/0f23a786-d039-4386-b54d-3a85f3239d14/evidence/releases/evaluate",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8023/api/sessions/0f23a786-d039-4386-b54d-3a85f3239d14/evidence/releases/08b5e3b8-79f6-434b-ba70-6042c04fc048/promote",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8023/api/sessions/0f23a786-d039-4386-b54d-3a85f3239d14/evidence/prepare",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8023/api/sessions/0f23a786-d039-4386-b54d-3a85f3239d14/evidence",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8023/api/sessions/0f23a786-d039-4386-b54d-3a85f3239d14/evidence/receipts/945c4fa3-d63e-456b-b7c2-e99288d8c71d/execute",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8023/api/sessions/0f23a786-d039-4386-b54d-3a85f3239d14/evidence/receipts/945c4fa3-d63e-456b-b7c2-e99288d8c71d/execute",
+      "status": 200
+    }
+  ],
+  "action_id": "a3ccf164-c67c-46e9-8fc7-f51c6aacb9ea",
+  "duration_seconds": 36.36,
+  "width": 1280,
+  "height": 1080,
+  "encoding": "H.264 yuv420p, faststart; silent. Initial 1s of browser startup trimmed; no speed changes or artificial frames.",
+  "session_id": "0f23a786-d039-4386-b54d-3a85f3239d14",
+  "case_events": [
+    {
+      "label": "Python API 연결 · 세션 생성",
+      "at": "2026-10-12T08:49:36.865Z",
+      "data": {
+        "session_id": "0f23a786-d039-4386-b54d-3a85f3239d14",
+        "feature_version": 1,
+        "policy_version": 1,
+        "model_version": "risk-v1"
+      }
+    },
+    {
+      "label": "현재 원문 조회",
+      "at": "2026-10-12T08:49:36.919Z",
+      "data": {
+        "sources": [
+          {
+            "source_id": "transfer",
+            "title": "이체 한도 안내",
+            "text": "하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+            "revision": 1,
+            "deleted": false
+          },
+          {
+            "source_id": "refund",
+            "title": "해외 결제 취소와 환불",
+            "text": "해외 결제 취소 후 환불 처리 기간은 접수일로부터 3영업일입니다. 접수 번호로 진행 상황을 확인합니다.",
+            "revision": 1,
+            "deleted": false
+          },
+          {
+            "source_id": "card",
+            "title": "분실 카드 신고와 재발급",
+            "text": "카드 분실 신고 시 결제가 즉시 정지됩니다. 분실 카드 재발급은 앱에서 신청하며 새 배송지를 확인합니다.",
+            "revision": 1,
+            "deleted": false
+          },
+          {
+            "source_id": "loan",
+            "title": "대출 심사 제출 서류",
+            "text": "대출 심사에는 소득 증빙 서류와 재직 확인 서류를 제출합니다. 발급일로부터 30일 이내의 서류를 사용합니다.",
+            "revision": 1,
+            "deleted": false
+          }
+        ],
+        "active_release": {
+          "release_epoch": 1,
+          "artifact_hash": "6e6894cb19cb08556a8224cb720ea4be45ca1af37e93795ac032d2ec2567e787",
+          "model_hash": "6eff0eba5a8b1d335d36eb07ed6402592b0f090df1fbec636d7eef0fc134f8f4",
+          "index_model_hash": "6eff0eba5a8b1d335d36eb07ed6402592b0f090df1fbec636d7eef0fc134f8f4",
+          "corpus_hash": "f7a7f6467269f987acbb9c33bdee48841619a8b09183eb9c8ad9ad16cdce4eed"
+        },
+        "corpus_hash": "f7a7f6467269f987acbb9c33bdee48841619a8b09183eb9c8ad9ad16cdce4eed",
+        "index_stale": false,
+        "receipts": [],
+        "reports": [],
+        "events": [],
+        "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
+      }
+    },
+    {
+      "label": "300만 원 답변 준비",
+      "at": "2026-10-12T08:49:36.968Z",
+      "data": {
+        "id": "a99d3fc5-cda4-4dba-a178-3e37c9581d1d",
+        "product": "answer",
+        "query": "하루 이체 한도",
+        "output": "하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+        "references": [
+          {
+            "source_id": "transfer",
+            "title": "이체 한도 안내",
+            "text": "하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+            "revision": 1
+          }
+        ],
+        "release_epoch": 1,
+        "artifact_hash": "6e6894cb19cb08556a8224cb720ea4be45ca1af37e93795ac032d2ec2567e787",
+        "created_at": 1791794976.9558272,
+        "expires_at": 1791795096.9558272,
+        "idempotency_key": "78bc0e4f-fe8e-4015-98df-4e2404942688",
+        "request_hash": "ef97a5276cef0b8c39a78614183ba838908b5bba5d76ceeedb5cb86cca572332",
+        "retrieval_ms": 6.320065003819764,
+        "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
+      }
+    },
+    {
+      "label": "원문 변경 이벤트 적용",
+      "at": "2026-10-12T08:49:40.492Z",
+      "data": {
+        "applied": true,
+        "source": {
+          "source_id": "transfer",
+          "title": "이체 한도 안내",
+          "revision": 2,
+          "text": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+          "deleted": false
+        }
+      }
+    },
+    {
+      "label": "변경된 원문 조회",
+      "at": "2026-10-12T08:49:40.522Z",
+      "data": {
+        "sources": [
+          {
+            "source_id": "transfer",
+            "title": "이체 한도 안내",
+            "revision": 2,
+            "text": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+            "deleted": false
+          },
+          {
+            "source_id": "refund",
+            "title": "해외 결제 취소와 환불",
+            "text": "해외 결제 취소 후 환불 처리 기간은 접수일로부터 3영업일입니다. 접수 번호로 진행 상황을 확인합니다.",
+            "revision": 1,
+            "deleted": false
+          },
+          {
+            "source_id": "card",
+            "title": "분실 카드 신고와 재발급",
+            "text": "카드 분실 신고 시 결제가 즉시 정지됩니다. 분실 카드 재발급은 앱에서 신청하며 새 배송지를 확인합니다.",
+            "revision": 1,
+            "deleted": false
+          },
+          {
+            "source_id": "loan",
+            "title": "대출 심사 제출 서류",
+            "text": "대출 심사에는 소득 증빙 서류와 재직 확인 서류를 제출합니다. 발급일로부터 30일 이내의 서류를 사용합니다.",
+            "revision": 1,
+            "deleted": false
+          }
+        ],
+        "active_release": {
+          "release_epoch": 1,
+          "artifact_hash": "6e6894cb19cb08556a8224cb720ea4be45ca1af37e93795ac032d2ec2567e787",
+          "model_hash": "6eff0eba5a8b1d335d36eb07ed6402592b0f090df1fbec636d7eef0fc134f8f4",
+          "index_model_hash": "6eff0eba5a8b1d335d36eb07ed6402592b0f090df1fbec636d7eef0fc134f8f4",
+          "corpus_hash": "f7a7f6467269f987acbb9c33bdee48841619a8b09183eb9c8ad9ad16cdce4eed"
+        },
+        "corpus_hash": "56f99ce511b23f1ccca7dfc4ef3ea8b4394c7110f810075a190fec5337eb1787",
+        "index_stale": true,
+        "receipts": [
+          {
+            "id": "a99d3fc5-cda4-4dba-a178-3e37c9581d1d",
+            "product": "answer",
+            "query": "하루 이체 한도",
+            "output": "하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+            "references": [
+              {
+                "source_id": "transfer",
+                "title": "이체 한도 안내",
+                "text": "하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+                "revision": 1
+              }
+            ],
+            "release_epoch": 1,
+            "artifact_hash": "6e6894cb19cb08556a8224cb720ea4be45ca1af37e93795ac032d2ec2567e787",
+            "created_at": 1791794976.9558272,
+            "expires_at": 1791795096.9558272,
+            "idempotency_key": "78bc0e4f-fe8e-4015-98df-4e2404942688",
+            "request_hash": "ef97a5276cef0b8c39a78614183ba838908b5bba5d76ceeedb5cb86cca572332",
+            "retrieval_ms": 6.320065003819764,
+            "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
+          }
+        ],
+        "reports": [],
+        "events": [
+          {
+            "source_id": "transfer",
+            "revision": 2,
+            "operation": "update",
+            "at": 1791794980.4758234
+          }
+        ],
+        "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
+      }
+    },
+    {
+      "label": "이전 답변 실행 차단",
+      "at": "2026-10-12T08:49:44.059Z",
+      "data": {
+        "status": 409,
+        "detail": "source_changed"
+      }
+    },
+    {
+      "label": "정상 모델·인덱스 쌍 평가",
+      "at": "2026-10-12T08:49:49.186Z",
+      "data": {
+        "candidate": "paired",
+        "passed": true,
+        "failed_gates": [],
+        "recall_at_1": 1,
+        "baseline_recall_at_1": 1,
+        "p95_ms": 0.304169,
+        "sample_count": 24,
+        "samples": [
+          {
+            "query": "하루 이체 한도",
+            "expected_source": "transfer",
+            "actual_source": "transfer",
+            "latency_ms": 0.143346
+          },
+          {
+            "query": "송금 본인 인증",
+            "expected_source": "transfer",
+            "actual_source": "transfer",
+            "latency_ms": 0.143646
+          },
+          {
+            "query": "해외 결제 취소 환불",
+            "expected_source": "refund",
+            "actual_source": "refund",
+            "latency_ms": 0.23837
+          },
+          {
+            "query": "환불 처리 기간",
+            "expected_source": "refund",
+            "actual_source": "refund",
+            "latency_ms": 0.189235
+          },
+          {
+            "query": "분실 카드 재발급",
+            "expected_source": "card",
+            "actual_source": "card",
+            "latency_ms": 0.304169
+          },
+          {
+            "query": "카드 분실 신고",
+            "expected_source": "card",
+            "actual_source": "card",
+            "latency_ms": 0.158218
+          },
+          {
+            "query": "대출 소득 증빙 서류",
+            "expected_source": "loan",
+            "actual_source": "loan",
+            "latency_ms": 0.14566
+          },
+          {
+            "query": "대출 심사 제출 서류",
+            "expected_source": "loan",
+            "actual_source": "loan",
+            "latency_ms": 0.145099
+          },
+          {
+            "query": "하루 이체 한도",
+            "expected_source": "transfer",
+            "actual_source": "transfer",
+            "latency_ms": 0.1458
+          },
+          {
+            "query": "송금 본인 인증",
+            "expected_source": "transfer",
+            "actual_source": "transfer",
+            "latency_ms": 0.190608
+          },
+          {
+            "query": "해외 결제 취소 환불",
+            "expected_source": "refund",
+            "actual_source": "refund",
+            "latency_ms": 0.146131
+          },
+          {
+            "query": "환불 처리 기간",
+            "expected_source": "refund",
+            "actual_source": "refund",
+            "latency_ms": 0.14568
+          },
+          {
+            "query": "분실 카드 재발급",
+            "expected_source": "card",
+            "actual_source": "card",
+            "latency_ms": 0.147793
+          },
+          {
+            "query": "카드 분실 신고",
+            "expected_source": "card",
+            "actual_source": "card",
+            "latency_ms": 0.142675
+          },
+          {
+            "query": "대출 소득 증빙 서류",
+            "expected_source": "loan",
+            "actual_source": "loan",
+            "latency_ms": 0.141814
+          },
+          {
+            "query": "대출 심사 제출 서류",
+            "expected_source": "loan",
+            "actual_source": "loan",
+            "latency_ms": 0.164458
+          },
+          {
+            "query": "하루 이체 한도",
+            "expected_source": "transfer",
+            "actual_source": "transfer",
+            "latency_ms": 0.144568
+          },
+          {
+            "query": "송금 본인 인증",
+            "expected_source": "transfer",
+            "actual_source": "transfer",
+            "latency_ms": 0.142434
+          },
+          {
+            "query": "해외 결제 취소 환불",
+            "expected_source": "refund",
+            "actual_source": "refund",
+            "latency_ms": 0.142685
+          },
+          {
+            "query": "환불 처리 기간",
+            "expected_source": "refund",
+            "actual_source": "refund",
+            "latency_ms": 0.141944
+          },
+          {
+            "query": "분실 카드 재발급",
+            "expected_source": "card",
+            "actual_source": "card",
+            "latency_ms": 0.143506
+          },
+          {
+            "query": "카드 분실 신고",
+            "expected_source": "card",
+            "actual_source": "card",
+            "latency_ms": 0.419152
+          },
+          {
+            "query": "대출 소득 증빙 서류",
+            "expected_source": "loan",
+            "actual_source": "loan",
+            "latency_ms": 0.160041
+          },
+          {
+            "query": "대출 심사 제출 서류",
+            "expected_source": "loan",
+            "actual_source": "loan",
+            "latency_ms": 0.145399
+          }
+        ],
+        "model_index_match": true,
+        "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA",
+        "thresholds": {
+          "min_recall_at_1": 0.9,
+          "max_recall_drop": 0.05,
+          "max_warm_p95_ms": 50
+        },
+        "id": "08b5e3b8-79f6-434b-ba70-6042c04fc048",
+        "corpus_hash": "56f99ce511b23f1ccca7dfc4ef3ea8b4394c7110f810075a190fec5337eb1787",
+        "base_release_epoch": 1,
+        "artifact_hash": "8d3c7fedfae90ff1248ce63b38f2ddfd5c74700f09b2cdbb56e1fdefc77a2cda",
+        "model_hash": "138c4a40adecf45a7f3a340e6b7693ca2a3a1130966041e0a8a7341e20a1ea5c",
+        "index_model_hash": "138c4a40adecf45a7f3a340e6b7693ca2a3a1130966041e0a8a7341e20a1ea5c",
+        "created_at": 1791794989.1776438
+      }
+    },
+    {
+      "label": "검증한 후보 적용",
+      "at": "2026-10-12T08:49:49.243Z",
+      "data": {
+        "release_epoch": 2,
+        "artifact_hash": "8d3c7fedfae90ff1248ce63b38f2ddfd5c74700f09b2cdbb56e1fdefc77a2cda",
+        "model_hash": "138c4a40adecf45a7f3a340e6b7693ca2a3a1130966041e0a8a7341e20a1ea5c",
+        "index_model_hash": "138c4a40adecf45a7f3a340e6b7693ca2a3a1130966041e0a8a7341e20a1ea5c",
+        "corpus_hash": "56f99ce511b23f1ccca7dfc4ef3ea8b4394c7110f810075a190fec5337eb1787"
+      }
+    },
+    {
+      "label": "100만 원 답변 다시 준비",
+      "at": "2026-10-12T08:49:49.298Z",
+      "data": {
+        "id": "945c4fa3-d63e-456b-b7c2-e99288d8c71d",
+        "product": "answer",
+        "query": "하루 이체 한도",
+        "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+        "references": [
+          {
+            "source_id": "transfer",
+            "title": "이체 한도 안내",
+            "text": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+            "revision": 2
+          }
+        ],
+        "release_epoch": 2,
+        "artifact_hash": "8d3c7fedfae90ff1248ce63b38f2ddfd5c74700f09b2cdbb56e1fdefc77a2cda",
+        "created_at": 1791794989.2863488,
+        "expires_at": 1791795109.2863488,
+        "idempotency_key": "0ce427a5-20a4-4341-90ea-e275338ce407",
+        "request_hash": "ef97a5276cef0b8c39a78614183ba838908b5bba5d76ceeedb5cb86cca572332",
+        "retrieval_ms": 2.4449079937767237,
+        "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
+      }
+    },
+    {
+      "label": "새 배포 버전 조회",
+      "at": "2026-10-12T08:49:49.334Z",
+      "data": {
+        "sources": [
+          {
+            "source_id": "transfer",
+            "title": "이체 한도 안내",
+            "revision": 2,
+            "text": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+            "deleted": false
+          },
+          {
+            "source_id": "refund",
+            "title": "해외 결제 취소와 환불",
+            "text": "해외 결제 취소 후 환불 처리 기간은 접수일로부터 3영업일입니다. 접수 번호로 진행 상황을 확인합니다.",
+            "revision": 1,
+            "deleted": false
+          },
+          {
+            "source_id": "card",
+            "title": "분실 카드 신고와 재발급",
+            "text": "카드 분실 신고 시 결제가 즉시 정지됩니다. 분실 카드 재발급은 앱에서 신청하며 새 배송지를 확인합니다.",
+            "revision": 1,
+            "deleted": false
+          },
+          {
+            "source_id": "loan",
+            "title": "대출 심사 제출 서류",
+            "text": "대출 심사에는 소득 증빙 서류와 재직 확인 서류를 제출합니다. 발급일로부터 30일 이내의 서류를 사용합니다.",
+            "revision": 1,
+            "deleted": false
+          }
+        ],
+        "active_release": {
+          "release_epoch": 2,
+          "artifact_hash": "8d3c7fedfae90ff1248ce63b38f2ddfd5c74700f09b2cdbb56e1fdefc77a2cda",
+          "model_hash": "138c4a40adecf45a7f3a340e6b7693ca2a3a1130966041e0a8a7341e20a1ea5c",
+          "index_model_hash": "138c4a40adecf45a7f3a340e6b7693ca2a3a1130966041e0a8a7341e20a1ea5c",
+          "corpus_hash": "56f99ce511b23f1ccca7dfc4ef3ea8b4394c7110f810075a190fec5337eb1787"
+        },
+        "corpus_hash": "56f99ce511b23f1ccca7dfc4ef3ea8b4394c7110f810075a190fec5337eb1787",
+        "index_stale": false,
+        "receipts": [
+          {
+            "id": "945c4fa3-d63e-456b-b7c2-e99288d8c71d",
+            "product": "answer",
+            "query": "하루 이체 한도",
+            "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+            "references": [
+              {
+                "source_id": "transfer",
+                "title": "이체 한도 안내",
+                "text": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+                "revision": 2
+              }
+            ],
+            "release_epoch": 2,
+            "artifact_hash": "8d3c7fedfae90ff1248ce63b38f2ddfd5c74700f09b2cdbb56e1fdefc77a2cda",
+            "created_at": 1791794989.2863488,
+            "expires_at": 1791795109.2863488,
+            "idempotency_key": "0ce427a5-20a4-4341-90ea-e275338ce407",
+            "request_hash": "ef97a5276cef0b8c39a78614183ba838908b5bba5d76ceeedb5cb86cca572332",
+            "retrieval_ms": 2.4449079937767237,
+            "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
+          },
+          {
+            "id": "a99d3fc5-cda4-4dba-a178-3e37c9581d1d",
+            "product": "answer",
+            "query": "하루 이체 한도",
+            "output": "하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+            "references": [
+              {
+                "source_id": "transfer",
+                "title": "이체 한도 안내",
+                "text": "하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+                "revision": 1
+              }
+            ],
+            "release_epoch": 1,
+            "artifact_hash": "6e6894cb19cb08556a8224cb720ea4be45ca1af37e93795ac032d2ec2567e787",
+            "created_at": 1791794976.9558272,
+            "expires_at": 1791795096.9558272,
+            "idempotency_key": "78bc0e4f-fe8e-4015-98df-4e2404942688",
+            "request_hash": "ef97a5276cef0b8c39a78614183ba838908b5bba5d76ceeedb5cb86cca572332",
+            "retrieval_ms": 6.320065003819764,
+            "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
+          }
+        ],
+        "reports": [
+          {
+            "candidate": "paired",
+            "passed": true,
+            "failed_gates": [],
+            "recall_at_1": 1,
+            "baseline_recall_at_1": 1,
+            "p95_ms": 0.304169,
+            "sample_count": 24,
+            "samples": [
+              {
+                "query": "하루 이체 한도",
+                "expected_source": "transfer",
+                "actual_source": "transfer",
+                "latency_ms": 0.143346
+              },
+              {
+                "query": "송금 본인 인증",
+                "expected_source": "transfer",
+                "actual_source": "transfer",
+                "latency_ms": 0.143646
+              },
+              {
+                "query": "해외 결제 취소 환불",
+                "expected_source": "refund",
+                "actual_source": "refund",
+                "latency_ms": 0.23837
+              },
+              {
+                "query": "환불 처리 기간",
+                "expected_source": "refund",
+                "actual_source": "refund",
+                "latency_ms": 0.189235
+              },
+              {
+                "query": "분실 카드 재발급",
+                "expected_source": "card",
+                "actual_source": "card",
+                "latency_ms": 0.304169
+              },
+              {
+                "query": "카드 분실 신고",
+                "expected_source": "card",
+                "actual_source": "card",
+                "latency_ms": 0.158218
+              },
+              {
+                "query": "대출 소득 증빙 서류",
+                "expected_source": "loan",
+                "actual_source": "loan",
+                "latency_ms": 0.14566
+              },
+              {
+                "query": "대출 심사 제출 서류",
+                "expected_source": "loan",
+                "actual_source": "loan",
+                "latency_ms": 0.145099
+              },
+              {
+                "query": "하루 이체 한도",
+                "expected_source": "transfer",
+                "actual_source": "transfer",
+                "latency_ms": 0.1458
+              },
+              {
+                "query": "송금 본인 인증",
+                "expected_source": "transfer",
+                "actual_source": "transfer",
+                "latency_ms": 0.190608
+              },
+              {
+                "query": "해외 결제 취소 환불",
+                "expected_source": "refund",
+                "actual_source": "refund",
+                "latency_ms": 0.146131
+              },
+              {
+                "query": "환불 처리 기간",
+                "expected_source": "refund",
+                "actual_source": "refund",
+                "latency_ms": 0.14568
+              },
+              {
+                "query": "분실 카드 재발급",
+                "expected_source": "card",
+                "actual_source": "card",
+                "latency_ms": 0.147793
+              },
+              {
+                "query": "카드 분실 신고",
+                "expected_source": "card",
+                "actual_source": "card",
+                "latency_ms": 0.142675
+              },
+              {
+                "query": "대출 소득 증빙 서류",
+                "expected_source": "loan",
+                "actual_source": "loan",
+                "latency_ms": 0.141814
+              },
+              {
+                "query": "대출 심사 제출 서류",
+                "expected_source": "loan",
+                "actual_source": "loan",
+                "latency_ms": 0.164458
+              },
+              {
+                "query": "하루 이체 한도",
+                "expected_source": "transfer",
+                "actual_source": "transfer",
+                "latency_ms": 0.144568
+              },
+              {
+                "query": "송금 본인 인증",
+                "expected_source": "transfer",
+                "actual_source": "transfer",
+                "latency_ms": 0.142434
+              },
+              {
+                "query": "해외 결제 취소 환불",
+                "expected_source": "refund",
+                "actual_source": "refund",
+                "latency_ms": 0.142685
+              },
+              {
+                "query": "환불 처리 기간",
+                "expected_source": "refund",
+                "actual_source": "refund",
+                "latency_ms": 0.141944
+              },
+              {
+                "query": "분실 카드 재발급",
+                "expected_source": "card",
+                "actual_source": "card",
+                "latency_ms": 0.143506
+              },
+              {
+                "query": "카드 분실 신고",
+                "expected_source": "card",
+                "actual_source": "card",
+                "latency_ms": 0.419152
+              },
+              {
+                "query": "대출 소득 증빙 서류",
+                "expected_source": "loan",
+                "actual_source": "loan",
+                "latency_ms": 0.160041
+              },
+              {
+                "query": "대출 심사 제출 서류",
+                "expected_source": "loan",
+                "actual_source": "loan",
+                "latency_ms": 0.145399
+              }
+            ],
+            "model_index_match": true,
+            "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA",
+            "thresholds": {
+              "min_recall_at_1": 0.9,
+              "max_recall_drop": 0.05,
+              "max_warm_p95_ms": 50
+            },
+            "id": "08b5e3b8-79f6-434b-ba70-6042c04fc048",
+            "corpus_hash": "56f99ce511b23f1ccca7dfc4ef3ea8b4394c7110f810075a190fec5337eb1787",
+            "base_release_epoch": 1,
+            "artifact_hash": "8d3c7fedfae90ff1248ce63b38f2ddfd5c74700f09b2cdbb56e1fdefc77a2cda",
+            "model_hash": "138c4a40adecf45a7f3a340e6b7693ca2a3a1130966041e0a8a7341e20a1ea5c",
+            "index_model_hash": "138c4a40adecf45a7f3a340e6b7693ca2a3a1130966041e0a8a7341e20a1ea5c",
+            "created_at": 1791794989.1776438
+          }
+        ],
+        "events": [
+          {
+            "source_id": "transfer",
+            "revision": 2,
+            "operation": "update",
+            "at": 1791794980.4758234
+          }
+        ],
+        "scope": "fictional corpus; character TF-IDF cosine search; warm local queries; not LLM or bank SLA"
+      }
+    },
+    {
+      "label": "최신 답변으로 로컬 상담 작업 기록",
+      "at": "2026-10-12T08:49:52.881Z",
+      "data": {
+        "action_id": "a3ccf164-c67c-46e9-8fc7-f51c6aacb9ea",
+        "receipt_id": "945c4fa3-d63e-456b-b7c2-e99288d8c71d",
+        "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+        "committed_at": 1791794992.8591654,
+        "release_epoch": 2,
+        "references": [
+          {
+            "source_id": "transfer",
+            "title": "이체 한도 안내",
+            "text": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+            "revision": 2
+          }
+        ],
+        "scope": "atomic local synthetic support task recording; no external action",
+        "replayed": false
+      }
+    },
+    {
+      "label": "동일 키로 작업 재요청",
+      "at": "2026-10-12T08:49:56.531Z",
+      "data": {
+        "action_id": "a3ccf164-c67c-46e9-8fc7-f51c6aacb9ea",
+        "receipt_id": "945c4fa3-d63e-456b-b7c2-e99288d8c71d",
+        "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+        "committed_at": 1791794992.8591654,
+        "release_epoch": 2,
+        "references": [
+          {
+            "source_id": "transfer",
+            "title": "이체 한도 안내",
+            "text": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+            "revision": 2
+          }
+        ],
+        "scope": "atomic local synthetic support task recording; no external action",
+        "replayed": true
+      }
+    }
+  ],
+  "media_sha256": {
+    "demo/public/media/recheck-poster.webp": "aaeb85c44e20e5cccd70087de3ed45017e5eacc768ad0072fa66b542dd802372",
+    "demo/public/media/recheck-walkthrough.mp4": "2008a049a79066529b5cd44d71601b29d64b3b16b6a04f04e76a2f3858968f73"
+  }
+}

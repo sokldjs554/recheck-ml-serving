@@ -10,6 +10,7 @@ import {
 import { CaseApi } from "./caseApi";
 import type { CaseFlow } from "./caseFlow";
 import "./caseStudy.css";
+import CaseRunButton from "./CaseRunButton";
 
 const compactMedia = "(max-width: 760px)";
 function subscribeLayout(listener: () => void) {
@@ -200,25 +201,7 @@ export default function CaseStudy({
             <ArrowRight size={14} />
           </button>
           {state.step < 6 ? (
-            <button
-              className="case-run"
-              data-testid="case-run-all"
-              disabled={locked || expired || state.sessionExpired}
-              onClick={() => void flow.runAll()}
-            >
-              {state.running ? (
-                <LoaderCircle className="case-spin" size={15} />
-              ) : (
-                <span className="replay-play" aria-hidden="true">
-                  ▶
-                </span>
-              )}
-              {state.running
-                ? "실행 중"
-                : state.step === 0
-                  ? "전체 과정 실행"
-                  : "이어서 실행"}
-            </button>
+            <CaseRunButton flow={flow} />
           ) : (
             <button className="case-run" onClick={download}>
               <Download size={15} />
