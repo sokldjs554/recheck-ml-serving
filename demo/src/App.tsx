@@ -1,5 +1,6 @@
 import CaseRunButton from "./CaseRunButton";
 import RecordedDemo from "./RecordedDemo";
+import servingMeasurements from "./serving-evidence.json";
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
@@ -80,6 +81,13 @@ const diff = (r: Receipt, s: Session) =>
   r.model_version !== s.model_version;
 const money = (n: number) => new Intl.NumberFormat("ko-KR").format(n);
 const short = (s: string) => s.slice(0, 8);
+const overloadPhases = servingMeasurements.sustained.phases.filter(
+  (phase) => phase.name === "overload",
+);
+const overloadGoodRate = (
+  overloadPhases.reduce((sum, phase) => sum + phase.cohort_rates_rps.good, 0) /
+  overloadPhases.length
+).toFixed(1);
 const clock = (s: string) =>
   new Date(s).toLocaleTimeString("ko-KR", { hour12: false });
 const walkthrough = [
@@ -269,14 +277,14 @@ export default function App() {
           ? "unsafe"
           : "clear";
   const statusText = {
-    checking: "현재 정보를 확인하고 있어요",
-    ready: "시나리오를 실행해 보세요",
+    checking: "현재 정보 확인 중",
+    ready: "시나리오 실행 대기",
     review:
       current?.status === "invalidated" || stale
-        ? "정보가 바뀌어 다시 확인이 필요해요"
-        : "추가 확인이 필요해요",
-    unsafe: "오래된 답이 통과했어요",
-    clear: "현재 확인된 주의 신호가 없어요",
+        ? "정보 변경 · 재검증 필요"
+        : "추가 확인 필요",
+    unsafe: "오래된 판단 통과",
+    clear: "현재 주의 신호 없음",
   }[status];
   const mutate = async (kind: Mutation) => {
     const s = sessionRef.current;
@@ -496,7 +504,7 @@ export default function App() {
     story: "설계 배경",
   };
   const pageDescriptions: Record<Tab, string> = {
-    case: "문서가 바뀐 뒤에도 이 답변을 사용해도 될까요? 직접 바꾸고 확인하세요.",
+    case: "원문 변경에 따른 이전 답변 차단과 새 답변 기록을 확인합니다.",
     serving: "저장된 CPU 서빙 실험",
     recovery: "저장된 장애·복구 실험",
     lab: "조건을 바꾸고, 같은 판단을 다시 검증합니다.",
@@ -645,39 +653,42 @@ export default function App() {
             <div className="project-purpose">
               <span>Python ML backend · 개인 실험</span>
               <h1>
-                추론이 끝나도,
+                AI 응답 검증과
                 <br />
-                실행 조건은 바뀝니다.
+                서버 부하 실험
               </h1>
               <p>
-                RECHECK는 오래된 답변의 기록을 차단하고, 모델 부하와 의존 서비스
-                장애에서 서버를 보호하는 방법을 검증합니다.
+                정보가 바뀐 뒤의 답변 기록, 요청이 몰릴 때의 모델 응답,
+                장애 이후의 복구 결과를 확인하는 Python 서버 프로젝트입니다.
               </p>
               <div className="project-start">
                 <CaseRunButton flow={caseFlow} top />
-                <span>실제 API · 가상 상담 데이터 · 6단계</span>
+                <span>실제 API 체험 · 가상 상담 데이터 · 6단계</span>
               </div>
               <RecordedDemo />
             </div>
             <ol className="review-routes">
               <li>
-                <span>직접 실행</span>
-                <strong>답변 이후 원문이 바뀐다면</strong>
-                <p>아래에서 실제 API로 차단과 중복 없는 기록을 확인하세요.</p>
+                <span>실제 API</span>
+                <strong>정보 변경과 답변 기록</strong>
+                <p>이전 답변 차단 → 새 답변 기록 → 동일 요청 재시도</p>
               </li>
               <li>
                 <span>저장된 측정</span>
                 <a href="#serving">
-                  요청이 처리량을 넘어선다면 <ArrowUpRight size={16} />
+                  요청 증가와 서버 응답 <ArrowUpRight size={16} />
                 </a>
-                <p>CPU 모델의 지속 부하·거절·회복과 정합성 비용</p>
+                <p>
+                  과부하 목표 초당 {overloadPhases[0].target_rps}건 · 유효 응답 약 {overloadGoodRate}건/초
+                  <small>180초 로컬 실험 중 과부하 구간 · {servingMeasurements.sustained.settings.deadline_ms}ms 이내 기준</small>
+                </p>
               </li>
               <li>
                 <span>저장된 추적</span>
                 <a href="#recovery">
-                  어디서 실패했고 어떻게 복구했나 <ArrowUpRight size={16} />
+                  장애 원인과 복구 결과 <ArrowUpRight size={16} />
                 </a>
-                <p>실패 trace, SQL 기록, 장애 주입 후 정상 추론</p>
+                <p>모델 실패 → 보류 기록 → SQL 대조 · 별도 Kubernetes 복구</p>
               </li>
             </ol>
           </section>
@@ -1384,7 +1395,7 @@ export default function App() {
             ) : (
               <div className="large-empty">
                 <span className="empty-number">00</span>
-                <h3>아직 판단 기록이 없습니다.</h3>
+                <h3>판단 기록 없음</h3>
                 <p>
                   데모에서 판단을 요청하면 사용한 정보와 결과를 확인할 수
                   있습니다.
@@ -1407,7 +1418,7 @@ export default function App() {
             <div className="section-heading">
               <div>
                 <span className="eyebrow">요청 흐름과 검증 위치</span>
-                <h2>모델 추론과 최종 검증을 분리했습니다.</h2>
+                <h2>모델 추론과 최종 기록의 처리 구조</h2>
               </div>
               <span>Python / FastAPI</span>
             </div>
@@ -1462,20 +1473,20 @@ export default function App() {
               {[
                 {
                   n: "01",
-                  title: "답이 돌아온 뒤, 다시 읽기",
+                  title: "추론 이후의 최신 정보 재조회",
                   body: "추론을 기다리는 동안 DB 잠금을 잡지 않습니다. 결과가 돌아오면 현재 버전과 스냅샷을 짧은 트랜잭션에서 비교합니다.",
                   trade:
                     "추가 DB 조회의 비용으로, 오래된 결과 발급을 차단합니다.",
                 },
                 {
                   n: "02",
-                  title: "시간 초과도 하나의 결과",
+                  title: "시간 초과와 모델 실패 처리",
                   body: "기본 300ms는 실험 정책입니다. 타임아웃·모델 응답 불가를 숨기지 않고 각각의 원인과 추가 확인 안내로 연결합니다.",
                   trade: "확인 필요 응답을 허용하고, 무제한 대기를 방지합니다.",
                 },
                 {
                   n: "03",
-                  title: "기술보다 먼저 재현 가능한 증거",
+                  title: "시뮬레이션과 실제 서버의 검증 범위",
                   body: "합성 규칙으로 동작하는 브라우저 모드와 실제 Python 추론을 구분합니다. 구성 파일과 실측·검증 기록도 구분해 설명합니다.",
                   trade:
                     "Redis·Kafka 없이 시작하고, 측정 근거가 생길 때 확장합니다.",
@@ -1524,22 +1535,22 @@ export default function App() {
               {[
                 {
                   n: "01",
-                  title: "반복되는 증상을 재현하기",
+                  title: "오류 재현",
                   text: "‘가끔 틀린다’를 ‘추론 중 정보가 바뀌면 틀린다’로 좁힙니다.",
                 },
                 {
                   n: "02",
-                  title: "서로 다른 해결책을 비교하기",
+                  title: "해결 방식별 결과 비교",
                   text: "긴 잠금, 결과 폐기, 사용 시점 재검증의 비용과 복잡도를 따집니다.",
                 },
                 {
                   n: "03",
-                  title: "선택을 코드와 테스트로 남기기",
+                  title: "구현과 회귀 검증",
                   text: "버전 스냅샷과 최종 재검증을 연결하고, 세션 격리와 경쟁 조건을 검증합니다.",
                 },
                 {
                   n: "04",
-                  title: "검증 범위를 명시하기",
+                  title: "검증 범위와 한계",
                   text: "브라우저 모사와 실제 API 측정을 구분하고, 고정 반례의 결과를 일반 사고율로 환산하지 않습니다.",
                 },
               ].map((item) => (
@@ -1554,7 +1565,7 @@ export default function App() {
             </div>
             <div className="ownership-next">
               <span className="eyebrow">설계 검증</span>
-              <h3>검사와 기록 사이에 변경을 넣으면</h3>
+              <h3>검사와 기록 사이의 정보 변경</h3>
               <p>
                 검사 직후에 원문을 바꾸면 별도 재검증 방식도 오래된 답변을
                 기록할 수 있습니다. 같은 트랜잭션에서 검사와 기록을 수행하는

@@ -11,11 +11,12 @@ parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--base',default='http://127.0.0.1:5178')
 parser.add_argument('--api',default='http://127.0.0.1:8023')
 parser.add_argument('--output',type=Path,default=Path('work/recording'))
+parser.add_argument('--browser-executable',default='/usr/bin/chromium')
 args=parser.parse_args()
 root=Path(__file__).resolve().parents[1];out=args.output;out.mkdir(parents=True,exist_ok=True)
 (root/'demo/public/media').mkdir(parents=True,exist_ok=True)
 with sync_playwright() as p:
-    browser=p.chromium.launch(executable_path='/usr/bin/chromium', args=['--no-sandbox','--disable-dev-shm-usage'])
+    browser=p.chromium.launch(executable_path=args.browser_executable, args=['--no-sandbox','--disable-dev-shm-usage'])
     context=browser.new_context(viewport={'width':1280,'height':1080},record_video_dir=str(out),record_video_size={'width':1280,'height':1080})
     context.add_init_script('localStorage.setItem("recheck-api-base", ' + json.dumps(args.api) + ')')
     page=context.new_page(); responses=[]

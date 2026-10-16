@@ -273,7 +273,7 @@ export default function CaseStudy({
             <span className="case-route-label">
               실시간 API · /evidence/…/execute
             </span>
-            <h2>300만 원이라고 답한 뒤, 한도가 바뀌었습니다.</h2>
+            <h2>이체 한도 변경과 이전 답변 차단</h2>
             <p>
               300만 → 100만 원 변경을 적용하고, 이전 답변의 기록이 차단되는지
               확인합니다.
@@ -485,6 +485,19 @@ export default function CaseStudy({
                   ? "409 / source_changed"
                   : "검증 후 서버 응답 표시"}
             </code>
+            <p className="replay-result-guide">
+              {state.action
+                ? state.action.replayed
+                  ? "같은 요청 키의 재시도: 아래 작업 ID로 기존 기록과 비교"
+                  : "현재 원문과 답변의 일치 확인 후 작업 기록 생성"
+                : blocked && !state.freshReceipt
+                  ? "차단 이유: 답변의 300만 원과 현재 한도 100만 원의 불일치"
+                  : mismatched
+                    ? "비교 대상: 변경 전 답변 300만 원 / 현재 한도 100만 원"
+                    : state.freshReceipt
+                      ? "갱신 결과: 현재 한도 100만 원을 반영한 새 답변"
+                      : "확인 순서: 답변 준비 → 한도 변경 → 기록 차단 → 새 답변 기록"}
+            </p>
           </div>
         </div>
 

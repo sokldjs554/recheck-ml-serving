@@ -56,12 +56,12 @@ export default function ServingEvidence({
         </span>
         <div>
           <h1>
-            {view === "serving" ? "모델의 처리 한계" : "장애에서 다시 추론까지"}
+            {view === "serving" ? "요청 증가와 서버 응답" : "장애 원인과 복구 결과"}
           </h1>
           <p>
             {view === "serving"
-              ? "요청을 더 받으면, 제시간에 끝나는 일은 얼마나 늘어날까."
-              : "프로세스가 살아 있는 것과, 답변을 줄 수 있는 것은 다릅니다."}
+              ? "요청량 증가에 따른 유효 응답·거절과 부하 감소 후 회복 결과"
+              : "모델 오류의 추적·저장 기록과 별도 Kubernetes 복구 실험"}
           </p>
         </div>
       </header>
@@ -138,7 +138,7 @@ export default function ServingEvidence({
               >
                 전체 시도·조건·실패 원본 ↗
               </a>
-              <h3>요청을 더 밀어 넣으면</h3>
+              <h3>요청률별 응답 결과</h3>
               <p>
                 전용 테스트 DB로 분리한 뒤 60·120 req/s를 각각 2초씩 2회
                 실행했습니다. HTTP 200이라도 추론이 보류되면 성공에서 뺐습니다.
@@ -362,7 +362,7 @@ export default function ServingEvidence({
               </a>
             </div>
             <div className="recovery-table-heading">
-              <h2>Kubernetes에서 직접 중단한 것들</h2>
+              <h2>Kubernetes 장애 주입과 복구 기록</h2>
               <span>단일 노드 kind · 저장된 1회 실행</span>
             </div>
             <div
@@ -429,13 +429,13 @@ export default function ServingEvidence({
               className="public-observation"
               aria-label="공개 API 최근 관측"
             >
-              <h2>공개 API 점검에서는 시작 지연이 남았습니다</h2>
+              <h2>공개 API 점검의 처리 시간 초과</h2>
               <p>
                 기능 검증 3 / 3 통과 · 5초 내 완료 {data.public.summary.good} /{" "}
                 {data.public.summary.total}. 첫 표본은{" "}
                 {(data.public.rows[0].duration_ms / 1000).toFixed(1)}초가
-                걸렸습니다. 시작 지연을 제외하지 않아 이 점검은 실패로
-                기록됐습니다.
+                걸렸습니다. 첫 표본을 포함해 이 점검은 시간 기준 실패로
+                기록됐습니다. 단계별 시간이 없어 지연 원인은 확인되지 않았습니다.
               </p>
               <ol>
                 {data.public.rows.map((row, i) => (
@@ -447,7 +447,7 @@ export default function ServingEvidence({
                 ))}
               </ol>
               <p>
-                무료 호스트의 시작 지연을 포함한 실제 외부 점검입니다. 점검
+                실제 외부 점검의 전체 과정 소요 시간입니다. 단일 추론 지연이 아니며 점검
                 사이의 가용성은 알 수 없으며, 저장된 이 실행의 결과를 현재
                 상태나 장기 SLA로 표시하지 않습니다.
               </p>

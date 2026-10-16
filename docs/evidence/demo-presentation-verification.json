@@ -1,0 +1,298 @@
+{
+  "scope": "Local Python API and SQLite. Stored PostgreSQL/Kubernetes evidence is displayed, not rerun by browser checks. No public deployment verification is included here.",
+  "frontend_tests": {
+    "passed": 44
+  },
+  "backend_tests": {
+    "passed": 140,
+    "database": "SQLite",
+    "network_tests": true,
+    "trace_sampler": "always_on",
+    "initial_attempt": {
+      "passed": 136,
+      "failed": 4,
+      "cause": "Inherited OTEL_TRACES_SAMPLER=parentbased_traceidratio and OTEL_TRACES_SAMPLER_ARG=0.01 omitted spans. Same code passed with full sampling."
+    }
+  },
+  "browser_checks": {
+    "case": {
+      "count": 10,
+      "checks": [
+        "top and existing run buttons clicked in one turn create one session and one flow",
+        "one-click actual HTTP run preserves old/new answers and produces exactly one persisted task",
+        "completed compare -> primary execution navigation preserves exact downloaded evidence and action with zero API requests",
+        "held actual HTTP mutation continues while case view is absent; return preserves session, event prefix and one persisted action without duplicate navigation requests",
+        "lost commit response cannot claim success; retry retains original key and displays replay",
+        "actual HTTP: old answer blocked, fresh task recorded, replay returns one historical action, JSON contains actual responses",
+        "390 portrait, 768 tablet, 844 landscape: no horizontal overflow and reset reachable",
+        "network failure clears success and same-step retry completes with actual HTTP",
+        "injected HTTP404 session_missing_or_expired preserves historical evidence across navigation, disables continuation and requires explicit reset for a new real session",
+        "pending controls locked; late session completion after reset does not restore old state"
+      ],
+      "page_errors": []
+    },
+    "browser": {
+      "count": 18,
+      "checks": [
+        {
+          "name": "browser valid receipt then feature change refuses use",
+          "passed": true
+        },
+        {
+          "name": "immutable receipt amount stays unchanged while the next request is pending",
+          "passed": true
+        },
+        {
+          "name": "browser 정책 갱신 refuses stale receipt",
+          "passed": true
+        },
+        {
+          "name": "browser 모델 교체 refuses stale receipt",
+          "passed": true
+        },
+        {
+          "name": "protected inference race invalidates stale result",
+          "passed": true
+        },
+        {
+          "name": "unsafe baseline is visible but validation refuses; JSON download and Escape",
+          "passed": true,
+          "downloaded": "recheck-a74f04d8-f69e-4e86-a882-455c47ed5271.json"
+        },
+        {
+          "name": "browser fault 시간 초과 produces explicit review reason",
+          "passed": true
+        },
+        {
+          "name": "browser fault 응답 불가 produces explicit review reason",
+          "passed": true
+        },
+        {
+          "name": "dated operations evidence and source links are readable on desktop and mobile",
+          "passed": true
+        },
+        {
+          "name": "architecture, design rationale, receipts, and successful guided comparison",
+          "passed": true
+        },
+        {
+          "name": "a previous successful browser validation becomes refusal after actual expiry",
+          "passed": true,
+          "waited_ms": 21000
+        },
+        {
+          "name": "responsive layout without horizontal overflow",
+          "passed": true,
+          "width": 390
+        },
+        {
+          "name": "responsive layout without horizontal overflow",
+          "passed": true,
+          "width": 768
+        },
+        {
+          "name": "responsive layout without horizontal overflow",
+          "passed": true,
+          "width": 1024
+        },
+        {
+          "name": "supporting evidence menu opens by keyboard and all six destinations are focusable on landscape",
+          "passed": true
+        },
+        {
+          "name": "live revalidation waits for mutation response before checking current state",
+          "passed": true
+        },
+        {
+          "name": "live Python HTTP mode validates clear result and refuses feature-stale use",
+          "passed": true
+        },
+        {
+          "name": "no browser page errors",
+          "passed": true
+        }
+      ],
+      "page_errors": []
+    },
+    "evidence": {
+      "count": 12,
+      "checks": [
+        {
+          "name": "real Python connection and isolated persistent session",
+          "passed": true
+        },
+        {
+          "name": "actual retrieval creates a currently usable receipt",
+          "passed": true
+        },
+        {
+          "name": "actual source edit preserves historical output and refuses its use",
+          "passed": true
+        },
+        {
+          "name": "same dimension incompatible model/index cannot deploy",
+          "passed": true
+        },
+        {
+          "name": "computed quality regression fails and real report is downloadable",
+          "passed": true
+        },
+        {
+          "name": "paired rebuild switches atomically and new receipt cites edited content",
+          "passed": true
+        },
+        {
+          "name": "second product reuses the evidence lifecycle",
+          "passed": true
+        },
+        {
+          "name": "deleted evidence cannot be used",
+          "passed": true
+        },
+        {
+          "name": "390/768/1440 responsive layout without document overflow",
+          "passed": true
+        },
+        {
+          "name": "HTTP failure clears previous validation instead of showing success",
+          "passed": true
+        },
+        {
+          "name": "failed document update leaves no stale success assertion",
+          "passed": true
+        },
+        {
+          "name": "pending mutation disables reuse and late completion cannot overwrite a new lab",
+          "passed": true
+        }
+      ],
+      "page_errors": []
+    },
+    "comparison": {
+      "count": 7,
+      "checks": [
+        {
+          "name": "comparison is reachable from the first screen and identifies stored evidence",
+          "passed": true
+        },
+        {
+          "name": "sqlite: stale rejection, selective invalidation, ABA and retry match SQL evidence",
+          "passed": true
+        },
+        {
+          "name": "postgresql: stale rejection, selective invalidation, ABA and retry match SQL evidence",
+          "passed": true
+        },
+        {
+          "name": "contended outcomes and separate normal-path latency have visible denominators",
+          "passed": true
+        },
+        {
+          "name": "real lock-timeout errors remain visible beside separately recorded recovery",
+          "passed": true
+        },
+        {
+          "name": "record inspection never triggers unsafe API execution",
+          "passed": true
+        },
+        {
+          "name": "390/768/1440 layouts fit and native controls are keyboard reachable",
+          "passed": true
+        }
+      ],
+      "page_errors": []
+    },
+    "serving": {
+      "count": 6,
+      "checks": [
+        "model handoff shows startup rejection cases and expandable prediction values",
+        "all request outcomes including late HTTP 200 are visible; boundary and stored evidence are labeled",
+        "serving deep link survives reload",
+        "actual dependency failure and nonzero DB restart errors are retained",
+        "sqlite API journal is fetched and labeled as boot-scoped observations",
+        "back navigation, return to live case, and mobile layouts work"
+      ],
+      "page_errors": []
+    },
+    "presentation": {
+      "count": 4,
+      "checks": [
+        "actual recording decodes while live health request is pending; stored label, live state, and shared controls remain distinct",
+        "1440/768/390/320: top control, expanded recording and case have no page overflow",
+        "serving: visible scope/results, collapsed conditions/raw data, expanded layout and contained table scrolling at four widths",
+        "recovery: visible scope/results, collapsed conditions/raw data, expanded layout and contained table scrolling at four widths"
+      ],
+      "page_errors": []
+    }
+  },
+  "browser_total": 57,
+  "viewport_widths": [
+    1440,
+    768,
+    390,
+    320
+  ],
+  "recording": {
+    "recorded_at_utc": "2026-10-16T03:28:05Z",
+    "scope": "Actual local Python API and SQLite; six manually advanced steps, then comparison and return. No intercepted or fabricated API responses. No speed changes.",
+    "responses": [
+      {
+        "url": "http://127.0.0.1:8000/api/sessions",
+        "status": 200
+      },
+      {
+        "url": "http://127.0.0.1:8000/api/sessions/f4bbfd43-4525-495a-9e31-06ba59ad81ea/evidence",
+        "status": 200
+      },
+      {
+        "url": "http://127.0.0.1:8000/api/sessions/f4bbfd43-4525-495a-9e31-06ba59ad81ea/evidence/prepare",
+        "status": 200
+      },
+      {
+        "url": "http://127.0.0.1:8000/api/sessions/f4bbfd43-4525-495a-9e31-06ba59ad81ea/evidence/events",
+        "status": 200
+      },
+      {
+        "url": "http://127.0.0.1:8000/api/sessions/f4bbfd43-4525-495a-9e31-06ba59ad81ea/evidence",
+        "status": 200
+      },
+      {
+        "url": "http://127.0.0.1:8000/api/sessions/f4bbfd43-4525-495a-9e31-06ba59ad81ea/evidence/receipts/a9188b86-cd6c-4392-bdf2-08d37be60286/execute",
+        "status": 409
+      },
+      {
+        "url": "http://127.0.0.1:8000/api/sessions/f4bbfd43-4525-495a-9e31-06ba59ad81ea/evidence/releases/evaluate",
+        "status": 200
+      },
+      {
+        "url": "http://127.0.0.1:8000/api/sessions/f4bbfd43-4525-495a-9e31-06ba59ad81ea/evidence/releases/1bf9d7c8-db2b-43b8-be48-720a0201e685/promote",
+        "status": 200
+      },
+      {
+        "url": "http://127.0.0.1:8000/api/sessions/f4bbfd43-4525-495a-9e31-06ba59ad81ea/evidence/prepare",
+        "status": 200
+      },
+      {
+        "url": "http://127.0.0.1:8000/api/sessions/f4bbfd43-4525-495a-9e31-06ba59ad81ea/evidence",
+        "status": 200
+      },
+      {
+        "url": "http://127.0.0.1:8000/api/sessions/f4bbfd43-4525-495a-9e31-06ba59ad81ea/evidence/receipts/a6b1998f-eac1-4b1c-bc42-40bc3e6a1b8f/execute",
+        "status": 200
+      },
+      {
+        "url": "http://127.0.0.1:8000/api/sessions/f4bbfd43-4525-495a-9e31-06ba59ad81ea/evidence/receipts/a6b1998f-eac1-4b1c-bc42-40bc3e6a1b8f/execute",
+        "status": 200
+      }
+    ],
+    "action_id": "f9c15cfc-63ff-486b-affc-1948f3467830",
+    "raw_video": "/workspace/scratch/7bd276e35e69/recheck-ml-serving/work/demo-update/recording/dc7d384cd5c3d47007483707d3a112be.webm"
+  },
+  "media": {
+    "source": "http://127.0.0.1:5178/media/recheck-walkthrough.webm",
+    "duration": 35.44,
+    "width": 1280,
+    "height": 1080,
+    "poster": "http://127.0.0.1:5178/media/recheck-poster.webp"
+  }
+}

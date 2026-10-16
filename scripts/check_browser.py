@@ -62,7 +62,7 @@ def main() -> None:
 
         def clear_request() -> None:
             click("새 판단 요청")
-            page.get_by_role("heading", name="현재 확인된 주의 신호가 없어요", exact=True).wait_for()
+            page.get_by_role("heading", name="현재 주의 신호 없음", exact=True).wait_for()
 
         def validate(valid: bool) -> None:
             click("지금 사용 가능한지 확인")
@@ -76,7 +76,7 @@ def main() -> None:
             clear_request()
             validate(True)
             click("수취인 정보 변경")
-            page.get_by_role("heading", name="정보가 바뀌어 다시 확인이 필요해요", exact=True).wait_for()
+            page.get_by_role("heading", name="정보 변경 · 재검증 필요", exact=True).wait_for()
             assert page.locator(".feature-row .snapshot-version").inner_text().strip() == "v1", "Receipt snapshot must remain immutable"
             assert "v2" in page.locator(".feature-row .live-version").inner_text(), "Current version should reflect the actual mutation"
             validate(False)
@@ -114,7 +114,7 @@ def main() -> None:
             click("초기화")
             page.get_by_role("switch", name="정보 변경 재검증").click()
             click("오래된 판단 재현")
-            page.get_by_role("heading", name="오래된 답이 통과했어요", exact=True).wait_for()
+            page.get_by_role("heading", name="오래된 판단 통과", exact=True).wait_for()
             validate(False)
             click("판단 JSON")
             page.get_by_role("dialog", name="판단 기록 원본").wait_for()
@@ -134,7 +134,7 @@ def main() -> None:
                 passed(f"browser fault {fault} produces explicit review reason")
 
             click("서버 설계")
-            page.get_by_role("heading", name="모델 추론과 최종 검증을 분리했습니다.", exact=True).wait_for()
+            page.get_by_role("heading", name="모델 추론과 최종 기록의 처리 구조", exact=True).wait_for()
             page.locator(".storage-line p").filter(has_text="공개 서버: Neon PostgreSQL · 로컬 실험: SQLite / PostgreSQL").wait_for()
             click("설계 배경")
             page.get_by_role("heading", name="오류 재현과 해결책 검증").wait_for()

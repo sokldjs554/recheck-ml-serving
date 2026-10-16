@@ -120,8 +120,8 @@
 .project-intro {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  padding: 48px 0 38px;
+  gap: 56px;
+  padding: 36px 0 30px;
   border-bottom: 1px solid var(--rule);
 }
 .project-purpose > span {
@@ -186,6 +186,13 @@
   font-size: 12px;
   line-height: 1.8;
   color: #596a7c;
+  word-break: keep-all;
+}
+.review-routes p small {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  color: #65758a;
 }
 .return-to-case {
   display: flex;

@@ -303,6 +303,13 @@
   overflow-wrap: anywhere;
   color: #3b5774;
 }
+.replay-gate .replay-result-guide {
+  margin: 12px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid #cdd9e4;
+  font-size: 11px;
+  line-height: 1.8;
+}
 .gate-blocked .replay-gate {
   background: #fff6ec;
 }

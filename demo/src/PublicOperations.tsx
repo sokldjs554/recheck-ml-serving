@@ -25,7 +25,7 @@ export default function PublicOperations() {
   const latest = journal?.samples.at(-1);
   const total = (rows: Counter[], name: string, predicate: (r:Counter) => boolean = () => true) => rows.filter(r => r.name === name && predicate(r)).reduce((sum,r) => sum+r.value,0);
   return <section className="public-observation" aria-label="공개 서버 운영 기록">
-    <h2>공개 서버에 남은 기록</h2>
+    <h2>공개 서버 운영 기록</h2>
     <p>실제 요청이 발생한 구간의 HTTP 응답·모델 실패·준비 상태를 PostgreSQL에 보관합니다. 서버가 다시 시작되어도 이전 관측은 남습니다.</p>
     <p>10월 12일 재배포 검증에서 서버 실행 ID가 바뀐 뒤에도 같은 작업 1개를 그대로 재생했습니다. <a href="https://github.com/sokldjs554/recheck-ml-serving/blob/main/docs/evidence/public-storage-verification.json" target="_blank" rel="noreferrer">재배포 전후 원본 ↗</a></p>
     <button className="operations-load" onClick={load} disabled={busy}>{busy ? '공개 서버에 연결 중…' : '운영 기록 조회'}</button>

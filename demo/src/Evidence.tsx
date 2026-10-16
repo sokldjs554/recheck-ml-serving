@@ -157,7 +157,7 @@ export default function Evidence() {
       <div className="design-decisions evidence-decisions">
         <article>
           <span>01 / 격리</span>
-          <h3>느린 추론이 API를 막지 않게</h3>
+          <h3>CPU 연산과 API 처리 분리</h3>
           <p>
             CPU 작업과 요청 처리를 분리하면 장애 경계도 나뉩니다. 네트워크
             왕복과 프로세스 메모리 비용은 추가로 지불합니다.
@@ -166,7 +166,7 @@ export default function Evidence() {
         </article>
         <article>
           <span>02 / 복제</span>
-          <h3>복제본 수보다 상태의 일관성</h3>
+          <h3>복제본 간 상태 일관성과 확장 비용</h3>
           <p>
             인스턴스를 늘려도 멱등성과 버전 검증은 유지되어야 합니다. 공유
             저장소와 재시작 검증을 함께 확인합니다.
@@ -175,7 +175,7 @@ export default function Evidence() {
         </article>
         <article>
           <span>03 / 비용</span>
-          <h3>한도 안에서 먼저 측정하기</h3>
+          <h3>자원 한도와 측정 범위</h3>
           <p>
             동시 실행과 대기열에 상한을 두고, 지연과 자원 사용을 관측한 뒤
             용량을 늘립니다. 무료 공개 데모에는 시작 지연이 생길 수 있습니다.

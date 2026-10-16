@@ -9,14 +9,20 @@ const n = (value: number) => value.toLocaleString("ko-KR");
 
 export function SustainedReview() {
   const run = data.sustained;
+  const overload = run.phases.filter((phase) => phase.name === "overload");
+  const goodRate = (
+    overload.reduce((sum, phase) => sum + phase.cohort_rates_rps.good, 0) /
+    overload.length
+  ).toFixed(1);
   return (
     <article className="measured-review" data-testid="sustained-review">
       <div className="review-question">
-        <span>실험 질문</span>
-        <h2>부하를 낮추면, 같은 서버가 다시 제시간에 답할까?</h2>
+        <span>지속 부하 실험</span>
+        <h2>정상·과부하·복귀 구간의 응답 결과</h2>
         <p>
-          모델의 HTTP 200만 세면 보류 응답도 성공으로 보입니다. 요청을 예정한
-          시점부터 300ms 안에 도착한 유효 모델 결과를 따로 셌습니다.
+          과부하 구간의 목표는 초당 {overload[0].target_rps}건,
+          {run.settings.deadline_ms}ms 이내 유효 응답은 약 {goodRate}건/초입니다. 부하를 줄인 두 복귀 구간은
+          각각 300건 모두 유효했습니다.
         </p>
       </div>
       <p className="review-scope">
@@ -231,11 +237,11 @@ export function FailureReview() {
   return (
     <article className="measured-review" data-testid="failure-review">
       <div className="review-question">
-        <span>실험 질문</span>
-        <h2>HTTP 200인데 추론이 실패했다면, 어디까지 처리됐을까?</h2>
+        <span>모델 장애 주입</span>
+        <h2>모델 오류와 보류 응답의 저장 기록</h2>
         <p>
-          한 요청의 trace와 로그를 따라가고, 반환된 receipt를 PostgreSQL에서
-          별도로 조회했습니다.
+          HTTP {failed.http_status} 응답이지만 모델 추론은 실패했습니다.
+          유효 응답에서 제외한 보류 기록을 API 로그·모델 예외·SQL로 연결합니다.
         </p>
       </div>
       <p className="review-scope">
@@ -405,7 +411,7 @@ export function ConsistencyReview() {
     >
       <div className="review-question">
         <span>별도 SQL 실험</span>
-        <h2>정합성을 지키기 위해 얼마나 기다리는가?</h2>
+        <h2>동시 요청과 기록 검증의 처리 비용</h2>
         <p>
           세션 잠금과 JSON 저장을 없애기 전에, 경합과 상태 크기에 따른 비용부터
           측정했습니다.

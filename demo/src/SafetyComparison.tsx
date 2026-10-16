@@ -9,7 +9,7 @@ const labels: Record<string, string> = {
 };
 const cases: Record<string, { title: string; note: string }> = {
   current: {
-    title: "아무것도 바뀌지 않았다면",
+    title: "원문 변경 없음",
     note: "유효한 답변으로 새 작업이 기록되어야 합니다.",
   },
   cited_edit_before_check: {
@@ -131,7 +131,7 @@ export default function SafetyComparison() {
           <p className="comparison-kicker" data-testid="comparison-scope">
             저장된 SQL 실행 기록 · {data.measured_at.slice(0, 10)}
           </p>
-          <h2>같은 요청이 어떤 기록으로 남았는가</h2>
+          <h2>동일 요청의 방식별 기록 결과</h2>
           <p>
             사건을 골라 세 방식의 결과를 비교하세요. 각 결과는 실제 DB 실행에서
             가져왔습니다.
