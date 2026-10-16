@@ -159,5 +159,3 @@ npm --prefix demo run dev
 - PC·모바일의 동작과 배치는 브라우저로 검증합니다. 실제 참여자 사용성 조사는 수행하지 않았으므로 이해도 향상이 입증됐다고 주장하지 않습니다.
 
 [공고 요구 → 구현 → 실행 근거 → 한계](docs/job-coverage.md) · [기술 선택](docs/decisions.md) · [검색·배포 게이트](docs/evidence-release.md) · [전체 검증](docs/verification.md) · [시연·화면 개선과 재현](docs/introduction-update.md) · [조사 출처](docs/research.md)
-
-라이선스: MIT. 번들 폰트는 동봉된 SIL Open Font License를 따릅니다.
