@@ -89,3 +89,41 @@ async def test_malformed_health_json_is_recorded_as_failed_probe():
     assert row['ok'] is False
     assert row['failed_step'] == 'health'
     assert row['duration_ms'] >= 0
+
+
+@pytest.mark.asyncio
+async def test_step_timings_identify_slow_request_without_changing_budget(monkeypatch):
+    m = monitor()
+    clock = [0.0]
+    monkeypatch.setattr(m.time, 'perf_counter', lambda: clock[0])
+    original = workflow_transport()
+    def handler(request):
+        clock[0] += 54 if request.url.path == '/health' else .1
+        return original.handle_request(request)
+    async with httpx.AsyncClient(base_url='https://owned.example', transport=httpx.MockTransport(handler)) as client:
+        row = await m.probe(client)
+    assert row['ok'] is True
+    assert row['duration_ms'] == pytest.approx(54500)
+    assert [entry['step'] for entry in row['requests']] == row['steps']
+    assert row['requests'][0] == {'step':'health', 'method':'GET', 'duration_ms':54000.0, 'http_status':200}
+    assert row['requests'][2]['duration_ms'] == pytest.approx(100)
+    assert m.summarize([row], budget_ms=5000)['bad'] == 1
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize('failure', ['timeout', 'http', 'semantic'])
+async def test_failed_request_keeps_its_timing_without_logging_payload_or_url(failure):
+    m = monitor()
+    def handler(request):
+        if failure == 'timeout':
+            raise httpx.ReadTimeout('secret URL and credentials', request=request)
+        return httpx.Response(503 if failure == 'http' else 200, json={'secret':'do not log'})
+    async with httpx.AsyncClient(base_url='https://owned.example', transport=httpx.MockTransport(handler)) as client:
+        row = await m.probe(client)
+    assert row['ok'] is False and row['failed_step'] == 'health'
+    assert len(row['requests']) == 1
+    entry = row['requests'][0]
+    assert entry['step'] == 'health' and entry['duration_ms'] >= 0
+    assert entry['http_status'] == (None if failure == 'timeout' else 503 if failure == 'http' else 200)
+    assert set(entry) <= {'step','method','duration_ms','http_status','error_type'}
+    assert 'secret' not in str(row) and 'owned.example' not in str(row)

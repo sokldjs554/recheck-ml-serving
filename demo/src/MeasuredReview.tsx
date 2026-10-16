@@ -1,3 +1,5 @@
+import { useState } from "react";
+import TraceExplorer from "./TraceExplorer";
 import data from "./serving-evidence.json";
 const docs = "https://github.com/sokldjs554/recheck-ml-serving/blob/main/docs/";
 const names: Record<string, string> = {
@@ -9,6 +11,9 @@ const n = (value: number) => value.toLocaleString("ko-KR");
 
 export function SustainedReview() {
   const run = data.sustained;
+  const [selectedIndex, setSelectedIndex] = useState(1);
+  const selected = run.phases[selectedIndex];
+  const categories = selected.categories as Record<string, number | undefined>;
   const overload = run.phases.filter((phase) => phase.name === "overload");
   const goodRate = (
     overload.reduce((sum, phase) => sum + phase.cohort_rates_rps.good, 0) /
@@ -21,8 +26,8 @@ export function SustainedReview() {
         <h2>정상·과부하·복귀 구간의 응답 결과</h2>
         <p>
           과부하 구간의 목표는 초당 {overload[0].target_rps}건,
-          {run.settings.deadline_ms}ms 이내 유효 응답은 약 {goodRate}건/초입니다. 부하를 줄인 두 복귀 구간은
-          각각 300건 모두 유효했습니다.
+          {run.settings.deadline_ms}ms 이내 유효 응답은 약 {goodRate}
+          건/초입니다. 부하를 줄인 두 복귀 구간은 각각 300건 모두 유효했습니다.
         </p>
       </div>
       <p className="review-scope">
@@ -39,11 +44,14 @@ export function SustainedReview() {
           </p>
           <div
             className="phase-chart"
-            role="img"
-            aria-label="두 회차 모두 정상 구간 300건 전부 유효. 과부하에서는 3600건 중 각각2032건과2040건 유효. 정상 복귀 구간 다시300건 전부 유효."
+            role="group"
+            aria-label="저장된 부하 구간 선택"
           >
             {run.phases.map((phase) => (
-              <div
+              <button
+                data-testid="phase-select"
+                aria-pressed={selectedIndex === phase.index}
+                onClick={() => setSelectedIndex(phase.index)}
                 className={`phase-column phase-${phase.name}`}
                 key={phase.index}
               >
@@ -65,12 +73,67 @@ export function SustainedReview() {
                 <span>
                   {n(phase.good)} / {n(phase.attempted)}
                 </span>
-              </div>
+              </button>
             ))}
           </div>
+          <p className="inspector-caption">
+            막대를 선택해 해당 30초 구간의 응답과 대기열을 확인하세요.
+          </p>
           <p className="chart-key">
             <i /> 목표 요청률 <b /> 300ms 내 유효 응답률 · 각 막대 30초
           </p>
+          <div
+            className="phase-detail"
+            data-testid="phase-detail"
+            aria-live="polite"
+          >
+            <h4>
+              {selected.cycle}회 · {names[selected.name]} ·{" "}
+              {selected.start_seconds}–
+              {selected.start_seconds + selected.duration_seconds}초
+            </h4>
+            <p>
+              예정 요청 {n(selected.attempted)}건 중{" "}
+              <strong>
+                {run.settings.deadline_ms}ms 내 유효 {n(selected.good)}건
+              </strong>{" "}
+              · 목표 {selected.target_rps} req/s
+            </p>
+            <dl>
+              <div>
+                <dt>실제 전송률</dt>
+                <dd>{selected.cohort_rates_rps.sent.toFixed(2)} req/s</dd>
+              </div>
+              <div>
+                <dt>응답 완료 요청률</dt>
+                <dd>{selected.cohort_rates_rps.completed.toFixed(2)} req/s</dd>
+              </div>
+              <div>
+                <dt>유효 응답률</dt>
+                <dd>{selected.cohort_rates_rps.good.toFixed(2)} req/s</dd>
+              </div>
+            </dl>
+            <p>
+              보류 {n(categories.deferred || 0)} · 거절{" "}
+              {n(categories.refused || 0)} · HTTP 504{" "}
+              {n(
+                (selected.http_outcomes as Record<string, number>)["504"] || 0,
+              )}{" "}
+              · 최대 모델 대기 {selected.resources.peak_worker_queue}개
+            </p>
+            <p>
+              전체 결과의 예정 시각 기준 지연 p50 / p95 / p99:{" "}
+              {selected.scheduled_latency_ms.p50.toFixed(1)} /{" "}
+              {selected.scheduled_latency_ms.p95.toFixed(1)} /{" "}
+              {selected.scheduled_latency_ms.p99.toFixed(1)} ms
+            </p>
+            <p className="inspector-caption">
+              위 세 응답률은 이 구간 요청의 마지막 완료까지{" "}
+              {selected.cohort_observed_seconds.toFixed(3)}초를 분모로
+              계산합니다. 완료에는 보류·거절이 포함됩니다. 고정 30초 창의
+              요청률과 생성기 지연은 아래 연결된 원본 JSON에서 별도로 확인할 수 있습니다.
+            </p>
+          </div>
           <p>
             과부하 두 구간 합계 7,200건 중 유효 응답 4,072건.{" "}
             <strong>보류 2,983건 · HTTP 429 거절 144건 · HTTP 504 1건</strong>을
@@ -240,8 +303,8 @@ export function FailureReview() {
         <span>모델 장애 주입</span>
         <h2>모델 오류와 보류 응답의 저장 기록</h2>
         <p>
-          HTTP {failed.http_status} 응답이지만 모델 추론은 실패했습니다.
-          유효 응답에서 제외한 보류 기록을 API 로그·모델 예외·SQL로 연결합니다.
+          HTTP {failed.http_status} 응답이지만 모델 추론은 실패했습니다. 유효
+          응답에서 제외한 보류 기록을 API 로그·모델 예외·SQL로 연결합니다.
         </p>
       </div>
       <p className="review-scope">
@@ -282,6 +345,7 @@ export function FailureReview() {
           </p>
         </div>
       </section>
+      <TraceExplorer />
       <section
         className="recovery-outline"
         aria-label="별도 Kubernetes 복구 관측"

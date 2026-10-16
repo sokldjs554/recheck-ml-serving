@@ -5,6 +5,17 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
+def trace_view(spans):
+    # Subtract integer nanoseconds before JSON reaches JS (where epoch ns exceed
+    # Number.MAX_SAFE_INTEGER). These are recorded spans, not reconstructed SQL.
+    start = min(span['start_ns'] for span in spans)
+    by_id = {span['span_id']: span for span in spans}
+    def depth(span):
+        return 1 + depth(by_id[span['parent_span_id']]) if span['parent_span_id'] in by_id else 0
+    return [dict(span, start_ms=(span['start_ns']-start)/1_000_000,
+                 duration_ms=(span['end_ns']-span['start_ns'])/1_000_000,
+                 depth=depth(span)) for span in spans]
+
 def build():
     def read(name):
         return json.loads((ROOT / 'docs/evidence' / name).read_text())
@@ -33,7 +44,8 @@ def build():
     assert all(cell['sql_reconciled'] for cell in consistency['cells'])
     return dict(consistency=consistency,
         sustained={key: sustained[key] for key in ('measured_at', 'phases', 'settings', 'reconciliation', 'retention', 'cost', 'raw_file', 'raw_sha256')},
-        failure={key: failure[key] for key in ('started_at', 'failed', 'recovered')},
+        failure={**{key: failure[key] for key in ('started_at', 'failed', 'recovered')},
+                 'trace_views': {key: trace_view(failure[key]['exported_spans']) for key in ('failed','recovered')}},
         samples=samples, public=read('public-monitor-2026-10-11.json'), observability=dict(start=observe['started_at'], end=observe['finished_at'],
         trace=checks['exported_cross_service_trace'], probes=checks['dependency_failure_probes'],
         recovered=checks['recovered_inference'],

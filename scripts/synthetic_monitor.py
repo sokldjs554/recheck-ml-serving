@@ -33,23 +33,38 @@ def summarize(rows: list[dict], target: float = .99, budget_ms: float = 5000) ->
 
 
 async def probe(client: httpx.AsyncClient) -> dict:
-    row = {'at': datetime.now(timezone.utc).isoformat(), 'ok': False, 'steps': []}
+    row = {'at': datetime.now(timezone.utc).isoformat(), 'ok': False, 'steps': [], 'requests': []}
     started = time.perf_counter()
     step = 'health'
+    async def request(method: str, path: str, **kwargs) -> httpx.Response:
+        # Client-observed round trip, not a server span or a cold-start diagnosis.
+        # No URLs, request/response bodies or headers are retained.
+        item = {'step': step, 'method': method, 'http_status': None}
+        request_started = time.perf_counter()
+        try:
+            response = await client.request(method, path, **kwargs)
+            item['http_status'] = response.status_code
+            return response
+        except httpx.HTTPError as exc:
+            item['error_type'] = type(exc).__name__
+            raise
+        finally:
+            item['duration_ms'] = round((time.perf_counter() - request_started) * 1000, 3)
+            row['requests'].append(item)
     try:
-        health = await client.get('/health')
+        health = await request('GET', '/health')
         health.raise_for_status()
         info = health.json()
         if not isinstance(info, dict) or any(info.get(k) != v for k,v in {'status':'ok','service':'recheck-api','mode':'live'}.items()):
             raise ValueError('unexpected health identity')
         row['steps'].append(step)
         step = 'session'
-        session = await client.post('/api/sessions', json={})
+        session = await request('POST', '/api/sessions', json={})
         session.raise_for_status()
         prefix = '/api/sessions/' + session.json()['session_id']
         row['steps'].append(step)
         step = 'inference'
-        result = await client.post(prefix + '/decisions', json={
+        result = await request('POST', prefix + '/decisions', json={
             'amount': 150000, 'recipient': 'synthetic-monitor',
             'idempotency_key': str(uuid.uuid4()), 'protected': True,
             'delay_ms': 0, 'fault': 'none'})
@@ -62,20 +77,20 @@ async def probe(client: httpx.AsyncClient) -> dict:
         original_versions = {key: receipt[key] for key in ('feature_version', 'policy_version', 'model_version')}
         step = 'current_validation'
         validation_path = prefix + '/decisions/' + receipt['id'] + '/validate'
-        current = await client.get(validation_path)
+        current = await request('GET', validation_path)
         current.raise_for_status()
         if current.json() != {'valid': True, 'reason': 'current', 'current_versions': original_versions}:
             raise ValueError('new receipt is not currently valid')
         row['steps'].append(step)
         step = 'mutation'
-        changed = await client.post(prefix + '/mutations', json={'kind':'feature'})
+        changed = await request('POST', prefix + '/mutations', json={'kind':'feature'})
         changed.raise_for_status()
         expected_versions = {**original_versions, 'feature_version': original_versions['feature_version'] + 1}
         if changed.json() != expected_versions:
             raise ValueError('mutation did not increment feature version')
         row['steps'].append(step)
         step = 'stale_rejection'
-        checked = await client.get(validation_path)
+        checked = await request('GET', validation_path)
         checked.raise_for_status()
         validation = checked.json()
         if validation != {'valid': False, 'reason': 'versions_changed', 'current_versions': expected_versions}:

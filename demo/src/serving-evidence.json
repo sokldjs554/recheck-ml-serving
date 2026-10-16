@@ -3487,6 +3487,188 @@
       "structured_log": [
         "INFO:recheck:{\"receipt_id\": \"21fe3c1a-28f1-4360-ade8-e88c5ef2a996\", \"session_id\": \"9acab7ac-0359-4c54-b805-9c6b4bb82f53\", \"trace_id\": \"8113074c95987bc85cbe12848382d313\", \"status\": \"clear\", \"reason\": \"no_current_warning\"}"
       ]
+    },
+    "trace_views": {
+      "failed": [
+        {
+          "service": "recheck-api",
+          "trace_id": "6a7b91369b9b3e7d85341d5b6c846e7b",
+          "span_id": "a01004a40a4ef03a",
+          "parent_span_id": "",
+          "name": "decision",
+          "status_code": 2,
+          "status_message": "model_unavailable",
+          "start_ns": 1791784522593595817,
+          "end_ns": 1791784522616935073,
+          "events": [],
+          "start_ms": 0.0,
+          "duration_ms": 23.339256,
+          "depth": 0
+        },
+        {
+          "service": "recheck-api",
+          "trace_id": "6a7b91369b9b3e7d85341d5b6c846e7b",
+          "span_id": "cc8cda9fe75aa516",
+          "parent_span_id": "a01004a40a4ef03a",
+          "name": "snapshot",
+          "status_code": 0,
+          "status_message": "",
+          "start_ns": 1791784522593646824,
+          "end_ns": 1791784522608491865,
+          "events": [],
+          "start_ms": 0.051007,
+          "duration_ms": 14.845041,
+          "depth": 1
+        },
+        {
+          "service": "recheck-api",
+          "trace_id": "6a7b91369b9b3e7d85341d5b6c846e7b",
+          "span_id": "b36ec6cf9809c7a7",
+          "parent_span_id": "a01004a40a4ef03a",
+          "name": "model.http",
+          "status_code": 2,
+          "status_message": "model_unavailable",
+          "start_ns": 1791784522608642472,
+          "end_ns": 1791784522613515678,
+          "events": [],
+          "start_ms": 15.046655,
+          "duration_ms": 4.873206,
+          "depth": 1
+        },
+        {
+          "service": "recheck-worker",
+          "trace_id": "6a7b91369b9b3e7d85341d5b6c846e7b",
+          "span_id": "0483dc21912eaca6",
+          "parent_span_id": "b36ec6cf9809c7a7",
+          "name": "model.infer",
+          "status_code": 2,
+          "status_message": "HTTPException: 503: model_unavailable",
+          "start_ns": 1791784522611243883,
+          "end_ns": 1791784522612353826,
+          "events": [
+            {
+              "name": "exception",
+              "time_ns": 1791784522612335048,
+              "attributes": {
+                "exception.type": "fastapi.exceptions.HTTPException",
+                "exception.message": "503: model_unavailable",
+                "exception.stacktrace": "Traceback (most recent call last):\n  File \"/workspace/work/recheck-review/backend/.venv/lib/python3.12/site-packages/opentelemetry/trace/__init__.py\", line 602, in use_span\n    yield span\n  File \"/workspace/work/recheck-review/backend/.venv/lib/python3.12/site-packages/opentelemetry/sdk/trace/__init__.py\", line 1136, in start_as_current_span\n    yield span\n  File \"/workspace/work/recheck-review/backend/recheck/worker.py\", line 116, in infer\n    score = await asyncio.wait_for(asyncio.shield(task), timeout=max(0, deadline - time.monotonic()))\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/workspace/work/recheck-review/backend/recheck/worker.py\", line 91, in compute\n    raise HTTPException(503, \"model_unavailable\")\nfastapi.exceptions.HTTPException: 503: model_unavailable\n",
+                "exception.escaped": "False"
+              }
+            }
+          ],
+          "start_ms": 17.648066,
+          "duration_ms": 1.109943,
+          "depth": 2
+        },
+        {
+          "service": "recheck-api",
+          "trace_id": "6a7b91369b9b3e7d85341d5b6c846e7b",
+          "span_id": "dbfd1eb25e771205",
+          "parent_span_id": "a01004a40a4ef03a",
+          "name": "fence.commit",
+          "status_code": 0,
+          "status_message": "",
+          "start_ns": 1791784522613656501,
+          "end_ns": 1791784522616894712,
+          "events": [],
+          "start_ms": 20.060684,
+          "duration_ms": 3.238211,
+          "depth": 1
+        }
+      ],
+      "recovered": [
+        {
+          "service": "recheck-api",
+          "trace_id": "8113074c95987bc85cbe12848382d313",
+          "span_id": "ee7c112a79d7951d",
+          "parent_span_id": "",
+          "name": "decision",
+          "status_code": 0,
+          "status_message": "",
+          "start_ns": 1791784522629023117,
+          "end_ns": 1791784522650660582,
+          "events": [],
+          "start_ms": 0.0,
+          "duration_ms": 21.637465,
+          "depth": 0
+        },
+        {
+          "service": "recheck-api",
+          "trace_id": "8113074c95987bc85cbe12848382d313",
+          "span_id": "0faceb6492a4245d",
+          "parent_span_id": "ee7c112a79d7951d",
+          "name": "snapshot",
+          "status_code": 0,
+          "status_message": "",
+          "start_ns": 1791784522629053132,
+          "end_ns": 1791784522635293270,
+          "events": [],
+          "start_ms": 0.030015,
+          "duration_ms": 6.240138,
+          "depth": 1
+        },
+        {
+          "service": "recheck-api",
+          "trace_id": "8113074c95987bc85cbe12848382d313",
+          "span_id": "1caf9d257f931040",
+          "parent_span_id": "ee7c112a79d7951d",
+          "name": "model.http",
+          "status_code": 0,
+          "status_message": "",
+          "start_ns": 1791784522635504448,
+          "end_ns": 1791784522640802811,
+          "events": [],
+          "start_ms": 6.481331,
+          "duration_ms": 5.298363,
+          "depth": 1
+        },
+        {
+          "service": "recheck-worker",
+          "trace_id": "8113074c95987bc85cbe12848382d313",
+          "span_id": "fe85c7cc5c9cc068",
+          "parent_span_id": "1caf9d257f931040",
+          "name": "model.infer",
+          "status_code": 0,
+          "status_message": "",
+          "start_ns": 1791784522637475444,
+          "end_ns": 1791784522638744347,
+          "events": [],
+          "start_ms": 8.452327,
+          "duration_ms": 1.268903,
+          "depth": 2
+        },
+        {
+          "service": "recheck-worker",
+          "trace_id": "8113074c95987bc85cbe12848382d313",
+          "span_id": "0ae486e37c8b4644",
+          "parent_span_id": "fe85c7cc5c9cc068",
+          "name": "model.predict",
+          "status_code": 0,
+          "status_message": "",
+          "start_ns": 1791784522637798021,
+          "end_ns": 1791784522638669474,
+          "events": [],
+          "start_ms": 8.774904,
+          "duration_ms": 0.871453,
+          "depth": 3
+        },
+        {
+          "service": "recheck-api",
+          "trace_id": "8113074c95987bc85cbe12848382d313",
+          "span_id": "e2430d03c712558f",
+          "parent_span_id": "ee7c112a79d7951d",
+          "name": "fence.commit",
+          "status_code": 0,
+          "status_message": "",
+          "start_ns": 1791784522640931344,
+          "end_ns": 1791784522650629024,
+          "events": [],
+          "start_ms": 11.908227,
+          "duration_ms": 9.69768,
+          "depth": 1
+        }
+      ]
     }
   },
   "samples": [

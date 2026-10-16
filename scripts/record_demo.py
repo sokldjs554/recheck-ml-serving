@@ -33,13 +33,18 @@ with sync_playwright() as p:
     page.screenshot(path=str(out/'poster.png'))
     with page.expect_download() as d: page.get_by_role('button',name='사건 기록 JSON',exact=True).click()
     d.value.save_as(str(out/'case.json'))
+    journal = page.get_by_test_id('case-journal')
+    journal.get_by_role('button',name='실행 차단',exact=True).click()
+    journal.scroll_into_view_if_needed();page.wait_for_timeout(2500)
+    journal.get_by_role('button',name='기록·재시도',exact=True).click()
+    journal.scroll_into_view_if_needed();page.wait_for_timeout(3000)
     # Show preserved result through an actual round trip to comparison.
     page.get_by_role('button',name='세 방식 비교',exact=True).click();page.evaluate('scrollTo(0,0)');page.wait_for_timeout(3000)
     page.get_by_role('navigation',name='실험 선택').get_by_role('button',name='실행 재현',exact=True).click()
     assert page.get_by_test_id('case-action').locator('code').inner_text()==action
     case.evaluate('(e)=>e.scrollIntoView({block:"start"})');page.wait_for_timeout(3500)
     video=page.video;context.close();path=Path(video.path());browser.close()
-    (out/'capture.json').write_text(json.dumps({'recorded_at_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'scope':'Actual local Python API and SQLite; six manually advanced steps, then comparison and return. No intercepted or fabricated API responses. No speed changes.','responses':responses,'action_id':action,'raw_video':str(path)},ensure_ascii=False,indent=2))
+    (out/'capture.json').write_text(json.dumps({'recorded_at_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'scope':'Actual local Python API and SQLite; six manually advanced steps, blocked/record/replay journal filters, then comparison and return. No intercepted or fabricated API responses. No speed changes.','responses':responses,'action_id':action,'raw_video':str(path)},ensure_ascii=False,indent=2))
     subprocess.run(['ffmpeg','-y','-ss','1','-i',str(path),'-an','-c:v','libx264','-preset','fast','-crf','23','-pix_fmt','yuv420p','-movflags','+faststart',str(root/'demo/public/media/recheck-walkthrough.mp4')],check=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 
     subprocess.run(['ffmpeg','-y','-i',str(out/'poster.png'),'-quality','85',str(root/'demo/public/media/recheck-poster.webp'),'-loglevel','error'],check=True)

@@ -23,6 +23,8 @@
 
 첫 화면의 **전체 과정 실행**으로 시작하거나 한 단계씩 실행할 수 있습니다. 비교·상세 화면을 다녀와도 진행 상황과 작업 ID, 로그가 유지됩니다. 상담 답변은 **TF-IDF 검색의 근거 발췌**이며 LLM 생성이 아닙니다.
 
+실행 로그에서 **실행 차단 / 기록·재시도**를 골라 차단 사유와 같은 작업 ID를 확인할 수 있습니다. 모델 부하는 **30초 구간별 결과**, 장애 복구는 **실패·오류 해제 후 trace의 개별 단계**를 선택해 원본까지 확인합니다. 이 선택은 저장된 결과를 읽으며 추가 추론을 요청하지 않습니다.
+
 | 데모 경로 | 확인하는 내용 | 실행 방식 |
 |---|---|---|
 | [실행 재현](https://sokldjs554.github.io/recheck-ml-serving/#case) | 원문 변경 → 차단 → 새 기록 → 멱등 재시도 | 실제 API `/evidence/…/execute` |
@@ -158,4 +160,4 @@ npm --prefix demo run dev
 - 공개 API 점검의 시간 기준 실패도 [운영 관측](docs/public-runtime.md)에 남겼습니다. 단계별 시간이 없어 첫 지연의 원인은 미확정입니다. 저장된 측정·시연·브라우저 시뮬레이션은 실시간 API와 구분합니다.
 - PC·모바일의 동작과 배치는 브라우저로 검증합니다. 실제 참여자 사용성 조사는 수행하지 않았으므로 이해도 향상이 입증됐다고 주장하지 않습니다.
 
-[공고 요구 → 구현 → 실행 근거 → 한계](docs/job-coverage.md) · [기술 선택](docs/decisions.md) · [검색·배포 게이트](docs/evidence-release.md) · [전체 검증](docs/verification.md) · [시연·화면 개선과 재현](docs/introduction-update.md) · [조사 출처](docs/research.md)
+[공고 요구 → 구현 → 실행 근거 → 한계](docs/job-coverage.md) · [기술 선택](docs/decisions.md) · [검색·배포 게이트](docs/evidence-release.md) · [전체 검증](docs/verification.md) · [시연·화면 개선과 재현](docs/introduction-update.md) · [조사 출처](docs/research.md) · [유사 프로젝트 9개 비교](docs/comparative-research-2026-10.md) · [결과 탐색·점검 계측 개선](docs/inspection-update.md)

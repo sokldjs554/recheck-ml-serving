@@ -1,0 +1,337 @@
+.inspector-switch {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 10px 0;
+}
+.inspector-switch button {
+  font: inherit;
+  font-size: 12px;
+  background: white;
+  border: 1px solid #d5dce6;
+  border-radius: 3px;
+  color: #435267;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.inspector-switch button[aria-pressed="true"] {
+  background: #203e63;
+  border-color: #203e63;
+  color: white;
+}
+.inspector-switch button:focus-visible,
+.trace-row:focus-visible,
+.phase-column:focus-visible {
+  outline: 3px solid #649be4;
+  outline-offset: 3px;
+}
+.inspector-switch > span {
+  font-size: 11px;
+  color: #536176;
+  margin-inline-start: auto;
+}
+.inspector-caption {
+  font-size: 12px;
+  color: #586579;
+  line-height: 1.7;
+  margin: 6px 0 14px;
+}
+.case-journal .journal-description {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.journal-description strong {
+  font-size: 12px;
+  font-weight: 500;
+}
+.journal-description small {
+  font-size: 10px;
+  color: #61738c;
+}
+.case-journal [data-outcome="blocked"] .journal-description small {
+  color: #a33b28;
+}
+.case-journal [data-outcome="record"] .journal-description small {
+  color: #20644c;
+}
+.journal-identity {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 0 10px 12px 42px;
+  font-size: 11px;
+}
+.journal-identity span {
+  color: #68758a;
+  flex-shrink: 0;
+}
+.journal-identity code {
+  color: #22374e;
+  overflow-wrap: anywhere;
+}
+.inspector-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.inspector-heading h3 {
+  margin: 0;
+  font-size: 17px;
+}
+.inspector-heading > span {
+  font-size: 11px;
+  color: #65758b;
+}
+.trace-explorer {
+  border-block: 1px solid #d7dee7;
+  padding: 24px 0;
+  margin: 20px 0 30px;
+}
+.trace-identity {
+  display: block;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+  color: #50637d;
+  margin: 14px 0;
+}
+.trace-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  border: 1px solid #d7dee7;
+}
+.trace-waterfall {
+  min-width: 0;
+  padding: 16px 12px;
+}
+.trace-scale {
+  display: flex;
+  justify-content: space-between;
+  color: #60748e;
+  font-size: 10px;
+  margin: 0 0 12px;
+}
+.trace-row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 150px minmax(30px, 1fr) 68px;
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+  background: white;
+  border: 0;
+  border-top: 1px solid #e6ebf2;
+  padding: 11px 4px;
+  color: #203148;
+  cursor: pointer;
+  font: inherit;
+}
+.trace-row[aria-pressed="true"] {
+  background: #edf3fa;
+  box-shadow: inset 3px 0 #285d97;
+}
+.trace-row-label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+.trace-row-label strong {
+  font:
+    500 11px ui-monospace,
+    monospace;
+}
+.trace-row-label small {
+  font-size: 9px;
+  color: #64758a;
+}
+.trace-track {
+  position: relative;
+  height: 6px;
+  background: #f0f3f7;
+}
+.trace-track i {
+  position: absolute;
+  height: 6px;
+  min-width: 2px;
+  background: #548783;
+}
+.trace-error .trace-track i {
+  background: #bf604c;
+}
+.trace-duration {
+  font-size: 10px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.span-detail {
+  padding: 18px;
+  background: #f7f9fc;
+  border-left: 1px solid #d7dee7;
+  min-width: 0;
+}
+.span-detail > span {
+  font-size: 11px;
+  color: #5a6e89;
+}
+.span-detail h4 {
+  font:
+    600 16px ui-monospace,
+    monospace;
+  margin: 10px 0;
+}
+.span-detail p {
+  font-size: 12px;
+  line-height: 1.7;
+}
+.span-detail dl {
+  font-size: 11px;
+}
+.span-detail dl > div {
+  display: grid;
+  grid-template-columns: 80px minmax(0, 1fr);
+  gap: 8px;
+  margin: 8px 0;
+}
+.span-detail dt {
+  color: #63748a;
+}
+.span-detail dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.span-detail .span-exception {
+  color: #9b3424;
+  border-left: 2px solid #bf604c;
+  padding-left: 10px;
+  overflow-wrap: anywhere;
+}
+.trace-explorer summary {
+  cursor: pointer;
+  font-size: 12px;
+  color: #35577e;
+  padding: 10px 0;
+}
+.trace-explorer pre {
+  max-height: 280px;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 10px;
+  line-height: 1.7;
+  background: #edf1f7;
+  padding: 12px;
+}
+.trace-reconciliation {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 14px 0;
+  font-size: 11px;
+}
+.trace-reconciliation strong {
+  color: #28604d;
+  font-weight: 600;
+}
+.trace-reconciliation code {
+  overflow-wrap: anywhere;
+}
+.measured-review .phase-column {
+  border: 0;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  padding-bottom: 10px;
+}
+.measured-review .phase-column[aria-pressed="true"] {
+  background: #f0f5fb;
+  border-bottom-color: #285d97;
+}
+.measured-review .phase-column .phase-track {
+  width: 100%;
+}
+.phase-detail {
+  border-left: 3px solid #285d97;
+  background: #f5f8fc;
+  padding: 14px 18px;
+  margin: 12px 0 22px;
+}
+.phase-detail h4 {
+  font-size: 14px;
+  margin: 0 0 8px;
+}
+.phase-detail p {
+  font-size: 12px;
+  margin: 6px 0;
+}
+.phase-detail dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 14px 0;
+}
+.phase-detail dt {
+  font-size: 10px;
+  color: #5d708a;
+}
+.phase-detail dd {
+  font-size: 16px;
+  margin: 5px 0 0;
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 900px) {
+  .trace-workspace {
+    grid-template-columns: 1fr;
+  }
+  .span-detail {
+    border-left: 0;
+    border-top: 1px solid #d7dee7;
+  }
+}
+@media (max-width: 480px) {
+  .trace-waterfall {
+    padding: 12px 6px;
+  }
+  .trace-row {
+    grid-template-columns: 135px minmax(16px, 1fr) 58px;
+    gap: 4px;
+  }
+  .trace-row-label small {
+    font-size: 8px;
+  }
+  .trace-duration {
+    font-size: 9px;
+  }
+  .inspector-switch > span {
+    width: 100%;
+    margin-left: 0;
+  }
+  .journal-identity {
+    padding-left: 28px;
+    gap: 6px;
+  }
+  .phase-detail {
+    padding: 12px;
+  }
+  .phase-detail dl {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .phase-detail dl > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+  .phase-detail dd {
+    margin: 0;
+    font-size: 14px;
+  }
+}

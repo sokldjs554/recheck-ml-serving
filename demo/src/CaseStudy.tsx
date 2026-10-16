@@ -11,6 +11,7 @@ import { CaseApi } from "./caseApi";
 import type { CaseFlow } from "./caseFlow";
 import "./caseStudy.css";
 import CaseRunButton from "./CaseRunButton";
+import CaseJournal from "./CaseJournal";
 
 const compactMedia = "(max-width: 760px)";
 function subscribeLayout(listener: () => void) {
@@ -522,27 +523,7 @@ export default function CaseStudy({
           </div>
           <div className="case-trail" aria-label="실제 API 응답 기록">
             {state.events.length > 0 ? (
-              <ol data-testid="case-events">
-                {state.events.map((event, i) => (
-                  <li key={`${i}-${event.at}`}>
-                    <details>
-                      <summary>
-                        <span className="case-event-order">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                        <span>{event.label}</span>
-                        <time>
-                          {new Date(event.at).toLocaleTimeString("ko-KR", {
-                            hour12: false,
-                          })}
-                        </time>
-                        <ChevronDown size={12} />
-                      </summary>
-                      <pre>{JSON.stringify(event.data, null, 2)}</pre>
-                    </details>
-                  </li>
-                ))}
-              </ol>
+              <CaseJournal events={state.events} />
             ) : (
               <div className="replay-empty-log">
                 <span>—</span>

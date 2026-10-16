@@ -1,0 +1,121 @@
+{
+  "checked_at": "2026-10-17 KST",
+  "baseline": "4bddddad771b7f70bd60f6870673ce3217d0f1a0",
+  "captures": [
+    {
+      "capture": "demo-fetch",
+      "results": [
+        {
+          "url": "https://langfuse.com/docs/demo",
+          "final_url": "https://langfuse.com/docs/demo",
+          "title": "Example Project - Langfuse",
+          "mode": "read-only rendered content extraction; no clicks or input execution",
+          "extracted_characters": 1825
+        },
+        {
+          "url": "https://demo.jaegertracing.io/jaeger/",
+          "final_url": "https://demo.jaegertracing.io/jaeger/search",
+          "title": "Jaeger UI",
+          "mode": "read-only rendered content extraction; no clicks or input execution",
+          "extracted_characters": 209
+        },
+        {
+          "url": "https://demo.jaegertracing.io/hotrod",
+          "final_url": "https://demo.jaegertracing.io/hotrod",
+          "title": "HotROD - Rides On Demand",
+          "mode": "read-only rendered content extraction; no clicks or input execution",
+          "extracted_characters": 175
+        },
+        {
+          "url": "https://phoenix-demo.arize.com/",
+          "final_url": "https://phoenix-demo.arize.com/projects?timeRangeKey=7d",
+          "title": "Arize Phoenix",
+          "mode": "read-only rendered content extraction; no clicks or input execution",
+          "extracted_characters": 552
+        },
+        {
+          "url": "https://sokldjs554.github.io/recheck-ml-serving/#case",
+          "final_url": "https://sokldjs554.github.io/recheck-ml-serving/#case",
+          "title": "RECHECK · AI 응답 검증과 서버 부하 실험",
+          "mode": "read-only rendered content extraction; no clicks or input execution",
+          "extracted_characters": 1165
+        }
+      ],
+      "errors": [
+        {
+          "url": "https://demo.evidentlyai.com/",
+          "error": "timeout"
+        }
+      ]
+    },
+    {
+      "capture": "deep-demo-0",
+      "results": [
+        {
+          "url": "https://phoenix-demo.arize.com/projects/UHJvamVjdDoy?timeRangeKey=7d",
+          "final_url": "https://phoenix-demo.arize.com/projects/UHJvamVjdDoy/spans?timeRangeKey=7d",
+          "title": "Arize Phoenix",
+          "mode": "read-only rendered content extraction; no clicks or input execution",
+          "extracted_characters": 7659
+        },
+        {
+          "url": "https://langfuse.com/cloud/demo/traces",
+          "final_url": "https://langfuse.com/cloud/demo/traces",
+          "title": "Langfuse login",
+          "mode": "read-only rendered content extraction; no clicks or input execution",
+          "extracted_characters": 272
+        },
+        {
+          "url": "https://demo.jaegertracing.io/jaeger/search?service=frontend",
+          "final_url": "https://demo.jaegertracing.io/jaeger/search?service=frontend",
+          "title": "Jaeger UI",
+          "mode": "read-only rendered content extraction; no clicks or input execution",
+          "extracted_characters": 288
+        }
+      ],
+      "errors": [
+        {
+          "url": "https://demo.evidentlyai.com/",
+          "error": "timeout"
+        }
+      ]
+    },
+    {
+      "capture": "deeper-demo",
+      "results": [
+        {
+          "url": "https://phoenix-demo.arize.com/projects/UHJvamVjdDoy/spans/e12dde321d9020770d1eaed27f573d89?timeRangeKey=7d&selectedSpanNodeId=U3Bhbjo0NjAwOA%3D%3D",
+          "final_url": "https://phoenix-demo.arize.com/projects/UHJvamVjdDoy/spans/e12dde321d9020770d1eaed27f573d89?timeRangeKey=7d&selectedSpanNodeId=U3Bhbjo0NjAwOA%3D%3D",
+          "title": "Arize Phoenix",
+          "mode": "read-only rendered content extraction; no clicks or input execution",
+          "extracted_characters": 7659
+        },
+        {
+          "url": "https://cloud.langfuse.com/project/cloramnkj0002jz088vzn1ja4/traces/db22d0a442216b485abd83cc9df6d9ee",
+          "final_url": "https://cloud.langfuse.com/project/cloramnkj0002jz088vzn1ja4/traces/db22d0a442216b485abd83cc9df6d9ee",
+          "title": "Langfuse",
+          "mode": "read-only rendered content extraction; no clicks or input execution",
+          "extracted_characters": 366
+        },
+        {
+          "url": "https://docs.ray.io/en/latest/serve/production-guide/best-practices.html",
+          "final_url": "https://docs.ray.io/en/latest/serve/production-guide/best-practices.html",
+          "title": "Best practices in production — Ray 2.55.1",
+          "mode": "read-only rendered content extraction; no clicks or input execution",
+          "extracted_characters": 9280
+        },
+        {
+          "url": "https://www.promptfoo.dev/docs/usage/web-ui/",
+          "final_url": "https://www.promptfoo.dev/docs/usage/web-ui/",
+          "title": "Using the web viewer | Promptfoo",
+          "mode": "read-only rendered content extraction; no clicks or input execution",
+          "extracted_characters": 3210
+        }
+      ],
+      "errors": []
+    }
+  ],
+  "remote_interactive_execution": false,
+  "video_playback_verified": false,
+  "limitation": "Executor egress policy does not allow demo hosts; no additional paid automation was authorized. Official screenshot assets were visually inspected separately."
+}

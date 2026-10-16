@@ -30,6 +30,9 @@ Python/Kotlin/Go 중 하나 이상의 경험을 요구하므로 언어 수를 �
 
 ## 측정 경계를 섞지 않기
 
+2026-10-17 보완: [유사 프로젝트·데모 비교](comparative-research-2026-10.md)를 바탕으로 로그 필터·부하 구간 선택·실패/복구 span 탐색을 추가했다. [반영·검증 기록](inspection-update.md).
+`scripts/synthetic_monitor.py`는 기존 여섯 HTTP 요청의 단계별 왕복 시간을 남긴다. 새 추론이나 수집 서버를 추가하지 않으며 5초 기준과 실패 보존은 동일하다. [10월 13일 점검 실패](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/38328704268)의 원인은 과거 단계별 시간이 없어 여전히 미확정이다.
+
 - **실시간 상담 정합성**: `/api/sessions/{sid}/evidence/receipts/{id}/execute`. 원문·릴리스 최신성 확인과 내부 작업 기록을 같은 트랜잭션에서 수행한다.
 - **저장된 CPU 전체 경로 부하**: `/api/sessions/{sid}/decisions` → 별도 CPU 모델 → PostgreSQL receipt. 상담 화면의 처리 성능으로 표시하지 않는다.
 - **저장된 worker 단독 비교**: 모델 서버 직접 호출. API·DB가 제외되고 200ms 예산이다. 전체 경로의 300ms 결과와 직접 합산하지 않는다.

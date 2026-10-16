@@ -14,12 +14,13 @@ def main():
     parser.add_argument('--output', type=Path, default=Path('work/presentation-browser'))
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
-    checks, errors = [], []
+    checks, errors, api_requests = [], [], []
     with sync_playwright() as p:
         browser = p.chromium.launch(executable_path=args.browser_executable, args=['--no-sandbox', '--disable-dev-shm-usage'])
         page = browser.new_page(viewport={'width': 1440, 'height': 1000})
         page.add_init_script('localStorage.setItem("recheck-api-base", ' + json.dumps(args.api) + ')')
         page.on('pageerror', lambda error: errors.append(str(error)))
+        page.on('request', lambda request: api_requests.append(request.url) if request.url.startswith(args.api.rstrip('/') + '/') else None)
         page.goto(args.base, wait_until='networkidle')
         assert page.get_by_test_id('case-run-top').is_visible()
         assert page.locator('video').get_attribute('preload') == 'none', 'Do not download the recording before the visitor asks'
@@ -61,6 +62,22 @@ def main():
         page.wait_for_function('document.querySelector("[data-testid=case-study]").dataset.step === "6"', timeout=110000)
         action = page.get_by_test_id('case-action').locator('code').inner_text()
         checks.append('actual recording decodes while live health request is pending; stored label, live state, and shared controls remain distinct')
+        journal = page.get_by_test_id('case-journal')
+        requests_before_inspection = len(api_requests)
+        count = page.get_by_test_id('case-events').locator('li').count()
+        journal.get_by_role('button', name='실행 차단', exact=True).click()
+        assert page.get_by_test_id('case-events').locator('li').count() == 1
+        assert 'source_changed' in journal.inner_text()
+        journal.get_by_role('button', name='기록·재시도', exact=True).click()
+        assert page.get_by_test_id('case-events').locator('li').count() == 2
+        assert journal.inner_text().count(action) == 2
+        assert '새 작업 기록' in journal.inner_text() and '기존 작업 반환' in journal.inner_text()
+        journal.locator('details').first.locator('summary').click()
+        assert action in journal.locator('pre').first.inner_text()
+        journal.get_by_role('button', name='전체', exact=True).click()
+        assert page.get_by_test_id('case-events').locator('li').count() == count
+        assert len(api_requests) == requests_before_inspection, 'Log filters must not send API requests'
+        checks.append('journal filters retain all original events; blocked write and same-ID record/replay are distinguishable')
         for width in (1440, 768, 390, 320):
             page.set_viewport_size({'width':width,'height':960})
             page.evaluate('scrollTo(0,0)')
@@ -74,6 +91,39 @@ def main():
             article=page.get_by_test_id(selector)
             article.locator('.review-scope').wait_for()
             assert article.locator('.review-scope').is_visible()
+            if route == 'serving':
+                selected = page.get_by_test_id('phase-detail')
+                phases = json.loads((Path(__file__).resolve().parents[1] / 'demo/src/serving-evidence.json').read_text())['sustained']['phases']
+                requests_before_inspection = len(api_requests)
+                for i, phase in enumerate(phases):
+                    control = page.get_by_test_id('phase-select').nth(i)
+                    assert control.locator('.phase-track').bounding_box()['width'] > 10
+                    for bar in control.locator('.phase-track > *').all():
+                        assert bar.bounding_box()['width'] > 0 and bar.bounding_box()['height'] > 0
+                    control.focus()
+                    control.press('Enter')
+                    text = selected.inner_text()
+                    assert f"{phase['good']:,}" in text and f"{phase['attempted']:,}" in text
+                    assert f"{phase['cycle']}회" in text
+                    assert f"{phase['cohort_rates_rps']['good']:.2f} req/s" in text
+                    assert control.get_attribute('aria-pressed') == 'true'
+                assert len(api_requests) == requests_before_inspection, 'Stored phases must not send API requests'
+                checks.append('six stored phases can be selected; offered and useful counts stay tied to the selected cohort')
+            else:
+                trace = page.get_by_test_id('trace-explorer')
+                requests_before_inspection = len(api_requests)
+                trace.locator('button[data-span-name="model.infer"]').click()
+                assert '503: model_unavailable' in trace.get_by_test_id('span-detail').inner_text()
+                assert 'recheck-worker' in trace.get_by_test_id('span-detail').inner_text()
+                trace.get_by_test_id('trace-recovered').click()
+                assert trace.locator('button[data-span-name="model.predict"]').count() == 1
+                trace.locator('button[data-span-name="fence.commit"]').click()
+                assert 'SQL 커밋 시간' in trace.get_by_test_id('span-detail').inner_text()
+                assert '21fe3c1a-28f1-4360-ade8-e88c5ef2a996' in trace.inner_text()
+                trace.get_by_test_id('trace-failed').click()
+                assert trace.locator('button[data-span-name="model.predict"]').count() == 0
+                assert len(api_requests) == requests_before_inspection, 'Stored trace inspection must not send API requests'
+                checks.append('captured failure/recovery spans, model exception and matching SQL receipt are inspectable without fabricated DB span')
             details=article.locator(':scope > details')
             for i in range(details.count()):
                 assert not details.nth(i).evaluate('(e)=>e.open')
