@@ -49,3 +49,5 @@ Python/Kotlin/Go 중 하나 이상의 경험을 요구하므로 언어 수를 �
 ## 조사 이후 화면·근거 연결 개선
 
 [심층 재조사](deep-comparative-research-2026-10-17.md) 이후 [데모 업그레이드](workspace-upgrade-2026-10-17.md)에서 결과 중심으로 세 화면을 재배치했다. [`LoadExplorer.tsx`](../demo/src/LoadExplorer.tsx)는 원본 구간의 응답 분류와 저장 후504의 요청·SQL을 연결하고, [`TraceExplorer.tsx`](../demo/src/TraceExplorer.tsx)는 같은 시간축과 span ID 선택으로 실패·복구 근거를 보여준다. 새 성능 측정·모델·인프라 추가가 아니며 이전 측정 한계를 유지한다.
+
+2026-10-17 후속: [새로고침 복원 최종 검증](reload-recovery-2026-10-17.md)에서 공개 78개(기존 60·Chromium 9·macOS WebKit 9) 통과를 확인했다. Linux CI WebKit의 영상 재생 실패는 별도 미해결 항목으로 보존하며 macOS 통과로 대체해 주장하지 않는다. 같은 탭 복원은 클라이언트의 과거 기록이며 실제 실행의 최신성·중복 검증은 서버에서 수행한다.

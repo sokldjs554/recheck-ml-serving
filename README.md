@@ -160,6 +160,6 @@ npm --prefix demo run dev
 - 검색 품질은 가상 문서 4개의 제한된 평가입니다. GPU/LLM 운영, 외부 송금·메시지의 원자성, 장기 SLA를 보장하지 않습니다.
 - 공개 저장소는 Neon PostgreSQL입니다. 세션은 생성 후 1시간에 만료됩니다. 같은 탭의 새로고침은 sessionStorage로 복원하며 ‘처음부터’는 저장 기록도 지웁니다. 복원 화면은 과거 응답이며 현재 서버 상태를 보장하지 않습니다. 탭 종료·다른 기기·브라우저 저장 차단 이후의 복원과 여러 탭의 동기화는 보장하지 않습니다.
 - 공개 API 점검의 시간 기준 실패도 [운영 관측](docs/public-runtime.md)에 남겼습니다. [10/17 조사](docs/operations-2026-10-17.md)에서는 모델 준비 전 조기 종료·재시작을 확인해 수정했습니다. 10/13 지연의 원인은 여전히 미확정이며, 무료 환경의 최초 요청이 5초 이내라고 보장하지 않습니다. 저장된 측정·시연·브라우저 시뮬레이션은 실시간 API와 구분합니다.
-- PC·모바일의 동작과 배치는 브라우저로 검증합니다. 실제 참여자 사용성 조사는 수행하지 않았으므로 이해도 향상이 입증됐다고 주장하지 않습니다.
+- 공개 브라우저 검사 78개는 기존 60개·Chromium 복원 9개·macOS WebKit 복원 9개입니다. **Linux CI의 Playwright WebKit 영상 재생 실패는 남아 있으며**, macOS 통과와 구분해 [원본 결과](docs/reload-recovery-2026-10-17.md)에 보존했습니다. Apple 실기기 Safari와 실제 참여자 사용성 조사는 미검증입니다.
 
 [공고 요구 → 구현 → 실행 근거 → 한계](docs/job-coverage.md) · [기술 선택](docs/decisions.md) · [검색·배포 게이트](docs/evidence-release.md) · [전체 검증](docs/verification.md) · [시연·화면 개선과 재현](docs/introduction-update.md) · [조사 출처](docs/research.md) · [유사 프로젝트 9개 비교](docs/comparative-research-2026-10.md) · [결과 탐색·점검 계측 개선](docs/inspection-update.md)
