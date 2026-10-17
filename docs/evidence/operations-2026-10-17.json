@@ -1,0 +1,897 @@
+{
+  "observed_date_kst": "2026-10-17",
+  "service": "srv-db3rmj3ncjis73bi8fl0",
+  "deployment_commit": "3cc6dc40abacd697f0dbc6f8701f79c5328ff43c",
+  "current_plan": "free",
+  "probes": [
+    {
+      "job_id": 117309335166,
+      "rows": [
+        {
+          "at": "2026-10-17T04:31:38.324045+00:00",
+          "ok": false,
+          "steps": [],
+          "requests": [
+            {
+              "step": "health",
+              "method": "GET",
+              "http_status": null,
+              "error_type": "ReadTimeout",
+              "duration_ms": 90163.206
+            }
+          ],
+          "failed_step": "health",
+          "error_type": "ReadTimeout",
+          "duration_ms": 90163.229
+        },
+        {
+          "at": "2026-10-17T04:33:23.494616+00:00",
+          "ok": true,
+          "steps": [
+            "health",
+            "session",
+            "inference",
+            "current_validation",
+            "mutation",
+            "stale_rejection"
+          ],
+          "requests": [
+            {
+              "step": "health",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 17306.869
+            },
+            {
+              "step": "session",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 323.003
+            },
+            {
+              "step": "inference",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 391.187
+            },
+            {
+              "step": "current_validation",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 271.879
+            },
+            {
+              "step": "mutation",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 284.94
+            },
+            {
+              "step": "stale_rejection",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 278.26
+            }
+          ],
+          "trace_id": "59ab64abeaa55c1dbd9f972f63656d78",
+          "duration_ms": 18856.376
+        },
+        {
+          "at": "2026-10-17T04:33:57.366365+00:00",
+          "ok": true,
+          "steps": [
+            "health",
+            "session",
+            "inference",
+            "current_validation",
+            "mutation",
+            "stale_rejection"
+          ],
+          "requests": [
+            {
+              "step": "health",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 302.688
+            },
+            {
+              "step": "session",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 765.456
+            },
+            {
+              "step": "inference",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 302.096
+            },
+            {
+              "step": "current_validation",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 268.537
+            },
+            {
+              "step": "mutation",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 833.414
+            },
+            {
+              "step": "stale_rejection",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 276.607
+            }
+          ],
+          "trace_id": "e28c469f2568d6c01a527535fdee86fa",
+          "duration_ms": 2749.023
+        },
+        {
+          "total": 3,
+          "good": 1,
+          "bad": 2,
+          "availability": 0.3333333333333333,
+          "target": 0.99,
+          "latency_budget_ms": 5000,
+          "allowed_bad_samples": 0.030000000000000027,
+          "budget_consumed_ratio": 66.66666666666661,
+          "scope": "sampled synthetic workflow, not continuous production uptime",
+          "window_start": "2026-10-17T04:31:38.324045+00:00",
+          "window_end": "2026-10-17T04:34:00.115822+00:00",
+          "interval_seconds": 15
+        }
+      ]
+    },
+    {
+      "job_id": 117246365089,
+      "rows": [
+        {
+          "at": "2026-10-16T23:38:43.887788+00:00",
+          "ok": true,
+          "steps": [
+            "health",
+            "session",
+            "inference",
+            "current_validation",
+            "mutation",
+            "stale_rejection"
+          ],
+          "requests": [
+            {
+              "step": "health",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 63004.742
+            },
+            {
+              "step": "session",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 768.312
+            },
+            {
+              "step": "inference",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 308.096
+            },
+            {
+              "step": "current_validation",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 278.421
+            },
+            {
+              "step": "mutation",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 253.872
+            },
+            {
+              "step": "stale_rejection",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 249.681
+            }
+          ],
+          "trace_id": "312b16bf7319c4b0ced38e854d238d1c",
+          "duration_ms": 64863.297
+        },
+        {
+          "at": "2026-10-16T23:40:03.766466+00:00",
+          "ok": true,
+          "steps": [
+            "health",
+            "session",
+            "inference",
+            "current_validation",
+            "mutation",
+            "stale_rejection"
+          ],
+          "requests": [
+            {
+              "step": "health",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 375.449
+            },
+            {
+              "step": "session",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 270.383
+            },
+            {
+              "step": "inference",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 306.799
+            },
+            {
+              "step": "current_validation",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 289.491
+            },
+            {
+              "step": "mutation",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 286.067
+            },
+            {
+              "step": "stale_rejection",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 281.136
+            }
+          ],
+          "trace_id": "9520a046b79cc2131816c4e28df5dd28",
+          "duration_ms": 1809.481
+        },
+        {
+          "at": "2026-10-16T23:40:20.580811+00:00",
+          "ok": true,
+          "steps": [
+            "health",
+            "session",
+            "inference",
+            "current_validation",
+            "mutation",
+            "stale_rejection"
+          ],
+          "requests": [
+            {
+              "step": "health",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 284.185
+            },
+            {
+              "step": "session",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 273.347
+            },
+            {
+              "step": "inference",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 287.186
+            },
+            {
+              "step": "current_validation",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 269.025
+            },
+            {
+              "step": "mutation",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 278.244
+            },
+            {
+              "step": "stale_rejection",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 294.586
+            }
+          ],
+          "trace_id": "3d6fd1266b79698b51b99fa938001c86",
+          "duration_ms": 1686.754
+        },
+        {
+          "total": 3,
+          "good": 2,
+          "bad": 1,
+          "availability": 0.6666666666666666,
+          "target": 0.99,
+          "latency_budget_ms": 5000,
+          "allowed_bad_samples": 0.030000000000000027,
+          "budget_consumed_ratio": 33.33333333333331,
+          "scope": "sampled synthetic workflow, not continuous production uptime",
+          "window_start": "2026-10-16T23:38:43.887788+00:00",
+          "window_end": "2026-10-16T23:40:22.267908+00:00",
+          "interval_seconds": 15
+        }
+      ]
+    },
+    {
+      "job_id": 117198468586,
+      "rows": [
+        {
+          "at": "2026-10-16T21:13:03.368053+00:00",
+          "ok": true,
+          "steps": [
+            "health",
+            "session",
+            "inference",
+            "current_validation",
+            "mutation",
+            "stale_rejection"
+          ],
+          "requests": [
+            {
+              "step": "health",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 62518.028
+            },
+            {
+              "step": "session",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 255.521
+            },
+            {
+              "step": "inference",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 289.768
+            },
+            {
+              "step": "current_validation",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 215.154
+            },
+            {
+              "step": "mutation",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 214.913
+            },
+            {
+              "step": "stale_rejection",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 233.601
+            }
+          ],
+          "trace_id": "9a35b2f9865230fe84035f2f81349f76",
+          "duration_ms": 63727.229
+        },
+        {
+          "at": "2026-10-16T21:14:22.110708+00:00",
+          "ok": true,
+          "steps": [
+            "health",
+            "session",
+            "inference",
+            "current_validation",
+            "mutation",
+            "stale_rejection"
+          ],
+          "requests": [
+            {
+              "step": "health",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 255.314
+            },
+            {
+              "step": "session",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 213.383
+            },
+            {
+              "step": "inference",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 233.749
+            },
+            {
+              "step": "current_validation",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 211.583
+            },
+            {
+              "step": "mutation",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 216.635
+            },
+            {
+              "step": "stale_rejection",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 213.735
+            }
+          ],
+          "trace_id": "6136dbf86fe55a8e93d3681915f7acfa",
+          "duration_ms": 1344.621
+        },
+        {
+          "at": "2026-10-16T21:14:38.470686+00:00",
+          "ok": true,
+          "steps": [
+            "health",
+            "session",
+            "inference",
+            "current_validation",
+            "mutation",
+            "stale_rejection"
+          ],
+          "requests": [
+            {
+              "step": "health",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 265.374
+            },
+            {
+              "step": "session",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 228.694
+            },
+            {
+              "step": "inference",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 236.957
+            },
+            {
+              "step": "current_validation",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 204.072
+            },
+            {
+              "step": "mutation",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 569.322
+            },
+            {
+              "step": "stale_rejection",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 202.279
+            }
+          ],
+          "trace_id": "3c3a722fbdecdb569491238fcc38610e",
+          "duration_ms": 1706.915
+        },
+        {
+          "total": 3,
+          "good": 2,
+          "bad": 1,
+          "availability": 0.6666666666666666,
+          "target": 0.99,
+          "latency_budget_ms": 5000,
+          "allowed_bad_samples": 0.030000000000000027,
+          "budget_consumed_ratio": 33.33333333333331,
+          "scope": "sampled synthetic workflow, not continuous production uptime",
+          "window_start": "2026-10-16T21:13:03.368053+00:00",
+          "window_end": "2026-10-16T21:14:40.178038+00:00",
+          "interval_seconds": 15
+        }
+      ]
+    }
+  ],
+  "startup_log_excerpt": [
+    {
+      "at": "2026-10-17T04:31:55.202706782Z",
+      "message": "==> Running 'python scripts/serve_demo.py'",
+      "instance": "srv-db3rmj3ncjis73bi8fl0-598kp"
+    },
+    {
+      "at": "2026-10-17T04:32:29.39805168Z",
+      "message": "Model server did not become ready",
+      "instance": "srv-db3rmj3ncjis73bi8fl0-598kp"
+    },
+    {
+      "at": "2026-10-17T04:32:36.090229271Z",
+      "message": "==> Running 'python scripts/serve_demo.py'",
+      "instance": "srv-db3rmj3ncjis73bi8fl0-598kp"
+    },
+    {
+      "at": "2026-10-17T04:33:09.025091252Z",
+      "message": "INFO:     Started server process [41]",
+      "instance": "srv-db3rmj3ncjis73bi8fl0-598kp"
+    },
+    {
+      "at": "2026-10-17T04:33:09.026406571Z",
+      "message": "INFO:     Application startup complete.",
+      "instance": "srv-db3rmj3ncjis73bi8fl0-598kp"
+    },
+    {
+      "at": "2026-10-17T04:33:09.036653341Z",
+      "message": "INFO:     Uvicorn running on http://127.0.0.1:8001 (Press CTRL+C to quit)",
+      "instance": "srv-db3rmj3ncjis73bi8fl0-598kp"
+    },
+    {
+      "at": "2026-10-17T04:33:30.293844473Z",
+      "message": "INFO:     Started server process [48]",
+      "instance": "srv-db3rmj3ncjis73bi8fl0-598kp"
+    },
+    {
+      "at": "2026-10-17T04:33:30.295152711Z",
+      "message": "INFO:     Application startup complete.",
+      "instance": "srv-db3rmj3ncjis73bi8fl0-598kp"
+    },
+    {
+      "at": "2026-10-17T04:33:30.295761594Z",
+      "message": "INFO:     Uvicorn running on http://0.0.0.0:10000 (Press CTRL+C to quit)",
+      "instance": "srv-db3rmj3ncjis73bi8fl0-598kp"
+    }
+  ],
+  "metrics": {
+    "resourceId": "srv-db3rmj3ncjis73bi8fl0",
+    "timeRange": {
+      "start": "2026-10-17T04:30:00Z",
+      "end": "2026-10-17T04:35:00Z"
+    },
+    "metrics": [
+      {
+        "type": "cpu_usage",
+        "data": [
+          {
+            "labels": [
+              {
+                "field": "service",
+                "value": "srv-db3rmj3ncjis73bi8fl0"
+              },
+              {
+                "field": "resource",
+                "value": "srv-db3rmj3ncjis73bi8fl0"
+              },
+              {
+                "field": "instance",
+                "value": "srv-db3rmj3ncjis73bi8fl0-598kp"
+              }
+            ],
+            "unit": "cpu",
+            "values": [
+              {
+                "timestamp": "2026-10-17T04:32:30Z",
+                "value": 0.15
+              },
+              {
+                "timestamp": "2026-10-17T04:33:00Z",
+                "value": 0.0966541
+              },
+              {
+                "timestamp": "2026-10-17T04:33:30Z",
+                "value": 0.14912663
+              },
+              {
+                "timestamp": "2026-10-17T04:34:00Z",
+                "value": 0.055413533
+              },
+              {
+                "timestamp": "2026-10-17T04:34:30Z",
+                "value": 0.0119383335
+              },
+              {
+                "timestamp": "2026-10-17T04:35:00Z",
+                "value": 0.007573
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "memory_usage",
+        "data": [
+          {
+            "labels": [
+              {
+                "field": "instance",
+                "value": "srv-db3rmj3ncjis73bi8fl0-598kp"
+              },
+              {
+                "field": "service",
+                "value": "srv-db3rmj3ncjis73bi8fl0"
+              },
+              {
+                "field": "resource",
+                "value": "srv-db3rmj3ncjis73bi8fl0"
+              }
+            ],
+            "unit": "bytes",
+            "values": [
+              {
+                "timestamp": "2026-10-17T04:32:00Z",
+                "value": 3002368
+              },
+              {
+                "timestamp": "2026-10-17T04:32:30Z",
+                "value": 146530300
+              },
+              {
+                "timestamp": "2026-10-17T04:33:00Z",
+                "value": 84480000
+              },
+              {
+                "timestamp": "2026-10-17T04:33:30Z",
+                "value": 241111040
+              },
+              {
+                "timestamp": "2026-10-17T04:34:00Z",
+                "value": 303865860
+              },
+              {
+                "timestamp": "2026-10-17T04:34:30Z",
+                "value": 305143800
+              },
+              {
+                "timestamp": "2026-10-17T04:35:00Z",
+                "value": 305180670
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "memory_limit",
+        "data": [
+          {
+            "labels": [
+              {
+                "field": "service",
+                "value": "srv-db3rmj3ncjis73bi8fl0"
+              },
+              {
+                "field": "resource",
+                "value": "srv-db3rmj3ncjis73bi8fl0"
+              },
+              {
+                "field": "instance",
+                "value": "srv-db3rmj3ncjis73bi8fl0-598kp"
+              }
+            ],
+            "unit": "bytes",
+            "values": [
+              {
+                "timestamp": "2026-10-17T04:32:30Z",
+                "value": 536870900
+              },
+              {
+                "timestamp": "2026-10-17T04:33:00Z",
+                "value": 536870900
+              },
+              {
+                "timestamp": "2026-10-17T04:33:30Z",
+                "value": 536870900
+              },
+              {
+                "timestamp": "2026-10-17T04:34:00Z",
+                "value": 536870900
+              },
+              {
+                "timestamp": "2026-10-17T04:34:30Z",
+                "value": 536870900
+              },
+              {
+                "timestamp": "2026-10-17T04:35:00Z",
+                "value": 536870900
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "instance_count",
+        "data": []
+      }
+    ]
+  },
+  "scope": "Client round trips and Render app logs. Provider scheduling and individual module import timings were not separately measured.",
+  "local_verification": {
+    "backend": "151 passed in 34.70s",
+    "hosted": {
+      "startup_seconds": 2.775,
+      "health": {
+        "status": "ok",
+        "service": "recheck-api",
+        "mode": "live",
+        "model_service": "http://127.0.0.1:8001",
+        "model_source": "bundle",
+        "bundle_sha256": "cd3d533e1105097680ba48a9620bd7773d72db399ef1c418ccb7b1f6afe252a4"
+      },
+      "scope": "local actual hosted two-process launcher, SQLite, lightweight prepared bundle; not Render cold start",
+      "shutdown_exit_code": 0
+    },
+    "probes": [
+      {
+        "at": "2026-10-17T05:11:17.680362+00:00",
+        "ok": true,
+        "steps": [
+          "health",
+          "session",
+          "inference",
+          "current_validation",
+          "mutation",
+          "stale_rejection"
+        ],
+        "requests": [
+          {
+            "step": "health",
+            "method": "GET",
+            "http_status": 200,
+            "duration_ms": 23.717
+          },
+          {
+            "step": "session",
+            "method": "POST",
+            "http_status": 200,
+            "duration_ms": 6.734
+          },
+          {
+            "step": "inference",
+            "method": "POST",
+            "http_status": 200,
+            "duration_ms": 16.138
+          },
+          {
+            "step": "current_validation",
+            "method": "GET",
+            "http_status": 200,
+            "duration_ms": 3.046
+          },
+          {
+            "step": "mutation",
+            "method": "POST",
+            "http_status": 200,
+            "duration_ms": 3.447
+          },
+          {
+            "step": "stale_rejection",
+            "method": "GET",
+            "http_status": 200,
+            "duration_ms": 2.361
+          }
+        ],
+        "trace_id": "c3c359aec05311848e8a3d4fc2562e52",
+        "duration_ms": 55.735
+      },
+      {
+        "at": "2026-10-17T05:11:18.737774+00:00",
+        "ok": true,
+        "steps": [
+          "health",
+          "session",
+          "inference",
+          "current_validation",
+          "mutation",
+          "stale_rejection"
+        ],
+        "requests": [
+          {
+            "step": "health",
+            "method": "GET",
+            "http_status": 200,
+            "duration_ms": 6.307
+          },
+          {
+            "step": "session",
+            "method": "POST",
+            "http_status": 200,
+            "duration_ms": 4.236
+          },
+          {
+            "step": "inference",
+            "method": "POST",
+            "http_status": 200,
+            "duration_ms": 12.468
+          },
+          {
+            "step": "current_validation",
+            "method": "GET",
+            "http_status": 200,
+            "duration_ms": 3.244
+          },
+          {
+            "step": "mutation",
+            "method": "POST",
+            "http_status": 200,
+            "duration_ms": 3.357
+          },
+          {
+            "step": "stale_rejection",
+            "method": "GET",
+            "http_status": 200,
+            "duration_ms": 2.692
+          }
+        ],
+        "trace_id": "32a4de58cd21f0f9744f98f9f4b96c37",
+        "duration_ms": 32.592
+      },
+      {
+        "at": "2026-10-17T05:11:19.771710+00:00",
+        "ok": true,
+        "steps": [
+          "health",
+          "session",
+          "inference",
+          "current_validation",
+          "mutation",
+          "stale_rejection"
+        ],
+        "requests": [
+          {
+            "step": "health",
+            "method": "GET",
+            "http_status": 200,
+            "duration_ms": 4.809
+          },
+          {
+            "step": "session",
+            "method": "POST",
+            "http_status": 200,
+            "duration_ms": 3.823
+          },
+          {
+            "step": "inference",
+            "method": "POST",
+            "http_status": 200,
+            "duration_ms": 8.924
+          },
+          {
+            "step": "current_validation",
+            "method": "GET",
+            "http_status": 200,
+            "duration_ms": 2.313
+          },
+          {
+            "step": "mutation",
+            "method": "POST",
+            "http_status": 200,
+            "duration_ms": 2.978
+          },
+          {
+            "step": "stale_rejection",
+            "method": "GET",
+            "http_status": 200,
+            "duration_ms": 2.323
+          }
+        ],
+        "trace_id": "52aeae70fb91002ca9eb8eecb011a36f",
+        "duration_ms": 25.321
+      }
+    ],
+    "startup_events": [
+      {
+        "event": "model_process_starting",
+        "elapsed_ms": 0.017,
+        "startup_budget_seconds": 90.0
+      },
+      {
+        "event": "model_ready",
+        "elapsed_ms": 1273.274
+      },
+      {
+        "event": "api_process_starting",
+        "elapsed_ms": 1273.307
+      }
+    ],
+    "test_environment": "SQLite with real loopback HTTP; process boundary test execution requires local IPC"
+  }
+}

@@ -14,6 +14,20 @@ def export(tmp_path, workload='lightweight'):
     return export_bundle(tmp_path / 'bundle', workload)
 
 
+def test_lightweight_bundle_does_not_import_unused_tree_ensemble(tmp_path):
+    export(tmp_path)
+    source = '''
+import sys
+from recheck.model import get_model
+trained = get_model('risk-v1')
+assert 0 < trained.score([0.2, 0, 1, 0.4]) < 1
+assert 'sklearn.ensemble' not in sys.modules, 'lightweight serving imported unrelated tree ensemble'
+'''
+    env = {**os.environ, 'RECHECK_MODEL_BUNDLE': str(tmp_path / 'bundle'), 'RECHECK_WORKLOAD': 'lightweight'}
+    result = subprocess.run([sys.executable, '-c', source], env=env, text=True, capture_output=True)
+    assert result.returncode == 0, result.stderr
+
+
 @pytest.mark.parametrize('workload', ['lightweight', 'cpu-ensemble'])
 def test_fresh_process_scores_export_without_training(tmp_path, workload):
     export(tmp_path, workload)

@@ -6,12 +6,6 @@ import os
 import re
 
 import numpy as np
-from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import ExtraTreesClassifier
-from sklearn.metrics import roc_auc_score
-from sklearn.model_selection import train_test_split
-from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import StandardScaler
 
 SEED = 660065
 FEATURE_NAMES = ["amount_ratio", "recipient_unfamiliar", "recent_changes", "velocity_ratio"]
@@ -51,6 +45,14 @@ class ScenarioEnsemble:
 
 
 def train_model(version="risk-v1", workload="lightweight"):
+    # Bundle serving only imports the estimator classes required by its artifact.
+    # Training utilities (especially tree ensembles) need not load in both
+    # hosted processes when serving the small logistic-regression bundle.
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.metrics import roc_auc_score
+    from sklearn.model_selection import train_test_split
+    from sklearn.pipeline import make_pipeline
+    from sklearn.preprocessing import StandardScaler
     if version not in ("risk-v1", "risk-v2"):
         raise ValueError("unsupported model version")
     rng = np.random.default_rng(SEED)
@@ -61,6 +63,7 @@ def train_model(version="risk-v1", workload="lightweight"):
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.25, random_state=SEED, stratify=y)
     estimator = make_pipeline(StandardScaler(), LogisticRegression(random_state=SEED, C=1.0 if version == "risk-v1" else 0.4, max_iter=300))
     if workload == "cpu-ensemble":
+        from sklearn.ensemble import ExtraTreesClassifier
         estimator = ExtraTreesClassifier(n_estimators=128, max_depth=12,
             min_samples_leaf=2 if version == "risk-v1" else 4, random_state=SEED, n_jobs=1)
     estimator.fit(x_train, y_train)
