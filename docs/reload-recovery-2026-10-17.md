@@ -23,11 +23,13 @@
 ## 검증 기록
 
 - 프런트 **58개 통과**. 기존 48개와 복원 계약 10개다. TypeScript/Vite 빌드도 통과했다.
-- 로컬 실제 Chromium·Python API·SQLite에서 기존 대표 체험 **10개** 회귀 검사와 새 복원 **8개** 검사를 통과했다. 새 검사는 완료 후 재로딩, 실제 저장 응답 보류 중 재로딩 후 같은 키로 한 건만 반환, 명시적 초기화, 지정 API 복원, 320/390/768/1440px 배치, 영상 디코딩, 손상 데이터, 통제된 404를 포함한다. 404는 실제 1시간 경과가 아닌 주입 검사다.
+- 로컬 실제 Chromium·Python API·SQLite에서 기존 대표 체험 **10개** 회귀 검사와 새 복원 **9개** 검사를 통과했다. 새 검사는 완료 후 재로딩, 실제 저장 응답 보류 중 재로딩 후 같은 키로 한 건만 반환, 명시적 초기화, 지정 API 복원, 320/390/768/1440px 배치, 영상 디코딩, 손상 데이터, 저장소 차단, 통제된 404를 포함한다. 404와 저장 차단은 통제된 주입 검사다. [복원 결과](evidence/reload-recovery/local-chromium.json) · [기존 대표 체험](evidence/reload-recovery/local-case-regression.json) · [모바일 복원 화면](evidence/reload-recovery/local-mobile.png).
 - 테스트 우선 구현의 최초 복원 검사는 실패했다. 리뷰와 실제 API 실행에서 인용 참조에는 `deleted` 필드가 없다는 차이를 발견했다. 원문/참조 검증을 분리하고 실제 응답 모양으로 단위 fixture를 고쳤다. 지정 API 주소를 잃던 문제도 함께 수정했다.
+- 저장소를 둘 다 차단하는 브라우저 조건에서는 기존 App 초기화의 localStorage 접근이 `SecurityError`로 실패해 사례 화면이 0개였다. 기본 API 주소로 초기화하는 fallback을 추가했고, 같은 주입 조건에서 실제 답변 준비가 성공하며 복원 불가 경고가 남는 것을 확인했다.
 - 실제 응답 보류 후 페이지를 폐기하는 로컬 Playwright 1.55 실행에서 종료 시 `CancelledError` 콜백 진단이 남았다. 제품의 `pageerror`는 0건이고 모든 assertion·프로세스 종료는 성공했다. 이를 제품 오류나 깨끗한 테스트 로그로 바꾸어 표현하지 않는다.
 - 공개 배포 후 기존 60개 검사와 Chromium·WebKit 각각의 새 복원 검사를 실행하도록 workflow를 추가했다. **배포 후 실행 결과는 확인 후 아래에 별도로 기록한다.** WebKit은 Safari와 관련된 엔진 검사이며 Apple 실기기 Safari 인증을 뜻하지 않는다.
 - [첫 공개 검사](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39011893430)는 기존 상세 탐색의 초점 assertion에서 실패했고 뒤의 WebKit 단계는 실행되지 않았다. 클릭 다음 `requestAnimationFrame`에서 초점을 옮기는데 검사는 클릭 직후 동기적으로 읽고 있었다. 로컬에서 프레임을 120ms 지연한 3회 모두 즉시 읽기는 false, 다음 프레임의 실제 초점은 true였다. 초점 조건을 기다리는 Playwright assertion으로 수정했고 기존 전달 검사 7개가 로컬에서 통과했다. 제품 동작이나 정기 점검의 5초 기준은 바꾸지 않았다.
+- [두 번째 공개 검사](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39012317138)는 기존 60개 검사를 통과했으나 새 복원 검사에서 ‘중단’ 표시 assertion에 실패해 WebKit은 실행되지 않았다. 로컬 실제 API에서 저장 응답을 보류한 뒤 전송을 취소하고 새로고침했더니 `busy=false`, `error=Failed to fetch`, `canReprepare=false`, `action=null`로 같은 표시 공백이 재현됐다. 완료 여부가 불확실한 요청과 오류로 멈춘 실행도 중단 상태로 복원하고, 마지막 오류를 안내에 보존하도록 수정했다. 이 조건의 단위 검사 실패 후 수정·통과, 실제 API 동일 키 재시도와 저장 작업 1건을 다시 확인했다. 당시 공개 실패의 저장값 전체를 확보한 것은 아니므로 모든 세부 원인이 동일했다고 단정하지 않는다.
 
 ## 여전히 남는 항목
 

@@ -48,6 +48,9 @@ describe("same-tab case checkpoints", () => {
     h.loseNextResponse(); await first.next(); first.dispose();
     const restored = h.create();
     expect(restored.getSnapshot()).toMatchObject({ step: 4, canReprepare: false, action: null });
+    expect(restored.getSnapshot().status).toContain("중단");
+    expect(restored.getSnapshot().status).toContain("response lost after commit");
+    expect(restored.getSnapshot().error).toBe("");
     await restored.runAll();
     expect(restored.getSnapshot()).toMatchObject({ step: 6, action: { action_id: "one", replayed: true } });
     expect(new Set(h.keys.slice(1)).size).toBe(1);

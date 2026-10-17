@@ -61,9 +61,12 @@ export class CaseFlow {
       const saved = parseCheckpoint(raw, api.base);
       this.actionKey = saved.actionKey;
       this.oldActionKey = saved.oldActionKey;
-      const interrupted = saved.snapshot.busy || saved.snapshot.running;
+      const interrupted = !saved.snapshot.sessionExpired && saved.snapshot.step < 6 &&
+        (saved.snapshot.busy || saved.snapshot.running || !!saved.snapshot.error ||
+          (saved.snapshot.step === 4 && !saved.snapshot.canReprepare && !saved.snapshot.action));
       this.value = { ...saved.snapshot, restored: true, storageWarning: "", busy: false, running: false,
-        status: interrupted ? "중단된 실행의 확인된 기록을 복원했습니다. 자동 재전송하지 않습니다. 이어서 실행하면 서버 상태부터 확인합니다." : "이 탭에 저장된 실행 기록을 복원했습니다. 현재 서버 상태를 다시 조회한 결과는 아닙니다." };
+        error: interrupted ? "" : saved.snapshot.error,
+        status: interrupted ? "중단된 실행의 확인된 기록을 복원했습니다. 자동 재전송하지 않습니다. 이어서 실행하면 서버 상태부터 확인합니다." + (saved.snapshot.error ? ` 마지막 오류: ${saved.snapshot.error}` : "") : "이 탭에 저장된 실행 기록을 복원했습니다. 현재 서버 상태를 다시 조회한 결과는 아닙니다." };
     } catch {
       this.value.storageWarning = "저장된 기록을 읽을 수 없어 새 화면으로 열었습니다. 손상·구버전·다른 API의 기록은 복원하지 않습니다.";
       // Construction is read-only, including React StrictMode's double render.

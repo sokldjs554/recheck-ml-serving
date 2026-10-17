@@ -165,12 +165,14 @@ export default function App() {
   const [validating, setValidating] = useState(false);
   const [detail, setDetail] = useState<Receipt | null>(null);
   const [guided, setGuided] = useState<number | null>(null);
-  const [base, setBase] = useState(() =>
-    defaultApiBase(
-      window.location.hostname,
-      localStorage.getItem("recheck-api-base"),
-    ),
-  );
+  const [base, setBase] = useState(() => {
+    try {
+      return defaultApiBase(window.location.hostname, localStorage.getItem("recheck-api-base"));
+    } catch {
+      // Storage-blocked browsers can still use the live case in memory.
+      return defaultApiBase(window.location.hostname, null);
+    }
+  });
   const [showConnect, setShowConnect] = useState(false);
   // The execution belongs to this app session, not to a mounted tab.
   // Navigation only subscribes/unsubscribes; it never creates or retries a request.

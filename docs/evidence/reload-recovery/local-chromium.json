@@ -12,7 +12,8 @@
     "stored real recording decodes in the selected engine and remains separate from restored API evidence",
     "injected session-expiry preflight stops continuation while preserving historical evidence",
     "damaged checkpoint is rejected without breaking the page",
-    "stored serving exception and recovery layouts work in the selected browser engine"
+    "stored serving exception and recovery layouts work in the selected browser engine",
+    "injected localStorage and sessionStorage denial keeps live execution usable with an explicit no-restore warning"
   ],
   "page_errors": [],
   "media": {
@@ -21,6 +22,6 @@
     "height": 1080,
     "duration": 40.24
   },
-  "action_id": "66cb3b99-7954-4fd0-a6d1-fffc7a13dcfc",
-  "session": "4ade428e-5551-44cc-9f91-d02e813854c7"
+  "action_id": "c845c8bd-ae36-4f17-a41c-d2449cb30260",
+  "session": "9223e69f-c867-4ca6-a011-1b5d03b1341d"
 }

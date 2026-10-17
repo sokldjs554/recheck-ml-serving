@@ -77,6 +77,7 @@ def main():
         assert interrupted['snapshot']['step'] == 4 and interrupted['snapshot']['canReprepare'] is False
         count = len(requests)
         page.reload(wait_until='networkidle'); step(4)
+        print('RESTORE_INTERRUPTION ' + json.dumps({'before': {k: interrupted['snapshot'][k] for k in ['step', 'busy', 'error', 'canReprepare']}, 'saved_after': {k: snapshot()['snapshot'][k] for k in ['step', 'busy', 'error', 'canReprepare']}, 'displayed_status': page.get_by_test_id('case-status').inner_text()}, ensure_ascii=False), flush=True)
         assert len(requests) == count
         assert '중단' in page.get_by_test_id('case-status').inner_text()
         assert page.get_by_test_id('case-run-top').is_enabled()
@@ -134,6 +135,23 @@ def main():
                 assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
                 page.screenshot(path=str(args.output / f'{route}-{width}.png'), full_page=True)
         checks.append('stored serving exception and recovery layouts work in the selected browser engine')
+        denied = browser.new_page(viewport={'width': 390, 'height': 960})
+        denied.on('pageerror', lambda e: errors.append(str(e)))
+        denied.add_init_script("for (const key of ['localStorage','sessionStorage']) Object.defineProperty(window,key,{get(){throw new DOMException('Storage disabled','SecurityError')}});")
+        denied.goto(args.base, wait_until='networkidle')
+        assert denied.get_by_test_id('case-study').is_visible()
+        assert denied.get_by_test_id('case-storage-warning').is_visible()
+        denied.locator('.case-connection-config > summary').click()
+        denied.get_by_test_id('case-api-base').fill(args.api)
+        denied.get_by_role('button', name='주소 적용', exact=True).click()
+        denied.get_by_test_id('case-next').click()
+        denied.wait_for_function('document.querySelector("[data-testid=case-study]").dataset.step === "1"', timeout=110000)
+        assert denied.get_by_test_id('case-storage-warning').is_visible()
+        denied.reload(wait_until='networkidle')
+        assert denied.get_by_test_id('case-study').get_attribute('data-step') == '0'
+        assert denied.get_by_test_id('case-storage-warning').is_visible()
+        denied.close()
+        checks.append('injected localStorage and sessionStorage denial keeps live execution usable with an explicit no-restore warning')
         assert not errors, errors
         report = {'engine': args.engine, 'browser_version': browser.version, 'scope': 'Playwright engine; not real-device Safari or user comprehension research', 'base': args.base, 'api': args.api, 'checks': checks, 'page_errors': errors, 'media': media, 'action_id': after['action']['action_id'], 'session': after['session']}
         (args.output / 'results.json').write_text(json.dumps(report, ensure_ascii=False, indent=2))
