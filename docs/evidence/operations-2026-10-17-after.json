@@ -1,0 +1,219 @@
+{
+  "deployed_commit": "40b988767c452f3c3e36301868522759b295338e",
+  "deploy_id": "dep-db9g7sdg1s2s73adnltg",
+  "live_at": "2026-10-17T05:15:18.456691Z",
+  "monitor_run": 39002890081,
+  "monitor_attempt": 2,
+  "monitor_script_commit": "3cc6dc40abacd697f0dbc6f8701f79c5328ff43c",
+  "scope": "Post-deployment warm requests. Unchanged monitor script against updated live service; not an idle-to-active cold-start test.",
+  "rows": [
+    {
+      "at": "2026-10-17T05:15:57.278847+00:00",
+      "ok": true,
+      "steps": [
+        "health",
+        "session",
+        "inference",
+        "current_validation",
+        "mutation",
+        "stale_rejection"
+      ],
+      "requests": [
+        {
+          "step": "health",
+          "method": "GET",
+          "http_status": 200,
+          "duration_ms": 300.067
+        },
+        {
+          "step": "session",
+          "method": "POST",
+          "http_status": 200,
+          "duration_ms": 258.559
+        },
+        {
+          "step": "inference",
+          "method": "POST",
+          "http_status": 200,
+          "duration_ms": 267.401
+        },
+        {
+          "step": "current_validation",
+          "method": "GET",
+          "http_status": 200,
+          "duration_ms": 223.101
+        },
+        {
+          "step": "mutation",
+          "method": "POST",
+          "http_status": 200,
+          "duration_ms": 575.01
+        },
+        {
+          "step": "stale_rejection",
+          "method": "GET",
+          "http_status": 200,
+          "duration_ms": 234.366
+        }
+      ],
+      "trace_id": "c98076714771fefcc258729004ed50cb",
+      "duration_ms": 1858.755
+    },
+    {
+      "at": "2026-10-17T05:16:14.153019+00:00",
+      "ok": true,
+      "steps": [
+        "health",
+        "session",
+        "inference",
+        "current_validation",
+        "mutation",
+        "stale_rejection"
+      ],
+      "requests": [
+        {
+          "step": "health",
+          "method": "GET",
+          "http_status": 200,
+          "duration_ms": 235.156
+        },
+        {
+          "step": "session",
+          "method": "POST",
+          "http_status": 200,
+          "duration_ms": 562.754
+        },
+        {
+          "step": "inference",
+          "method": "POST",
+          "http_status": 200,
+          "duration_ms": 244.493
+        },
+        {
+          "step": "current_validation",
+          "method": "GET",
+          "http_status": 200,
+          "duration_ms": 218.795
+        },
+        {
+          "step": "mutation",
+          "method": "POST",
+          "http_status": 200,
+          "duration_ms": 225.44
+        },
+        {
+          "step": "stale_rejection",
+          "method": "GET",
+          "http_status": 200,
+          "duration_ms": 209.253
+        }
+      ],
+      "trace_id": "fc223853c17e1747da83cd4e8859e038",
+      "duration_ms": 1696.112
+    },
+    {
+      "at": "2026-10-17T05:16:30.864505+00:00",
+      "ok": true,
+      "steps": [
+        "health",
+        "session",
+        "inference",
+        "current_validation",
+        "mutation",
+        "stale_rejection"
+      ],
+      "requests": [
+        {
+          "step": "health",
+          "method": "GET",
+          "http_status": 200,
+          "duration_ms": 231.244
+        },
+        {
+          "step": "session",
+          "method": "POST",
+          "http_status": 200,
+          "duration_ms": 222.506
+        },
+        {
+          "step": "inference",
+          "method": "POST",
+          "http_status": 200,
+          "duration_ms": 241.101
+        },
+        {
+          "step": "current_validation",
+          "method": "GET",
+          "http_status": 200,
+          "duration_ms": 223.333
+        },
+        {
+          "step": "mutation",
+          "method": "POST",
+          "http_status": 200,
+          "duration_ms": 206.446
+        },
+        {
+          "step": "stale_rejection",
+          "method": "GET",
+          "http_status": 200,
+          "duration_ms": 209.374
+        }
+      ],
+      "trace_id": "0de14c72a010d08adad0d08244336084",
+      "duration_ms": 1334.225
+    },
+    {
+      "total": 3,
+      "good": 3,
+      "bad": 0,
+      "availability": 1,
+      "target": 0.99,
+      "latency_budget_ms": 5000,
+      "allowed_bad_samples": 0.030000000000000027,
+      "budget_consumed_ratio": 0,
+      "scope": "sampled synthetic workflow, not continuous production uptime",
+      "window_start": "2026-10-17T05:15:57.278847+00:00",
+      "window_end": "2026-10-17T05:16:32.199161+00:00",
+      "interval_seconds": 15
+    },
+    {
+      "at": "2026-10-17T05:16:35.451014+00:00",
+      "passed": true,
+      "scope": "public API injected model-unavailable response then normal inference; durable boot-scoped counters, not a real provider outage",
+      "both_receipts_persisted": true,
+      "storage": "postgresql"
+    }
+  ],
+  "startup_logs": [
+    {
+      "at": "2026-10-17T05:14:33.597259876Z",
+      "message": "{\"event\": \"model_process_starting\", \"elapsed_ms\": 0.042, \"startup_budget_seconds\": 90.0}"
+    },
+    {
+      "at": "2026-10-17T05:14:58.779181217Z",
+      "message": "INFO:     Uvicorn running on http://127.0.0.1:8001 (Press CTRL+C to quit)"
+    },
+    {
+      "at": "2026-10-17T05:14:58.847250902Z",
+      "message": "{\"event\": \"model_ready\", \"elapsed_ms\": 25247.638}"
+    },
+    {
+      "at": "2026-10-17T05:14:58.847264303Z",
+      "message": "{\"event\": \"api_process_starting\", \"elapsed_ms\": 25247.787}"
+    },
+    {
+      "at": "2026-10-17T05:15:16.48249826Z",
+      "message": "INFO:     Uvicorn running on http://0.0.0.0:10000 (Press CTRL+C to quit)"
+    },
+    {
+      "at": "2026-10-17T05:15:18.953739215Z",
+      "message": "==> Your service is live 🎉"
+    }
+  ],
+  "configuration_gap": {
+    "blueprint_healthCheckPath": "/health",
+    "live_healthCheckPath": "",
+    "reason_not_changed": "Installed Render tools do not expose updating an existing service health-check path."
+  }
+}

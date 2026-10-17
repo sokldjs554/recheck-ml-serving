@@ -48,6 +48,16 @@
 
 실제 로컬 두 프로세스·준비된 lightweight 번들·SQLite에서는 health 준비까지 2.775초, 이후 여섯 HTTP 단계의 점검은 55.735 / 32.592 / 25.321ms였다. SIGTERM 후 자식들을 정리하고 종료 코드 0을 확인했다. **Render cold start 또는 PostgreSQL 성능으로 해석하지 않는다.**
 
+## 배포 후 확인
+
+수정 코드 [40b9887](https://github.com/sokldjs554/recheck-ml-serving/commit/40b988767c452f3c3e36301868522759b295338e)은 10/17 **14:15:18 KST**에 Render에서 live가 됐다. 모델 준비 이벤트는 시작 후 **25.248초**, API 포트 준비는 약 **42.885초**였다. 이번 시작에는 조기 종료·재시작이 없었다. 서로 다른 시작 조건의 단일 표본이므로 import 변경의 성능 개선율로 환산하지 않는다.
+
+[배포 후 공개 재점검, attempt 2](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39002890081/attempts/2)는 **1.859 / 1.696 / 1.334초**, 기능 3/3·5초 내 3/3으로 통과했다. 모델 오류 주입 후 정상 추론 복귀와 두 receipt의 PostgreSQL 저장도 확인했다. 점검 스크립트는 변경하지 않아 기존 `3cc6dc4` 소스의 job을 다시 실행했고, 대상 서비스는 위 새 배포였다. [첫 실패 attempt 1](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39002890081/attempts/1)과 이 문서의 실패 원본은 유지한다.
+
+이 표본들은 **배포 완료 후 이미 준비된 서버**에 보낸 요청이다. 휴면 후 최초 요청을 다시 재현한 결과가 아니다. [공개 요청·배포 시작 로그 원본](evidence/operations-2026-10-17-after.json).
+
+[코드 CI](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39005462873): PostgreSQL **150개 통과·1개 제외**, 프런트 **46개 통과**. SQLite 전용 제외 항목은 위 로컬 151개에 포함됐다. [별도 CPU 전체 경로 CI](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39005462871)도 통과했다. 짧은 CI는 회귀 검사이며 지속 처리 용량 측정으로 사용하지 않는다.
+
 ## 남은 운영 제약
 
 [Render 무료 서비스 문서](https://render.com/docs/free#spinning-down-on-idle)는 15분간 요청이 없으면 중지하고 다음 요청에 다시 시작하며, 이 과정에 약 1분이 걸릴 수 있다고 설명한다. 이번 로그는 요청 중 프로세스 시작과 재시작을 확인해 주지만, 플랫폼의 idle 전환 이벤트와 모든 대기 구간을 직접 수집한 것은 아니다.
@@ -55,3 +65,5 @@
 따라서 이 수정은 확인된 **조기 종료 결함**을 해결하는 것이며, 무료 공개 환경의 최초 요청이 5초 이내가 된다는 보장은 아니다. 서버를 먼저 깨운 표본만 집계하거나 점검 빈도를 높여 idle을 숨기지 않는다. 이후 공개 검증도 시작 시각·배포 커밋·전체 표본과 함께 해석해야 한다.
 
 [10/13의 54.037초 실패](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/38328704268)는 그대로 유효하다. 당시 단계별 시간이 없었으므로 이번에 확인한 조기 종료가 당시 원인이었다고 소급해서 단정하지 않는다.
+
+설정 대조에서 `render.yaml`의 `healthCheckPath: /health`와 달리 실제 서비스의 HTTP health-check 경로는 비어 있었다. 외부 점검은 `/health`의 DB·모델 검증을 실행하지만 Render 배포 준비 판정에도 이를 사용하도록 일치시킬 필요가 있다. 현재 연결된 Render 도구에는 기존 서비스의 이 필드를 변경하는 기능이 없어 미반영이다. Dashboard의 해당 서비스 Settings → Health Check Path를 `/health`로 지정하는 관리 설정 작업이 남는다. 새 서비스 생성이나 유료 전환으로 대체하지 않았다.
