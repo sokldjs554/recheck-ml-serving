@@ -52,6 +52,29 @@ def main():
         page.get_by_role('navigation', name='실험 선택').get_by_role('button', name='실행 재현', exact=True).click()
         assert len(requests) == count
         checks.append('completed reload and navigation preserve session, drafts, action and exact logs without API requests')
+        # Decode media before injecting/aborting a real request. WebKit's media
+        # loading must not inherit the deliberately interrupted route harness.
+        page.set_viewport_size({'width': 320, 'height': 960})
+        media_details = page.get_by_test_id('recorded-demo')
+        media_details.locator('summary').click()
+        video = page.locator('video')
+        # WebKit applies visibility rules to muted playback. Record the initial
+        # state, then bring the actual player into view as a person would.
+        media_state = '(v) => ({source:v.currentSrc,ready:v.readyState,network:v.networkState,paused:v.paused,time:v.currentTime,width:v.videoWidth,error:v.error ? {code:v.error.code,message:v.error.message}:null,rect:{top:v.getBoundingClientRect().top,bottom:v.getBoundingClientRect().bottom},viewport:innerHeight,webm:v.canPlayType(\'video/webm; codecs="vp9"\'),mp4:v.canPlayType(\'video/mp4; codecs="avc1.640028"\')})'
+        print('MEDIA_BEFORE ' + json.dumps(video.evaluate(media_state)), flush=True)
+        video.scroll_into_view_if_needed()
+        playback = video.evaluate("async (v) => { v.muted = true; return await Promise.race([v.play().then(() => 'playing').catch(e => e.name + ': ' + e.message), new Promise(r => setTimeout(() => r('pending'), 5000))]); }")
+        print('MEDIA_PLAY ' + json.dumps({'engine':args.engine,'play':playback,'state':video.evaluate(media_state)}), flush=True)
+        try:
+            page.wait_for_function('document.querySelector("video").currentTime > .2 && document.querySelector("video").videoWidth === 1280', timeout=20000)
+        except Exception:
+            print("MEDIA_FAILURE " + json.dumps(video.evaluate(media_state)), flush=True)
+            raise
+        media = video.evaluate('(v) => ({source:v.currentSrc,width:v.videoWidth,height:v.videoHeight,duration:v.duration})')
+        video.evaluate('(v) => v.pause()')
+        media_details.locator('summary').click()
+        checks.append('stored real recording decodes in the selected engine and remains separate from restored API evidence')
+        page.set_viewport_size({'width': 1440, 'height': 1000})
         reset(); page.reload(wait_until='networkidle'); step(0)
         assert page.get_by_test_id('case-restored').count() == 0
         configure()
@@ -99,25 +122,6 @@ def main():
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
             page.screenshot(path=str(args.output / f'case-restored-{width}.png'), full_page=True)
         checks.append('restored historical labels and action remain readable without document overflow at four widths')
-        media_details = page.get_by_test_id('recorded-demo')
-        media_details.locator('summary').click()
-        video = page.locator('video')
-        # WebKit applies visibility rules to muted playback. Record the initial
-        # state, then bring the actual player into view as a person would.
-        media_state = '(v) => ({source:v.currentSrc,ready:v.readyState,network:v.networkState,paused:v.paused,time:v.currentTime,width:v.videoWidth,error:v.error ? {code:v.error.code,message:v.error.message}:null,rect:{top:v.getBoundingClientRect().top,bottom:v.getBoundingClientRect().bottom},viewport:innerHeight,webm:v.canPlayType(\'video/webm; codecs="vp9"\'),mp4:v.canPlayType(\'video/mp4; codecs="avc1.640028"\')})'
-        print('MEDIA_BEFORE ' + json.dumps(video.evaluate(media_state)), flush=True)
-        video.scroll_into_view_if_needed()
-        playback = video.evaluate("async (v) => { v.muted = true; return await Promise.race([v.play().then(() => 'playing').catch(e => e.name + ': ' + e.message), new Promise(r => setTimeout(() => r('pending'), 5000))]); }")
-        print('MEDIA_PLAY ' + json.dumps({'engine':args.engine,'play':playback,'state':video.evaluate(media_state)}), flush=True)
-        try:
-            page.wait_for_function('document.querySelector("video").currentTime > .2 && document.querySelector("video").videoWidth === 1280', timeout=20000)
-        except Exception:
-            print("MEDIA_FAILURE " + json.dumps(video.evaluate(media_state)), flush=True)
-            raise
-        media = video.evaluate('(v) => ({source:v.currentSrc,width:v.videoWidth,height:v.videoHeight,duration:v.duration})')
-        video.evaluate('(v) => v.pause()')
-        media_details.locator('summary').click()
-        checks.append('stored real recording decodes in the selected engine and remains separate from restored API evidence')
         reset(); page.get_by_test_id('case-next').click(); step(1)
         old = snapshot()['snapshot']; page.reload(wait_until='networkidle')
         page.route('**/api/sessions/*/evidence', lambda r: r.fulfill(status=404, content_type='application/json', body='{"detail":"session_missing_or_expired"}'))
