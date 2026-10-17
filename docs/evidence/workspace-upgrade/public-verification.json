@@ -1,0 +1,111 @@
+{
+  "checked_at": "2026-10-17",
+  "commit": "101a49ab27945ba83590cb5ede7f49deb6a33352",
+  "ci": {
+    "url": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39009816359",
+    "conclusion": "success",
+    "backend": {
+      "passed": 151,
+      "skipped": 1,
+      "skip": "test_session_capacity_and_expired_session_cleanup requires isolated SQLite; covered in the local 150-pass suite"
+    },
+    "frontend": {
+      "passed": 48
+    }
+  },
+  "public_browser": {
+    "url": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39009816353",
+    "conclusion": "success",
+    "named_checks": 60,
+    "pass_log_lines": [
+      "PASS browser valid receipt then feature change refuses use",
+      "PASS immutable receipt amount stays unchanged while the next request is pending",
+      "PASS browser 정책 갱신 refuses stale receipt",
+      "PASS browser 모델 교체 refuses stale receipt",
+      "PASS protected inference race invalidates stale result",
+      "PASS unsafe baseline is visible but validation refuses; JSON download and Escape",
+      "PASS browser fault 시간 초과 produces explicit review reason",
+      "PASS browser fault 응답 불가 produces explicit review reason",
+      "PASS dated operations evidence and source links are readable on desktop and mobile",
+      "PASS architecture, design rationale, receipts, and successful guided comparison",
+      "PASS a previous successful browser validation becomes refusal after actual expiry",
+      "PASS responsive layout without horizontal overflow",
+      "PASS responsive layout without horizontal overflow",
+      "PASS responsive layout without horizontal overflow",
+      "PASS supporting evidence menu opens by keyboard and all six destinations are focusable on landscape",
+      "PASS live revalidation waits for mutation response before checking current state",
+      "PASS live Python HTTP mode validates clear result and refuses feature-stale use",
+      "PASS no browser page errors",
+      "PASS real Python connection and isolated persistent session",
+      "PASS actual retrieval creates a currently usable receipt",
+      "PASS actual source edit preserves historical output and refuses its use",
+      "PASS same dimension incompatible model/index cannot deploy",
+      "PASS computed quality regression fails and real report is downloadable",
+      "PASS paired rebuild switches atomically and new receipt cites edited content",
+      "PASS second product reuses the evidence lifecycle",
+      "PASS deleted evidence cannot be used",
+      "PASS 390/768/1440 responsive layout without document overflow",
+      "PASS HTTP failure clears previous validation instead of showing success",
+      "PASS failed document update leaves no stale success assertion",
+      "PASS pending mutation disables reuse and late completion cannot overwrite a new lab",
+      "PASS top and existing run buttons clicked in one turn create one session and one flow",
+      "PASS one-click actual HTTP run preserves old/new answers and produces exactly one persisted task",
+      "PASS completed compare -> primary execution navigation preserves exact downloaded evidence and action with zero API requests",
+      "PASS held actual HTTP mutation continues while case view is absent; return preserves session, event prefix and one persisted action without duplicate navigation requests",
+      "PASS lost commit response cannot claim success; retry retains original key and displays replay",
+      "PASS actual HTTP: old answer blocked, fresh task recorded, replay returns one historical action, JSON contains actual responses",
+      "PASS 390 portrait, 768 tablet, 844 landscape: no horizontal overflow and reset reachable",
+      "PASS network failure clears success and same-step retry completes with actual HTTP",
+      "PASS injected HTTP404 session_missing_or_expired preserves historical evidence across navigation, disables continuation and requires explicit reset for a new real session",
+      "PASS pending controls locked; late session completion after reset does not restore old state",
+      "PASS comparison is reachable from the first screen and identifies stored evidence",
+      "PASS sqlite: stale rejection, selective invalidation, ABA and retry match SQL evidence",
+      "PASS postgresql: stale rejection, selective invalidation, ABA and retry match SQL evidence",
+      "PASS contended outcomes and separate normal-path latency have visible denominators",
+      "PASS real lock-timeout errors remain visible beside separately recorded recovery",
+      "PASS record inspection never triggers unsafe API execution",
+      "PASS 390/768/1440 layouts fit and native controls are keyboard reachable",
+      "PASS actual recording decodes while live health request is pending; stored label, live state, and shared controls remain distinct",
+      "PASS journal filters retain all original events; blocked write and same-ID record/replay are distinguishable",
+      "PASS 1440/768/390/320: top control, expanded recording and case have no page overflow",
+      "PASS six phase cohorts preserve outcome denominators; the committed 504 links to its original request key and SQL row with no API calls",
+      "PASS serving: visible scope/results, collapsed conditions/raw data, expanded layout and contained table scrolling at four widths",
+      "PASS captured failure/recovery spans, model exception and matching SQL receipt are inspectable without fabricated DB span",
+      "PASS recovery: visible scope/results, collapsed conditions/raw data, expanded layout and contained table scrolling at four widths"
+    ],
+    "serving_checks": [
+      "model handoff shows startup rejection cases and expandable prediction values",
+      "all request outcomes including late HTTP 200 are visible; boundary and stored evidence are labeled",
+      "serving deep link survives reload",
+      "actual dependency failure and nonzero DB restart errors are retained",
+      "postgresql API journal is fetched and labeled as boot-scoped observations",
+      "back navigation, return to live case, and mobile layouts work"
+    ],
+    "artifact": {
+      "id": 12092750668,
+      "url": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39009816353/artifacts/12092750668",
+      "sha256": "8b27ca33499c586b46092fcfa6dd279e8abd42811057b3bd7aecde9bbe3dd1f8"
+    },
+    "screenshots_reviewed_here": false,
+    "screenshots_limitation": "Artifact download returned HTTP 403 in this workspace. Local same-version screenshots were visually inspected; public browser workflow logs and assertion results were reviewed.",
+    "media": {
+      "webm_http_status": 200,
+      "mp4_http_status": 200,
+      "decoded": "VP9 WebM",
+      "safari_tested": false
+    }
+  },
+  "kubernetes": {
+    "url": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39009816351",
+    "conclusion": "success",
+    "scope": "Existing isolated GitHub Actions kind recovery regression; not the public Render service",
+    "artifact_url": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39009816351/artifacts/12092307052"
+  },
+  "render": {
+    "deploy_id": "dep-db9h9dflk1mc73buonp0",
+    "status": "live",
+    "finished_at": "2026-10-17T06:27:00.443654Z",
+    "matching_asset": "/assets/index-Bi7_JpZ_.js",
+    "plan": "free"
+  }
+}

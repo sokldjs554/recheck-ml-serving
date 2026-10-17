@@ -35,6 +35,18 @@
 - 코드 리뷰에서 504 상세를 닫은 뒤 바로가기로 다시 열리지 않는 결함을 재현했다. native details 상태를 동기화하고, 매번 열기·초점·스크롤을 수행하도록 수정했다. 반복 열기 회귀 검사가 통과했다.
 - 초기 운영 기록 검사는 로컬 API의 관측 설정이 꺼져 `/api/operations`를 조회하지 못해 실패했다. `RECHECK_OBSERVE=1`로 로컬 설정을 맞춘 뒤 통과했다. 이를 공개 서비스 장애로 기록하지 않는다.
 
+## 공개 배포 후 확인
+
+구현 커밋은 [`101a49ab27945ba83590cb5ede7f49deb6a33352`](https://github.com/sokldjs554/recheck-ml-serving/commit/101a49ab27945ba83590cb5ede7f49deb6a33352)이다.
+
+- [CI](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39009816359): PostgreSQL 환경 백엔드 **151개 통과·1개 제외**, 프런트 **48개 통과**, 생성 요약·번들 일치 통과. 제외된 `test_session_capacity_and_expired_session_cleanup`은 격리 SQLite가 필요한 fixture이며 위 로컬 전체 실행의 150개에 포함되어 통과했다.
+- [Pages 배포와 공개 브라우저 검사](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39009816353): **60개 명명된 검사 통과**. 공개 API에서 대표 체험·멱등 재시도·화면 이동을 실행했고, 통제된 네트워크 실패/404 검사는 별도로 구분한다. 저장 결과 탐색·320/390/768/1440px 배치·실제 WebM 재생도 통과했다. MP4와 WebM 모두 HTTP 200이며 이 Chromium 실행에서 디코딩한 형식은 VP9 WebM이다.
+- Render 무료 서비스의 같은 커밋이 2026-10-17 **06:27:00 UTC**에 `live`가 됐다. 배포 ID는 `dep-db9h9dflk1mc73buonp0`. 공개 검사 시작 전 서버 번들 `/assets/index-Bi7_JpZ_.js` 일치도 확인했다.
+- [기존 Kubernetes 복구 workflow](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39009816351)도 같은 커밋에서 통과했다. GitHub Actions의 격리된 kind 검사이며 공개 Render 서비스의 장애·복구를 일으킨 것은 아니다.
+- [공개 검사 산출물](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39009816353/artifacts/12092750668)과 [로그에서 추출한 검사 목록·배포 정보](evidence/workspace-upgrade/public-verification.json)를 연결했다. 산출물 ZIP을 이 작업환경에 내려받는 요청은 HTTP 403으로 막혀 공개 캡처를 여기서 다시 열지는 못했다. 로컬 동일 버전 캡처의 직접 열람과 공개 환경 자동 검사 결과를 구분한다. Actions 산출물에는 보관 기한이 있다.
+
+이 배포 검사 성공이 기존 정기 점검 실패를 취소하지 않는다. 10월 13일 세 번 모두 기능 검증은 성공했지만, 첫 전체 점검은 약 54.037초로 5초 기준을 넘겼고 이후 약 2.13초·1.63초였다. 원인은 미확정이며 서버 시작 지연으로 단정하지 않는다.
+
 ## 실제 시연
 
 [40.24초 시연](https://sokldjs554.github.io/recheck-ml-serving/media/recheck-walkthrough.mp4)은 새 상담 화면에서 **실제 로컬 Python API·SQLite**를 사용해 촬영했다. 6단계 실행, 차단·기록 로그, 비교 화면 왕복 후 같은 작업 ID를 확인한다. HTTP 응답 모킹·합성 프레임·배속은 없으며 앞 1초만 잘랐다. [촬영 시각·요청 상태·작업 ID](evidence/workspace-upgrade/recording.json)를 남겼다. 공개 서버의 현재 실행 상태와 구분해 표시한다.
