@@ -14,7 +14,7 @@ def main():
     parser.add_argument('--output', type=Path, default=Path('work/restoration-browser'))
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
-    checks, errors, requests = [], [], []
+    checks, errors, requests, failures = [], [], [], []
     key = 'recheck-case-checkpoint-v1'
     with sync_playwright() as p:
         options = {'executable_path': args.browser_executable} if args.browser_executable else {}
@@ -67,13 +67,28 @@ def main():
         print('MEDIA_PLAY ' + json.dumps({'engine':args.engine,'play':playback,'state':video.evaluate(media_state)}), flush=True)
         try:
             page.wait_for_function('document.querySelector("video").currentTime > .2 && document.querySelector("video").videoWidth === 1280', timeout=20000)
-        except Exception:
-            print("MEDIA_FAILURE " + json.dumps(video.evaluate(media_state)), flush=True)
-            raise
+        except Exception as exc:
+            state = video.evaluate(media_state)
+            failures.append({'check': 'stored recording playback', 'error': str(exc), 'state': state})
+            print("MEDIA_FAILURE " + json.dumps(state), flush=True)
+            # A plain, fresh page separates the asset/engine from React and the
+            # restoration flow. Diagnostic only: it cannot erase the UI failure.
+            probe = browser.new_page(viewport={'width':320,'height':960})
+            probe.set_content('<video controls muted playsinline style="width:280px"></video>')
+            probe.locator('video').evaluate('(v, src) => { v.src = src; v.play().catch(() => {}); }', state['source'])
+            try:
+                probe.wait_for_function('document.querySelector("video").currentTime > .2 && document.querySelector("video").videoWidth === 1280', timeout=20000)
+                probe_passed = True
+            except Exception:
+                probe_passed = False
+            failures[-1]['plain_page_probe'] = {'passed':probe_passed,'state':probe.locator('video').evaluate(media_state)}
+            print('MEDIA_PLAIN_PAGE ' + json.dumps(failures[-1]['plain_page_probe']), flush=True)
+            probe.close()
+        else:
+            checks.append('stored real recording decodes in the selected engine and remains separate from restored API evidence')
         media = video.evaluate('(v) => ({source:v.currentSrc,width:v.videoWidth,height:v.videoHeight,duration:v.duration})')
         video.evaluate('(v) => v.pause()')
         media_details.locator('summary').click()
-        checks.append('stored real recording decodes in the selected engine and remains separate from restored API evidence')
         page.set_viewport_size({'width': 1440, 'height': 1000})
         reset(); page.reload(wait_until='networkidle'); step(0)
         assert page.get_by_test_id('case-restored').count() == 0
@@ -167,13 +182,14 @@ def main():
         denied.close()
         checks.append('injected localStorage and sessionStorage denial keeps live execution usable with an explicit no-restore warning')
         assert not errors, errors
-        report = {'engine': args.engine, 'browser_version': browser.version, 'scope': 'Playwright engine; not real-device Safari or user comprehension research', 'base': args.base, 'api': args.api, 'checks': checks, 'page_errors': errors, 'media': media, 'action_id': after['action']['action_id'], 'session': after['session']}
+        report = {'engine': args.engine, 'browser_version': browser.version, 'scope': 'Playwright engine; not real-device Safari or user comprehension research', 'base': args.base, 'api': args.api, 'checks': checks, 'failures': failures, 'page_errors': errors, 'media': media, 'action_id': after['action']['action_id'], 'session': after['session']}
         (args.output / 'results.json').write_text(json.dumps(report, ensure_ascii=False, indent=2))
         print('RESTORATION_RESULT ' + json.dumps(report, ensure_ascii=False), flush=True)
         for check in checks: print('PASS', check, flush=True)
         page.unroute_all(behavior='ignoreErrors')
         context.close()
         browser.close()
+        assert not failures, failures
 
 
 if __name__ == '__main__':
