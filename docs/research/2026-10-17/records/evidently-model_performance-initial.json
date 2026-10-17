@@ -1,0 +1,32 @@
+{
+  "elapsed_render_seconds": 1.9027555849970668,
+  "text": "Regression Model Performance. Target: 'cnt’\n\nCurrent: Model Quality (+/- std)\n\n-20.65 (28.68)\n\nME\n\n22.93 (26.88)\n\nMAE\n\n33.81 (0.39)\n\nMAPE\n\nReference: Model Quality (+/- std)\n\n-0.03 (6.37)\n\nME\n\n4.1 (4.87)\n\nMAE\n\n16.13 (0.37)\n\nMAPE\n\nPredicted vs Actual\n\n0\n50\n100\n150\n200\n250\n300\n0\n50\n100\n150\n200\n0\n50\n100\n150\n200\n250\ncurrent\nreference\nActual value\nActual value\nPredicted value\n\nPredicted vs Actual in Time\n\nFeb 122011\nFeb 13\nFeb 14\nFeb 15\nFeb 16\nFeb 17\nFeb 18\n0\n50\n100\n150\n200\n250\n300\nJan 22011\nJan 9\nJan 16\nJan 23\nPredicted\nActual\nIndex\nIndex\nValue\ncurrent\nreference\n\nError (Predicted - Actual)\n\nFeb 122011\nFeb 13\nFeb 14\nFeb 15\nFeb 16\nFeb 17\nFeb 18\n−100\n−50\n0\nJan 22011\nJan 9\nJan 16\nJan 23\nPredicted - Actual\nIndex\nIndex\nError\ncurrent\nreference\n\nAbsolute Percentage Error\n\nFeb 122011\nFeb 13\nFeb 14\nFeb 15\nFeb 16\nFeb 17\nFeb 18\n0\n100\n200\n300\n400\n500\nJan 22011\nJan 9\nJan 16\nJan 23\nAbsolute Percentage Error\nIndex\nIndex\nPercent\ncurrent\nreference\n\nError Distribution\n\n−100\n−50\n0\n0\n50\n100\n150\n200\n250\n300\n350\n400\n−100\n−50\n0\nError (Predicted - Actual)\nError (Predicted - Actual)\nPercentage\ncurrent\nreference\n\nError Normality\n\n−2\n−1\n0\n1\n2\n−100\n−50\n0\n50\n−3\n−2\n−1\n0\n1\n2\n3\n−40\n−20\n0\n20\nDataset Quantiles\nTheoretical Quantiles\nTheoretical Quantiles\nTheoretical Quantiles\nDataset Quantiles\ncurrent\nreference\n\nError Bias Table\n\nCurrent: Mean Error per Group (+/- std)\n\n-17.55 (19.2)\n\nMajority(90%)\n\n-105.99 (19.01)\n\nUnderestimation(5%)\n\n14.02 (7.5)\n\nOverestimation(5%)\n\nReference: Mean Error per Group (+/- std)\n\n0.08 (3.83)\n\nMajority(90%)\n\n-16.04 (7.87)\n\nUnderestimation(5%)\n\n14.01 (5.68)\n\nOverestimation(5%)\n\nPredicted vs Actual per Group\n\n0\n50\n100\n150\n200\n250\n300\n0\n50\n100\n150\n200\n0\n50\n100\n150\n200\n250\nUnderestimation\nOverestimation\nMajority\nActual value\nActual value\nPredicted value\ncurrent\nreference\n\nError Bias: Mean/Most Common Feature Value per Group (Top - 5% Errors)\n\n\t\nFeature\n\t\nType\n\t\nREF: Majority\n\t\nREF: Under\n\t\nREF: Over\n\t\nREF: Range(%)\n\t\nCURR: Majority\n\t\nCURR: Under\n\t\nCURR: Over\n\t\nCURR: Range(%)\n\n\n\tweekday\tnum\t3\t3.19\t3.23\t0.54\t3.02\t4.44\t1.67\t46.3\n\n\tatemp\tnum\t0.2\t0.2\t0.22\t5.27\t0.35\t0.53\t0.32\t41.66\n\n\ttemp\tnum\t0.2\t0.2\t0.22\t5.43\t0.36\t0.54\t0.33\t38.27\n\n\thr\tnum\t11.89\t13.35\t13.74\t1.68\t11.65\t12.33\t15.56\t14.01\n\n\twindspeed\tnum\t0.2\t0.21\t0.22\t2.65\t0.27\t0.27\t0.32\t6.41\n\n\thum\tnum\t0.56\t0.56\t0.69\t16.78\t0.45\t0.46\t0.41\t6.27\n\n\tholiday\tcat\t0\t0\t0\t0.0\t0\t0\t0\t0\n\n\tseason\tcat\t1\t1\t1\t0.0\t1\t1\t1\t0\n\n\tworkingday\tcat\t1\t1\t1\t0.0\t1\t1\t1\t0\n\n\n10 rows\n1-9 of 9",
+  "buttons": [
+    "",
+    "Feature",
+    "Type",
+    "REF: Majority",
+    "REF: Under",
+    "REF: Over",
+    "REF: Range(%)",
+    "CURR: Majority",
+    "CURR: Under",
+    "CURR: Over",
+    "CURR: Range(%)",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "10 rows ",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "errors": []
+}

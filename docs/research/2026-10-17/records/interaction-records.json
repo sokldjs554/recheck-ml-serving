@@ -1,0 +1,879 @@
+[
+  {
+    "state": "jaeger/03-failure-trace",
+    "url": "http://127.0.0.1:11686/trace/000000000000000a",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "width": {
+      "viewport": 1440,
+      "document": 1440
+    },
+    "text": "About Jaeger\nJAEGER UI\nSearch\nCompare\nSystem Architecture\nMonitor\nresearch-api: POST /decision 0000000\n⌘\nTrace Timeline\nTrace StartOctober 17 2026, 05:39:26.861Duration107msServices3Depth2Total Spans3\n0μs\n26.75ms\n53.5ms\n80.25ms\n107ms\nService & Operation\n0μs\n26.75ms\n53.5ms\n80.25ms\n107ms\nresearch-api POST /decision\n107ms\nmodel-worker model.predict\n82ms\nrecord-store record.commit\n57ms",
+    "controls": [
+      {
+        "tag": "INPUT",
+        "text": "",
+        "title": "",
+        "placeholder": "Lookup by Trace ID...",
+        "aria": null
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "title": "",
+        "placeholder": "Find...",
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "⌘",
+        "title": "",
+        "placeholder": null,
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Trace Timeline ",
+        "title": "",
+        "placeholder": null,
+        "aria": null
+      }
+    ]
+  },
+  {
+    "state": "jaeger/04-span-expanded",
+    "url": "http://127.0.0.1:11686/trace/000000000000000a",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "width": {
+      "viewport": 1440,
+      "document": 1440
+    },
+    "text": "About Jaeger\nJAEGER UI\nSearch\nCompare\nSystem Architecture\nMonitor\nresearch-api: POST /decision 0000000\n⌘\nTrace Timeline\nTrace StartOctober 17 2026, 05:39:26.861Duration107msServices3Depth2Total Spans3\n0μs\n26.75ms\n53.5ms\n80.25ms\n107ms\nService & Operation\n0μs\n26.75ms\n53.5ms\n80.25ms\n107ms\nresearch-api POST /decision\n107ms\nmodel-worker model.predict\n82ms\nmodel.predict\nService:model-workerDuration:82msStart Time:5ms\nTags:error=trueotel.scope.name=research-fixtureotel.status_code=ERRORrequest.sequence=9research.fixture=truespan.kind=server\nProcess:\n Logs (1)\n 0000000000000065\nrecord-store record.commit\n57ms",
+    "controls": [
+      {
+        "tag": "INPUT",
+        "text": "",
+        "title": "",
+        "placeholder": "Lookup by Trace ID...",
+        "aria": null
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "title": "",
+        "placeholder": "Find...",
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "⌘",
+        "title": "",
+        "placeholder": null,
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Trace Timeline ",
+        "title": "",
+        "placeholder": null,
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": null
+      }
+    ]
+  },
+  {
+    "state": "jaeger/05-trace-mobile",
+    "url": "http://127.0.0.1:11686/trace/000000000000000a",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "width": {
+      "viewport": 390,
+      "document": 390
+    },
+    "text": "About Jaeger\nresearch-api: POST /decision 0000000\n⌘\nTrace Timeline\nTrace StartOctober 17 2026, 05:39:26.861Duration107msServices3Depth2Total Spans3\n0μs\n26.75ms\n53.5ms\n80.25ms\n107ms\nService & Operation\n0μs\n26.75ms\n53.5ms\n80.25ms\n107ms\nresearch-api POST /decision\n107ms\nmodel-worker model.predict\n82ms\nmodel.predict\nService:model-workerDuration:82msStart Time:5ms\nTags:error=trueotel.scope.name=research-fixtureotel.status_code=ERRORrequest.sequence=9research.fixture=truespan.kind=server\nProcess:\n Logs (1)\n 0000000000000065\nrecord-store record.commit\n57ms",
+    "controls": [
+      {
+        "tag": "INPUT",
+        "text": "",
+        "title": "",
+        "placeholder": "Lookup by Trace ID...",
+        "aria": null
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "title": "",
+        "placeholder": "Find...",
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "⌘",
+        "title": "",
+        "placeholder": null,
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Trace Timeline ",
+        "title": "",
+        "placeholder": null,
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": null
+      }
+    ]
+  },
+  {
+    "state": "evidently/drift-expanded-desktop",
+    "url": "http://127.0.0.1:18765/data_drift.html",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "width": {
+      "viewport": 1440,
+      "document": 1444
+    },
+    "text": "Dataset Drift\n\nDataset Drift is detected. Dataset drift detection threshold is 0.5\n\n7\n\nColumns\n\n5\n\nDrifted Columns\n\n0.714\n\nShare of Drifted Columns\n\nData Drift Summary\n\nDrift is detected for 71.429% of columns (5 out of 7).\n\t\nColumn\n\t\nType\n\t\nReference Distribution\n\t\nCurrent Distribution\n\t\nData Drift\n\t\nStat Test\n\t\nDrift Score\n\n\n\tprediction\tnum\t\n\t\n\tDetected\tK-S p_value\t0.019459\n\nDATA DRIFT\nDATA DISTRIBUTION\nFeb 122011\nFeb 13\nFeb 14\nFeb 15\nFeb 16\nFeb 17\nFeb 18\n0\n50\n100\n150\n200\nCurrent\nIndex\nprediction\n\n\n\tweekday\tnum\t\n\t\n\tNot Detected\tK-S p_value\t1\n\n\thr\tnum\t\n\t\n\tNot Detected\tK-S p_value\t1\n\n\twindspeed\tnum\t\n\t\n\tDetected\tK-S p_value\t0.000001\n\n\thum\tnum\t\n\t\n\tDetected\tK-S p_value\t0\n\n\tatemp\tnum\t\n\t\n\tDetected\tK-S p_value\t0\n\n\ttemp\tnum\t\n\t\n\tDetected\tK-S p_value\t0\n7 rows\n1-7 of 7",
+    "controls": [
+      {
+        "tag": "INPUT",
+        "text": "",
+        "title": "",
+        "placeholder": "Search",
+        "aria": "Search"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Clear Search"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "DATA DRIFT",
+        "title": "",
+        "placeholder": null,
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "DATA DISTRIBUTION",
+        "title": "",
+        "placeholder": null,
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "title": "",
+        "placeholder": "",
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "First Page"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Previous Page"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Next Page"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Last Page"
+      }
+    ]
+  },
+  {
+    "state": "evidently/drift-search-desktop",
+    "url": "http://127.0.0.1:18765/data_drift.html",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "width": {
+      "viewport": 1440,
+      "document": 1444
+    },
+    "text": "Dataset Drift\n\nDataset Drift is detected. Dataset drift detection threshold is 0.5\n\n7\n\nColumns\n\n5\n\nDrifted Columns\n\n0.714\n\nShare of Drifted Columns\n\nData Drift Summary\n\nDrift is detected for 71.429% of columns (5 out of 7).\n\t\nColumn\n\t\nType\n\t\nReference Distribution\n\t\nCurrent Distribution\n\t\nData Drift\n\t\nStat Test\n\t\nDrift Score\n\n\n\twindspeed\tnum\t\n\t\n\tDetected\tK-S p_value\t0.000001\n\n\n\n\n\n\n\n7 rows\n1-1 of 1",
+    "controls": [
+      {
+        "tag": "INPUT",
+        "text": "",
+        "title": "",
+        "placeholder": "Search",
+        "aria": "Search"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Clear Search"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "title": "",
+        "placeholder": "",
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "First Page"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Previous Page"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Next Page"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Last Page"
+      }
+    ]
+  },
+  {
+    "state": "evidently/drift-no-results",
+    "url": "http://127.0.0.1:18765/data_drift.html",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "width": {
+      "viewport": 1440,
+      "document": 1444
+    },
+    "text": "Dataset Drift\n\nDataset Drift is detected. Dataset drift detection threshold is 0.5\n\n7\n\nColumns\n\n5\n\nDrifted Columns\n\n0.714\n\nShare of Drifted Columns\n\nData Drift Summary\n\nDrift is detected for 71.429% of columns (5 out of 7).\n\t\nColumn\n\t\nType\n\t\nReference Distribution\n\t\nCurrent Distribution\n\t\nData Drift\n\t\nStat Test\n\t\nDrift Score\n\n\n\twindspeed\tnum\t\n\t\n\tDetected\tK-S p_value\t0.000001\n\n\n\n\n\n\n\n7 rows\n1-1 of 1",
+    "controls": [
+      {
+        "tag": "INPUT",
+        "text": "",
+        "title": "",
+        "placeholder": "Search",
+        "aria": "Search"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Clear Search"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "title": "",
+        "placeholder": "",
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "First Page"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Previous Page"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Next Page"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Last Page"
+      }
+    ]
+  },
+  {
+    "state": "evidently/drift-sort-desktop",
+    "url": "http://127.0.0.1:18765/data_drift.html",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "width": {
+      "viewport": 1440,
+      "document": 1444
+    },
+    "text": "Dataset Drift\n\nDataset Drift is detected. Dataset drift detection threshold is 0.5\n\n7\n\nColumns\n\n5\n\nDrifted Columns\n\n0.714\n\nShare of Drifted Columns\n\nData Drift Summary\n\nDrift is detected for 71.429% of columns (5 out of 7).\n\t\nColumn\n\t\nType\n\t\nReference Distribution\n\t\nCurrent Distribution\n\t\nData Drift\n\t\nStat Test\n\t\nDrift Score\n\n\n\thum\tnum\t\n\t\n\tDetected\tK-S p_value\t0\n\n\tatemp\tnum\t\n\t\n\tDetected\tK-S p_value\t0\n\n\ttemp\tnum\t\n\t\n\tDetected\tK-S p_value\t0\n\n\twindspeed\tnum\t\n\t\n\tDetected\tK-S p_value\t0.000001\n\n\tprediction\tnum\t\n\t\n\tDetected\tK-S p_value\t0.019459\n\nDATA DRIFT\nDATA DISTRIBUTION\nFeb 122011\nFeb 13\nFeb 14\nFeb 15\nFeb 16\nFeb 17\nFeb 18\n0\n50\n100\n150\n200\nCurrent\nIndex\nprediction\n\n\n\tweekday\tnum\t\n\t\n\tNot Detected\tK-S p_value\t1\n\n\thr\tnum\t\n\t\n\tNot Detected\tK-S p_value\t1\n7 rows\n1-7 of 7",
+    "controls": [
+      {
+        "tag": "INPUT",
+        "text": "",
+        "title": "",
+        "placeholder": "Search",
+        "aria": "Search"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Clear Search"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "DATA DRIFT",
+        "title": "",
+        "placeholder": null,
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "DATA DISTRIBUTION",
+        "title": "",
+        "placeholder": null,
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "title": "",
+        "placeholder": "",
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "First Page"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Previous Page"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Next Page"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Last Page"
+      }
+    ]
+  },
+  {
+    "state": "evidently/drift-mobile",
+    "url": "http://127.0.0.1:18765/data_drift.html",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "width": {
+      "viewport": 390,
+      "document": 394
+    },
+    "text": "Dataset Drift\n\nDataset Drift is detected. Dataset drift detection threshold is 0.5\n\n7\n\nColumns\n\n5\n\nDrifted Columns\n\n0.714\n\nShare of Drifted Columns\n\nData Drift Summary\n\nDrift is detected for 71.429% of columns (5 out of 7).\n\t\nColumn\n\t\nType\n\t\nReference Distribution\n\t\nCurrent Distribution\n\t\nData Drift\n\t\nStat Test\n\t\nDrift Score\n\n\n\thum\tnum\t\n\t\n\tDetected\tK-S p_value\t0\n\n\tatemp\tnum\t\n\t\n\tDetected\tK-S p_value\t0\n\n\ttemp\tnum\t\n\t\n\tDetected\tK-S p_value\t0\n\n\twindspeed\tnum\t\n\t\n\tDetected\tK-S p_value\t0.000001\n\n\tprediction\tnum\t\n\t\n\tDetected\tK-S p_value\t0.019459\n\nDATA DRIFT\nDATA DISTRIBUTION\nFeb 122011\nFeb 13\nFeb 14\nFeb 15\nFeb 16\nFeb 17\nFeb 18\n0\n50\n100\n150\n200\nCurrent\nIndex\nprediction\n\n\n\tweekday\tnum\t\n\t\n\tNot Detected\tK-S p_value\t1\n\n\thr\tnum\t\n\t\n\tNot Detected\tK-S p_value\t1\n7 rows\n1-7 of 7",
+    "controls": [
+      {
+        "tag": "INPUT",
+        "text": "",
+        "title": "",
+        "placeholder": "Search",
+        "aria": "Search"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Clear Search"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "DATA DRIFT",
+        "title": "",
+        "placeholder": null,
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "DATA DISTRIBUTION",
+        "title": "",
+        "placeholder": null,
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "title": "",
+        "placeholder": "",
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "First Page"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Previous Page"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Next Page"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Last Page"
+      }
+    ]
+  },
+  {
+    "state": "evidently/performance-mobile",
+    "url": "http://127.0.0.1:18765/model_performance.html",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "width": {
+      "viewport": 390,
+      "document": 394
+    },
+    "text": "Regression Model Performance. Target: 'cnt’\n\nCurrent: Model Quality (+/- std)\n\n-20.65 (28.68)\n\nME\n\n22.93 (26.88)\n\nMAE\n\n33.81 (0.39)\n\nMAPE\n\nReference: Model Quality (+/- std)\n\n-0.03 (6.37)\n\nME\n\n4.1 (4.87)\n\nMAE\n\n16.13 (0.37)\n\nMAPE\n\nPredicted vs Actual\n\n0\n100\n200\n300\n0\n50\n100\n150\n200\n0\n100\n200\ncurrent\nreference\nActual value\nActual value\nPredicted value\n\nPredicted vs Actual in Time\n\nFeb 132011\nFeb 15\nFeb 17\n0\n50\n100\n150\n200\n250\n300\nJan 22011\nJan 9\nJan 16\nJan 23\nPredicted\nActual\nIndex\nIndex\nValue\ncurrent\nreference\n\nError (Predicted - Actual)\n\nFeb 132011\nFeb 15\nFeb 17\n−100\n−50\n0\nJan 22011\nJan 9\nJan 16\nJan 23\nPredicted - Actual\nIndex\nIndex\nError\ncurrent\nreference\n\nAbsolute Percentage Error\n\nFeb 132011\nFeb 15\nFeb 17\n0\n100\n200\n300\n400\n500\nJan 22011\nJan 9\nJan 16\nJan 23\nAbsolute Percentage Error\nIndex\nIndex\nPercent\ncurrent\nreference\n\nError Distribution\n\n−100\n−50\n0\n0\n50\n100\n150\n200\n250\n300\n350\n400\n−100\n−50\n0\nError (Predicted - Actual)\nError (Predicted - Actual)\nPercentage\ncurrent\nreference\n\nError Normality\n\n−2\n0\n2\n−100\n−50\n0\n50\n−4\n−2\n0\n2\n4\n−40\n−20\n0\n20\nDataset Quantiles\nTheoretical Quantiles\nTheoretical Quantiles\nTheoretical Quantiles\nDataset Quantiles\ncurrent\nreference\n\nError Bias Table\n\nCurrent: Mean Error per Group (+/- std)\n\n-17.55 (19.2)\n\nMajority(90%)\n\n-105.99 (19.01)\n\nUnderestimation(5%)\n\n14.02 (7.5)\n\nOverestimation(5%)\n\nReference: Mean Error per Group (+/- std)\n\n0.08 (3.83)\n\nMajority(90%)\n\n-16.04 (7.87)\n\nUnderestimation(5%)\n\n14.01 (5.68)\n\nOverestimation(5%)\n\nPredicted vs Actual per Group\n\n0\n100\n200\n300\n0\n50\n100\n150\n200\n0\n100\n200\nUnderestimation\nOverestimation\nMajority\nActual value\nActual value\nPredicted value\ncurrent\nreference\n\nError Bias: Mean/Most Common Feature Value per Group (Top - 5% Errors)\n\n\t\nFeature\n\t\nType\n\t\nREF: Majority\n\t\nREF: Under\n\t\nREF: Over\n\t\nREF: Range(%)\n\t\nCURR: Majority\n\t\nCURR: Under\n\t\nCURR: Over\n\t\nCURR: Range(%)\n\n\n\tweekday\tnum\t3\t3.19\t3.23\t0.54\t3.02\t4.44\t1.67\t46.3\n\n\tatemp\tnum\t0.2\t0.2\t0.22\t5.27\t0.35\t0.53\t0.32\t41.66\n\n\ttemp\tnum\t0.2\t0.2\t0.22\t5.43\t0.36\t0.54\t0.33\t38.27\n\n\thr\tnum\t11.89\t13.35\t13.74\t1.68\t11.65\t12.33\t15.56\t14.01\n\n\twindspeed\tnum\t0.2\t0.21\t0.22\t2.65\t0.27\t0.27\t0.32\t6.41\n\n\thum\tnum\t0.56\t0.56\t0.69\t16.78\t0.45\t0.46\t0.41\t6.27\n\n\tholiday\tcat\t0\t0\t0\t0.0\t0\t0\t0\t0\n\n\tseason\tcat\t1\t1\t1\t0.0\t1\t1\t1\t0\n\n\tworkingday\tcat\t1\t1\t1\t0.0\t1\t1\t1\t0\n\n\n10 rows\n1-9 of 9",
+    "controls": [
+      {
+        "tag": "INPUT",
+        "text": "",
+        "title": "",
+        "placeholder": "Search",
+        "aria": "Search"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Clear Search"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Detail panel visibility toggle"
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "title": "",
+        "placeholder": "",
+        "aria": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "First Page"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Previous Page"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Next Page"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "",
+        "placeholder": null,
+        "aria": "Last Page"
+      }
+    ]
+  }
+]

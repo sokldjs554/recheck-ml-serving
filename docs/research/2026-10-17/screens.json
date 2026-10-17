@@ -1,0 +1,80 @@
+[
+  {
+    "file": "screens/jaeger-01-empty-desktop.png",
+    "sha256": "159388d9ba709a5caa8dee2a3ec8b0326724412b3106067be6b0bba897d705b5",
+    "scope": "local Chromium screenshot; no public deployment interaction",
+    "fixture_data": true
+  },
+  {
+    "file": "screens/jaeger-02-results-desktop.png",
+    "sha256": "90f87464665e64a4f4b169a707e6a83a4af87dbc27ea2593ac7bc84ca32cfe6b",
+    "scope": "local Chromium screenshot; no public deployment interaction",
+    "fixture_data": true
+  },
+  {
+    "file": "screens/jaeger-06-log-panel.png",
+    "sha256": "8d7f207885cc14097162673c5a6929d188a5052228e735bfe8b1a2dbb0965308",
+    "scope": "local Chromium screenshot; no public deployment interaction",
+    "fixture_data": true
+  },
+  {
+    "file": "screens/jaeger-05-trace-mobile.png",
+    "sha256": "3e3e447ea803667f9277e25b8daa14ec8db184b77790965ade4271298ea2e3d7",
+    "scope": "local Chromium screenshot; no public deployment interaction",
+    "fixture_data": true
+  },
+  {
+    "file": "screens/evidently-data_drift-desktop.png",
+    "sha256": "4423499274f2e4b2637f64bc6cf55e00d41768e85d2201a38863b8eecd00036a",
+    "scope": "local Chromium screenshot; no public deployment interaction",
+    "fixture_data": false
+  },
+  {
+    "file": "screens/evidently-drift-distribution.png",
+    "sha256": "6896be5e916fb33ce698cc26905f4ba1782eefccbf83ad527d7d7cd2ba380eba",
+    "scope": "local Chromium screenshot; no public deployment interaction",
+    "fixture_data": false
+  },
+  {
+    "file": "screens/evidently-drift-mobile.png",
+    "sha256": "7c5362d1da7f9cbbac88ad352da8003743e2b6fe43b2f8c6b13a3586cd49e50d",
+    "scope": "local Chromium screenshot; no public deployment interaction",
+    "fixture_data": false
+  },
+  {
+    "file": "screens/recheck-case-first-viewport.png",
+    "sha256": "8b373ae0acca0d99dd78bf77bdf2949c449bedfb87a936641cf9888036af24f4",
+    "scope": "local Chromium screenshot; no public deployment interaction",
+    "fixture_data": false
+  },
+  {
+    "file": "screens/recheck-serving-first-viewport.png",
+    "sha256": "5c75f89a2694250fc7009699a828d0d4ffe6ef487ddbbe874314747d70dcad5f",
+    "scope": "local Chromium screenshot; no public deployment interaction",
+    "fixture_data": false
+  },
+  {
+    "file": "screens/recheck-recovery-first-viewport.png",
+    "sha256": "7862bb7bce759b5bb0466a6edf6d4458af14e4c3fcb9a69802e34a1fd2a10810",
+    "scope": "local Chromium screenshot; no public deployment interaction",
+    "fixture_data": false
+  },
+  {
+    "file": "screens/recheck-case-mobile-first.png",
+    "sha256": "b5e0e14577aaabb514ad11e1ff76aaaae4ebf275677e4e1e3f85be1486bc0a01",
+    "scope": "local Chromium screenshot; no public deployment interaction",
+    "fixture_data": false
+  },
+  {
+    "file": "screens/recheck-serving-mobile-first.png",
+    "sha256": "07f3558ca7eb92bc273c954d809271da68e07f9d152eab4878b2b8b323653ba3",
+    "scope": "local Chromium screenshot; no public deployment interaction",
+    "fixture_data": false
+  },
+  {
+    "file": "screens/recheck-recovered-mobile-inspector.png",
+    "sha256": "ae886f5d7d9619447966ace0242b9f22b50255a1d20d5391c3605f602f5741f5",
+    "scope": "local Chromium screenshot; no public deployment interaction",
+    "fixture_data": false
+  }
+]

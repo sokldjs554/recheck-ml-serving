@@ -1,0 +1,319 @@
+{
+  "date": "2026-10-17",
+  "scope": "Read-only official asset and source audit",
+  "assets": [
+    {
+      "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/skn-hero_3.png",
+      "source_url": "https://raw.githubusercontent.com/SKNETWORKS-FAMILY-AICAMP/SKN27-FINAL-1Team/2eaca8d78c53ed0c88f1af76c27ba27e3dd58d1c/app/frontend/assets/hero_3.png",
+      "sha256": "9ee49ea70fe417334fb065d1a9461400556d99d8718b1954536d0172cd3351eb",
+      "bytes": 1704090,
+      "dimensions": [
+        1672,
+        941
+      ],
+      "kind": "background artwork, not UI screenshot",
+      "visual_inspected": true,
+      "remote_interaction_performed": false,
+      "sampled_frames": []
+    },
+    {
+      "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/skn-hero_3_mobile.png",
+      "source_url": "https://raw.githubusercontent.com/SKNETWORKS-FAMILY-AICAMP/SKN27-FINAL-1Team/2eaca8d78c53ed0c88f1af76c27ba27e3dd58d1c/app/frontend/assets/hero_3_mobile.png",
+      "sha256": "f3f583f068e6220dc9b21da884ee470de4c8b0eb44b2396d1d971f8808da2191",
+      "bytes": 1132906,
+      "dimensions": [
+        900,
+        1000
+      ],
+      "kind": "mobile background artwork, not UI screenshot",
+      "visual_inspected": true,
+      "remote_interaction_performed": false,
+      "sampled_frames": []
+    },
+    {
+      "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/phoenix-rag.gif",
+      "source_url": "https://raw.githubusercontent.com/Arize-ai/phoenix-assets/f5ab6367204da8393255359b7cbfb7d38f1374ce/gifs/llama_index_rag_tracing.gif",
+      "sha256": "a1d0c8ea5994976047f5b5d1a0d32ecd395ec24adb16475ec82079be8d0e5766",
+      "bytes": 1864367,
+      "dimensions": [
+        884,
+        480
+      ],
+      "kind": "official recorded UI animation; sampled frames, not interactive execution",
+      "visual_inspected": true,
+      "remote_interaction_performed": false,
+      "sampled_frames": [
+        {
+          "index": 0,
+          "time_ms": 0,
+          "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/phoenix-rag-0.png"
+        },
+        {
+          "index": 21,
+          "time_ms": 2100,
+          "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/phoenix-rag-21.png"
+        },
+        {
+          "index": 42,
+          "time_ms": 4200,
+          "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/phoenix-rag-42.png"
+        },
+        {
+          "index": 63,
+          "time_ms": 6300,
+          "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/phoenix-rag-63.png"
+        },
+        {
+          "index": 84,
+          "time_ms": 8400,
+          "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/phoenix-rag-84.png"
+        }
+      ],
+      "frame_count": 85,
+      "duration_ms": 8500,
+      "contact_sheet": "/workspace/work/deep-research-2026-10-17/presentation-assets/phoenix-rag-contact.jpg",
+      "contact_sheet_note": "Gray margins and labels are investigator additions, not product UI."
+    },
+    {
+      "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/phoenix-evals.png",
+      "source_url": "https://raw.githubusercontent.com/Arize-ai/phoenix-assets/f5ab6367204da8393255359b7cbfb7d38f1374ce/images/screenshots/document_evals_on_traces.png",
+      "sha256": "383e192ca3fad8726ed6d0a0dcc15c4203bd9dd2aea8c92de951c446a1e3f7e1",
+      "bytes": 691707,
+      "dimensions": [
+        3804,
+        1900
+      ],
+      "kind": "official annotated screenshot",
+      "visual_inspected": true,
+      "remote_interaction_performed": false,
+      "sampled_frames": []
+    },
+    {
+      "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/evidently-report.gif",
+      "source_url": "https://raw.githubusercontent.com/evidentlyai/docs/eb1630cdd80d31d55921ff4d34fc7b5e6e9c9f90/images/concepts/report_test_preview.gif",
+      "sha256": "acefcf5fb8a94769318f425475be458579ffcb0b9a08dd7bdd3a218f189d8aef",
+      "bytes": 866791,
+      "dimensions": [
+        1436,
+        870
+      ],
+      "kind": "official recorded report animation; sampled frames, not interactive execution",
+      "visual_inspected": true,
+      "remote_interaction_performed": false,
+      "sampled_frames": [
+        {
+          "index": 0,
+          "time_ms": 0,
+          "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/evidently-report-0.png"
+        },
+        {
+          "index": 15,
+          "time_ms": 1760,
+          "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/evidently-report-15.png"
+        },
+        {
+          "index": 30,
+          "time_ms": 3360,
+          "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/evidently-report-30.png"
+        },
+        {
+          "index": 45,
+          "time_ms": 4720,
+          "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/evidently-report-45.png"
+        },
+        {
+          "index": 59,
+          "time_ms": 5840,
+          "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/evidently-report-59.png"
+        }
+      ],
+      "frame_count": 60,
+      "duration_ms": 6160,
+      "contact_sheet": "/workspace/work/deep-research-2026-10-17/presentation-assets/evidently-report-contact.jpg",
+      "contact_sheet_note": "Gray margins and labels are investigator additions, not product UI."
+    },
+    {
+      "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/evidently-dashboard.gif",
+      "source_url": "https://raw.githubusercontent.com/evidentlyai/docs/eb1630cdd80d31d55921ff4d34fc7b5e6e9c9f90/images/dashboard_llm_tabs.gif",
+      "sha256": "44cd59b97618e34f7ee00074b4e39bfe1d4065c027326a85b6613b6cd5975ae1",
+      "bytes": 505018,
+      "dimensions": [
+        1438,
+        818
+      ],
+      "kind": "official recorded CLOUD dashboard animation; sampled frames, not OSS parity evidence",
+      "visual_inspected": true,
+      "remote_interaction_performed": false,
+      "sampled_frames": [
+        {
+          "index": 0,
+          "time_ms": 0,
+          "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/evidently-dashboard-0.png"
+        },
+        {
+          "index": 12,
+          "time_ms": 1440,
+          "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/evidently-dashboard-12.png"
+        },
+        {
+          "index": 24,
+          "time_ms": 3040,
+          "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/evidently-dashboard-24.png"
+        },
+        {
+          "index": 36,
+          "time_ms": 4480,
+          "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/evidently-dashboard-36.png"
+        },
+        {
+          "index": 48,
+          "time_ms": 6000,
+          "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/evidently-dashboard-48.png"
+        }
+      ],
+      "frame_count": 49,
+      "duration_ms": 6560,
+      "contact_sheet": "/workspace/work/deep-research-2026-10-17/presentation-assets/evidently-dashboard-contact.jpg",
+      "contact_sheet_note": "Gray margins and labels are investigator additions, not product UI."
+    }
+  ],
+  "source_files": [
+    {
+      "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/skn-app_frontend_index.css",
+      "source_url": "https://raw.githubusercontent.com/SKNETWORKS-FAMILY-AICAMP/SKN27-FINAL-1Team/2eaca8d78c53ed0c88f1af76c27ba27e3dd58d1c/app/frontend/index.css",
+      "sha256": "cbd2b8f8c2b1608f6296ab15fb3df77347814a25299dd722b498f4e9ac37c18d",
+      "evidence": "source_read_not_runtime_test"
+    },
+    {
+      "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/skn-app_frontend_pages_home_Home.jsx",
+      "source_url": "https://raw.githubusercontent.com/SKNETWORKS-FAMILY-AICAMP/SKN27-FINAL-1Team/2eaca8d78c53ed0c88f1af76c27ba27e3dd58d1c/app/frontend/pages/home/Home.jsx",
+      "sha256": "100d3891d00e377f715abb9e94c12785734e8e9af56d0c2e8aedf5df3c8e0195",
+      "evidence": "source_read_not_runtime_test"
+    },
+    {
+      "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/skn-app_frontend_pages_home_Home.css",
+      "source_url": "https://raw.githubusercontent.com/SKNETWORKS-FAMILY-AICAMP/SKN27-FINAL-1Team/2eaca8d78c53ed0c88f1af76c27ba27e3dd58d1c/app/frontend/pages/home/Home.css",
+      "sha256": "e2681efa1c553e4ad2b2bd853ff7aa2f6408b4e1a2bd0d0fc0240140df7353bc",
+      "evidence": "source_read_not_runtime_test"
+    },
+    {
+      "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/skn-app_frontend_pages_home_sections_HeroSection.jsx",
+      "source_url": "https://raw.githubusercontent.com/SKNETWORKS-FAMILY-AICAMP/SKN27-FINAL-1Team/2eaca8d78c53ed0c88f1af76c27ba27e3dd58d1c/app/frontend/pages/home/sections/HeroSection.jsx",
+      "sha256": "1e8f8e76d7147b9e9c97ae741ca3c696b87353a17b06044db5d31d336bc05171",
+      "evidence": "source_read_not_runtime_test"
+    },
+    {
+      "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/skn-app_frontend_pages_receipt_ocr_ReceiptOcr.jsx",
+      "source_url": "https://raw.githubusercontent.com/SKNETWORKS-FAMILY-AICAMP/SKN27-FINAL-1Team/2eaca8d78c53ed0c88f1af76c27ba27e3dd58d1c/app/frontend/pages/receipt_ocr/ReceiptOcr.jsx",
+      "sha256": "586a223dd4a036e33173003c03fdf0234cd0b3edfd45f65470b70eee3c15764f",
+      "evidence": "source_read_not_runtime_test"
+    },
+    {
+      "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/skn-app_frontend_pages_receipt_ocr_ReceiptOcr.css",
+      "source_url": "https://raw.githubusercontent.com/SKNETWORKS-FAMILY-AICAMP/SKN27-FINAL-1Team/2eaca8d78c53ed0c88f1af76c27ba27e3dd58d1c/app/frontend/pages/receipt_ocr/ReceiptOcr.css",
+      "sha256": "7f65c371e4e7b32d31951f8c3c9c54e44ea8ed84ff2173b8308023aea15e37ee",
+      "evidence": "source_read_not_runtime_test"
+    },
+    {
+      "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/skn-docs_agent_evaluation_results.md",
+      "source_url": "https://raw.githubusercontent.com/SKNETWORKS-FAMILY-AICAMP/SKN27-FINAL-1Team/2eaca8d78c53ed0c88f1af76c27ba27e3dd58d1c/docs/agent_evaluation_results.md",
+      "sha256": "7a09208c638612610f97cce809b67b09aa3953751ab1eb84bb1af04edbe4a0ea",
+      "evidence": "source_read_not_runtime_test"
+    },
+    {
+      "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/skn-docs_agent_evaluation_metrics.md",
+      "source_url": "https://raw.githubusercontent.com/SKNETWORKS-FAMILY-AICAMP/SKN27-FINAL-1Team/2eaca8d78c53ed0c88f1af76c27ba27e3dd58d1c/docs/agent_evaluation_metrics.md",
+      "sha256": "28764b338f4ac7986fe746276e9834a7fec72c771b20ab13d44805e99ce8c3b3",
+      "evidence": "source_read_not_runtime_test"
+    },
+    {
+      "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/skn-README.md",
+      "source_url": "https://raw.githubusercontent.com/SKNETWORKS-FAMILY-AICAMP/SKN27-FINAL-1Team/main/README.md",
+      "sha256": "e37b254a392ce4f3317f7ffbe90cb25d37acd75d64860c809d4243df2e37b3ed",
+      "evidence": "source_read",
+      "retrieved_on": "2026-10-17",
+      "branch_tip_observed": "2eaca8d78c53ed0c88f1af76c27ba27e3dd58d1c"
+    },
+    {
+      "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/phoenix-js_app_src_pages_project_ProjectTableEmpty.tsx",
+      "source_url": "https://raw.githubusercontent.com/Arize-ai/phoenix/c9a3087027fedff23c32b083534d0a16bcce1a25/js/app/src/pages/project/ProjectTableEmpty.tsx",
+      "sha256": "73c2c73b8ae73ae25465f42829ad5f1facf64346dddf72a89bfbb3fd0730a572",
+      "evidence": "source_read_not_runtime_test"
+    },
+    {
+      "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/phoenix-js_app_src_pages_project_DSLFilterErrorFallback.tsx",
+      "source_url": "https://raw.githubusercontent.com/Arize-ai/phoenix/c9a3087027fedff23c32b083534d0a16bcce1a25/js/app/src/pages/project/DSLFilterErrorFallback.tsx",
+      "sha256": "a601d28a842f8cc7c7a9ca83e32f03b32f5edb6ffb9630a146cd6212cfddcf5a",
+      "evidence": "source_read_not_runtime_test"
+    },
+    {
+      "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/phoenix-js_app_src_pages_trace_TraceDetails.tsx",
+      "source_url": "https://raw.githubusercontent.com/Arize-ai/phoenix/c9a3087027fedff23c32b083534d0a16bcce1a25/js/app/src/pages/trace/TraceDetails.tsx",
+      "sha256": "aec702d94bb04033efe162827a505e7f5c5092029d4217df6c8f058783f469e4",
+      "evidence": "source_read_not_runtime_test"
+    },
+    {
+      "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/phoenix-js_app_src_pages_trace_TracePage.tsx",
+      "source_url": "https://raw.githubusercontent.com/Arize-ai/phoenix/c9a3087027fedff23c32b083534d0a16bcce1a25/js/app/src/pages/trace/TracePage.tsx",
+      "sha256": "19b1b6f12cd61de6931b3fe190a5cf4114f501b0aa09bf5e0f374f6f26e14e1e",
+      "evidence": "source_read_not_runtime_test"
+    },
+    {
+      "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/phoenix-README.md",
+      "source_url": "https://raw.githubusercontent.com/Arize-ai/phoenix/main/README.md",
+      "sha256": "5419cd55c8950286e6b29bb20d6d88fed5e765443f18d2739e15cf83d6c3fc91",
+      "evidence": "source_read",
+      "retrieved_on": "2026-10-17",
+      "branch_tip_observed": "c9a3087027fedff23c32b083534d0a16bcce1a25"
+    },
+    {
+      "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/evidently-ui_packages_evidently-ui-lib_src_components_Dashboard_GeneralHelpers_RenderPanelByDataFetchGeneralComponent.tsx",
+      "source_url": "https://raw.githubusercontent.com/evidentlyai/evidently/34771fe41c08ca074d96a52aaf4a45cd640cbaf5/ui/packages/evidently-ui-lib/src/components/Dashboard/GeneralHelpers/RenderPanelByDataFetchGeneralComponent.tsx",
+      "sha256": "b7f88411cdf0b9f39ce0995b224bc37b0ccb65845107cddc648cb2c8b63c487e",
+      "evidence": "source_read_not_runtime_test"
+    },
+    {
+      "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/evidently-ui_packages_evidently-ui-lib_src_router-utils_components_error.tsx",
+      "source_url": "https://raw.githubusercontent.com/evidentlyai/evidently/34771fe41c08ca074d96a52aaf4a45cd640cbaf5/ui/packages/evidently-ui-lib/src/router-utils/components/error.tsx",
+      "sha256": "ac640bd95e504d050850b96831415ba27f28a5ad4827ccc45f5bb445c8357bb7",
+      "evidence": "source_read_not_runtime_test"
+    },
+    {
+      "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/evidently-ui_packages_evidently-ui-lib_src_theme_index.tsx",
+      "source_url": "https://raw.githubusercontent.com/evidentlyai/evidently/34771fe41c08ca074d96a52aaf4a45cd640cbaf5/ui/packages/evidently-ui-lib/src/theme/index.tsx",
+      "sha256": "2d4715a47b54f61e6934e8c11f5d469780147bb0e7ff3b4649c9d7e1fea5d248",
+      "evidence": "source_read_not_runtime_test"
+    },
+    {
+      "file": "/workspace/work/deep-research-2026-10-17/presentation-assets/evidently-README.md",
+      "source_url": "https://raw.githubusercontent.com/evidentlyai/evidently/main/README.md",
+      "sha256": "c8ac72c2363a2f0b7c36f38a6e7801817e5659507a2e6a37212702ad1cd51c20",
+      "evidence": "source_read",
+      "retrieved_on": "2026-10-17",
+      "branch_tip_observed": "34771fe41c08ca074d96a52aaf4a45cd640cbaf5"
+    }
+  ],
+  "discovered_not_played": [
+    {
+      "project": "SKN27-FINAL-1Team",
+      "url": "https://www.youtube.com/watch?v=HttAWapHMdk",
+      "kind": "official demo"
+    },
+    {
+      "project": "SKN27-FINAL-1Team",
+      "url": "https://www.youtube.com/watch?v=Q-JacxpNduw",
+      "kind": "official promotional video"
+    },
+    {
+      "project": "SKN27-FINAL-1Team",
+      "url": "https://www.youtube.com/watch?v=G3C5Ci9yciI",
+      "kind": "official MCP usage"
+    }
+  ],
+  "discovered_for_parent_local_execution": {
+    "url": "https://raw.githubusercontent.com/evidentlyai/evidently/8d50976ad34a30417e51801503af8b0eab574c93/examples/integrations/streamlit_dashboard/projects/bike-sharing/reports/2011-02-12_2011-02-18/data_drift.html",
+    "tag": "v0.4.40",
+    "kind": "historical saved HTML report; not newly computed"
+  },
+  "archive_note": "Local file paths describe inspection scratch space, not repository assets. Use pinned source URLs to retrieve official assets. Our browser screenshots are in screens.json."
+}

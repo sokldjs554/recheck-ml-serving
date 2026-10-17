@@ -1,0 +1,256 @@
+{
+  "date": "2026-10-17",
+  "scope": "Langfuse/promptfoo trace-evaluation UI code, test-source, official visual and public-page audit",
+  "sources": [
+    {
+      "repo": "langfuse/langfuse",
+      "commit": "e3a2bee2a2c048adf29b8d8a18b29bd4a8bf8ac3",
+      "path": "web/src/features/traces/components/TraceTree.tsx",
+      "url": "https://github.com/langfuse/langfuse/blob/e3a2bee2a2c048adf29b8d8a18b29bd4a8bf8ac3/web/src/features/traces/components/TraceTree.tsx",
+      "method": "GitHub connector exact-commit source read",
+      "lines": 138,
+      "executed": false
+    },
+    {
+      "repo": "langfuse/langfuse",
+      "commit": "e3a2bee2a2c048adf29b8d8a18b29bd4a8bf8ac3",
+      "path": "web/src/features/traces/components/VirtualizedTree.tsx",
+      "url": "https://github.com/langfuse/langfuse/blob/e3a2bee2a2c048adf29b8d8a18b29bd4a8bf8ac3/web/src/features/traces/components/VirtualizedTree.tsx",
+      "method": "GitHub connector exact-commit source read",
+      "lines": 202,
+      "executed": false
+    },
+    {
+      "repo": "langfuse/langfuse",
+      "commit": "e3a2bee2a2c048adf29b8d8a18b29bd4a8bf8ac3",
+      "path": "web/src/features/traces/components/TraceTimelineDense/TimelineDense.tsx",
+      "url": "https://github.com/langfuse/langfuse/blob/e3a2bee2a2c048adf29b8d8a18b29bd4a8bf8ac3/web/src/features/traces/components/TraceTimelineDense/TimelineDense.tsx",
+      "method": "GitHub connector exact-commit source read",
+      "lines": 2000,
+      "executed": false
+    },
+    {
+      "repo": "langfuse/langfuse",
+      "commit": "e3a2bee2a2c048adf29b8d8a18b29bd4a8bf8ac3",
+      "path": "web/src/features/traces/fns/timeline/layout.clienttest.ts",
+      "url": "https://github.com/langfuse/langfuse/blob/e3a2bee2a2c048adf29b8d8a18b29bd4a8bf8ac3/web/src/features/traces/fns/timeline/layout.clienttest.ts",
+      "method": "GitHub connector exact-commit source read",
+      "lines": 408,
+      "executed": false
+    },
+    {
+      "repo": "langfuse/langfuse",
+      "commit": "e3a2bee2a2c048adf29b8d8a18b29bd4a8bf8ac3",
+      "path": "web/src/features/traces/fns/timeline/searchMatches.clienttest.ts",
+      "url": "https://github.com/langfuse/langfuse/blob/e3a2bee2a2c048adf29b8d8a18b29bd4a8bf8ac3/web/src/features/traces/fns/timeline/searchMatches.clienttest.ts",
+      "method": "GitHub connector exact-commit source read",
+      "lines": 68,
+      "executed": false
+    },
+    {
+      "repo": "langfuse/langfuse",
+      "commit": "e3a2bee2a2c048adf29b8d8a18b29bd4a8bf8ac3",
+      "path": "web/src/features/traces/contexts/SearchContext.tsx",
+      "url": "https://github.com/langfuse/langfuse/blob/e3a2bee2a2c048adf29b8d8a18b29bd4a8bf8ac3/web/src/features/traces/contexts/SearchContext.tsx",
+      "method": "GitHub connector exact-commit source read",
+      "lines": 71,
+      "executed": false
+    },
+    {
+      "repo": "langfuse/langfuse",
+      "commit": "e3a2bee2a2c048adf29b8d8a18b29bd4a8bf8ac3",
+      "path": "web/src/features/events/components/MobileFiltersSheet.tsx",
+      "url": "https://github.com/langfuse/langfuse/blob/e3a2bee2a2c048adf29b8d8a18b29bd4a8bf8ac3/web/src/features/events/components/MobileFiltersSheet.tsx",
+      "method": "GitHub connector exact-commit source read",
+      "lines": 165,
+      "executed": false
+    },
+    {
+      "repo": "langfuse/langfuse",
+      "commit": "e3a2bee2a2c048adf29b8d8a18b29bd4a8bf8ac3",
+      "path": "web/src/features/traces/components/TraceReviewLayout.clienttest.tsx",
+      "url": "https://github.com/langfuse/langfuse/blob/e3a2bee2a2c048adf29b8d8a18b29bd4a8bf8ac3/web/src/features/traces/components/TraceReviewLayout.clienttest.tsx",
+      "method": "GitHub connector exact-commit source read",
+      "lines": 224,
+      "executed": false
+    },
+    {
+      "repo": "promptfoo/promptfoo",
+      "commit": "79011700b4cb544ddd9267565571a1d42d3a3051",
+      "path": "src/app/src/pages/eval/components/ResultsTable.tsx",
+      "url": "https://github.com/promptfoo/promptfoo/blob/79011700b4cb544ddd9267565571a1d42d3a3051/src/app/src/pages/eval/components/ResultsTable.tsx",
+      "method": "GitHub connector exact-commit source read",
+      "lines": 2651,
+      "executed": false
+    },
+    {
+      "repo": "promptfoo/promptfoo",
+      "commit": "79011700b4cb544ddd9267565571a1d42d3a3051",
+      "path": "src/app/src/pages/eval/components/ResultsTable.css",
+      "url": "https://github.com/promptfoo/promptfoo/blob/79011700b4cb544ddd9267565571a1d42d3a3051/src/app/src/pages/eval/components/ResultsTable.css",
+      "method": "GitHub connector exact-commit source read",
+      "lines": 952,
+      "executed": false
+    },
+    {
+      "repo": "promptfoo/promptfoo",
+      "commit": "79011700b4cb544ddd9267565571a1d42d3a3051",
+      "path": "src/app/src/pages/eval/components/EvalOutputCell.tsx",
+      "url": "https://github.com/promptfoo/promptfoo/blob/79011700b4cb544ddd9267565571a1d42d3a3051/src/app/src/pages/eval/components/EvalOutputCell.tsx",
+      "method": "GitHub connector exact-commit source read",
+      "lines": 1692,
+      "executed": false
+    },
+    {
+      "repo": "promptfoo/promptfoo",
+      "commit": "79011700b4cb544ddd9267565571a1d42d3a3051",
+      "path": "src/app/src/pages/eval/components/ResultsTable.test.tsx",
+      "url": "https://github.com/promptfoo/promptfoo/blob/79011700b4cb544ddd9267565571a1d42d3a3051/src/app/src/pages/eval/components/ResultsTable.test.tsx",
+      "method": "GitHub connector exact-commit source read",
+      "lines": 4260,
+      "executed": false
+    },
+    {
+      "repo": "promptfoo/promptfoo",
+      "commit": "79011700b4cb544ddd9267565571a1d42d3a3051",
+      "path": "src/app/src/pages/eval/components/FilterModeProvider.tsx",
+      "url": "https://github.com/promptfoo/promptfoo/blob/79011700b4cb544ddd9267565571a1d42d3a3051/src/app/src/pages/eval/components/FilterModeProvider.tsx",
+      "method": "GitHub connector exact-commit source read",
+      "lines": 50,
+      "executed": false
+    },
+    {
+      "repo": "promptfoo/promptfoo",
+      "commit": "79011700b4cb544ddd9267565571a1d42d3a3051",
+      "path": "src/app/src/__benchmarks__/reactCompiler.test.tsx",
+      "url": "https://github.com/promptfoo/promptfoo/blob/79011700b4cb544ddd9267565571a1d42d3a3051/src/app/src/__benchmarks__/reactCompiler.test.tsx",
+      "method": "GitHub connector exact-commit source read",
+      "lines": 186,
+      "executed": false
+    },
+    {
+      "repo": "promptfoo/promptfoo",
+      "commit": "79011700b4cb544ddd9267565571a1d42d3a3051",
+      "path": "site/docs/usage/web-ui.md",
+      "url": "https://github.com/promptfoo/promptfoo/blob/79011700b4cb544ddd9267565571a1d42d3a3051/site/docs/usage/web-ui.md",
+      "method": "GitHub connector exact-commit source read",
+      "lines": 147,
+      "executed": false
+    },
+    {
+      "repo": "promptfoo/promptfoo",
+      "commit": "79011700b4cb544ddd9267565571a1d42d3a3051",
+      "path": "src/app/src/pages/eval/components/EvalOutputPromptDialog.tsx",
+      "url": "https://github.com/promptfoo/promptfoo/blob/79011700b4cb544ddd9267565571a1d42d3a3051/src/app/src/pages/eval/components/EvalOutputPromptDialog.tsx",
+      "method": "GitHub connector exact-commit source read",
+      "lines": 537,
+      "executed": false
+    },
+    {
+      "repo": "promptfoo/promptfoo",
+      "commit": "79011700b4cb544ddd9267565571a1d42d3a3051",
+      "path": "src/app/src/pages/eval/components/EvalOutputPromptDialog.test.tsx",
+      "url": "https://github.com/promptfoo/promptfoo/blob/79011700b4cb544ddd9267565571a1d42d3a3051/src/app/src/pages/eval/components/EvalOutputPromptDialog.test.tsx",
+      "method": "GitHub connector exact-commit source read",
+      "lines": 1213,
+      "executed": false
+    },
+    {
+      "repo": "promptfoo/promptfoo",
+      "commit": "79011700b4cb544ddd9267565571a1d42d3a3051",
+      "path": "src/app/src/pages/eval/components/FilterModeProvider.test.tsx",
+      "url": "https://github.com/promptfoo/promptfoo/blob/79011700b4cb544ddd9267565571a1d42d3a3051/src/app/src/pages/eval/components/FilterModeProvider.test.tsx",
+      "method": "GitHub connector exact-commit source read",
+      "lines": 84,
+      "executed": false
+    },
+    {
+      "repo": "promptfoo/promptfoo",
+      "commit": "79011700b4cb544ddd9267565571a1d42d3a3051",
+      "path": "src/app/src/hooks/useSearchParamState.ts",
+      "url": "https://github.com/promptfoo/promptfoo/blob/79011700b4cb544ddd9267565571a1d42d3a3051/src/app/src/hooks/useSearchParamState.ts",
+      "method": "GitHub connector exact-commit source read",
+      "lines": 66,
+      "executed": false
+    },
+    {
+      "repo": "promptfoo/promptfoo",
+      "commit": "79011700b4cb544ddd9267565571a1d42d3a3051",
+      "path": "test/tracing/performanceBenchmark.test.ts",
+      "url": "https://github.com/promptfoo/promptfoo/blob/79011700b4cb544ddd9267565571a1d42d3a3051/test/tracing/performanceBenchmark.test.ts",
+      "method": "GitHub connector exact-commit source read",
+      "lines": 193,
+      "executed": false
+    },
+    {
+      "repo": "langfuse/langfuse-docs",
+      "commit": "cf74ffeaa5280b943f7aba4c4b655b8cb39b702f",
+      "path": "public/images/blog/2026-08-31-langfuse-august-update/responsive-timeline.png",
+      "url": "https://raw.githubusercontent.com/langfuse/langfuse-docs/cf74ffeaa5280b943f7aba4c4b655b8cb39b702f/public/images/blog/2026-08-31-langfuse-august-update/responsive-timeline.png",
+      "method": "Downloaded official image; personally inspected with view_image",
+      "local": "/tmp/trace-eval-langfuse-timeline.png",
+      "bytes": 356847
+    },
+    {
+      "repo": "promptfoo/promptfoo",
+      "commit": "79011700b4cb544ddd9267565571a1d42d3a3051",
+      "path": "site/static/img/docs/web-ui-viewer.png",
+      "url": "https://raw.githubusercontent.com/promptfoo/promptfoo/79011700b4cb544ddd9267565571a1d42d3a3051/site/static/img/docs/web-ui-viewer.png",
+      "method": "Downloaded official image; personally inspected with view_image",
+      "local": "/tmp/trace-eval-promptfoo-viewer.png",
+      "bytes": 49629
+    }
+  ],
+  "web": [
+    {
+      "url": "https://langfuse.com/docs/demo",
+      "result": "Demo landing content fetched; no interaction"
+    },
+    {
+      "url": "https://langfuse.com/cloud/demo",
+      "result": "Region selector fetched"
+    },
+    {
+      "url": "https://cloud.langfuse.com/demo",
+      "result": "Redirect to sign-up?targetPath=/demo; Loading content"
+    },
+    {
+      "url": "https://cloud.langfuse.com/project/cloramnkj0002jz088vzn1ja4/traces/db22d0a442216b485abd83cc9df6d9ee",
+      "result": "Not accessible through free web tool"
+    },
+    {
+      "url": "https://www.promptfoo.dev/docs/usage/web-ui/",
+      "result": "Official viewer documentation read"
+    },
+    {
+      "url": "https://www.promptfoo.dev/models/reports/o4-mini",
+      "result": "Public report text read including 39 categories, severity/search/reset controls; no clicks"
+    },
+    {
+      "url": "https://langfuse.com/changelog/2026-08-17-langfuse-v4",
+      "result": "Official speed claims read, not independently reproduced"
+    },
+    {
+      "url": "https://langfuse.com/changelog/2026-08-28-responsive-timeline",
+      "result": "Official responsive design claims read"
+    },
+    {
+      "url": "https://langfuse.com/blog/2026-02-28-langfuse-february-update",
+      "result": "Architecture/performance claim read"
+    }
+  ],
+  "notPerformed": [
+    "Langfuse/promptfoo installation",
+    "UI browser click exercise",
+    "UI test execution",
+    "Independent load or browser performance measurement",
+    "Paid Tinyfish use"
+  ],
+  "failures": [
+    {
+      "url": "https://github.com/user-attachments/assets/8f6995b7-285f-441a-b52f-1331d13ceb45",
+      "result": "GitHub asset redirect hit destination-policy 403; no bypass. Used different official raw repository screenshot."
+    }
+  ],
+  "archive_note": "Local file paths describe inspection scratch space, not repository assets. Use pinned source URLs to retrieve official assets. Our browser screenshots are in screens.json."
+}

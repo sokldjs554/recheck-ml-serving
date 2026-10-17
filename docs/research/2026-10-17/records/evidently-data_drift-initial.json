@@ -1,0 +1,27 @@
+{
+  "elapsed_render_seconds": 1.8656266350008082,
+  "text": "Dataset Drift\n\nDataset Drift is detected. Dataset drift detection threshold is 0.5\n\n7\n\nColumns\n\n5\n\nDrifted Columns\n\n0.714\n\nShare of Drifted Columns\n\nData Drift Summary\n\nDrift is detected for 71.429% of columns (5 out of 7).\n\t\nColumn\n\t\nType\n\t\nReference Distribution\n\t\nCurrent Distribution\n\t\nData Drift\n\t\nStat Test\n\t\nDrift Score\n\n\n\tprediction\tnum\t\n\t\n\tDetected\tK-S p_value\t0.019459\n\n\tweekday\tnum\t\n\t\n\tNot Detected\tK-S p_value\t1\n\n\thr\tnum\t\n\t\n\tNot Detected\tK-S p_value\t1\n\n\twindspeed\tnum\t\n\t\n\tDetected\tK-S p_value\t0.000001\n\n\thum\tnum\t\n\t\n\tDetected\tK-S p_value\t0\n\n\tatemp\tnum\t\n\t\n\tDetected\tK-S p_value\t0\n\n\ttemp\tnum\t\n\t\n\tDetected\tK-S p_value\t0\n7 rows\n1-7 of 7",
+  "buttons": [
+    "",
+    "Column",
+    "Type",
+    "Reference Distribution",
+    "Current Distribution",
+    "Data Drift",
+    "Stat Test",
+    "Drift Score",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "7 rows ",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "errors": []
+}

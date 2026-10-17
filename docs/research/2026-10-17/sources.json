@@ -1,0 +1,2387 @@
+{
+  "date": "2026-10-17",
+  "scope": "Python 추론 서버 소스·테스트·벤치마크 정적 감사",
+  "not_performed": [
+    "외부 프로젝트 설치·테스트 실행",
+    "공개 엔드포인트 부하",
+    "유료 브라우저 도구",
+    "서버 성능 독립 재현"
+  ],
+  "version_note": "검색 도구에서 관측한 커밋에 고정. 릴리스 안정성·해당 날짜의 모든 브랜치 최신 상태를 보증하지 않음.",
+  "sources": [
+    {
+      "project": "bento",
+      "repository": "bentoml/BentoML",
+      "commit": "517b343b81aeb0b01bbd908e58e53ad9c12ef7eb",
+      "path": "src/bentoml/_internal/marshal/dispatcher.py",
+      "url": "https://github.com/bentoml/BentoML/blob/517b343b81aeb0b01bbd908e58e53ad9c12ef7eb/src/bentoml/_internal/marshal/dispatcher.py",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 440,
+      "symbols": [
+        {
+          "line": 21,
+          "text": "class NonBlockSema:"
+        },
+        {
+          "line": 22,
+          "text": "def __init__(self, count: int):"
+        },
+        {
+          "line": 25,
+          "text": "def acquire(self):"
+        },
+        {
+          "line": 31,
+          "text": "def is_locked(self):"
+        },
+        {
+          "line": 34,
+          "text": "def release(self):"
+        },
+        {
+          "line": 38,
+          "text": "class Optimizer:"
+        },
+        {
+          "line": 47,
+          "text": "def __init__(self, max_latency: float):"
+        },
+        {
+          "line": 63,
+          "text": "def log_outbound(self, n: int, wait: float, duration: float):"
+        },
+        {
+          "line": 75,
+          "text": "def trigger_refresh(self):"
+        },
+        {
+          "line": 104,
+          "text": "class Job(t.Generic[T_IN, T_OUT]):"
+        },
+        {
+          "line": 111,
+          "text": "class CorkDispatcher(t.Generic[T_IN, T_OUT]):"
+        },
+        {
+          "line": 123,
+          "text": "def __init__("
+        },
+        {
+          "line": 159,
+          "text": "def shutdown(self) -> None:"
+        },
+        {
+          "line": 166,
+          "text": "def _loop(self) -> asyncio.AbstractEventLoop:"
+        },
+        {
+          "line": 170,
+          "text": "def _wake_event(self) -> asyncio.Condition:"
+        },
+        {
+          "line": 173,
+          "text": "def __call__("
+        },
+        {
+          "line": 185,
+          "text": "async def _func(data: T_IN) -> T_OUT:"
+        },
+        {
+          "line": 198,
+          "text": "async def train_optimizer("
+        },
+        {
+          "line": 253,
+          "text": "async def controller(self) -> None:"
+        },
+        {
+          "line": 327,
+          "text": "async def inbound_call(self, data: T_IN) -> T_OUT | Exception:"
+        },
+        {
+          "line": 336,
+          "text": "async def outbound_call("
+        },
+        {
+          "line": 373,
+          "text": "def _get_inputs("
+        },
+        {
+          "line": 400,
+          "text": "def split_job("
+        },
+        {
+          "line": 420,
+          "text": "def child_done_callback(fut: asyncio.Future[T_OUT | Exception]):"
+        }
+      ]
+    },
+    {
+      "project": "bento",
+      "repository": "bentoml/BentoML",
+      "commit": "517b343b81aeb0b01bbd908e58e53ad9c12ef7eb",
+      "path": "src/bentoml/_internal/server/http/traffic.py",
+      "url": "https://github.com/bentoml/BentoML/blob/517b343b81aeb0b01bbd908e58e53ad9c12ef7eb/src/bentoml/_internal/server/http/traffic.py",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 82,
+      "symbols": [
+        {
+          "line": 13,
+          "text": "class TimeoutMiddleware:"
+        },
+        {
+          "line": 14,
+          "text": "def __init__(self, app: ext.ASGIApp, timeout: float) -> None:"
+        },
+        {
+          "line": 18,
+          "text": "def _set_timer_out(self, waiter: asyncio.Future[Any]) -> None:"
+        },
+        {
+          "line": 22,
+          "text": "async def __call__("
+        },
+        {
+          "line": 31,
+          "text": "async def _send(message: ext.ASGIMessage) -> None:"
+        },
+        {
+          "line": 53,
+          "text": "class MaxConcurrencyMiddleware:"
+        },
+        {
+          "line": 56,
+          "text": "def __init__("
+        },
+        {
+          "line": 66,
+          "text": "async def __call__("
+        }
+      ]
+    },
+    {
+      "project": "bento",
+      "repository": "bentoml/BentoML",
+      "commit": "517b343b81aeb0b01bbd908e58e53ad9c12ef7eb",
+      "path": "src/_bentoml_impl/server/app.py",
+      "url": "https://github.com/bentoml/BentoML/blob/517b343b81aeb0b01bbd908e58e53ad9c12ef7eb/src/_bentoml_impl/server/app.py",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 838,
+      "symbols": [
+        {
+          "line": 56,
+          "text": "class ContextMiddleware:"
+        },
+        {
+          "line": 57,
+          "text": "def __init__(self, app: ext.ASGIApp, context: ServiceContext) -> None:"
+        },
+        {
+          "line": 61,
+          "text": "async def __call__("
+        },
+        {
+          "line": 74,
+          "text": "class ServiceAppFactory(BaseAppFactory):"
+        },
+        {
+          "line": 76,
+          "text": "def __init__("
+        },
+        {
+          "line": 121,
+          "text": "def fallback() -> t.NoReturn:"
+        },
+        {
+          "line": 138,
+          "text": "def adaptive_batch_size_hist(self) -> Histogram:"
+        },
+        {
+          "line": 163,
+          "text": "async def index_page(self, _: Request) -> Response:"
+        },
+        {
+          "line": 172,
+          "text": "async def openapi_spec_view(self, req: Request) -> Response:"
+        },
+        {
+          "line": 181,
+          "text": "def __call__(self) -> Starlette:"
+        },
+        {
+          "line": 185,
+          "text": "def build_path(*path_segments: str) -> str:"
+        },
+        {
+          "line": 218,
+          "text": "def name(self) -> str:"
+        },
+        {
+          "line": 222,
+          "text": "def middlewares(self) -> list[Middleware]:"
+        },
+        {
+          "line": 247,
+          "text": "def server_request_hook(span: Span, _scope: dict[str, t.Any]) -> None:"
+        },
+        {
+          "line": 304,
+          "text": "async def create_instance(self, app: Starlette) -> None:"
+        },
+        {
+          "line": 359,
+          "text": "def _add_response_headers("
+        },
+        {
+          "line": 379,
+          "text": "async def destroy_instance(self, _: Starlette) -> None:"
+        },
+        {
+          "line": 412,
+          "text": "async def livez(self, _: Request) -> Response:"
+        },
+        {
+          "line": 432,
+          "text": "async def readyz(self, _: Request) -> Response:"
+        },
+        {
+          "line": 467,
+          "text": "async def metrics(self, _: Request) -> Response:  # type: ignore[override]"
+        },
+        {
+          "line": 484,
+          "text": "async def lifespan(self, app: Starlette) -> t.AsyncGenerator[None, None]:"
+        },
+        {
+          "line": 505,
+          "text": "async def schema_view(self, request: Request) -> Response:"
+        },
+        {
+          "line": 509,
+          "text": "async def get_status(self, request: Request) -> Response:"
+        },
+        {
+          "line": 527,
+          "text": "async def get_result(self, request: Request) -> Response:"
+        },
+        {
+          "line": 549,
+          "text": "async def retry_task(self, request: Request) -> Response:"
+        },
+        {
+          "line": 568,
+          "text": "async def cancel_task(self, request: Request) -> Response:"
+        },
+        {
+          "line": 582,
+          "text": "async def _run_task(self, task_id: str, name: str, request: Request) -> None:"
+        },
+        {
+          "line": 598,
+          "text": "async def submit_task(self, name: str, request: Request) -> Response:"
+        },
+        {
+          "line": 618,
+          "text": "def routes(self) -> list[BaseRoute]:"
+        },
+        {
+          "line": 655,
+          "text": "async def _to_thread("
+        },
+        {
+          "line": 668,
+          "text": "async def batch_infer("
+        },
+        {
+          "line": 674,
+          "text": "async def inner_infer("
+        },
+        {
+          "line": 715,
+          "text": "async def api_endpoint_wrapper(self, name: str, request: Request) -> Response:"
+        },
+        {
+          "line": 760,
+          "text": "async def api_endpoint(self, name: str, request: Request) -> Response:"
+        },
+        {
+          "line": 812,
+          "text": "async def inner() -> t.AsyncGenerator[t.Any, None]:"
+        }
+      ]
+    },
+    {
+      "project": "bento",
+      "repository": "bentoml/BentoML",
+      "commit": "517b343b81aeb0b01bbd908e58e53ad9c12ef7eb",
+      "path": "tests/e2e/bento_server_http/tests/test_serve.py",
+      "url": "https://github.com/bentoml/BentoML/blob/517b343b81aeb0b01bbd908e58e53ad9c12ef7eb/tests/e2e/bento_server_http/tests/test_serve.py",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 127,
+      "symbols": [
+        {
+          "line": 15,
+          "text": "def test_http_server():"
+        },
+        {
+          "line": 29,
+          "text": "def test_http_server_ctx():"
+        },
+        {
+          "line": 41,
+          "text": "def test_serve_from_svc():"
+        },
+        {
+          "line": 53,
+          "text": "def test_serve_with_timeout(monkeypatch: pytest.MonkeyPatch):"
+        },
+        {
+          "line": 67,
+          "text": "async def test_serve_with_api_max_concurrency(monkeypatch: pytest.MonkeyPatch):"
+        },
+        {
+          "line": 92,
+          "text": "async def test_serve_with_lifecycle_hooks("
+        }
+      ]
+    },
+    {
+      "project": "bento",
+      "repository": "bentoml/BentoML",
+      "commit": "517b343b81aeb0b01bbd908e58e53ad9c12ef7eb",
+      "path": "src/bentoml/_internal/utils/benchmark.py",
+      "url": "https://github.com/bentoml/BentoML/blob/517b343b81aeb0b01bbd908e58e53ad9c12ef7eb/src/bentoml/_internal/utils/benchmark.py",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 433,
+      "symbols": [
+        {
+          "line": 9,
+          "text": "def wrap_line(s, line_width=120, sep=\"\\n\"):"
+        },
+        {
+          "line": 20,
+          "text": "def dict_tab(d, in_row=False):"
+        },
+        {
+          "line": 36,
+          "text": "def percentile(data, pers):"
+        },
+        {
+          "line": 44,
+          "text": "class DynamicBucketMerge:"
+        },
+        {
+          "line": 49,
+          "text": "def __init__(self, sample_range=1, bucket_num=10):"
+        },
+        {
+          "line": 56,
+          "text": "def put(self, timestamp, num):"
+        },
+        {
+          "line": 66,
+          "text": "def sum(self, timestamp):"
+        },
+        {
+          "line": 78,
+          "text": "def mean(self, timestamp):"
+        },
+        {
+          "line": 93,
+          "text": "class Stat:"
+        },
+        {
+          "line": 94,
+          "text": "def __init__(self):"
+        },
+        {
+          "line": 109,
+          "text": "def req_total(self):"
+        },
+        {
+          "line": 113,
+          "text": "def sess_time(self):"
+        },
+        {
+          "line": 119,
+          "text": "def log_succeed(self, req_time, n=1):"
+        },
+        {
+          "line": 125,
+          "text": "def log_exception(self, group, msg, req_time, n=1):"
+        },
+        {
+          "line": 132,
+          "text": "def print_step(self):"
+        },
+        {
+          "line": 160,
+          "text": "def print_sumup(self):"
+        },
+        {
+          "line": 211,
+          "text": "def print_exec(self):"
+        },
+        {
+          "line": 223,
+          "text": "def default_verify_response(status, _):"
+        },
+        {
+          "line": 230,
+          "text": "class BenchmarkClient:"
+        },
+        {
+          "line": 255,
+          "text": "def test_case_producer():"
+        },
+        {
+          "line": 276,
+          "text": "def __init__("
+        },
+        {
+          "line": 294,
+          "text": "async def _start(self):"
+        },
+        {
+          "line": 350,
+          "text": "def spawn(self):"
+        },
+        {
+          "line": 353,
+          "text": "async def _trigger_batch_spawn(self, total, speed):"
+        },
+        {
+          "line": 366,
+          "text": "def kill(self):"
+        },
+        {
+          "line": 375,
+          "text": "def batch_spawn(self, total, speed):"
+        },
+        {
+          "line": 384,
+          "text": "def killall(self):"
+        },
+        {
+          "line": 390,
+          "text": "async def _start_output(self):"
+        },
+        {
+          "line": 396,
+          "text": "async def _start_session(self, session_time, total_user, spawn_speed):"
+        },
+        {
+          "line": 417,
+          "text": "def start_session(self, session_time, total_user, spawn_speed=None):"
+        }
+      ]
+    },
+    {
+      "project": "bento",
+      "repository": "bentoml/BentoML",
+      "commit": "517b343b81aeb0b01bbd908e58e53ad9c12ef7eb",
+      "path": "docs/source/build-with-bentoml/parallelize-requests.rst",
+      "url": "https://github.com/bentoml/BentoML/blob/517b343b81aeb0b01bbd908e58e53ad9c12ef7eb/docs/source/build-with-bentoml/parallelize-requests.rst",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 85,
+      "symbols": [
+        {
+          "line": 19,
+          "text": "class MyService:"
+        },
+        {
+          "line": 43,
+          "text": "class MyService:"
+        },
+        {
+          "line": 63,
+          "text": "class MyService:"
+        },
+        {
+          "line": 65,
+          "text": "def __init__(self):"
+        }
+      ]
+    },
+    {
+      "project": "ray",
+      "repository": "ray-project/ray",
+      "commit": "f178b1887d2f9bb43a323678dc54c14aae7378be",
+      "path": "python/ray/serve/_private/router.py",
+      "url": "https://github.com/ray-project/ray/blob/f178b1887d2f9bb43a323678dc54c14aae7378be/python/ray/serve/_private/router.py",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 2138,
+      "symbols": [
+        {
+          "line": 107,
+          "text": "class RouterMetricsManager:"
+        },
+        {
+          "line": 113,
+          "text": "def __init__("
+        },
+        {
+          "line": 214,
+          "text": "def create_metrics_task():"
+        },
+        {
+          "line": 225,
+          "text": "def wrap_request_assignment(self, request_meta: RequestMetadata):"
+        },
+        {
+          "line": 267,
+          "text": "def wrap_queued_request(self, is_retry: bool, num_curr_replicas: int):"
+        },
+        {
+          "line": 287,
+          "text": "def _update_running_replicas(self, running_replicas: List[RunningReplicaInfo]):"
+        },
+        {
+          "line": 306,
+          "text": "def autoscaling_config(self) -> Optional[AutoscalingConfig]:"
+        },
+        {
+          "line": 312,
+          "text": "def update_deployment_config("
+        },
+        {
+          "line": 355,
+          "text": "def _report_cached_metrics(self):"
+        },
+        {
+          "line": 366,
+          "text": "async def _report_cached_metrics_forever(self):"
+        },
+        {
+          "line": 383,
+          "text": "def inc_num_total_requests(self, route: str):"
+        },
+        {
+          "line": 389,
+          "text": "def inc_num_queued_requests(self):"
+        },
+        {
+          "line": 394,
+          "text": "def dec_num_queued_requests(self):"
+        },
+        {
+          "line": 399,
+          "text": "def inc_reserved_slots(self):"
+        },
+        {
+          "line": 403,
+          "text": "def dec_reserved_slots(self):"
+        },
+        {
+          "line": 407,
+          "text": "def inc_num_running_requests_for_replica(self, replica_id: ReplicaID):"
+        },
+        {
+          "line": 415,
+          "text": "def dec_num_running_requests_for_replica(self, replica_id: ReplicaID):"
+        },
+        {
+          "line": 423,
+          "text": "def should_send_scaled_to_zero_optimized_push(self, curr_num_replicas: int) -> bool:"
+        },
+        {
+          "line": 430,
+          "text": "def push_autoscaling_metrics_to_controller(self):"
+        },
+        {
+          "line": 456,
+          "text": "def _add_autoscaling_metrics_point(self):"
+        },
+        {
+          "line": 503,
+          "text": "def _get_metrics_report(self) -> HandleMetricReport:"
+        },
+        {
+          "line": 534,
+          "text": "async def shutdown(self):"
+        },
+        {
+          "line": 550,
+          "text": "class Router(ABC):"
+        },
+        {
+          "line": 552,
+          "text": "def event_loop(self) -> Optional[AbstractEventLoop]:"
+        },
+        {
+          "line": 557,
+          "text": "def running_replicas_populated(self) -> bool:"
+        },
+        {
+          "line": 561,
+          "text": "def assign_request("
+        },
+        {
+          "line": 571,
+          "text": "async def choose_replica("
+        },
+        {
+          "line": 580,
+          "text": "def dispatch("
+        },
+        {
+          "line": 590,
+          "text": "async def broadcast("
+        },
+        {
+          "line": 599,
+          "text": "def shutdown(self) -> concurrent.futures.Future:"
+        },
+        {
+          "line": 603,
+          "text": "async def create_event() -> asyncio.Event:"
+        },
+        {
+          "line": 608,
+          "text": "class AsyncioRouter:"
+        },
+        {
+          "line": 609,
+          "text": "def __init__("
+        },
+        {
+          "line": 760,
+          "text": "def _active_request_router(self) -> RequestRouter:"
+        },
+        {
+          "line": 767,
+          "text": "def request_router(self) -> Optional[RequestRouter]:"
+        },
+        {
+          "line": 819,
+          "text": "def running_replicas_populated(self) -> bool:"
+        },
+        {
+          "line": 822,
+          "text": "def update_deployment_targets(self, deployment_target_info: DeploymentTargetInfo):"
+        },
+        {
+          "line": 838,
+          "text": "def update_deployment_config(self, deployment_config: DeploymentConfig):"
+        },
+        {
+          "line": 877,
+          "text": "async def _resolve_request_arguments("
+        },
+        {
+          "line": 919,
+          "text": "def _process_finished_request("
+        },
+        {
+          "line": 952,
+          "text": "def _get_actor_died_error("
+        },
+        {
+          "line": 967,
+          "text": "def _handle_actor_died_error("
+        },
+        {
+          "line": 1013,
+          "text": "def _make_upstream_crash_error(self, e: ActorDiedError) -> RayServeException:"
+        },
+        {
+          "line": 1024,
+          "text": "async def _route_and_send_request_once("
+        },
+        {
+          "line": 1134,
+          "text": "async def route_and_send_request("
+        },
+        {
+          "line": 1166,
+          "text": "async def assign_request("
+        },
+        {
+          "line": 1253,
+          "text": "async def choose_replica("
+        },
+        {
+          "line": 1375,
+          "text": "async def dispatch("
+        },
+        {
+          "line": 1402,
+          "text": "async def _dispatch_to_marked_selection("
+        },
+        {
+          "line": 1457,
+          "text": "def _maybe_release_slot(fut, sel=selection):"
+        },
+        {
+          "line": 1472,
+          "text": "async def _release_slot_if_still_reserved("
+        },
+        {
+          "line": 1483,
+          "text": "async def _resolve_args_with_metrics(self, pr: PendingRequest) -> None:"
+        },
+        {
+          "line": 1492,
+          "text": "async def _pick_and_reserve_replica("
+        },
+        {
+          "line": 1535,
+          "text": "def _register_completion_callback("
+        },
+        {
+          "line": 1562,
+          "text": "def _register_decrement_queue_len_cache_callback("
+        },
+        {
+          "line": 1573,
+          "text": "async def _release_slot_and_refresh_cache("
+        },
+        {
+          "line": 1592,
+          "text": "async def broadcast("
+        },
+        {
+          "line": 1679,
+          "text": "async def shutdown(self):"
+        },
+        {
+          "line": 1683,
+          "text": "class SingletonThreadRouter(Router):"
+        },
+        {
+          "line": 1697,
+          "text": "def __init__(self, **passthrough_kwargs):"
+        },
+        {
+          "line": 1714,
+          "text": "def _get_singleton_asyncio_loop(cls, component: str) -> asyncio.AbstractEventLoop:"
+        },
+        {
+          "line": 1734,
+          "text": "def _run_router_event_loop():"
+        },
+        {
+          "line": 1750,
+          "text": "def running_replicas_populated(self) -> bool:"
+        },
+        {
+          "line": 1753,
+          "text": "def assign_request("
+        },
+        {
+          "line": 1782,
+          "text": "async def choose_replica("
+        },
+        {
+          "line": 1794,
+          "text": "async def enter_context():"
+        },
+        {
+          "line": 1801,
+          "text": "async def exit_context(cm, exc_type, exc_val, exc_tb):"
+        },
+        {
+          "line": 1804,
+          "text": "async def release_entered_context(entry_future):"
+        },
+        {
+          "line": 1860,
+          "text": "def dispatch("
+        },
+        {
+          "line": 1881,
+          "text": "def _wrap_asyncio_call_in_future("
+        },
+        {
+          "line": 1898,
+          "text": "def asyncio_future_callback("
+        },
+        {
+          "line": 1924,
+          "text": "def create_task_and_setup():"
+        },
+        {
+          "line": 1951,
+          "text": "async def broadcast("
+        },
+        {
+          "line": 1961,
+          "text": "def shutdown(self) -> concurrent.futures.Future:"
+        },
+        {
+          "line": 1968,
+          "text": "class SharedRouterLongPollClient:"
+        },
+        {
+          "line": 1969,
+          "text": "def __init__(self, controller_handle: ActorHandle, event_loop: AbstractEventLoop):"
+        },
+        {
+          "line": 1989,
+          "text": "def get_or_create("
+        },
+        {
+          "line": 1996,
+          "text": "def update_deployment_targets("
+        },
+        {
+          "line": 2005,
+          "text": "def update_deployment_config("
+        },
+        {
+          "line": 2012,
+          "text": "def register(self, router: AsyncioRouter) -> None:"
+        },
+        {
+          "line": 2021,
+          "text": "def _register(self, router: AsyncioRouter) -> None:"
+        },
+        {
+          "line": 2056,
+          "text": "class CurrentLoopRouter(Router):"
+        },
+        {
+          "line": 2062,
+          "text": "def __init__(self, **passthrough_kwargs):"
+        },
+        {
+          "line": 2074,
+          "text": "def running_replicas_populated(self) -> bool:"
+        },
+        {
+          "line": 2077,
+          "text": "def assign_request(  # type: ignore[override]  # pyrefly: ignore[bad-override]"
+        },
+        {
+          "line": 2090,
+          "text": "async def choose_replica("
+        },
+        {
+          "line": 2102,
+          "text": "def dispatch(  # type: ignore[override]  # pyrefly: ignore[bad-override]"
+        },
+        {
+          "line": 2126,
+          "text": "async def broadcast("
+        },
+        {
+          "line": 2136,
+          "text": "def shutdown(self) -> asyncio.Future:  # type: ignore[override]  # pyrefly: ignore[bad-override]"
+        }
+      ]
+    },
+    {
+      "project": "ray",
+      "repository": "ray-project/ray",
+      "commit": "f178b1887d2f9bb43a323678dc54c14aae7378be",
+      "path": "python/ray/serve/tests/test_backpressure.py",
+      "url": "https://github.com/ray-project/ray/blob/f178b1887d2f9bb43a323678dc54c14aae7378be/python/ray/serve/tests/test_backpressure.py",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 290,
+      "symbols": [
+        {
+          "line": 29,
+          "text": "def check_rejection_response(response, expected_status: int, expected_retry_after):"
+        },
+        {
+          "line": 37,
+          "text": "def test_handle_backpressure(serve_instance):"
+        },
+        {
+          "line": 43,
+          "text": "class Deployment:"
+        },
+        {
+          "line": 44,
+          "text": "async def __call__(self, msg: str) -> str:"
+        },
+        {
+          "line": 85,
+          "text": "def test_http_backpressure("
+        },
+        {
+          "line": 94,
+          "text": "class Deployment:"
+        },
+        {
+          "line": 95,
+          "text": "async def __call__(self, request: Request) -> str:"
+        },
+        {
+          "line": 102,
+          "text": "def send_request(msg: str = \"hi\"):"
+        },
+        {
+          "line": 149,
+          "text": "def test_model_composition_backpressure("
+        },
+        {
+          "line": 155,
+          "text": "class Child:"
+        },
+        {
+          "line": 156,
+          "text": "async def __call__(self):"
+        },
+        {
+          "line": 161,
+          "text": "class Parent:"
+        },
+        {
+          "line": 162,
+          "text": "def __init__(self, child):"
+        },
+        {
+          "line": 165,
+          "text": "async def __call__(self):"
+        },
+        {
+          "line": 168,
+          "text": "def send_request():"
+        },
+        {
+          "line": 208,
+          "text": "def test_model_composition_backpressure_with_fastapi("
+        },
+        {
+          "line": 230,
+          "text": "class Child:"
+        },
+        {
+          "line": 231,
+          "text": "async def __call__(self):"
+        },
+        {
+          "line": 237,
+          "text": "class Parent:"
+        },
+        {
+          "line": 238,
+          "text": "def __init__(self, child):"
+        },
+        {
+          "line": 242,
+          "text": "async def async_non_gen(self):"
+        },
+        {
+          "line": 247,
+          "text": "def sync_non_gen(self):"
+        },
+        {
+          "line": 251,
+          "text": "def send_request():"
+        }
+      ]
+    },
+    {
+      "project": "ray",
+      "repository": "ray-project/ray",
+      "commit": "f178b1887d2f9bb43a323678dc54c14aae7378be",
+      "path": "python/ray/serve/tests/test_request_timeout.py",
+      "url": "https://github.com/ray-project/ray/blob/f178b1887d2f9bb43a323678dc54c14aae7378be/python/ray/serve/tests/test_request_timeout.py",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 385,
+      "symbols": [
+        {
+          "line": 26,
+          "text": "def do_request():"
+        },
+        {
+          "line": 33,
+          "text": "def shutdown_serve():"
+        },
+        {
+          "line": 38,
+          "text": "def test_normal_operation(ray_instance, shutdown_serve):"
+        },
+        {
+          "line": 44,
+          "text": "def f(*args):"
+        },
+        {
+          "line": 56,
+          "text": "def test_request_hangs_in_execution(ray_instance, shutdown_serve):"
+        },
+        {
+          "line": 62,
+          "text": "class PidTracker:"
+        },
+        {
+          "line": 63,
+          "text": "def __init__(self):"
+        },
+        {
+          "line": 66,
+          "text": "def add_pid(self, pid: int) -> None:"
+        },
+        {
+          "line": 69,
+          "text": "def get_pids(self) -> Set[int]:"
+        },
+        {
+          "line": 76,
+          "text": "class HangsOnFirstRequest:"
+        },
+        {
+          "line": 77,
+          "text": "def __init__(self):"
+        },
+        {
+          "line": 80,
+          "text": "async def __call__(self):"
+        },
+        {
+          "line": 98,
+          "text": "class HangsOnFirstRequest:"
+        },
+        {
+          "line": 99,
+          "text": "def __init__(self):"
+        },
+        {
+          "line": 103,
+          "text": "async def __call__(self):"
+        },
+        {
+          "line": 115,
+          "text": "def test_with_rest_api(ray_instance, shutdown_serve):"
+        },
+        {
+          "line": 132,
+          "text": "def application_running():"
+        },
+        {
+          "line": 153,
+          "text": "def test_request_hangs_in_assignment(ray_instance, shutdown_serve):"
+        },
+        {
+          "line": 161,
+          "text": "class HangsOnFirstRequest:"
+        },
+        {
+          "line": 162,
+          "text": "def __init__(self):"
+        },
+        {
+          "line": 165,
+          "text": "async def __call__(self):"
+        },
+        {
+          "line": 183,
+          "text": "def test_streaming_request_already_sent_and_timed_out(ray_instance, shutdown_serve):"
+        },
+        {
+          "line": 191,
+          "text": "class BlockOnSecondChunk:"
+        },
+        {
+          "line": 192,
+          "text": "async def generate_numbers(self) -> Generator[str, None, None]:"
+        },
+        {
+          "line": 197,
+          "text": "def __call__(self, request: Request) -> StreamingResponse:"
+        },
+        {
+          "line": 204,
+          "text": "def health_check():"
+        },
+        {
+          "line": 234,
+          "text": "def test_request_timeout_does_not_leak_tasks(ray_instance, shutdown_serve):"
+        },
+        {
+          "line": 241,
+          "text": "class Hang:"
+        },
+        {
+          "line": 242,
+          "text": "async def __call__(self):"
+        },
+        {
+          "line": 248,
+          "text": "def get_num_running_tasks():"
+        },
+        {
+          "line": 271,
+          "text": "def test_cancel_on_http_timeout_during_execution("
+        },
+        {
+          "line": 279,
+          "text": "async def inner():"
+        },
+        {
+          "line": 288,
+          "text": "class Ingress:"
+        },
+        {
+          "line": 289,
+          "text": "def __init__(self, handle):"
+        },
+        {
+          "line": 293,
+          "text": "async def wait_for_cancellation(self):"
+        },
+        {
+          "line": 301,
+          "text": "class Ingress:"
+        },
+        {
+          "line": 302,
+          "text": "def __init__(self, handle):"
+        },
+        {
+          "line": 305,
+          "text": "async def __call__(self, request: Request):"
+        },
+        {
+          "line": 319,
+          "text": "def test_cancel_on_http_timeout_during_assignment(ray_instance, shutdown_serve):"
+        },
+        {
+          "line": 324,
+          "text": "class Ingress:"
+        },
+        {
+          "line": 325,
+          "text": "def __init__(self):"
+        },
+        {
+          "line": 328,
+          "text": "async def __call__(self, *args):"
+        },
+        {
+          "line": 353,
+          "text": "def test_timeout_error_in_child_deployment_of_fastapi(ray_instance, shutdown_serve):"
+        },
+        {
+          "line": 359,
+          "text": "class Child:"
+        },
+        {
+          "line": 360,
+          "text": "async def __call__(self):"
+        },
+        {
+          "line": 366,
+          "text": "class Parent:"
+        },
+        {
+          "line": 367,
+          "text": "def __init__(self, child):"
+        },
+        {
+          "line": 371,
+          "text": "async def root(self):"
+        }
+      ]
+    },
+    {
+      "project": "ray",
+      "repository": "ray-project/ray",
+      "commit": "f178b1887d2f9bb43a323678dc54c14aae7378be",
+      "path": "python/ray/serve/_private/benchmarks/common.py",
+      "url": "https://github.com/ray-project/ray/blob/f178b1887d2f9bb43a323678dc54c14aae7378be/python/ray/serve/_private/benchmarks/common.py",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 728,
+      "symbols": [
+        {
+          "line": 26,
+          "text": "async def run_latency_benchmark("
+        },
+        {
+          "line": 33,
+          "text": "async def to_call():"
+        },
+        {
+          "line": 49,
+          "text": "async def run_throughput_benchmark("
+        },
+        {
+          "line": 94,
+          "text": "async def do_single_http_batch("
+        },
+        {
+          "line": 110,
+          "text": "async def do_query():"
+        },
+        {
+          "line": 129,
+          "text": "async def do_single_grpc_batch("
+        },
+        {
+          "line": 136,
+          "text": "async def do_query():"
+        },
+        {
+          "line": 147,
+          "text": "async def collect_profile_events(coro: Coroutine):"
+        },
+        {
+          "line": 161,
+          "text": "def generate_payload(size: int = 100, chars=string.ascii_uppercase + string.digits):"
+        },
+        {
+          "line": 165,
+          "text": "class Blackhole:"
+        },
+        {
+          "line": 166,
+          "text": "def sink(self, o):"
+        },
+        {
+          "line": 171,
+          "text": "class Noop:"
+        },
+        {
+          "line": 172,
+          "text": "def __init__(self):"
+        },
+        {
+          "line": 175,
+          "text": "def __call__(self, *args, **kwargs):"
+        },
+        {
+          "line": 180,
+          "text": "class ModelComp:"
+        },
+        {
+          "line": 181,
+          "text": "def __init__(self, child):"
+        },
+        {
+          "line": 185,
+          "text": "async def __call__(self, *args, **kwargs):"
+        },
+        {
+          "line": 190,
+          "text": "class GrpcDeployment:"
+        },
+        {
+          "line": 191,
+          "text": "def __init__(self):"
+        },
+        {
+          "line": 194,
+          "text": "async def grpc_call(self, user_message):"
+        },
+        {
+          "line": 197,
+          "text": "async def call_with_string(self, user_message):"
+        },
+        {
+          "line": 202,
+          "text": "class GrpcModelComp:"
+        },
+        {
+          "line": 203,
+          "text": "def __init__(self, child):"
+        },
+        {
+          "line": 207,
+          "text": "async def grpc_call(self, user_message):"
+        },
+        {
+          "line": 211,
+          "text": "async def call_with_string(self, user_message):"
+        },
+        {
+          "line": 217,
+          "text": "class Streamer:"
+        },
+        {
+          "line": 218,
+          "text": "def __init__(self, tokens_per_request: int, inter_token_delay_ms: int = 10):"
+        },
+        {
+          "line": 223,
+          "text": "async def stream(self):"
+        },
+        {
+          "line": 228,
+          "text": "async def __call__(self):"
+        },
+        {
+          "line": 233,
+          "text": "class IntermediateRouter:"
+        },
+        {
+          "line": 234,
+          "text": "def __init__(self, handle: DeploymentHandle):"
+        },
+        {
+          "line": 238,
+          "text": "async def stream(self):"
+        },
+        {
+          "line": 242,
+          "text": "def __call__(self):"
+        },
+        {
+          "line": 247,
+          "text": "class Benchmarker:"
+        },
+        {
+          "line": 248,
+          "text": "def __init__("
+        },
+        {
+          "line": 257,
+          "text": "async def do_single_request(self, payload: Any = None) -> float:"
+        },
+        {
+          "line": 269,
+          "text": "async def do_single_choose_dispatch(self, payload: Any = None) -> float:"
+        },
+        {
+          "line": 288,
+          "text": "async def _do_single_stream(self) -> float:"
+        },
+        {
+          "line": 298,
+          "text": "async def _do_single_batch(self, batch_size: int) -> List[float]:"
+        },
+        {
+          "line": 308,
+          "text": "async def run_latency_benchmark("
+        },
+        {
+          "line": 317,
+          "text": "async def f():"
+        },
+        {
+          "line": 322,
+          "text": "async def f():"
+        },
+        {
+          "line": 330,
+          "text": "async def run_throughput_benchmark("
+        },
+        {
+          "line": 402,
+          "text": "def _controller_replica_num_cpus(target_replicas: int) -> float:"
+        },
+        {
+          "line": 424,
+          "text": "class ControllerBenchHelloWorld:"
+        },
+        {
+          "line": 425,
+          "text": "def __init__(self, signal_actor):"
+        },
+        {
+          "line": 428,
+          "text": "async def __call__(self):"
+        },
+        {
+          "line": 440,
+          "text": "class ControllerBenchMetricsGenerator:"
+        },
+        {
+          "line": 443,
+          "text": "def __init__(self, hello_world: DeploymentHandle):"
+        },
+        {
+          "line": 446,
+          "text": "async def __call__(self):"
+        },
+        {
+          "line": 450,
+          "text": "def _controller_get_active_nodes() -> int:"
+        },
+        {
+          "line": 455,
+          "text": "async def _controller_get_replica_count("
+        },
+        {
+          "line": 467,
+          "text": "async def _controller_get_health_metrics() -> Dict[str, Any]:"
+        },
+        {
+          "line": 485,
+          "text": "def _controller_extract_metrics_row("
+        },
+        {
+          "line": 496,
+          "text": "def get_stat(d: dict, key: str, stat: str, default=0):"
+        },
+        {
+          "line": 538,
+          "text": "async def _controller_wait_for_replicas_up(target: int, timeout: float = 300) -> float:"
+        },
+        {
+          "line": 553,
+          "text": "async def _controller_wait_for_waiters("
+        },
+        {
+          "line": 571,
+          "text": "async def _controller_wait_for_deployment_healthy("
+        },
+        {
+          "line": 605,
+          "text": "async def _controller_run_checkpoint("
+        },
+        {
+          "line": 672,
+          "text": "async def run_controller_benchmark("
+        }
+      ]
+    },
+    {
+      "project": "ray",
+      "repository": "ray-project/ray",
+      "commit": "f178b1887d2f9bb43a323678dc54c14aae7378be",
+      "path": "python/ray/serve/_private/benchmarks/http_noop_latency.py",
+      "url": "https://github.com/ray-project/ray/blob/f178b1887d2f9bb43a323678dc54c14aae7378be/python/ray/serve/_private/benchmarks/http_noop_latency.py",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 33,
+      "symbols": [
+        {
+          "line": 14,
+          "text": "def main(num_replicas: int, num_requests: int):"
+        }
+      ]
+    },
+    {
+      "project": "ray",
+      "repository": "ray-project/ray",
+      "commit": "f178b1887d2f9bb43a323678dc54c14aae7378be",
+      "path": "doc/source/serve/http-guide.md",
+      "url": "https://github.com/ray-project/ray/blob/f178b1887d2f9bb43a323678dc54c14aae7378be/doc/source/serve/http-guide.md",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 214,
+      "symbols": []
+    },
+    {
+      "project": "ray",
+      "repository": "ray-project/ray",
+      "commit": "f178b1887d2f9bb43a323678dc54c14aae7378be",
+      "path": "doc/source/serve/production-guide/fault-tolerance.md",
+      "url": "https://github.com/ray-project/ray/blob/f178b1887d2f9bb43a323678dc54c14aae7378be/doc/source/serve/production-guide/fault-tolerance.md",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 723,
+      "symbols": [
+        {
+          "line": 74,
+          "text": "class MyDeployment:"
+        },
+        {
+          "line": 120,
+          "text": "name: redis-config"
+        },
+        {
+          "line": 133,
+          "text": "name: redis"
+        },
+        {
+          "line": 147,
+          "text": "name: redis"
+        },
+        {
+          "line": 176,
+          "text": "name: redis-config"
+        },
+        {
+          "line": 196,
+          "text": "name: rayservice-sample"
+        },
+        {
+          "line": 209,
+          "text": "name: rayservice-sample"
+        },
+        {
+          "line": 305,
+          "text": "class Deployment1:"
+        },
+        {
+          "line": 306,
+          "text": "def __call__(self, request):"
+        },
+        {
+          "line": 310,
+          "text": "class Deployment2:"
+        },
+        {
+          "line": 311,
+          "text": "def __call__(self, request):"
+        }
+      ]
+    },
+    {
+      "project": "ray",
+      "repository": "ray-project/ray",
+      "commit": "f178b1887d2f9bb43a323678dc54c14aae7378be",
+      "path": "doc/source/serve/advanced-guides/performance.md",
+      "url": "https://github.com/ray-project/ray/blob/f178b1887d2f9bb43a323678dc54c14aae7378be/doc/source/serve/advanced-guides/performance.md",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 334,
+      "symbols": [
+        {
+          "line": 141,
+          "text": "class Caller:"
+        },
+        {
+          "line": 142,
+          "text": "def __init__(self, target_handle: DeploymentHandle):"
+        },
+        {
+          "line": 146,
+          "text": "async def call_target(self):"
+        },
+        {
+          "line": 184,
+          "text": "class BlockingDeployment:"
+        },
+        {
+          "line": 186,
+          "text": "async def process(self):"
+        },
+        {
+          "line": 206,
+          "text": "class NonBlockingDeployment:"
+        },
+        {
+          "line": 208,
+          "text": "async def process(self):"
+        }
+      ]
+    },
+    {
+      "project": "ml",
+      "repository": "SeldonIO/MLServer",
+      "commit": "a325e523b5a580d49aeb06e19e73e4a90176b63b",
+      "path": "mlserver/parallel/pool.py",
+      "url": "https://github.com/SeldonIO/MLServer/blob/a325e523b5a580d49aeb06e19e73e4a90176b63b/mlserver/parallel/pool.py",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 214,
+      "symbols": [
+        {
+          "line": 28,
+          "text": "def _spawn_worker("
+        },
+        {
+          "line": 40,
+          "text": "class WorkerRegistry:"
+        },
+        {
+          "line": 46,
+          "text": "def __init__(self) -> None:"
+        },
+        {
+          "line": 49,
+          "text": "def _key(self, model_settings: ModelSettings) -> str:"
+        },
+        {
+          "line": 52,
+          "text": "def add(self, model_settings: ModelSettings):"
+        },
+        {
+          "line": 56,
+          "text": "def remove(self, model_settings: ModelSettings):"
+        },
+        {
+          "line": 61,
+          "text": "def __len__(self) -> int:"
+        },
+        {
+          "line": 65,
+          "text": "def models(self) -> Iterable[ModelSettings]:"
+        },
+        {
+          "line": 69,
+          "text": "class InferencePool:"
+        },
+        {
+          "line": 80,
+          "text": "def __init__("
+        },
+        {
+          "line": 102,
+          "text": "def env_hash(self) -> Optional[str]:"
+        },
+        {
+          "line": 109,
+          "text": "def name(self) -> str:"
+        },
+        {
+          "line": 115,
+          "text": "async def on_worker_stop(self, pid: int, exit_code: int):"
+        },
+        {
+          "line": 137,
+          "text": "async def _start_worker(self) -> Worker:"
+        },
+        {
+          "line": 166,
+          "text": "async def load_model(self, model: MLModel) -> MLModel:"
+        },
+        {
+          "line": 176,
+          "text": "async def reload_model(self, old_model: MLModel, new_model: MLModel) -> MLModel:"
+        },
+        {
+          "line": 183,
+          "text": "async def unload_model(self, model: MLModel) -> MLModel:"
+        },
+        {
+          "line": 193,
+          "text": "def empty(self) -> bool:"
+        },
+        {
+          "line": 196,
+          "text": "async def close(self):"
+        },
+        {
+          "line": 202,
+          "text": "async def _close_workers(self):"
+        }
+      ]
+    },
+    {
+      "project": "ml",
+      "repository": "SeldonIO/MLServer",
+      "commit": "a325e523b5a580d49aeb06e19e73e4a90176b63b",
+      "path": "mlserver/parallel/dispatcher.py",
+      "url": "https://github.com/SeldonIO/MLServer/blob/a325e523b5a580d49aeb06e19e73e4a90176b63b/mlserver/parallel/dispatcher.py",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 250,
+      "symbols": [
+        {
+          "line": 28,
+          "text": "class AsyncResponses:"
+        },
+        {
+          "line": 29,
+          "text": "def __init__(self) -> None:"
+        },
+        {
+          "line": 41,
+          "text": "def _get_or_create_metric(self) -> Histogram:"
+        },
+        {
+          "line": 51,
+          "text": "async def schedule_and_wait("
+        },
+        {
+          "line": 61,
+          "text": "def _schedule(self, message: Message, worker: Worker) -> Future:"
+        },
+        {
+          "line": 79,
+          "text": "def _track_message(self, message: Message, worker: Worker) -> None:"
+        },
+        {
+          "line": 83,
+          "text": "async def _wait(self, message_id: str) -> ModelResponseMessage:"
+        },
+        {
+          "line": 92,
+          "text": "def _clear_message(self, message_id: str) -> None:"
+        },
+        {
+          "line": 97,
+          "text": "def resolve(self, response: ModelResponseMessage):"
+        },
+        {
+          "line": 113,
+          "text": "def cancel(self, worker: Worker, exit_code: int):"
+        },
+        {
+          "line": 132,
+          "text": "class Dispatcher:"
+        },
+        {
+          "line": 133,
+          "text": "def __init__(self, workers: Dict[int, Worker], responses: Queue):"
+        },
+        {
+          "line": 143,
+          "text": "def _reset_round_robin(self) -> Iterator[int]:"
+        },
+        {
+          "line": 148,
+          "text": "async def on_worker_start(self, worker: Worker):"
+        },
+        {
+          "line": 160,
+          "text": "def on_worker_ready(self, worker: Worker):"
+        },
+        {
+          "line": 166,
+          "text": "def on_worker_stop(self, worker: Worker, exit_code: int):"
+        },
+        {
+          "line": 178,
+          "text": "def start(self):"
+        },
+        {
+          "line": 184,
+          "text": "def _process_responses_cb(self, process_responses):"
+        },
+        {
+          "line": 196,
+          "text": "async def _process_responses(self):"
+        },
+        {
+          "line": 209,
+          "text": "async def dispatch_request("
+        },
+        {
+          "line": 217,
+          "text": "def _get_worker(self) -> Tuple[Worker, int]:"
+        },
+        {
+          "line": 225,
+          "text": "async def dispatch_update("
+        },
+        {
+          "line": 236,
+          "text": "async def dispatch_update_to_worker("
+        },
+        {
+          "line": 246,
+          "text": "async def stop(self):"
+        }
+      ]
+    },
+    {
+      "project": "ml",
+      "repository": "SeldonIO/MLServer",
+      "commit": "a325e523b5a580d49aeb06e19e73e4a90176b63b",
+      "path": "mlserver/parallel/worker.py",
+      "url": "https://github.com/SeldonIO/MLServer/blob/a325e523b5a580d49aeb06e19e73e4a90176b63b/mlserver/parallel/worker.py",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 197,
+      "symbols": [
+        {
+          "line": 32,
+          "text": "def _noop():"
+        },
+        {
+          "line": 36,
+          "text": "class Worker(Process):"
+        },
+        {
+          "line": 37,
+          "text": "def __init__("
+        },
+        {
+          "line": 50,
+          "text": "def _executor(self):"
+        },
+        {
+          "line": 61,
+          "text": "def run(self):"
+        },
+        {
+          "line": 72,
+          "text": "def _ignore_signals(self, loop):"
+        },
+        {
+          "line": 85,
+          "text": "def __inner_init__(self):"
+        },
+        {
+          "line": 92,
+          "text": "async def coro_run(self):"
+        },
+        {
+          "line": 116,
+          "text": "def _select(self):"
+        },
+        {
+          "line": 125,
+          "text": "async def _process_request(self, request) -> ModelResponseMessage:"
+        },
+        {
+          "line": 145,
+          "text": "def _handle_response(self, process_task: Task):"
+        },
+        {
+          "line": 149,
+          "text": "async def _process_model_update("
+        },
+        {
+          "line": 174,
+          "text": "def send_request(self, request_message: ModelRequestMessage):"
+        },
+        {
+          "line": 181,
+          "text": "def send_update(self, model_update: ModelUpdateMessage):"
+        },
+        {
+          "line": 188,
+          "text": "async def stop(self):"
+        }
+      ]
+    },
+    {
+      "project": "ml",
+      "repository": "SeldonIO/MLServer",
+      "commit": "a325e523b5a580d49aeb06e19e73e4a90176b63b",
+      "path": "tests/parallel/test_pool.py",
+      "url": "https://github.com/SeldonIO/MLServer/blob/a325e523b5a580d49aeb06e19e73e4a90176b63b/tests/parallel/test_pool.py",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 152,
+      "symbols": [
+        {
+          "line": 16,
+          "text": "def check_pid(pid):"
+        },
+        {
+          "line": 30,
+          "text": "def test_workers_start(inference_pool: InferencePool, settings: Settings):"
+        },
+        {
+          "line": 37,
+          "text": "async def test_on_worker_stop("
+        },
+        {
+          "line": 56,
+          "text": "async def test_start_worker("
+        },
+        {
+          "line": 79,
+          "text": "async def test_start_worker_new_model("
+        },
+        {
+          "line": 109,
+          "text": "async def test_close(inference_pool: InferencePool):"
+        },
+        {
+          "line": 119,
+          "text": "async def test_load("
+        },
+        {
+          "line": 141,
+          "text": "async def test_load_error("
+        }
+      ]
+    },
+    {
+      "project": "ml",
+      "repository": "SeldonIO/MLServer",
+      "commit": "a325e523b5a580d49aeb06e19e73e4a90176b63b",
+      "path": "tests/parallel/test_dispatcher.py",
+      "url": "https://github.com/SeldonIO/MLServer/blob/a325e523b5a580d49aeb06e19e73e4a90176b63b/tests/parallel/test_dispatcher.py",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 48,
+      "symbols": [
+        {
+          "line": 9,
+          "text": "async def test_on_worker_stop(dispatcher: Dispatcher):"
+        },
+        {
+          "line": 22,
+          "text": "async def test_dispatch("
+        },
+        {
+          "line": 36,
+          "text": "async def test_cancel(dispatcher: Dispatcher, inference_request_message):"
+        }
+      ]
+    },
+    {
+      "project": "ml",
+      "repository": "SeldonIO/MLServer",
+      "commit": "a325e523b5a580d49aeb06e19e73e4a90176b63b",
+      "path": "mlserver/batching/adaptive.py",
+      "url": "https://github.com/SeldonIO/MLServer/blob/a325e523b5a580d49aeb06e19e73e4a90176b63b/mlserver/batching/adaptive.py",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 152,
+      "symbols": [
+        {
+          "line": 23,
+          "text": "class AdaptiveBatcher:"
+        },
+        {
+          "line": 24,
+          "text": "def __init__(self, model: MLModel):"
+        },
+        {
+          "line": 37,
+          "text": "async def predict(self, req: InferenceRequest) -> InferenceResponse:"
+        },
+        {
+          "line": 43,
+          "text": "def _requests(self) -> Queue[Tuple[str, InferenceRequest]]:"
+        },
+        {
+          "line": 51,
+          "text": "async def _queue_request("
+        },
+        {
+          "line": 65,
+          "text": "def _batch_queue_monitor(self):"
+        },
+        {
+          "line": 70,
+          "text": "async def _wait_response(self, internal_id: str) -> InferenceResponse:"
+        },
+        {
+          "line": 79,
+          "text": "def _start_batcher_if_needed(self):"
+        },
+        {
+          "line": 89,
+          "text": "def _batching_task_callback(self, batching_task: Task):"
+        },
+        {
+          "line": 95,
+          "text": "def _clear_queue(self, err: BaseException):"
+        },
+        {
+          "line": 104,
+          "text": "async def _batcher(self):"
+        },
+        {
+          "line": 114,
+          "text": "def _predict_callback(self, batched: BatchedRequests, predict_task: Task):"
+        },
+        {
+          "line": 124,
+          "text": "async def _batch_requests(self) -> AsyncIterator[BatchedRequests]:"
+        },
+        {
+          "line": 146,
+          "text": "async def _get_request(self, timeout: float) -> Tuple[str, InferenceRequest]:"
+        }
+      ]
+    },
+    {
+      "project": "ml",
+      "repository": "SeldonIO/MLServer",
+      "commit": "a325e523b5a580d49aeb06e19e73e4a90176b63b",
+      "path": "tests/batching/test_adaptive.py",
+      "url": "https://github.com/SeldonIO/MLServer/blob/a325e523b5a580d49aeb06e19e73e4a90176b63b/tests/batching/test_adaptive.py",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 205,
+      "symbols": [
+        {
+          "line": 15,
+          "text": "async def test_batch_requests("
+        },
+        {
+          "line": 32,
+          "text": "async def test_batch_requests_timeout("
+        },
+        {
+          "line": 50,
+          "text": "async def test_batcher("
+        },
+        {
+          "line": 74,
+          "text": "async def test_batcher_propagates_errors("
+        },
+        {
+          "line": 81,
+          "text": "async def _async_exception():"
+        },
+        {
+          "line": 100,
+          "text": "async def test_batcher_cancels_responses("
+        },
+        {
+          "line": 106,
+          "text": "async def _async_exception():"
+        },
+        {
+          "line": 186,
+          "text": "async def test_predict("
+        }
+      ]
+    },
+    {
+      "project": "ml",
+      "repository": "SeldonIO/MLServer",
+      "commit": "a325e523b5a580d49aeb06e19e73e4a90176b63b",
+      "path": ".github/workflows/benchmark.yml",
+      "url": "https://github.com/SeldonIO/MLServer/blob/a325e523b5a580d49aeb06e19e73e4a90176b63b/.github/workflows/benchmark.yml",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 43,
+      "symbols": [
+        {
+          "line": 1,
+          "text": "name: Benchmarks"
+        }
+      ]
+    },
+    {
+      "project": "ml",
+      "repository": "SeldonIO/MLServer",
+      "commit": "a325e523b5a580d49aeb06e19e73e4a90176b63b",
+      "path": "benchmarking/scenarios/inference-rest.js",
+      "url": "https://github.com/SeldonIO/MLServer/blob/a325e523b5a580d49aeb06e19e73e4a90176b63b/benchmarking/scenarios/inference-rest.js",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 43,
+      "symbols": [
+        {
+          "line": 11,
+          "text": "const ScenarioDuration = \"60s\";"
+        },
+        {
+          "line": 12,
+          "text": "const ScenarioVUs = 300;"
+        },
+        {
+          "line": 14,
+          "text": "export const options = {"
+        }
+      ]
+    },
+    {
+      "project": "ml",
+      "repository": "SeldonIO/MLServer",
+      "commit": "a325e523b5a580d49aeb06e19e73e4a90176b63b",
+      "path": "benchmarking/scenarios/inference-grpc.js",
+      "url": "https://github.com/SeldonIO/MLServer/blob/a325e523b5a580d49aeb06e19e73e4a90176b63b/benchmarking/scenarios/inference-grpc.js",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 46,
+      "symbols": [
+        {
+          "line": 13,
+          "text": "const ScenarioDuration = \"60s\";"
+        },
+        {
+          "line": 14,
+          "text": "const ScenarioVUs = 300;"
+        },
+        {
+          "line": 16,
+          "text": "export const options = {"
+        }
+      ]
+    },
+    {
+      "project": "ml",
+      "repository": "SeldonIO/MLServer",
+      "commit": "a325e523b5a580d49aeb06e19e73e4a90176b63b",
+      "path": "benchmarking/common/rest.js",
+      "url": "https://github.com/SeldonIO/MLServer/blob/a325e523b5a580d49aeb06e19e73e4a90176b63b/benchmarking/common/rest.js",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 43,
+      "symbols": []
+    },
+    {
+      "project": "ml",
+      "repository": "SeldonIO/MLServer",
+      "commit": "a325e523b5a580d49aeb06e19e73e4a90176b63b",
+      "path": "benchmarking/common/grpc.js",
+      "url": "https://github.com/SeldonIO/MLServer/blob/a325e523b5a580d49aeb06e19e73e4a90176b63b/benchmarking/common/grpc.js",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 78,
+      "symbols": []
+    },
+    {
+      "project": "ml",
+      "repository": "SeldonIO/MLServer",
+      "commit": "a325e523b5a580d49aeb06e19e73e4a90176b63b",
+      "path": "benchmarking/testserver/settings.json",
+      "url": "https://github.com/SeldonIO/MLServer/blob/a325e523b5a580d49aeb06e19e73e4a90176b63b/benchmarking/testserver/settings.json",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 7,
+      "symbols": []
+    },
+    {
+      "project": "ml",
+      "repository": "SeldonIO/MLServer",
+      "commit": "a325e523b5a580d49aeb06e19e73e4a90176b63b",
+      "path": "benchmarking/testserver/models/iris/model-settings.json",
+      "url": "https://github.com/SeldonIO/MLServer/blob/a325e523b5a580d49aeb06e19e73e4a90176b63b/benchmarking/testserver/models/iris/model-settings.json",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 21,
+      "symbols": []
+    },
+    {
+      "project": "small",
+      "repository": "kevin-sparkflow/ml-inference-service",
+      "commit": "c200bcb4721c4428a9bfe808ca8a61648a2b16f6",
+      "path": "README.md",
+      "url": "https://github.com/kevin-sparkflow/ml-inference-service/blob/c200bcb4721c4428a9bfe808ca8a61648a2b16f6/README.md",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 112,
+      "symbols": []
+    },
+    {
+      "project": "small",
+      "repository": "kevin-sparkflow/ml-inference-service",
+      "commit": "c200bcb4721c4428a9bfe808ca8a61648a2b16f6",
+      "path": "src/inference_service/gateway/app.py",
+      "url": "https://github.com/kevin-sparkflow/ml-inference-service/blob/c200bcb4721c4428a9bfe808ca8a61648a2b16f6/src/inference_service/gateway/app.py",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 121,
+      "symbols": [
+        {
+          "line": 28,
+          "text": "def default_redis_factory() -> redis.Redis:"
+        },
+        {
+          "line": 34,
+          "text": "def _read_bounded(file: UploadFile, limit: int) -> bytes:"
+        },
+        {
+          "line": 46,
+          "text": "def enqueue(r: redis.Redis, job_id: str, payload: bytes) -> None:"
+        },
+        {
+          "line": 66,
+          "text": "def create_app(redis_factory: Callable[[], redis.Redis] = default_redis_factory) -> FastAPI:"
+        },
+        {
+          "line": 71,
+          "text": "def submit(file: UploadFile, request: Request) -> dict[str, str]:"
+        },
+        {
+          "line": 90,
+          "text": "def get_result(job_id: str) -> JobResult:"
+        },
+        {
+          "line": 106,
+          "text": "def health() -> JSONResponse:"
+        },
+        {
+          "line": 114,
+          "text": "async def redis_unavailable(_request: Request, _error: redis.RedisError) -> JSONResponse:"
+        }
+      ]
+    },
+    {
+      "project": "small",
+      "repository": "kevin-sparkflow/ml-inference-service",
+      "commit": "c200bcb4721c4428a9bfe808ca8a61648a2b16f6",
+      "path": "src/inference_service/worker/main.py",
+      "url": "https://github.com/kevin-sparkflow/ml-inference-service/blob/c200bcb4721c4428a9bfe808ca8a61648a2b16f6/src/inference_service/worker/main.py",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 86,
+      "symbols": [
+        {
+          "line": 24,
+          "text": "def _handle_sigterm(_signum, _frame):"
+        },
+        {
+          "line": 29,
+          "text": "def run_once("
+        },
+        {
+          "line": 68,
+          "text": "def main() -> None:"
+        }
+      ]
+    },
+    {
+      "project": "small",
+      "repository": "kevin-sparkflow/ml-inference-service",
+      "commit": "c200bcb4721c4428a9bfe808ca8a61648a2b16f6",
+      "path": "src/inference_service/worker/queue.py",
+      "url": "https://github.com/kevin-sparkflow/ml-inference-service/blob/c200bcb4721c4428a9bfe808ca8a61648a2b16f6/src/inference_service/worker/queue.py",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 77,
+      "symbols": [
+        {
+          "line": 28,
+          "text": "class Consumer:"
+        },
+        {
+          "line": 29,
+          "text": "def __init__(self, name: str | None = None):"
+        },
+        {
+          "line": 33,
+          "text": "def claim(self, r: redis.Redis, timeout: int):"
+        },
+        {
+          "line": 61,
+          "text": "def update(self, r, entry_id, key, status, field=\"\", value=\"\") -> bool:"
+        }
+      ]
+    },
+    {
+      "project": "small",
+      "repository": "kevin-sparkflow/ml-inference-service",
+      "commit": "c200bcb4721c4428a9bfe808ca8a61648a2b16f6",
+      "path": "tests/test_worker_recovery.py",
+      "url": "https://github.com/kevin-sparkflow/ml-inference-service/blob/c200bcb4721c4428a9bfe808ca8a61648a2b16f6/tests/test_worker_recovery.py",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 97,
+      "symbols": [
+        {
+          "line": 14,
+          "text": "class Classifier:"
+        },
+        {
+          "line": 15,
+          "text": "def predict(self, payload, top_k):"
+        },
+        {
+          "line": 20,
+          "text": "def abandoned(r):"
+        },
+        {
+          "line": 29,
+          "text": "def test_worker_recovers_job_interrupted_after_delivery():"
+        },
+        {
+          "line": 39,
+          "text": "def test_stale_worker_cannot_publish_or_ack_replacement_work():"
+        },
+        {
+          "line": 51,
+          "text": "def test_inflight_jobs_still_count_toward_capacity(monkeypatch):"
+        },
+        {
+          "line": 61,
+          "text": "def test_expired_payload_is_acknowledged_without_recreating_job():"
+        },
+        {
+          "line": 70,
+          "text": "def test_result_write_outage_leaves_job_recoverable():"
+        },
+        {
+          "line": 74,
+          "text": "class LostConnection(Consumer):"
+        },
+        {
+          "line": 75,
+          "text": "def update(self, r, entry_id, key, status, field=\"\", value=\"\"):"
+        },
+        {
+          "line": 89,
+          "text": "def test_gateway_returns_503_during_redis_outage():"
+        },
+        {
+          "line": 90,
+          "text": "class BrokenRedis:"
+        },
+        {
+          "line": 91,
+          "text": "def xlen(self, _key):"
+        }
+      ]
+    },
+    {
+      "project": "small",
+      "repository": "kevin-sparkflow/ml-inference-service",
+      "commit": "c200bcb4721c4428a9bfe808ca8a61648a2b16f6",
+      "path": "tests/test_gateway_concurrency.py",
+      "url": "https://github.com/kevin-sparkflow/ml-inference-service/blob/c200bcb4721c4428a9bfe808ca8a61648a2b16f6/tests/test_gateway_concurrency.py",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 76,
+      "symbols": [
+        {
+          "line": 14,
+          "text": "def test_concurrent_admission_never_exceeds_capacity(monkeypatch):"
+        },
+        {
+          "line": 19,
+          "text": "def submit(i):"
+        },
+        {
+          "line": 38,
+          "text": "def test_slow_redis_submission_does_not_block_event_loop():"
+        },
+        {
+          "line": 42,
+          "text": "class SlowRedis(fakeredis.FakeRedis):"
+        },
+        {
+          "line": 43,
+          "text": "def xlen(self, key):"
+        },
+        {
+          "line": 68,
+          "text": "def test_full_queue_does_not_leave_an_orphan_job(monkeypatch):"
+        }
+      ]
+    },
+    {
+      "project": "small",
+      "repository": "kevin-sparkflow/ml-inference-service",
+      "commit": "c200bcb4721c4428a9bfe808ca8a61648a2b16f6",
+      "path": "loadtest/locustfile.py",
+      "url": "https://github.com/kevin-sparkflow/ml-inference-service/blob/c200bcb4721c4428a9bfe808ca8a61648a2b16f6/loadtest/locustfile.py",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 65,
+      "symbols": [
+        {
+          "line": 18,
+          "text": "def random_png() -> bytes:"
+        },
+        {
+          "line": 29,
+          "text": "class InferenceUser(HttpUser):"
+        },
+        {
+          "line": 33,
+          "text": "def submit_and_wait(self):"
+        }
+      ]
+    },
+    {
+      "project": "small",
+      "repository": "kevin-sparkflow/ml-inference-service",
+      "commit": "c200bcb4721c4428a9bfe808ca8a61648a2b16f6",
+      "path": "benchmarks/2026-09-10.txt",
+      "url": "https://github.com/kevin-sparkflow/ml-inference-service/blob/c200bcb4721c4428a9bfe808ca8a61648a2b16f6/benchmarks/2026-09-10.txt",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 32,
+      "symbols": []
+    },
+    {
+      "project": "small",
+      "repository": "kevin-sparkflow/ml-inference-service",
+      "commit": "c200bcb4721c4428a9bfe808ca8a61648a2b16f6",
+      "path": "docker-compose.yml",
+      "url": "https://github.com/kevin-sparkflow/ml-inference-service/blob/c200bcb4721c4428a9bfe808ca8a61648a2b16f6/docker-compose.yml",
+      "method": "GitHub 연결 도구로 고정 커밋 파일 읽음",
+      "executed": false,
+      "line_count": 45,
+      "symbols": []
+    }
+  ],
+  "failures": [
+    {
+      "url": "https://github.com/bentoml/benchmark",
+      "result": "GitHub 연결 도구 404; DEVELOPMENT.md의 이전 벤치마크 링크를 근거로 수치 인용하지 않음"
+    },
+    {
+      "method": "초기 git ls-remote",
+      "result": "샌드박스 내부 proxy:8080 연결 실패. 연결 도구로 원문 읽기 계속; 우회하지 않음"
+    }
+  ]
+}

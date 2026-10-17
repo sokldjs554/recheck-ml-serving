@@ -1,0 +1,43 @@
+[
+  {
+    "state": "jaeger/06-log-panel",
+    "url": "http://127.0.0.1:11686/trace/000000000000000a",
+    "text": "About Jaeger\nJAEGER UI\nSearch\nCompare\nSystem Architecture\nMonitor\nresearch-api: POST /decision 0000000\n⌘\nTrace Timeline\nTrace StartOctober 17 2026, 05:39:26.861Duration107msServices3Depth2Total Spans3\n0μs\n26.75ms\n53.5ms\n80.25ms\n107ms\nService & Operation\n0μs\n26.75ms\n53.5ms\n80.25ms\n107ms\nresearch-api POST /decision\n107ms\nmodel-worker model.predict\n82ms\nmodel.predict\nService:model-workerDuration:82msStart Time:5ms\nTags:error=trueotel.scope.name=research-fixtureotel.status_code=ERRORrequest.sequence=9research.fixture=truespan.kind=server\nProcess:\n Logs (1)\n10ms:event=exceptionexception.message=fixture: model timeout\nLog timestamps are relative to the start time of the full trace.\n 0000000000000065\nrecord-store record.commit\n57ms"
+  },
+  {
+    "state": "jaeger/07-error-filter",
+    "url": "http://127.0.0.1:11686/search?limit=20&lookback=1h&service=research-api&tags=%7B%22error%22%3A%22true%22%7D",
+    "text": "About Jaeger\nJAEGER UI\nSearch\nCompare\nSystem Architecture\nMonitor\nSearch\nUpload\nService (4)\nresearch-api\nOperation (1)\nall\nTags \nLookback\nLast Hour\nMax Duration\nMin Duration\nLimit Results\nFind Traces\n05:39:23 am\n05:39:24 am\n05:39:25 am\n05:39:26 am\nTime\n80ms\n90ms\n100ms\nDuration\n4 Traces\nSort: \nMost Recent\nDownload Results\nDeep Dependency Graph\nCompare traces by selecting result items\n107ms\nresearch-api: POST /decision0000000\n3 Spans2 Errors\nmodel-worker (1)\nrecord-store (1)\nresearch-api (1)\nToday5:39:26 am\n5 minutes ago\n98ms\nresearch-api: POST /decision0000000\n3 Spans2 Errors\nmodel-worker (1)\nrecord-store (1)\nresearch-api (1)\nToday5:39:25 am\n5 minutes ago\n89ms\nresearch-api: POST /decision0000000\n3 Spans2 Errors\nmodel-worker (1)\nrecord-store (1)\nresearch-api (1)\nToday5:39:23 am\n5 minutes ago\n80ms\nresearch-api: POST /decision0000000\n3 Spans2 Errors\nmodel-worker (1)\nrecord-store (1)\nresearch-api (1)\nToday5:39:22 am\n5 minutes ago"
+  },
+  {
+    "state": "jaeger/08-back-to-filter",
+    "url": "http://127.0.0.1:11686/search?limit=20&lookback=1h&service=research-api&tags=%7B%22error%22%3A%22true%22%7D",
+    "text": "About Jaeger\nJAEGER UI\nSearch\nCompare\nSystem Architecture\nMonitor\nSearch\nUpload\nService (4)\nresearch-api\nOperation (1)\nall\nTags \nLookback\nLast Hour\nMax Duration\nMin Duration\nLimit Results\nFind Traces\n05:39:23 am\n05:39:24 am\n05:39:25 am\n05:39:26 am\nTime\n80ms\n90ms\n100ms\nDuration\n4 Traces\nSort: \nMost Recent\nDownload Results\nDeep Dependency Graph\nCompare traces by selecting result items\n107ms\nresearch-api: POST /decision0000000\n3 Spans2 Errors\nmodel-worker (1)\nrecord-store (1)\nresearch-api (1)\nToday5:39:26 am\n5 minutes ago\n98ms\nresearch-api: POST /decision0000000\n3 Spans2 Errors\nmodel-worker (1)\nrecord-store (1)\nresearch-api (1)\nToday5:39:25 am\n5 minutes ago\n89ms\nresearch-api: POST /decision0000000\n3 Spans2 Errors\nmodel-worker (1)\nrecord-store (1)\nresearch-api (1)\nToday5:39:23 am\n5 minutes ago\n80ms\nresearch-api: POST /decision0000000\n3 Spans2 Errors\nmodel-worker (1)\nrecord-store (1)\nresearch-api (1)\nToday5:39:22 am\n5 minutes ago"
+  },
+  {
+    "state": "jaeger/09-no-results",
+    "url": "http://127.0.0.1:11686/search?limit=20&lookback=1h&service=research-api&tags=%7B%22request.sequence%22%3A%22999%22%7D",
+    "text": "About Jaeger\nJAEGER UI\nSearch\nCompare\nSystem Architecture\nMonitor\nSearch\nUpload\nService (4)\nresearch-api\nOperation (1)\nall\nTags \nLookback\nLast Hour\nMax Duration\nMin Duration\nLimit Results\nFind Traces\nNo trace results. Try another query."
+  },
+  {
+    "state": "jaeger/10-invalid-trace",
+    "url": "http://127.0.0.1:11686/trace/xyz-not-a-trace",
+    "text": "About Jaeger\nJAEGER UI\nSearch\nCompare\nSystem Architecture\nMonitor\nHTTP Error: strconv.ParseUint: parsing \"xyz-not-a-trace\": invalid syntax\nStatus\t400\nStatus text\tBad Request\nURL\t/api/traces/xyz-not-a-trace\nResponse body\t{\n  \"data\": null,\n  \"total\": 0,\n  \"limit\": 0,\n  \"offset\": 0,\n  \"errors\": [\n    {\n      \"code\": 400,\n      \"msg\": \"strconv.ParseUint: parsing \\\"xyz-not-a-trace\\\": invalid syntax\"\n    }\n  ]\n}"
+  },
+  {
+    "state": "evidently/drift-distribution",
+    "url": "http://127.0.0.1:18765/data_drift.html",
+    "text": "Dataset Drift\n\nDataset Drift is detected. Dataset drift detection threshold is 0.5\n\n7\n\nColumns\n\n5\n\nDrifted Columns\n\n0.714\n\nShare of Drifted Columns\n\nData Drift Summary\n\nDrift is detected for 71.429% of columns (5 out of 7).\n\t\nColumn\n\t\nType\n\t\nReference Distribution\n\t\nCurrent Distribution\n\t\nData Drift\n\t\nStat Test\n\t\nDrift Score\n\n\n\tprediction\tnum\t\n\t\n\tDetected\tK-S p_value\t0.019459\n\nDATA DRIFT\nDATA DISTRIBUTION\n0\n50\n100\n150\n200\n0\n20\n40\n60\n80\n100\n120\n140\ncurrent\nreference\n\n\n\tweekday\tnum\t\n\t\n\tNot Detected\tK-S p_value\t1\n\n\thr\tnum\t\n\t\n\tNot Detected\tK-S p_value\t1\n\n\twindspeed\tnum\t\n\t\n\tDetected\tK-S p_value\t0.000001\n\n\thum\tnum\t\n\t\n\tDetected\tK-S p_value\t0\n\n\tatemp\tnum\t\n\t\n\tDetected\tK-S p_value\t0\n\n\ttemp\tnum\t\n\t\n\tDetected\tK-S p_value\t0\n7 rows\n1-7 of 7"
+  },
+  {
+    "state": "evidently-mobile-scroll",
+    "containers": [
+      {
+        "tag": "DIV",
+        "class": "",
+        "width": 356,
+        "scroll": 911
+      }
+    ]
+  }
+]
