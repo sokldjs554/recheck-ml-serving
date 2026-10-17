@@ -137,6 +137,7 @@ def main():
         assert not errors, errors
         report = {'engine': args.engine, 'browser_version': browser.version, 'scope': 'Playwright engine; not real-device Safari or user comprehension research', 'base': args.base, 'api': args.api, 'checks': checks, 'page_errors': errors, 'media': media, 'action_id': after['action']['action_id'], 'session': after['session']}
         (args.output / 'results.json').write_text(json.dumps(report, ensure_ascii=False, indent=2))
+        print('RESTORATION_RESULT ' + json.dumps(report, ensure_ascii=False), flush=True)
         for check in checks: print('PASS', check, flush=True)
         page.unroute_all(behavior='ignoreErrors')
         context.close()

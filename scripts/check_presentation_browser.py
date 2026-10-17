@@ -3,7 +3,7 @@ import argparse
 import json
 from pathlib import Path
 from urllib.parse import urljoin
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, expect
 
 
 def main():
@@ -119,7 +119,9 @@ def main():
                 assert not exception.evaluate('(e)=>e.open')
                 page.get_by_role('button', name='저장 후 응답 실패 1건').click()
                 assert exception.evaluate('(e)=>e.open'), 'Repeated jump must reopen a manually closed exception'
-                assert exception.locator(':scope > summary').evaluate('(e)=>document.activeElement===e')
+                # The jump moves focus in requestAnimationFrame, after the DOM
+                # update. Assert the actual focus condition, not click timing.
+                expect(exception.locator(':scope > summary')).to_be_focused()
                 assert 'HTTP 504' in exception.inner_text()
                 assert 'e6df1df1-764f-46bf-8217-6f2209e055f7' in exception.inner_text()
                 assert '재시도는 이 부하 실험에서 실행하지 않았습니다' in exception.inner_text()
