@@ -11,7 +11,7 @@ export type EvidenceReceipt = {
   product: "answer" | "checklist";
   query: string;
   output: string;
-  references: Source[];
+  references: Omit<Source, "deleted">[];
   release_epoch: number;
   artifact_hash: string;
   created_at: number;

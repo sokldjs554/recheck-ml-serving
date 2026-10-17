@@ -22,6 +22,7 @@ const Evidence = lazy(() => import("./Evidence"));
 import EvidenceLab from "./EvidenceLab";
 import CaseStudy from "./CaseStudy";
 import { CaseFlow } from "./caseFlow";
+import { browserCaseStorage, savedCaseBase } from "./caseStorage";
 import { CaseApi } from "./caseApi";
 import "./servingEvidence.css";
 const ServingEvidence = lazy(() => import("./ServingEvidence"));
@@ -173,9 +174,9 @@ export default function App() {
   const [showConnect, setShowConnect] = useState(false);
   // The execution belongs to this app session, not to a mounted tab.
   // Navigation only subscribes/unsubscribes; it never creates or retries a request.
-  const [caseBase, setCaseBase] = useState(base);
+  const [caseBase, setCaseBase] = useState(() => savedCaseBase(base));
   const caseFlow = useMemo(
-    () => new CaseFlow(new CaseApi(caseBase)),
+    () => new CaseFlow(new CaseApi(caseBase), browserCaseStorage()),
     [caseBase],
   );
   useEffect(() => {

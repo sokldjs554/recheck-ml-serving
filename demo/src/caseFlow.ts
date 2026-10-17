@@ -1,5 +1,6 @@
 import { CaseApiError, type CaseAction, type CaseApi } from "./caseApi";
 import { EvidenceApiError } from "./evidenceApi";
+import { parseCheckpoint, type CaseStorage } from "./caseStorage";
 import type {
   EvidenceReceipt,
   EvidenceState,
@@ -7,6 +8,8 @@ import type {
 } from "./evidenceApi";
 export type CaseEvent = { label: string; at: string; data: unknown };
 export type CaseSnapshot = {
+  restored: boolean;
+  storageWarning: string;
   step: number;
   canReprepare: boolean;
   busy: boolean;
@@ -23,6 +26,8 @@ export type CaseSnapshot = {
   events: CaseEvent[];
 };
 const initial = (): CaseSnapshot => ({
+  restored: false,
+  storageWarning: "",
   step: 0,
   canReprepare: false,
   busy: false,
@@ -46,9 +51,25 @@ export class CaseFlow {
   private generation = 0;
   private disposed = false;
   private listeners = new Set<() => void>();
-  private actionKey = crypto.randomUUID();
-  private oldActionKey = crypto.randomUUID();
-  constructor(private api: CaseApi) {}
+  private actionKey: string = crypto.randomUUID();
+  private oldActionKey: string = crypto.randomUUID();
+  constructor(private api: CaseApi, private storage?: CaseStorage) {
+    if (!storage) return;
+    try {
+      const raw = storage.read();
+      if (!raw) return;
+      const saved = parseCheckpoint(raw, api.base);
+      this.actionKey = saved.actionKey;
+      this.oldActionKey = saved.oldActionKey;
+      const interrupted = saved.snapshot.busy || saved.snapshot.running;
+      this.value = { ...saved.snapshot, restored: true, storageWarning: "", busy: false, running: false,
+        status: interrupted ? "중단된 실행의 확인된 기록을 복원했습니다. 자동 재전송하지 않습니다. 이어서 실행하면 서버 상태부터 확인합니다." : "이 탭에 저장된 실행 기록을 복원했습니다. 현재 서버 상태를 다시 조회한 결과는 아닙니다." };
+    } catch {
+      this.value.storageWarning = "저장된 기록을 읽을 수 없어 새 화면으로 열었습니다. 손상·구버전·다른 API의 기록은 복원하지 않습니다.";
+      // Construction is read-only, including React StrictMode's double render.
+      // Explicit reset clears invalid data; the next request overwrites it.
+    }
+  }
   getSnapshot = () => this.value;
   subscribe = (listener: () => void) => {
     this.listeners.add(listener);
@@ -58,6 +79,19 @@ export class CaseFlow {
   };
   private set(patch: Partial<CaseSnapshot>) {
     this.value = { ...this.value, ...patch };
+    if (this.storage) {
+      try {
+        if (!this.value.session && !this.value.events.length && !this.value.busy) this.storage.clear();
+        else {
+          const raw = JSON.stringify({ version: 1, base: this.api.base, snapshot: this.value, actionKey: this.actionKey, oldActionKey: this.oldActionKey });
+          if (raw.length > 1_000_000 || this.value.events.length > 512) throw new Error("checkpoint limit");
+          this.storage.write(raw);
+        }
+      } catch {
+        this.value = { ...this.value, storageWarning: "브라우저에 진행 상황을 저장하지 못했습니다. 새로고침하면 이번 진행 내용이 복원되지 않을 수 있습니다. 사건 기록 JSON을 내려받으세요." };
+        try { this.storage.clear(); } catch { /* Keep the warning visible. */ }
+      }
+    }
     this.listeners.forEach((fn) => fn());
   }
   reset = () => {
@@ -152,10 +186,18 @@ export class CaseFlow {
     };
     this.set({ busy: true, error: "", status: "" });
     try {
+      if (current.restored && current.session) {
+        // Read-only preflight. Do not replace historical state: replaying the
+        // original event revision and idempotency keys must remain possible.
+        await this.api.state(current.session);
+        check();
+        this.set({ restored: false });
+      }
       if (current.step === 0) {
-        const session = await take("Python API 연결 · 세션 생성", () =>
+        const session = current.session ? { session_id: current.session } : await take("Python API 연결 · 세션 생성", () =>
           this.api.connect(),
         );
+        this.set({ session: session.session_id });
         const state = await take("현재 원문 조회", () =>
           this.api.state(session.session_id),
         );

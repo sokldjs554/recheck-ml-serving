@@ -18,7 +18,7 @@ Python/Kotlin/Go 중 하나 이상의 경험을 요구하므로 언어 수를 �
 | 장애 최소화 / 복구 확인 | [`infra/k8s`](../infra/k8s), [`k8s_verify.py`](../scripts/k8s_verify.py), readiness/liveness | [기존 DB Pod 교체](kubernetes.md), [복구 타임라인](failure-walkthrough.md): 503 탐지 → 같은 PVC 재기동 → 정상 추론과 기존 기록 확인 | 단일 노드 kind. 실제 은행 온콜, 다중 노드/리전 가용성, 무중단 실적 아님 |
 | 높은 SLA·운영 관측에 대한 이해 | [`synthetic_monitor.py`](../scripts/synthetic_monitor.py), [`operations.py`](../backend/recheck/operations.py), Prometheus rules | [공개 API 관측](public-runtime.md): 저장된 점검의 정확성 3/3·5초 내 2/3, 첫 응답 65.1초 실패 보존. 데모에서 운영 기록을 별도 조회 | 주기적 표본 사이 가용성 미확인. 무료 호스트 시작 지연 유지. 장기간 SLA 달성 주장 없음 |
 | 문제 해결·성과 지표 / 기술 선택 설명 | [`benchmark_fullpath_sustained.py`](../scripts/benchmark_fullpath_sustained.py), [`benchmark_consistency_costs.py`](../scripts/benchmark_consistency_costs.py) | 전 시도 분모, 시간 예산 내 유효 응답, uncertain commit·최종 SQL, 지연·자원 비용. [설계 판단](decisions.md) | 실험 지표를 실제 고객 효과·매출·업무 시간 절감으로 바꾸지 않음 |
-| 평가자가 재현할 수 있는 전달 방식 | [`App.tsx`](../demo/src/App.tsx), [`caseFlow.ts`](../demo/src/caseFlow.ts), [`MeasuredReview.tsx`](../demo/src/MeasuredReview.tsx) | [UI 변경·회귀 근거](reviewer-update.md), 세 경로와 원본 링크. 비교 화면 이동 중에도 실행 상태 보존 | 사용자 조사 없이 이해도 향상이 입증됐다고 주장하지 않음. 브라우저 새로고침/닫기 후 클라이언트 상태 복원은 지원하지 않음 |
+| 평가자가 재현할 수 있는 전달 방식 | [`App.tsx`](../demo/src/App.tsx), [`caseFlow.ts`](../demo/src/caseFlow.ts), [`caseStorage.ts`](../demo/src/caseStorage.ts), [`MeasuredReview.tsx`](../demo/src/MeasuredReview.tsx) | [UI 변경·회귀 근거](workspace-upgrade-2026-10-17.md), [새로고침 복원·후속 검증](reload-recovery-2026-10-17.md). 화면 이동·같은 탭 새로고침 시 확인된 기록과 재시도 키 보존 | 사용자 조사 없이 이해도 향상이 입증됐다고 주장하지 않음. 탭 종료·다른 기기·저장 차단 후 복원과 여러 탭 동기화는 보장하지 않음 |
 
 ## 소개 자료의 전달 경로
 

@@ -185,3 +185,4 @@
   .workspace-theme .load-explorer .phase-detail { grid-row: 2; }
   .load-cohorts { grid-row: 3; border-top: 1px solid #b9c1b2; }
 }
+.case-persistence-note { margin: 12px 0; padding: 12px 0; border-block: 1px solid #c4cfc5; font-size: 13px; line-height: 1.65; color: #4c5e4e; overflow-wrap: anywhere; }

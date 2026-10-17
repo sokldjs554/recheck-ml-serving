@@ -288,6 +288,8 @@ export default function CaseStudy({
             <i />
             {state.sessionExpired
               ? "세션 만료 · 과거 기록"
+              : state.restored
+                ? "저장 기록 복원 · 서버 확인 전"
               : state.session
                 ? "API 연결됨"
                 : "API 연결 전"}
@@ -304,6 +306,8 @@ export default function CaseStudy({
         </div>
       </div>
 
+      {state.storageWarning && <p className="case-persistence-note" role="status" data-testid="case-storage-warning">{state.storageWarning}</p>}
+      {state.restored && <p className="case-persistence-note" data-testid="case-restored">이 탭에서 확인했던 응답·작업 ID·로그를 복원했습니다. 새 요청은 자동으로 보내지 않습니다. ‘처음부터’를 누르면 이 탭의 저장 기록도 지웁니다.</p>}
       <div className={`replay-machine gate-${gate}`}>
         {compact && transport}
         <div className="replay-ruler" aria-hidden="true">
