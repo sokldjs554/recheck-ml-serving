@@ -56,7 +56,7 @@ export default function ServingEvidence({
         </span>
         <div>
           <h1>
-            {view === "serving" ? "요청 증가와 서버 응답" : "장애 원인과 복구 결과"}
+            {view === "serving" ? <>부하를 걸고,<br /><em>서버의 경계를 찾았습니다.</em></> : <>실패한 요청 하나,<br /><em>원인부터 복구까지.</em></>}
           </h1>
           <p>
             {view === "serving"
@@ -67,8 +67,8 @@ export default function ServingEvidence({
       </header>
       <p className="serving-record-note" data-testid="stored-evidence-note">
         {view === "serving"
-          ? "저장된 실제 실험 기록 · 실시간 부하 실행이나 현재 서버 상태가 아닙니다."
-          : "운영 기록은 버튼을 눌러 공개 API에서 조회합니다. 아래 장애 주입 실험은 저장된 기록입니다."}
+          ? "저장된 로컬 실험 · API → CPU 모델 → PostgreSQL"
+          : "저장된 장애·복구 실험 · 공개 API 운영 기록은 별도 조회"}
       </p>
       {view === "serving" ? (
         <>

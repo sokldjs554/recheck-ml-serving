@@ -591,11 +591,11 @@ export default function App() {
             onClick={() => setTab("case")}
           >
             <span className="desk-brand-symbol" aria-hidden="true">
-              ↳
+              r/
             </span>
             recheck
           </button>
-          <span className="desk-brand-caption">ML backend</span>
+          <span className="desk-brand-caption">Python / ML backend</span>
         </div>
         <nav aria-label="실험 선택">
           <button
@@ -654,19 +654,19 @@ export default function App() {
             aria-label="프로젝트 목적과 확인 경로"
           >
             <div className="project-purpose">
-              <span>RECHECK / Python ML backend</span>
-              <h1>문서가 바뀌면,<br />이전 답변은 멈춰야 합니다.</h1>
-              <p>답변을 준비한 뒤 한도가 바뀌었습니다. 기록 직전의 재검증으로 오래된 답변과 중복 작업을 막는 서버입니다.</p>
+              <span className="project-kicker"><i /> ANSWER → VERIFY → RECORD</span>
+              <h1>답변과 실행 사이,<br /><em>한 번 더 확인합니다.</em></h1>
+              <p>준비된 답변의 근거가 바뀌었다면? 기록 직전에 검증하고, 같은 요청에는 같은 결과를 돌려주는 Python ML 백엔드.</p>
             </div>
             <div className="project-entry">
               <div className="project-start">
                 <CaseRunButton flow={caseFlow} top />
-                <span>실제 API · 가상 상담 데이터 · 6단계</span>
+                <span>실제 Python API로 확인하는 6단계</span>
               </div>
               <RecordedDemo />
               <div className="entry-evidence-links">
-                <a href="#serving">모델 부하 <ArrowUpRight size={14} /><small>목표 {overloadPhases[0].target_rps} → 유효 약 {overloadGoodRate} req/s · 저장된 로컬 측정</small></a>
-                <a href="#recovery">장애 복구 <ArrowUpRight size={14} /><small>실패 요청 → trace → SQL · 저장된 근거</small></a>
+                <a href="#serving"><span>02 / 모델 부하 <ArrowUpRight size={14} /></span><small>목표 {overloadPhases[0].target_rps} → 유효 약 {overloadGoodRate} req/s<br />저장된 로컬 측정</small></a>
+                <a href="#recovery"><span>03 / 장애 복구 <ArrowUpRight size={14} /></span><small>실패 요청 → trace → SQL<br />저장된 복구 기록</small></a>
               </div>
             </div>
           </section>

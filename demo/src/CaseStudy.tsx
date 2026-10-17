@@ -13,14 +13,6 @@ import "./caseStudy.css";
 import CaseRunButton from "./CaseRunButton";
 import CaseJournal from "./CaseJournal";
 
-const compactMedia = "(max-width: 760px)";
-function subscribeLayout(listener: () => void) {
-  const media = window.matchMedia(compactMedia);
-  media.addEventListener("change", listener);
-  return () => media.removeEventListener("change", listener);
-}
-const compactLayout = () => window.matchMedia(compactMedia).matches;
-
 const actions = [
   "답변 준비",
   "정책 변경 적용",
@@ -74,11 +66,6 @@ export default function CaseStudy({
   onExplore: () => void;
   onEvidence: () => void;
 }) {
-  const compact = useSyncExternalStore(
-    subscribeLayout,
-    compactLayout,
-    () => false,
-  );
   const [base, setBase] = useState(configuredBase);
   const [configError, setConfigError] = useState("");
   const [now, setNow] = useState(Date.now());
@@ -272,9 +259,9 @@ export default function CaseStudy({
           <span className="replay-case-number">01</span>
           <div>
             <span className="case-route-label">
-              실시간 API · /evidence/…/execute
+              01 / 실행 재현 · 실시간 API
             </span>
-            <h2>이체 한도 변경과 이전 답변 차단</h2>
+            <h2>상담 기록, 실행 직전 검증</h2>
             <p>
               300만 → 100만 원 변경을 적용하고, 이전 답변의 기록이 차단되는지
               확인합니다.
@@ -307,9 +294,9 @@ export default function CaseStudy({
       </div>
 
       {state.storageWarning && <p className="case-persistence-note" role="status" data-testid="case-storage-warning">{state.storageWarning}</p>}
-      {state.restored && <p className="case-persistence-note" data-testid="case-restored">이 탭에서 확인했던 응답·작업 ID·로그를 복원했습니다. 새 요청은 자동으로 보내지 않습니다. ‘처음부터’를 누르면 이 탭의 저장 기록도 지웁니다.</p>}
+      {state.restored && <p className="case-persistence-note" data-testid="case-restored">이 탭의 실행 기록을 복원했습니다. ‘이어서 실행’으로 서버 상태를 확인하고 계속하세요.</p>}
       <div className={`replay-machine gate-${gate}`}>
-        {compact && transport}
+        {transport}
         <div className="replay-ruler" aria-hidden="true">
           <span>문제 상황 · 변경된 원문</span>
           <span>비교 대상 · 준비된 답변</span>
@@ -441,7 +428,7 @@ export default function CaseStudy({
 
           <div className="replay-gate">
             <div className="replay-node-label">
-              <span>02 / 실행 시점</span>
+              <span>03 / 서버의 실행 판단</span>
             </div>
             <div className="replay-gate-symbol" aria-hidden="true">
               <span />
@@ -506,7 +493,7 @@ export default function CaseStudy({
           </div>
         </div>
 
-        {!compact && transport}
+
       </div>
 
       <div className="replay-below">
@@ -621,10 +608,7 @@ export default function CaseStudy({
         </button>
       </div>
       <p className="case-scope">
-        가상 정책 문서의 검색 결과를 발췌하는 실험입니다. LLM 생성·실제
-        발송·송금은 하지 않습니다.
-        {state.step === 6 &&
-          " 재시도 응답은 과거 기록이며, 현재 근거의 유효성을 뜻하지 않습니다."}
+        가상 상담 문서 · TF-IDF 검색 · /evidence/…/execute
       </p>
     </section>
   );

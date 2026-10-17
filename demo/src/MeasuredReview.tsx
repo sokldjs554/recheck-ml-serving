@@ -20,8 +20,7 @@ export function SustainedReview() {
       </div>
       <p className="review-scope">
         저장된 로컬 측정 · /decisions → CPU 프로세스 2개 → PostgreSQL · 180초 ·
-        공유 호스트 CPU quota 4코어 · 5초 워밍업 제외. 상담 체험의 처리량이나
-        SLA가 아닙니다.
+        공유 호스트 CPU quota 4코어 · 5초 워밍업 제외
       </p>
       <LoadExplorer />
       <details className="review-details load-interpretation">
@@ -64,7 +63,7 @@ export function SustainedReview() {
         </div>
       </details>
       <details className="review-details" data-testid="sustainedreview-context">
-        <summary>실험 조건·설계 선택·해석의 한계</summary>
+        <summary>실험 조건과 설계 판단</summary>
         <section className="review-section">
           <h3>조건</h3>
           <div>
@@ -197,8 +196,7 @@ export function FailureReview() {
         <h2>응답은 200, 모델 판단은 실패.</h2>
       </div>
       <p className="review-scope">
-        저장된 로컬 장애 주입 · /decisions · lightweight 모델 → PostgreSQL. 아래
-        Kubernetes 복구는 별도 실험이며 공개 서비스의 복구 실적이 아닙니다.
+        저장된 로컬 장애 주입 · /decisions · lightweight 모델 → PostgreSQL · Kubernetes 복구는 별도 측정
       </p>
       <TraceExplorer />
       <section
@@ -230,7 +228,7 @@ export function FailureReview() {
         </p>
       </section>
       <details className="review-details" data-testid="failurereview-context">
-        <summary>실험 조건·설계 선택·해석의 한계</summary>
+        <summary>실험 조건과 설계 판단</summary>
         <section className="review-section">
           <h3>조건</h3>
           <div>
@@ -364,7 +362,7 @@ export function ConsistencyReview() {
         className="review-details"
         data-testid="consistencyreview-context"
       >
-        <summary>실험 조건·설계 선택·해석의 한계</summary>
+        <summary>실험 조건과 설계 판단</summary>
         <section className="review-section">
           <h3>조건</h3>
           <div>

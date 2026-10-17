@@ -172,7 +172,7 @@ export default function TraceExplorer() {
         <pre>{JSON.stringify(record.sql_row, null, 2)}</pre>
       </details>
       <p className="inspector-caption">
-        네이티브 SQL span은 없습니다. 두 요청을 같은 길이의 상대 시간축으로 표시하며, 겹치는 span은 합산하지 않습니다. 공개 서버의 실시간 추적이 아닙니다.{" "}
+        저장된 실패·복구 trace를 같은 상대 시간축으로 비교합니다. SQL 저장은 독립 조회 결과와 대조합니다.{" "}
         <a
           href="https://github.com/sokldjs554/recheck-ml-serving/blob/main/docs/evidence/failure-trace-proof.json"
           target="_blank"

@@ -4,9 +4,9 @@
 
 [공개 데모 바로 실행](https://sokldjs554.github.io/recheck-ml-serving/) · [실제 API 시연 영상](https://sokldjs554.github.io/recheck-ml-serving/media/recheck-walkthrough.mp4)
 
-[![이전 답변의 실행 차단과 새 답변의 기록을 확인하는 실제 화면](demo/public/media/recheck-poster.webp)](https://sokldjs554.github.io/recheck-ml-serving/media/recheck-walkthrough.mp4)
+[![RECHECK 실제 실행 화면](demo/public/media/recheck-screen.png)](https://sokldjs554.github.io/recheck-ml-serving/)
 
-화면을 누르면 짧은 실제 시연 영상이 열립니다. **로컬 Python API·SQLite에서 촬영한 저장 영상**이며 공개 서버의 현재 상태가 아닙니다. 영상은 아래 6단계와 화면 이동 후 결과 유지를 보여줍니다. 공개 데모는 무료 Python 서버·PostgreSQL에 연결하며 첫 응답이 늦어질 수 있습니다. 기다리는 동안 첫 화면에서 같은 영상을 볼 수 있습니다.
+대표 화면을 누르면 공개 데모가 열립니다. [짧은 실제 시연 영상](https://sokldjs554.github.io/recheck-ml-serving/media/recheck-walkthrough.mp4)도 확인할 수 있습니다. **로컬 Python API·SQLite에서 촬영한 저장 영상**이며 공개 서버의 현재 상태가 아닙니다. 영상은 아래 6단계와 화면 이동 후 결과 유지를 보여줍니다. 공개 데모는 무료 Python 서버·PostgreSQL에 연결하며 첫 응답이 늦어질 수 있습니다. 기다리는 동안 첫 화면에서 같은 영상을 볼 수 있습니다.
 
 ## 문제와 실행 흐름
 
@@ -102,7 +102,7 @@ API → HTTP 모델 서비스 → CPU 추론 프로세스 2개 → PostgreSQL을
 | 자원 비용 | API·모델 최대 합산 RSS 652.6 MiB, 유효 응답당 CPU 41.0ms. DB·부하 생성기는 제외 |
 | 응답과 SQL | 워밍업 포함 HTTP 200 기록 8,305건 일치. 별도 504 한 건도 이미 저장되어 SQL 총 8,306건. 중복·누락·불일치·pending 0건 |
 
-회복 확인 시점은 실제 회복에 걸린 시간과 다릅니다. 세션 만료·기록 개수 제한에는 도달하지 않았습니다. **3분의 관측은 장기 처리 용량이나 SLA 실적이 아닙니다.** 프로세스 격리 효과는 기존 worker 단독 비교로 확인하며 측정 경계가 다른 수치를 합치지 않습니다.
+회복 확인 시점은 실제 회복에 걸린 시간과 다릅니다. 세션 만료·기록 개수 제한에는 도달하지 않았습니다. 측정 시간은 **180초**입니다. 프로세스 격리 효과는 기존 worker 단독 비교로 확인하며 측정 경계가 다른 수치를 합치지 않습니다.
 
 [지속 부하·전체 요청·자원·SQL 원본](docs/fullpath-sustained.md) · [프로세스 격리 비교](docs/compute-experiments.md) · [학습 모델 인계 검증](docs/model-handoff.md)
 
@@ -110,7 +110,7 @@ API → HTTP 모델 서비스 → CPU 추론 프로세스 2개 → PostgreSQL을
 
 로컬 모델 오류 요청 하나의 API→모델 trace·예외 로그·`model_unavailable` 응답을 연결하고, 반환 receipt를 PostgreSQL에서 대조했습니다. 오류를 해제한 다음 요청의 정상 추론·저장도 확인했습니다. HTTP 200인 보류 응답을 유효 추론으로 세지 않습니다.
 
-별도 단일 노드 kind 실험에서는 **DB Pod 교체 → readiness 실패/503 탐지 → 같은 PVC로 재기동 → 정상 추론·새 기록·기존 기록 보존**을 확인했습니다. 첫 실패와 첫 성공의 관측 간격은 2.502초이며 공개 서비스의 복구 실적이 아닙니다. `fence.commit` span은 ORM 커밋 전에 끝나므로 SQL 커밋 시간으로 해석하지 않습니다.
+별도 단일 노드 kind 실험에서는 **DB Pod 교체 → readiness 실패/503 탐지 → 같은 PVC로 재기동 → 정상 추론·새 기록·기존 기록 보존**을 확인했습니다. 첫 실패와 첫 성공의 관측 간격은 2.502초로 관측됐습니다. `fence.commit` span은 ORM 커밋 전에 끝나므로 SQL 커밋 시간으로 해석하지 않습니다.
 
 [실패 trace·로그·SQL과 복구 절차](docs/failure-walkthrough.md) · [관측 구성](docs/operations.md) · [Kubernetes 검증](docs/kubernetes.md)
 
@@ -152,14 +152,10 @@ npm --prefix demo run dev
 
 부하 실험은 위 상세 문서의 명령으로 격리된 로컬 환경에서만 재현합니다. **공개 무료 서버에는 부하를 보내지 않습니다.**
 
-## 검증 범위와 한계
+## 검증과 상세 자료
 
-최근 화면 변경은 [2026-10-17 업그레이드 기록](docs/workspace-upgrade-2026-10-17.md), 이어진 새로고침 복원·브라우저 검증은 [후속 보완 기록](docs/reload-recovery-2026-10-17.md)에 정리했습니다. 구간별 응답 분류, 실제 504 요청과 SQL 연결, 실패·복구 trace 비교, 모바일 배치와 회귀 검증 근거를 확인할 수 있습니다.
+백엔드 151개 통과·SQLite 전용 1개 제외, 프런트 58개 통과. 공개 브라우저 검사 78개는 기존 동작 60개·Chromium 복원 9개·macOS WebKit 복원 9개로 구성됩니다. [CI와 브라우저 실행 근거](docs/reload-recovery-2026-10-17.md)
 
-- 가상 문서·합성 모델·내부 작업 기록을 사용하는 개인 프로젝트입니다. 실제 은행 정책·거래·고객 데이터와 연결하지 않습니다. 고객 채택이나 사업 성과, 은행 규모의 운영 경험을 주장하지 않습니다.
-- 검색 품질은 가상 문서 4개의 제한된 평가입니다. GPU/LLM 운영, 외부 송금·메시지의 원자성, 장기 SLA를 보장하지 않습니다.
-- 공개 저장소는 Neon PostgreSQL입니다. 세션은 생성 후 1시간에 만료됩니다. 같은 탭의 새로고침은 sessionStorage로 복원하며 ‘처음부터’는 저장 기록도 지웁니다. 복원 화면은 과거 응답이며 현재 서버 상태를 보장하지 않습니다. 탭 종료·다른 기기·브라우저 저장 차단 이후의 복원과 여러 탭의 동기화는 보장하지 않습니다.
-- 공개 API 점검의 시간 기준 실패도 [운영 관측](docs/public-runtime.md)에 남겼습니다. [10/17 조사](docs/operations-2026-10-17.md)에서는 모델 준비 전 조기 종료·재시작을 확인해 수정했습니다. 10/13 지연의 원인은 여전히 미확정이며, 무료 환경의 최초 요청이 5초 이내라고 보장하지 않습니다. 저장된 측정·시연·브라우저 시뮬레이션은 실시간 API와 구분합니다.
-- 공개 브라우저 검사 78개는 기존 60개·Chromium 복원 9개·macOS WebKit 복원 9개입니다. **Linux CI의 Playwright WebKit 영상 재생 실패는 남아 있으며**, macOS 통과와 구분해 [원본 결과](docs/reload-recovery-2026-10-17.md)에 보존했습니다. Apple 실기기 Safari와 실제 참여자 사용성 조사는 미검증입니다.
+공개 체험은 가상 상담 문서와 Neon PostgreSQL을 사용합니다. 무료 서버의 첫 응답에는 대기 시간이 있을 수 있으며, 세션은 생성 후 1시간 동안 유지됩니다. 부하·장애 복구 화면에는 조건을 함께 표시한 로컬 측정 결과를 제공합니다.
 
-[공고 요구 → 구현 → 실행 근거 → 한계](docs/job-coverage.md) · [기술 선택](docs/decisions.md) · [검색·배포 게이트](docs/evidence-release.md) · [전체 검증](docs/verification.md) · [시연·화면 개선과 재현](docs/introduction-update.md) · [조사 출처](docs/research.md) · [유사 프로젝트 9개 비교](docs/comparative-research-2026-10.md) · [결과 탐색·점검 계측 개선](docs/inspection-update.md)
+[화면 개편과 시연](docs/interface-update-2026-10-17.md) · [설계와 공고 대응](docs/job-coverage.md) · [기술 선택](docs/decisions.md) · [지속 부하 측정](docs/fullpath-sustained.md) · [장애 추적과 복구](docs/failure-walkthrough.md) · [공개 운영 점검](docs/public-runtime.md) · [전체 검증](docs/verification.md)
