@@ -1,5 +1,7 @@
 """Build the demo's measured serving view from committed experiment records."""
 import argparse
+import gzip
+import hashlib
 import json
 from pathlib import Path
 
@@ -40,10 +42,19 @@ def build():
     failure = read('failure-trace-proof.json')
     assert sustained['validation_passed'] and sustained['reconciliation']['passed']
     assert failure['success']
+    raw_bytes = (ROOT / 'docs/evidence' / sustained['raw_file']).read_bytes()
+    assert hashlib.sha256(raw_bytes).hexdigest() == sustained['raw_sha256']
+    raw = json.loads(gzip.decompress(raw_bytes))
+    sql_by_key = {(row['session_id'], row['idempotency_key']): row for row in raw['sql_rows']}
+    committed_keys = {tuple(key) for key in raw['reconciliation']['committed_without_200_keys']}
+    exceptions = [dict(request=request, sql_row=sql_by_key[(request['session_id'], request['idempotency_key'])])
+                  for request in raw['measurement']['records']
+                  if (request['session_id'], request['idempotency_key']) in committed_keys]
+    assert len(exceptions) == sustained['reconciliation']['committed_without_200_keys']
     consistency = read('consistency-costs-summary.json')
     assert all(cell['sql_reconciled'] for cell in consistency['cells'])
     return dict(consistency=consistency,
-        sustained={key: sustained[key] for key in ('measured_at', 'phases', 'settings', 'reconciliation', 'retention', 'cost', 'raw_file', 'raw_sha256')},
+        sustained={**{key: sustained[key] for key in ('measured_at', 'phases', 'settings', 'reconciliation', 'retention', 'cost', 'raw_file', 'raw_sha256')}, 'commit_exceptions': exceptions},
         failure={**{key: failure[key] for key in ('started_at', 'failed', 'recovered')},
                  'trace_views': {key: trace_view(failure[key]['exported_spans']) for key in ('failed','recovered')}},
         samples=samples, public=read('public-monitor-2026-10-11.json'), observability=dict(start=observe['started_at'], end=observe['finished_at'],

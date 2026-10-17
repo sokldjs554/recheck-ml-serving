@@ -1,4 +1,4 @@
-import { useState } from "react";
+import LoadExplorer from "./LoadExplorer";
 import TraceExplorer from "./TraceExplorer";
 import data from "./serving-evidence.json";
 const docs = "https://github.com/sokldjs554/recheck-ml-serving/blob/main/docs/";
@@ -11,129 +11,22 @@ const n = (value: number) => value.toLocaleString("ko-KR");
 
 export function SustainedReview() {
   const run = data.sustained;
-  const [selectedIndex, setSelectedIndex] = useState(1);
-  const selected = run.phases[selectedIndex];
-  const categories = selected.categories as Record<string, number | undefined>;
-  const overload = run.phases.filter((phase) => phase.name === "overload");
-  const goodRate = (
-    overload.reduce((sum, phase) => sum + phase.cohort_rates_rps.good, 0) /
-    overload.length
-  ).toFixed(1);
   return (
     <article className="measured-review" data-testid="sustained-review">
       <div className="review-question">
         <span>지속 부하 실험</span>
-        <h2>정상·과부하·복귀 구간의 응답 결과</h2>
-        <p>
-          과부하 구간의 목표는 초당 {overload[0].target_rps}건,
-          {run.settings.deadline_ms}ms 이내 유효 응답은 약 {goodRate}
-          건/초입니다. 부하를 줄인 두 복귀 구간은 각각 300건 모두 유효했습니다.
-        </p>
+        <h2>초당 120건 중, 제때 응답한 요청은?</h2>
+
       </div>
       <p className="review-scope">
         저장된 로컬 측정 · /decisions → CPU 프로세스 2개 → PostgreSQL · 180초 ·
         공유 호스트 CPU quota 4코어 · 5초 워밍업 제외. 상담 체험의 처리량이나
         SLA가 아닙니다.
       </p>
-      <section className="review-section">
-        <h3>관측 결과</h3>
+      <LoadExplorer />
+      <details className="review-details load-interpretation">
+        <summary>부하 해제 후 회복·전체 집계·설계 비용</summary>
         <div>
-          <p>
-            <strong>목표 10 → 120 → 10 req/s를 두 번 투입</strong>했습니다.
-            과부하의 300ms 내 유효 응답은 약 67.6 req/s였습니다.
-          </p>
-          <div
-            className="phase-chart"
-            role="group"
-            aria-label="저장된 부하 구간 선택"
-          >
-            {run.phases.map((phase) => (
-              <button
-                data-testid="phase-select"
-                aria-pressed={selectedIndex === phase.index}
-                onClick={() => setSelectedIndex(phase.index)}
-                className={`phase-column phase-${phase.name}`}
-                key={phase.index}
-              >
-                <span>
-                  {phase.cycle}회 · {names[phase.name]}
-                </span>
-                <div className="phase-track">
-                  <i style={{ height: `${(phase.target_rps / 120) * 100}%` }} />
-                  <b
-                    style={{
-                      height: `${(phase.cohort_rates_rps.good / 120) * 100}%`,
-                    }}
-                  />
-                </div>
-                <strong>
-                  {phase.cohort_rates_rps.good.toFixed(1)}
-                  <small> 유효 req/s</small>
-                </strong>
-                <span>
-                  {n(phase.good)} / {n(phase.attempted)}
-                </span>
-              </button>
-            ))}
-          </div>
-          <p className="inspector-caption">
-            막대를 선택해 해당 30초 구간의 응답과 대기열을 확인하세요.
-          </p>
-          <p className="chart-key">
-            <i /> 목표 요청률 <b /> 300ms 내 유효 응답률 · 각 막대 30초
-          </p>
-          <div
-            className="phase-detail"
-            data-testid="phase-detail"
-            aria-live="polite"
-          >
-            <h4>
-              {selected.cycle}회 · {names[selected.name]} ·{" "}
-              {selected.start_seconds}–
-              {selected.start_seconds + selected.duration_seconds}초
-            </h4>
-            <p>
-              예정 요청 {n(selected.attempted)}건 중{" "}
-              <strong>
-                {run.settings.deadline_ms}ms 내 유효 {n(selected.good)}건
-              </strong>{" "}
-              · 목표 {selected.target_rps} req/s
-            </p>
-            <dl>
-              <div>
-                <dt>실제 전송률</dt>
-                <dd>{selected.cohort_rates_rps.sent.toFixed(2)} req/s</dd>
-              </div>
-              <div>
-                <dt>응답 완료 요청률</dt>
-                <dd>{selected.cohort_rates_rps.completed.toFixed(2)} req/s</dd>
-              </div>
-              <div>
-                <dt>유효 응답률</dt>
-                <dd>{selected.cohort_rates_rps.good.toFixed(2)} req/s</dd>
-              </div>
-            </dl>
-            <p>
-              보류 {n(categories.deferred || 0)} · 거절{" "}
-              {n(categories.refused || 0)} · HTTP 504{" "}
-              {n(
-                (selected.http_outcomes as Record<string, number>)["504"] || 0,
-              )}{" "}
-              · 최대 모델 대기 {selected.resources.peak_worker_queue}개
-            </p>
-            <p>
-              전체 결과의 예정 시각 기준 지연 p50 / p95 / p99:{" "}
-              {selected.scheduled_latency_ms.p50.toFixed(1)} /{" "}
-              {selected.scheduled_latency_ms.p95.toFixed(1)} /{" "}
-              {selected.scheduled_latency_ms.p99.toFixed(1)} ms
-            </p>
-            <p className="inspector-caption">
-              위 세 응답률은 이 구간 요청의 마지막 완료까지{" "}
-              {selected.cohort_observed_seconds.toFixed(3)}초를 분모로
-              계산합니다. 완료에는 보류·거절이 포함됩니다. 고정 30초 창의
-              요청률과 생성기 지연은 아래 연결된 원본 JSON에서 별도로 확인할 수 있습니다.
-            </p>
-          </div>
           <p>
             과부하 두 구간 합계 7,200건 중 유효 응답 4,072건.{" "}
             <strong>보류 2,983건 · HTTP 429 거절 144건 · HTTP 504 1건</strong>을
@@ -169,7 +62,7 @@ export function SustainedReview() {
             0건입니다. SQL 대조에는 워밍업 50건이 포함됩니다.
           </p>
         </div>
-      </section>
+      </details>
       <details className="review-details" data-testid="sustainedreview-context">
         <summary>실험 조건·설계 선택·해석의 한계</summary>
         <section className="review-section">
@@ -301,50 +194,12 @@ export function FailureReview() {
     <article className="measured-review" data-testid="failure-review">
       <div className="review-question">
         <span>모델 장애 주입</span>
-        <h2>모델 오류와 보류 응답의 저장 기록</h2>
-        <p>
-          HTTP {failed.http_status} 응답이지만 모델 추론은 실패했습니다. 유효
-          응답에서 제외한 보류 기록을 API 로그·모델 예외·SQL로 연결합니다.
-        </p>
+        <h2>응답은 200, 모델 판단은 실패.</h2>
       </div>
       <p className="review-scope">
         저장된 로컬 장애 주입 · /decisions · lightweight 모델 → PostgreSQL. 아래
         Kubernetes 복구는 별도 실험이며 공개 서비스의 복구 실적이 아닙니다.
       </p>
-      <section className="review-section">
-        <h3>관측 결과</h3>
-        <div>
-          <ol className="failure-chain">
-            <li>
-              <strong>API 접수</strong>
-              <span>같은 trace의 decision → snapshot → model.http</span>
-            </li>
-            <li>
-              <strong>모델 실패</strong>
-              <span>worker span에 exception. 예측은 실행되지 않음</span>
-            </li>
-            <li>
-              <strong>실패를 기록</strong>
-              <span>
-                HTTP {failed.http_status} / {failed.receipt.status} /{" "}
-                {failed.receipt.reason}. 유효 응답으로 집계하지 않음
-              </span>
-            </li>
-            <li>
-              <strong>SQL 대조</strong>
-              <span>
-                반환 receipt와 커밋된 row 일치. trace ID로 API 로그 연결
-              </span>
-            </li>
-          </ol>
-          <code className="review-trace">{failed.receipt.trace_id}</code>
-          <p>
-            오류 주입을 해제한 다음 요청은{" "}
-            <strong>{recovered.receipt.status}</strong> 응답과 유효성 검증을
-            통과했고, 그 receipt도 SQL 기록과 일치했습니다.
-          </p>
-        </div>
-      </section>
       <TraceExplorer />
       <section
         className="recovery-outline"

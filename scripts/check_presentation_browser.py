@@ -107,16 +107,41 @@ def main():
                     assert f"{phase['cycle']}회" in text
                     assert f"{phase['cohort_rates_rps']['good']:.2f} req/s" in text
                     assert control.get_attribute('aria-pressed') == 'true'
+                    breakdown = selected.get_by_test_id('outcome-breakdown').inner_text()
+                    for key in ('useful_on_time', 'deferred', 'refused', 'server_timeout'):
+                        assert f"{phase['categories'].get(key, 0):,}" in breakdown
+                    assert sum(phase['categories'].values()) == phase['attempted']
                 assert len(api_requests) == requests_before_inspection, 'Stored phases must not send API requests'
-                checks.append('six stored phases can be selected; offered and useful counts stay tied to the selected cohort')
+                page.get_by_role('button', name='저장 후 응답 실패 1건').click()
+                exception = page.get_by_test_id('commit-exception')
+                assert exception.evaluate('(e)=>e.open')
+                exception.locator(':scope > summary').click()
+                assert not exception.evaluate('(e)=>e.open')
+                page.get_by_role('button', name='저장 후 응답 실패 1건').click()
+                assert exception.evaluate('(e)=>e.open'), 'Repeated jump must reopen a manually closed exception'
+                assert exception.locator(':scope > summary').evaluate('(e)=>document.activeElement===e')
+                assert 'HTTP 504' in exception.inner_text()
+                assert 'e6df1df1-764f-46bf-8217-6f2209e055f7' in exception.inner_text()
+                assert '재시도는 이 부하 실험에서 실행하지 않았습니다' in exception.inner_text()
+                assert page.get_by_test_id('phase-select').nth(4).get_attribute('aria-pressed') == 'true'
+                assert len(api_requests) == requests_before_inspection
+                checks.append('six phase cohorts preserve outcome denominators; the committed 504 links to its original request key and SQL row with no API calls')
             else:
                 trace = page.get_by_test_id('trace-explorer')
                 requests_before_inspection = len(api_requests)
                 trace.locator('button[data-span-name="model.infer"]').click()
                 assert '503: model_unavailable' in trace.get_by_test_id('span-detail').inner_text()
                 assert 'recheck-worker' in trace.get_by_test_id('span-detail').inner_text()
+                failed_scale = trace.get_by_test_id('trace-scale-end').inner_text()
+                assert '추론 실패' in trace.get_by_test_id('request-verdict').inner_text()
                 trace.get_by_test_id('trace-recovered').click()
+                assert trace.get_by_test_id('trace-scale-end').inner_text() == failed_scale
+                assert '정상 추론' in trace.get_by_test_id('request-verdict').inner_text()
+                assert '추론 실패' not in trace.get_by_test_id('request-verdict').inner_text()
                 assert trace.locator('button[data-span-name="model.predict"]').count() == 1
+                for row in trace.locator('button[data-span-id]').all():
+                    row.click()
+                    assert row.get_attribute('data-span-id') in trace.get_by_test_id('span-detail').inner_text()
                 trace.locator('button[data-span-name="fence.commit"]').click()
                 assert 'SQL 커밋 시간' in trace.get_by_test_id('span-detail').inner_text()
                 assert '21fe3c1a-28f1-4360-ade8-e88c5ef2a996' in trace.inner_text()
@@ -132,6 +157,14 @@ def main():
             for width in (1440,768,390,320):
                 page.set_viewport_size({'width':width,'height':960})
                 assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'), f'{route} disclosure overflow at {width}'
+                if route == 'serving' and width <= 768:
+                    chooser = article.get_by_role('combobox', name='부하 구간 선택')
+                    chooser.select_option('0')
+                    assert '300' in page.get_by_test_id('outcome-breakdown').inner_text()
+                    assert page.get_by_test_id('phase-select').nth(0).get_attribute('aria-pressed') == 'true'
+                    assert page.get_by_test_id('phase-detail').bounding_box()['y'] < article.locator('.load-cohorts').bounding_box()['y']
+                for label in article.locator('.trace-row-label small, .cohort-name small, .cohort-fraction').all():
+                    assert label.evaluate('(e)=>parseFloat(getComputedStyle(e).fontSize)') >= 12, f'{route} unreadably small label at {width}'
                 for table in article.locator('.review-table-scroll').all():
                     assert table.evaluate('(e)=>e.clientWidth <= innerWidth')
                     table.evaluate('(e)=>e.scrollLeft=e.scrollWidth')

@@ -3096,7 +3096,83 @@
       "paid_resources_added": false
     },
     "raw_file": "fullpath-sustained.json.gz",
-    "raw_sha256": "bbc5e01ddcc164f9b50839d0df782007d671753739f103bdd587e9646cd7b7f8"
+    "raw_sha256": "bbc5e01ddcc164f9b50839d0df782007d671753739f103bdd587e9646cd7b7f8",
+    "commit_exceptions": [
+      {
+        "request": {
+          "index": 7497,
+          "phase": 4,
+          "due_seconds": 144.975,
+          "sent_seconds": 144.97526220399595,
+          "session_id": "fc6e3f2e-7cad-418e-96f1-9bf4e831e1c8",
+          "idempotency_key": "e6df1df1-764f-46bf-8217-6f2209e055f7",
+          "http_status": 504,
+          "response": {
+            "detail": "deadline_exceeded_after_commit"
+          },
+          "completed_seconds": 145.2783547489962,
+          "good": false
+        },
+        "sql_row": {
+          "session_id": "fc6e3f2e-7cad-418e-96f1-9bf4e831e1c8",
+          "idempotency_key": "e6df1df1-764f-46bf-8217-6f2209e055f7",
+          "payload": {
+            "id": "be539dbc-2518-4cd5-a889-1e095bcdc41e",
+            "session_id": "fc6e3f2e-7cad-418e-96f1-9bf4e831e1c8",
+            "status": "clear",
+            "reason": "no_current_warning",
+            "risk_score": 0.016344246753362112,
+            "feature_version": 1,
+            "policy_version": 1,
+            "model_version": "risk-v1",
+            "created_at": "2026-10-12T06:01:54.934749+00:00",
+            "expires_at": "2026-10-12T06:02:09.934749+00:00",
+            "latency_ms": 299.192751001101,
+            "trace_id": "3b61ee76ae034ac9d48da1699e73d4f1",
+            "spans": [
+              {
+                "name": "decision",
+                "start_ms": 0.060591,
+                "duration_ms": 129.755401,
+                "status": "ok"
+              },
+              {
+                "name": "snapshot",
+                "start_ms": 0.090085,
+                "duration_ms": 25.56604,
+                "status": "ok"
+              },
+              {
+                "name": "model.http",
+                "start_ms": 25.746652,
+                "duration_ms": 98.313563,
+                "status": "ok"
+              },
+              {
+                "name": "model.infer",
+                "start_ms": 25.807003,
+                "duration_ms": 91.133516,
+                "status": "ok"
+              },
+              {
+                "name": "model.predict",
+                "start_ms": 75.809179,
+                "duration_ms": 40.710595,
+                "status": "ok"
+              },
+              {
+                "name": "fence.commit",
+                "start_ms": 124.115929,
+                "duration_ms": 5.682497,
+                "status": "ok"
+              }
+            ],
+            "protected": true,
+            "model_hash": "cc963b5c100158f75df0833d750ca28c8aec88389a910802c41737119110d279"
+          }
+        }
+      }
+    ]
   },
   "failure": {
     "started_at": "2026-10-12T05:55:20.575410+00:00",

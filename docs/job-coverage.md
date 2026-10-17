@@ -1,6 +1,6 @@
 # 공고 요구 → 구현 → 실행 근거 → 한계
 
-기준 공고: [토스뱅크 ML Backend Engineer](https://toss.im/career/job-detail?job_id=6600650003), **2026-10-12 재확인**.
+기준 공고: [토스뱅크 ML Backend Engineer](https://toss.im/career/job-detail?job_id=6600650003), **2026-10-17 재확인**.
 ML Service Team의 AI 제품 백엔드·공통 플랫폼, 연산량이 큰 AI 서비스의 지연·처리량,
 분산 환경 장애 추적과 복구 요구에 맞춰 실제 확인할 경로를 연결한다.
 Python/Kotlin/Go 중 하나 이상의 경험을 요구하므로 언어 수를 채우기 위한 구현은 추가하지 않았다.
@@ -45,3 +45,7 @@ Python/Kotlin/Go 중 하나 이상의 경험을 요구하므로 언어 수를 �
 이 저장소는 개인 실험과 AI 지원 개발의 코드·실행 결과다. 실제 은행 규모의 운영 경력,
 장기 SLA, 실사용자 개선·사업 성과, 지원자 본인의 독립적인 설명 능력을 코드 추가로 대신하지 않는다.
 이력서·자소서·포트폴리오 문서를 이번 작업에서 작성하지 않았다.
+
+## 조사 이후 화면·근거 연결 개선
+
+[심층 재조사](deep-comparative-research-2026-10-17.md) 이후 [데모 업그레이드](workspace-upgrade-2026-10-17.md)에서 결과 중심으로 세 화면을 재배치했다. [`LoadExplorer.tsx`](../demo/src/LoadExplorer.tsx)는 원본 구간의 응답 분류와 저장 후504의 요청·SQL을 연결하고, [`TraceExplorer.tsx`](../demo/src/TraceExplorer.tsx)는 같은 시간축과 span ID 선택으로 실패·복구 근거를 보여준다. 새 성능 측정·모델·인프라 추가가 아니며 이전 측정 한계를 유지한다.

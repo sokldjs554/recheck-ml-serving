@@ -651,46 +651,21 @@ export default function App() {
             aria-label="프로젝트 목적과 확인 경로"
           >
             <div className="project-purpose">
-              <span>Python ML backend · 개인 실험</span>
-              <h1>
-                AI 응답 검증과
-                <br />
-                서버 부하 실험
-              </h1>
-              <p>
-                정보가 바뀐 뒤의 답변 기록, 요청이 몰릴 때의 모델 응답,
-                장애 이후의 복구 결과를 확인하는 Python 서버 프로젝트입니다.
-              </p>
+              <span>RECHECK / Python ML backend</span>
+              <h1>문서가 바뀌면,<br />이전 답변은 멈춰야 합니다.</h1>
+              <p>답변을 준비한 뒤 한도가 바뀌었습니다. 기록 직전의 재검증으로 오래된 답변과 중복 작업을 막는 서버입니다.</p>
+            </div>
+            <div className="project-entry">
               <div className="project-start">
                 <CaseRunButton flow={caseFlow} top />
-                <span>실제 API 체험 · 가상 상담 데이터 · 6단계</span>
+                <span>실제 API · 가상 상담 데이터 · 6단계</span>
               </div>
               <RecordedDemo />
+              <div className="entry-evidence-links">
+                <a href="#serving">모델 부하 <ArrowUpRight size={14} /><small>목표 {overloadPhases[0].target_rps} → 유효 약 {overloadGoodRate} req/s · 저장된 로컬 측정</small></a>
+                <a href="#recovery">장애 복구 <ArrowUpRight size={14} /><small>실패 요청 → trace → SQL · 저장된 근거</small></a>
+              </div>
             </div>
-            <ol className="review-routes">
-              <li>
-                <span>실제 API</span>
-                <strong>정보 변경과 답변 기록</strong>
-                <p>이전 답변 차단 → 새 답변 기록 → 동일 요청 재시도</p>
-              </li>
-              <li>
-                <span>저장된 측정</span>
-                <a href="#serving">
-                  요청 증가와 서버 응답 <ArrowUpRight size={16} />
-                </a>
-                <p>
-                  과부하 목표 초당 {overloadPhases[0].target_rps}건 · 유효 응답 약 {overloadGoodRate}건/초
-                  <small>180초 로컬 실험 중 과부하 구간 · {servingMeasurements.sustained.settings.deadline_ms}ms 이내 기준</small>
-                </p>
-              </li>
-              <li>
-                <span>저장된 추적</span>
-                <a href="#recovery">
-                  장애 원인과 복구 결과 <ArrowUpRight size={16} />
-                </a>
-                <p>모델 실패 → 보류 기록 → SQL 대조 · 별도 Kubernetes 복구</p>
-              </li>
-            </ol>
           </section>
         )}
         {!isExperiment && (

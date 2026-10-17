@@ -1,0 +1,36 @@
+{
+  "captured_at": "2026-10-17T06:20:30.185353+00:00",
+  "frontend": "http://127.0.0.1:18766",
+  "scope": "browser inspection of stored actual SQL experiments; no live comparison writes",
+  "checks": [
+    {
+      "name": "comparison is reachable from the first screen and identifies stored evidence",
+      "passed": true
+    },
+    {
+      "name": "sqlite: stale rejection, selective invalidation, ABA and retry match SQL evidence",
+      "passed": true
+    },
+    {
+      "name": "postgresql: stale rejection, selective invalidation, ABA and retry match SQL evidence",
+      "passed": true
+    },
+    {
+      "name": "contended outcomes and separate normal-path latency have visible denominators",
+      "passed": true
+    },
+    {
+      "name": "real lock-timeout errors remain visible beside separately recorded recovery",
+      "passed": true
+    },
+    {
+      "name": "record inspection never triggers unsafe API execution",
+      "passed": true
+    },
+    {
+      "name": "390/768/1440 layouts fit and native controls are keyboard reachable",
+      "passed": true
+    }
+  ],
+  "page_errors": []
+}

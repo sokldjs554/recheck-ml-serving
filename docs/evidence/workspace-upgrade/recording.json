@@ -1,0 +1,56 @@
+{
+  "recorded_at_utc": "2026-10-17T06:18:56Z",
+  "scope": "Actual local Python API and SQLite; six manually advanced steps, blocked/record/replay journal filters, then comparison and return. No intercepted or fabricated API responses. No speed changes.",
+  "responses": [
+    {
+      "url": "http://127.0.0.1:18020/api/sessions",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:18020/api/sessions/2a69c09b-e15f-46e2-8849-2528df47a793/evidence",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:18020/api/sessions/2a69c09b-e15f-46e2-8849-2528df47a793/evidence/prepare",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:18020/api/sessions/2a69c09b-e15f-46e2-8849-2528df47a793/evidence/events",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:18020/api/sessions/2a69c09b-e15f-46e2-8849-2528df47a793/evidence",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:18020/api/sessions/2a69c09b-e15f-46e2-8849-2528df47a793/evidence/receipts/d9f886e4-73a9-46a9-9d8e-2b89b0a42909/execute",
+      "status": 409
+    },
+    {
+      "url": "http://127.0.0.1:18020/api/sessions/2a69c09b-e15f-46e2-8849-2528df47a793/evidence/releases/evaluate",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:18020/api/sessions/2a69c09b-e15f-46e2-8849-2528df47a793/evidence/releases/cc5be781-eddb-4745-ae35-d3179edfb25b/promote",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:18020/api/sessions/2a69c09b-e15f-46e2-8849-2528df47a793/evidence/prepare",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:18020/api/sessions/2a69c09b-e15f-46e2-8849-2528df47a793/evidence",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:18020/api/sessions/2a69c09b-e15f-46e2-8849-2528df47a793/evidence/receipts/f7c2ed05-c6f1-49a5-85b3-24d7c9a77af7/execute",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:18020/api/sessions/2a69c09b-e15f-46e2-8849-2528df47a793/evidence/receipts/f7c2ed05-c6f1-49a5-85b3-24d7c9a77af7/execute",
+      "status": 200
+    }
+  ],
+  "action_id": "025d0c7c-aff7-4d40-8ab7-6dba82994aaf",
+  "raw_video": "/workspace/work/recheck-review/work/upgrade/recording/page@d953b68b6b67236aeb8f8f694dc39bf3.webm"
+}

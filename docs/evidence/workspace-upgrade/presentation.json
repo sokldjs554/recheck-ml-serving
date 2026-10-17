@@ -1,0 +1,20 @@
+{
+  "checks": [
+    "actual recording decodes while live health request is pending; stored label, live state, and shared controls remain distinct",
+    "journal filters retain all original events; blocked write and same-ID record/replay are distinguishable",
+    "1440/768/390/320: top control, expanded recording and case have no page overflow",
+    "six phase cohorts preserve outcome denominators; the committed 504 links to its original request key and SQL row with no API calls",
+    "serving: visible scope/results, collapsed conditions/raw data, expanded layout and contained table scrolling at four widths",
+    "captured failure/recovery spans, model exception and matching SQL receipt are inspectable without fabricated DB span",
+    "recovery: visible scope/results, collapsed conditions/raw data, expanded layout and contained table scrolling at four widths"
+  ],
+  "media": {
+    "source": "http://127.0.0.1:18766/media/recheck-walkthrough.webm",
+    "duration": 40.24,
+    "width": 1280,
+    "height": 1080,
+    "poster": "http://127.0.0.1:18766/media/recheck-poster.webp"
+  },
+  "action_id": "ff7b1069-459e-4bdc-9412-4188d9ac997e",
+  "page_errors": []
+}

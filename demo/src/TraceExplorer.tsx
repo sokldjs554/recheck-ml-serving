@@ -18,13 +18,20 @@ const explanations: Record<string, string> = {
 
 export default function TraceExplorer() {
   const [which, setWhich] = useState<"failed" | "recovered">("failed");
-  const [selectedName, setSelectedName] = useState("model.infer");
+  const [selectedId, setSelectedId] = useState(
+    data.failure.trace_views.failed.find(span => span.name === "model.infer")!.span_id,
+  );
   const record = data.failure[which];
   const spans = data.failure.trace_views[which];
-  const selected = spans.find((span) => span.name === selectedName) || spans[0];
+  const selected = spans.find((span) => span.span_id === selectedId) || spans[0];
   const total = Math.max(
-    ...spans.map((span) => span.start_ms + span.duration_ms),
+    ...Object.values(data.failure.trace_views).flat().map((span) => span.start_ms + span.duration_ms),
   );
+  const changeRequest = (next: "failed" | "recovered") => {
+    setWhich(next);
+    const nextSpans = data.failure.trace_views[next];
+    setSelectedId((nextSpans.find(span => span.name === "model.infer") || nextSpans[0]).span_id);
+  };
   const sqlMatches =
     JSON.stringify(record.receipt) === JSON.stringify(record.sql_row.payload);
   return (
@@ -34,7 +41,7 @@ export default function TraceExplorer() {
       aria-label="저장된 실패와 복구 추적 탐색"
     >
       <div className="inspector-heading">
-        <h3>요청 한 건의 내부 흐름</h3>
+        <h3>요청을 선택하고, 어디서 달라졌는지 확인하세요.</h3>
         <span>저장된 OTLP · 로컬 실험</span>
       </div>
       <div
@@ -45,25 +52,27 @@ export default function TraceExplorer() {
         <button
           data-testid="trace-failed"
           aria-pressed={which === "failed"}
-          onClick={() => setWhich("failed")}
+          onClick={() => changeRequest("failed")}
         >
           모델 실패
         </button>
         <button
           data-testid="trace-recovered"
           aria-pressed={which === "recovered"}
-          onClick={() => setWhich("recovered")}
+          onClick={() => changeRequest("recovered")}
         >
           오류 해제 후
         </button>
-        <span>
-          HTTP {record.http_status} · {record.receipt.status}
-        </span>
+
       </div>
-      <p className="inspector-caption">
-        단계를 선택하면 서비스·예외·부모 span을 확인할 수 있습니다. 겹치는
-        구간의 시간을 합산하지 않습니다.
-      </p>
+      <div className={`request-verdict verdict-${which}`} data-testid="request-verdict" aria-live="polite">
+        <div><span>HTTP 응답</span><strong>{record.http_status}</strong><small>통신 결과</small></div>
+        <div><span>모델 판단</span><strong>{which === "failed" ? "추론 실패 · 보류" : "정상 추론"}</strong><small>{record.receipt.status} / {record.receipt.reason}</small></div>
+        <div><span>독립 SQL 대조</span><strong>{sqlMatches ? "같은 기록 확인" : "불일치"}</strong><small>수신 receipt와 저장된 payload 비교</small></div>
+      </div>
+      <p className="request-reading">{which === "failed"
+        ? "모델 예외를 보류 상태로 기록했습니다. HTTP 200이지만 유효한 판단으로 세지 않습니다."
+        : "오류 주입을 해제한 다음 요청입니다. 실제 예측과 새 기록의 SQL 일치를 확인했습니다."}</p>
       <code className="trace-identity">trace {record.receipt.trace_id}</code>
       <div className="trace-workspace">
         <div
@@ -72,16 +81,17 @@ export default function TraceExplorer() {
           aria-label="실제 수집 span"
         >
           <div className="trace-scale">
-            <span>요청 시작 +0ms</span>
-            <span>+{total.toFixed(2)}ms</span>
+            <span>공통 시간축 · 요청 시작 +0ms</span>
+            <span data-testid="trace-scale-end">+{total.toFixed(2)}ms</span>
           </div>
           {spans.map((span) => (
             <button
               key={span.span_id}
               data-span-name={span.name}
+              data-span-id={span.span_id}
               aria-pressed={selected.span_id === span.span_id}
               className={`trace-row ${span.status_code === 2 ? "trace-error" : ""}`}
-              onClick={() => setSelectedName(span.name)}
+              onClick={() => setSelectedId(span.span_id)}
             >
               <span
                 className="trace-row-label"
@@ -162,8 +172,7 @@ export default function TraceExplorer() {
         <pre>{JSON.stringify(record.sql_row, null, 2)}</pre>
       </details>
       <p className="inspector-caption">
-        네이티브 SQL span은 없습니다. 두 요청의 상대 시간축이며 공개 서버의
-        실시간 추적이 아닙니다.{" "}
+        네이티브 SQL span은 없습니다. 두 요청을 같은 길이의 상대 시간축으로 표시하며, 겹치는 span은 합산하지 않습니다. 공개 서버의 실시간 추적이 아닙니다.{" "}
         <a
           href="https://github.com/sokldjs554/recheck-ml-serving/blob/main/docs/evidence/failure-trace-proof.json"
           target="_blank"
