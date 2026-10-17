@@ -102,7 +102,13 @@ def main():
         media_details = page.get_by_test_id('recorded-demo')
         media_details.locator('summary').click()
         video = page.locator('video')
-        video.evaluate('(v) => { v.muted = true; v.play(); }')
+        # WebKit applies visibility rules to muted playback. Record the initial
+        # state, then bring the actual player into view as a person would.
+        media_state = '(v) => ({source:v.currentSrc,ready:v.readyState,network:v.networkState,paused:v.paused,time:v.currentTime,width:v.videoWidth,error:v.error ? {code:v.error.code,message:v.error.message}:null,rect:{top:v.getBoundingClientRect().top,bottom:v.getBoundingClientRect().bottom},viewport:innerHeight,webm:v.canPlayType(\'video/webm; codecs="vp9"\'),mp4:v.canPlayType(\'video/mp4; codecs="avc1.640028"\')})'
+        print('MEDIA_BEFORE ' + json.dumps(video.evaluate(media_state)), flush=True)
+        video.scroll_into_view_if_needed()
+        playback = video.evaluate("async (v) => { v.muted = true; return await Promise.race([v.play().then(() => 'playing').catch(e => e.name + ': ' + e.message), new Promise(r => setTimeout(() => r('pending'), 5000))]); }")
+        print('MEDIA_PLAY ' + json.dumps({'engine':args.engine,'play':playback,'state':video.evaluate(media_state)}), flush=True)
         page.wait_for_function('document.querySelector("video").currentTime > .2 && document.querySelector("video").videoWidth === 1280', timeout=20000)
         media = video.evaluate('(v) => ({source:v.currentSrc,width:v.videoWidth,height:v.videoHeight,duration:v.duration})')
         video.evaluate('(v) => v.pause()')
