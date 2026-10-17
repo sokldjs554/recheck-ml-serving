@@ -17,8 +17,8 @@ export default function RecordedDemo() {
         aria-label="저장된 실제 API 시연"
         aria-describedby="recorded-demo-scope"
       >
-        <source src={`${media}recheck-walkthrough.webm`} type="video/webm" />
         <source src={`${media}recheck-walkthrough.mp4`} type="video/mp4" />
+        <source src={`${media}recheck-walkthrough.webm`} type="video/webm" />
         <a href={`${media}recheck-walkthrough.mp4`}>시연 영상 열기</a>
       </video>
       <p>

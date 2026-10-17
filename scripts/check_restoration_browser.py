@@ -109,7 +109,11 @@ def main():
         video.scroll_into_view_if_needed()
         playback = video.evaluate("async (v) => { v.muted = true; return await Promise.race([v.play().then(() => 'playing').catch(e => e.name + ': ' + e.message), new Promise(r => setTimeout(() => r('pending'), 5000))]); }")
         print('MEDIA_PLAY ' + json.dumps({'engine':args.engine,'play':playback,'state':video.evaluate(media_state)}), flush=True)
-        page.wait_for_function('document.querySelector("video").currentTime > .2 && document.querySelector("video").videoWidth === 1280', timeout=20000)
+        try:
+            page.wait_for_function('document.querySelector("video").currentTime > .2 && document.querySelector("video").videoWidth === 1280', timeout=20000)
+        except Exception:
+            print("MEDIA_FAILURE " + json.dumps(video.evaluate(media_state)), flush=True)
+            raise
         media = video.evaluate('(v) => ({source:v.currentSrc,width:v.videoWidth,height:v.videoHeight,duration:v.duration})')
         video.evaluate('(v) => v.pause()')
         media_details.locator('summary').click()
