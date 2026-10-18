@@ -40,7 +40,7 @@ export default function CaseRunButton({
         <span aria-hidden="true">▶</span>
       )}
       {state.step >= 6
-        ? "실행 완료 · 아래에서 결과 확인"
+        ? state.restored ? "완료 기록 복원 · 아래에서 결과 확인" : "실행 완료 · 아래에서 결과 확인"
         : state.running
           ? "실행 중"
           : state.step === 0

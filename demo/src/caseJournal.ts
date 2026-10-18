@@ -12,7 +12,7 @@ export function describeEvent(event: CaseEvent): {
   if (row.status === 409 && row.detail === "source_changed")
     return {
       kind: "blocked",
-      title: "기록 차단",
+      title: "오래된 답변 차단 · 원문 변경",
       identity: "409 / source_changed",
     };
   if (
@@ -22,7 +22,7 @@ export function describeEvent(event: CaseEvent): {
   )
     return {
       kind: "record",
-      title: row.replayed ? "기존 작업 반환" : "새 작업 기록",
+      title: row.replayed ? "같은 작업 반환" : "정상 답변 기록",
       identity: row.action_id,
     };
   return { kind: "other", title: "응답 확인", identity: "" };

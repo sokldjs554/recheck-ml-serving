@@ -655,8 +655,8 @@ export default function App() {
           >
             <div className="project-purpose">
               <span className="project-kicker"><i /> ANSWER → VERIFY → RECORD</span>
-              <h1>답변과 실행 사이,<br /><em>한 번 더 확인합니다.</em></h1>
-              <p>준비된 답변의 근거가 바뀌었다면? 기록 직전에 검증하고, 같은 요청에는 같은 결과를 돌려주는 Python ML 백엔드.</p>
+              <h1>답변 검증과<br /><em>실행 기록</em></h1>
+              <p>원문이 바뀌면 이전 답변의 기록을 차단하는 Python ML 백엔드. 아래에서 직접 실행하고, 서버 결과와 실행 로그를 확인할 수 있습니다.</p>
             </div>
             <div className="project-entry">
               <div className="project-start">

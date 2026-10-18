@@ -70,6 +70,14 @@ export type EvidenceState = {
   }[];
 };
 const errors: Record<string, string> = {
+  source_changed: "원문이 변경되어 오래된 답변의 기록을 차단했습니다.",
+  source_deleted: "인용한 원문이 삭제되어 기록을 차단했습니다.",
+  receipt_expired: "답변의 유효기간이 지나 기록을 차단했습니다. 새 답변을 준비하세요.",
+  release_changed: "답변의 근거가 교체되어 기록을 차단했습니다. 새 답변을 준비하세요.",
+  database_unavailable: "저장 결과를 확인하지 못했습니다. 같은 요청으로 다시 시도하세요.",
+  evidence_action_capacity: "처리 한도 초과 · 이 세션의 작업 기록이 가득 찼습니다.",
+  release_evaluation_busy: "처리 한도 초과 · 잠시 후 같은 단계를 다시 시도하세요.",
+  action_idempotency_conflict: "같은 요청 키에 다른 답변이 연결되어 기록을 차단했습니다.",
   index_stale_rebuild_required:
     "문서가 바뀌었습니다. 아래에서 정상 후보를 평가·적용한 뒤 새 답변을 준비하세요.",
   evidence_changed_during_prepare:

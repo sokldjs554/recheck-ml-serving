@@ -1,0 +1,33 @@
+{
+  "date_kst": "2026-10-18",
+  "backend": {
+    "command": "PYTHONPATH=backend RECHECK_NETWORK_TESTS=1 python -m pytest backend/tests -q",
+    "database": "temporary SQLite",
+    "result": "159 passed in 37.50s",
+    "network_tests": true
+  },
+  "frontend": {
+    "command": "npm --prefix demo test",
+    "result": "61 passed"
+  },
+  "focused_observation": {
+    "result": "7 passed in 2.31s",
+    "covers": [
+      "bounded outcomes and incoming trace propagation",
+      "lock timeout and DB write failure",
+      "ASGI task cancellation",
+      "15-second observational budget overrun",
+      "real HTTP socket disconnect and SQL commit",
+      "dispatch wait included in budget",
+      "bounded journal counters"
+    ]
+  },
+  "review": {
+    "first_findings": [
+      "dispatch wait excluded",
+      "socket disconnect confused with response delivery"
+    ],
+    "resolution": "both corrected and regression-tested; follow-up review found no important defects"
+  },
+  "browser_harness_note": "Initial local runs caught outdated text selectors after UI wording changes; corrected to assert human-readable outcomes and raw JSON separately. A local serving run had no observation samples because RECHECK_OBSERVE was off; enabled it and confirmed SQLite journal. Restoration checks passed; Playwright 1.62 cleanup emitted a cancelled route callback after intentional response interruption."
+}

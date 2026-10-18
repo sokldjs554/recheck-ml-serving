@@ -1,6 +1,6 @@
 # 공고 요구 → 구현 → 실행 근거 → 한계
 
-기준 공고: [토스뱅크 ML Backend Engineer](https://toss.im/career/job-detail?job_id=6600650003), **2026-10-17 재확인**.
+기준 공고: [토스뱅크 ML Backend Engineer](https://toss.im/career/job-detail?job_id=6600650003), **2026-10-18 재확인**.
 ML Service Team의 AI 제품 백엔드·공통 플랫폼, 연산량이 큰 AI 서비스의 지연·처리량,
 분산 환경 장애 추적과 복구 요구에 맞춰 실제 확인할 경로를 연결한다.
 Python/Kotlin/Go 중 하나 이상의 경험을 요구하므로 언어 수를 채우기 위한 구현은 추가하지 않았다.
@@ -51,3 +51,9 @@ Python/Kotlin/Go 중 하나 이상의 경험을 요구하므로 언어 수를 �
 [심층 재조사](deep-comparative-research-2026-10-17.md) 이후 [데모 업그레이드](workspace-upgrade-2026-10-17.md)에서 결과 중심으로 세 화면을 재배치했다. [`LoadExplorer.tsx`](../demo/src/LoadExplorer.tsx)는 원본 구간의 응답 분류와 저장 후504의 요청·SQL을 연결하고, [`TraceExplorer.tsx`](../demo/src/TraceExplorer.tsx)는 같은 시간축과 span ID 선택으로 실패·복구 근거를 보여준다. 새 성능 측정·모델·인프라 추가가 아니며 이전 측정 한계를 유지한다.
 
 2026-10-17 후속: [새로고침 복원 최종 검증](reload-recovery-2026-10-17.md)에서 공개 78개(기존 60·Chromium 9·macOS WebKit 9) 통과를 확인했다. Linux CI WebKit의 영상 재생 실패는 별도 미해결 항목으로 보존하며 macOS 통과로 대체해 주장하지 않는다. 같은 탭 복원은 클라이언트의 과거 기록이며 실제 실행의 최신성·중복 검증은 서버에서 수행한다.
+
+## 2026-10-18 제출 보완
+
+[최종 변경과 재현 사례](release-2026-10-18.md). 공개 상담 execute에도 차단·기록·재시도·잠금 시간 초과·DB 오류의 고정 분류 지표와 SQL 결과 로그/trace를 연결했다. [`evidence_observation.py`](../backend/recheck/evidence_observation.py)의 작업 결과와 [`observability.py`](../backend/recheck/observability.py)의 HTTP 송신/연결 종료는 분리하며, `evidence.lock_acquire`·`evidence.flush_commit`은 애플리케이션 구간이다. [실제 socket 취소 후 저장·같은 키 회복 테스트](../backend/tests/test_evidence_observability.py).
+
+완료·중간 새로고침 복원 안내를 현재 버튼 상태에 맞췄고 제목을 목적 중심의 명사형으로 변경했다. 성능 수치는 과거 자료를 유지했다. 원본 코드 해시를 `0b99e35`와 대조한 [측정 출처](evidence/release-2026-10-18/historical-provenance.json)를 제공한다. 실제 Render health-check 설정 미반영과 최신 정기 점검의 5초 초과는 [운영 대조](release-2026-10-18.md#4-운영-기록-대조)에 남겼다.

@@ -47,3 +47,12 @@ describe("execute response boundary", () => {
     ).toEqual(valid);
   });
 });
+
+it("preserves trace correlation on success and blocked responses without exposing it as result text", async () => {
+  const api = new CaseApi("http://localhost");
+  const trace = "1234567890abcdef1234567890abcdef";
+  vi.stubGlobal("fetch", async () => new Response(JSON.stringify(valid), {status:200, headers:{"X-Recheck-Trace-Id":trace}}));
+  expect(await api.execute("s", "receipt-1", "k")).toMatchObject({ trace_id: trace });
+  vi.stubGlobal("fetch", async () => new Response(JSON.stringify({detail:"source_changed"}), {status:409, headers:{"X-Recheck-Trace-Id":trace}}));
+  await expect(api.execute("s", "receipt-1", "k")).rejects.toMatchObject({traceId:trace, status:409, detail:"source_changed"});
+});

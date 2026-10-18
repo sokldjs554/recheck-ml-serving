@@ -8,6 +8,7 @@ import time
 import uuid
 
 from fastapi import HTTPException
+from .evidence_observation import phase
 from sqlalchemy import JSON, Float, ForeignKey, Integer, String, UniqueConstraint, create_engine, delete, event, func, select, text
 from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column
 
@@ -66,10 +67,12 @@ class Store:
     def transaction(self, write=False):
         with Session(self.engine, expire_on_commit=False) as db:
             if write and self.sqlite:
-                db.execute(text("BEGIN IMMEDIATE"))
+                with phase("lock_acquire"):
+                    db.execute(text("BEGIN IMMEDIATE"))
             try:
                 yield db
-                db.commit()
+                with phase("flush_commit"):
+                    db.commit()
             except BaseException:
                 db.rollback()
                 raise

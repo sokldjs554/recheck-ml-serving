@@ -1,5 +1,6 @@
 import { EvidenceApi, EvidenceApiError, type Source } from "./evidenceApi";
 export type CaseAction = {
+  trace_id?: string;
   action_id: string;
   receipt_id: string;
   output: string;
@@ -13,6 +14,7 @@ export class CaseApiError extends EvidenceApiError {
   constructor(
     readonly status: number,
     readonly detail: string,
+    readonly traceId?: string,
   ) {
     super(status, detail);
     this.name = "CaseApiError";
@@ -33,6 +35,8 @@ export class CaseApi extends EvidenceApi {
         signal: AbortSignal.timeout(15000),
       },
     );
+    const traceHeader = response.headers.get("X-Recheck-Trace-Id");
+    const traceId = traceHeader && /^[a-f0-9]{32}$/.test(traceHeader) ? traceHeader : undefined;
     if (!response.ok) {
       let detail = "요청을 완료하지 못했습니다. 다시 시도하세요.";
       try {
@@ -41,7 +45,7 @@ export class CaseApi extends EvidenceApi {
       } catch {
         /* non-JSON gateway response */
       }
-      throw new CaseApiError(response.status, detail);
+      throw new CaseApiError(response.status, detail, traceId);
     }
     const invalid = () =>
       new Error(
@@ -82,6 +86,6 @@ export class CaseApi extends EvidenceApi {
       )
     )
       throw invalid();
-    return data as CaseAction;
+    return traceId ? { ...(data as CaseAction), trace_id: traceId } : data as CaseAction;
   }
 }

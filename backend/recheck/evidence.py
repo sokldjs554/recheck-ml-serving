@@ -9,6 +9,7 @@ from sqlalchemy import ForeignKey, JSON, String
 from sqlalchemy.orm import Mapped, mapped_column
 
 from .store import Base
+from .evidence_observation import phase
 from .retrieval import SCOPE, initial_sources, digest, build_artifact, retrieve, evaluate_release, compatible
 
 now = time.time
@@ -28,8 +29,13 @@ class EvidenceStore:
     @contextmanager
     def locked(self, sid):
         with self.store.transaction(write=True) as db:
-            self.store.row(db, sid, lock=True)
-            row = db.get(EvidenceState, sid)
+            if self.store.sqlite:
+                self.store.row(db, sid, lock=True)
+            else:
+                with phase('lock_acquire'):
+                    self.store.row(db, sid, lock=True)
+            with phase('state_read'):
+                row = db.get(EvidenceState, sid)
             if row is None:
                 sources = initial_sources()
                 row = EvidenceState(session_id=sid, payload=dict(sources=sources,

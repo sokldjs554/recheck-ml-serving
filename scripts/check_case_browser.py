@@ -77,7 +77,7 @@ def main():
         checks.append('top and existing run buttons clicked in one turn create one session and one flow')
         assert '300만 원' in page.get_by_test_id('case-old-draft').inner_text()
         assert '100만 원' in page.get_by_test_id('case-draft').inner_text()
-        assert '실행 차단' in page.get_by_test_id('case-outcomes').inner_text()
+        assert '오래된 답변 차단' in page.get_by_test_id('case-outcomes').inner_text()
         with page.expect_download() as automatic_download:
             page.get_by_role('button', name='사건 기록 JSON', exact=True).click()
         automatic_file = args.output / 'automatic-case.json'
@@ -144,7 +144,7 @@ def main():
         assert '100만 원' in page.get_by_test_id('case-source').inner_text()
         assert '300만 원' in page.get_by_test_id('case-draft').inner_text()
         next_step(3)
-        assert 'source_changed' in page.get_by_test_id('case-status').inner_text()
+        assert '오래된 답변 차단' in page.get_by_test_id('case-status').inner_text()
         page.screenshot(path=str(args.output / 'case-blocked-desktop.png'), full_page=True)
         next_step(4)
         assert '100만 원' in page.get_by_test_id('case-draft').inner_text()
@@ -165,7 +165,7 @@ def main():
             next_step(5)
         assert retried.value.post_data_json['idempotency_key'] == rejected_keys[0]
         checks.append('lost commit response cannot claim success; retry retains original key and displays replay')
-        assert '200 / replayed' in page.locator('.replay-gate-code').inner_text(), 'A lost commit response must display the actual replay result on retry'
+        assert '같은 작업 반환' in page.locator('.replay-gate h2').inner_text(), 'A lost commit response must display the actual replay result on retry'
         original_action = page.get_by_test_id('case-action').locator('code').inner_text()
         next_step(6)
         assert original_action == page.get_by_test_id('case-action').locator('code').inner_text()

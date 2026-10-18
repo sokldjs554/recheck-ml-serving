@@ -15,7 +15,7 @@ export function SustainedReview() {
     <article className="measured-review" data-testid="sustained-review">
       <div className="review-question">
         <span>지속 부하 실험</span>
-        <h2>초당 120건 중, 제때 응답한 요청은?</h2>
+        <h2>목표 투입량과 유효 처리량</h2>
 
       </div>
       <p className="review-scope">
@@ -193,7 +193,7 @@ export function FailureReview() {
     <article className="measured-review" data-testid="failure-review">
       <div className="review-question">
         <span>모델 장애 주입</span>
-        <h2>응답은 200, 모델 판단은 실패.</h2>
+        <h2>모델 응답 실패와 기록 확인</h2>
       </div>
       <p className="review-scope">
         저장된 로컬 장애 주입 · /decisions · lightweight 모델 → PostgreSQL · Kubernetes 복구는 별도 측정

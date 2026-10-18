@@ -30,7 +30,8 @@ class Observation(OpsBase):
 def counter_rows(families):
     return [dict(name=s.name, labels=s.labels, value=s.value)
             for family in families for s in family.samples
-            if s.name in {'recheck_http_requests_total', 'recheck_business_outcomes_total'}][:1024]
+            if s.name in {'recheck_http_requests_total', 'recheck_business_outcomes_total',
+                          'recheck_evidence_executions_total', 'recheck_evidence_http_total'}][:1024]
 
 
 def counters(registry):

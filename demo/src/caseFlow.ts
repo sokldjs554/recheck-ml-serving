@@ -264,11 +264,11 @@ export class CaseFlow {
               {
                 label: "이전 답변 실행 차단",
                 at: new Date().toISOString(),
-                data: { status: error.status, detail: error.detail },
+                data: { status: error.status, detail: error.detail, ...(error.traceId ? { trace_id: error.traceId } : {}) },
               },
             ],
             step: 3,
-            status: "실행 차단 · HTTP 409 / source_changed",
+            status: "오래된 답변 차단 · 원문이 변경되어 기록하지 않았습니다.",
           });
         }
       } else if (current.step === 3) {
@@ -309,7 +309,7 @@ export class CaseFlow {
           action,
           step: 5,
           status: action.replayed
-            ? "과거 작업 반환 · 응답을 확인하지 못한 요청의 기존 기록입니다."
+            ? "같은 작업 반환 · 응답을 확인하지 못한 요청의 기존 기록입니다."
             : "상담 작업 1건 기록 · 검증과 기록을 같은 트랜잭션에서 처리했습니다.",
         });
       } else {
@@ -328,7 +328,7 @@ export class CaseFlow {
           action,
           step: 6,
           status:
-            "과거 작업 반환 · 같은 작업 ID이며 새 작업을 만들지 않았습니다.",
+            "같은 작업 반환 · 과거 기록과 같은 작업 ID이며 새 작업을 만들지 않았습니다.",
         });
       }
     } catch (error) {

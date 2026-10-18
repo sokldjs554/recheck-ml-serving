@@ -1,0 +1,385 @@
+{
+  "checked_date_kst": "2026-10-18",
+  "service": {
+    "id": "srv-db3rmj3ncjis73bi8fl0",
+    "plan": "free",
+    "healthCheckPath": "",
+    "startCommand": "python scripts/serve_demo.py",
+    "updatedAt": "2026-10-17T08:33:59.446996Z"
+  },
+  "logs": {
+    "hasMore": false,
+    "logs": [
+      {
+        "id": "348e5fd6-347b-4a7c-96c8-d32a02e9b780",
+        "labels": [
+          {
+            "name": "resource",
+            "value": "srv-db3rmj3ncjis73bi8fl0"
+          },
+          {
+            "name": "instance",
+            "value": "srv-db3rmj3ncjis73bi8fl0-hf25w"
+          },
+          {
+            "name": "level",
+            "value": "info"
+          },
+          {
+            "name": "type",
+            "value": "app"
+          }
+        ],
+        "message": "{\"event\": \"model_process_starting\", \"elapsed_ms\": 0.037, \"startup_budget_seconds\": 90.0}",
+        "timestamp": "2026-10-17T08:33:06.655081241Z"
+      },
+      {
+        "id": "6b73f161-5441-4389-a2a8-4c9a27ef74ee",
+        "labels": [
+          {
+            "name": "resource",
+            "value": "srv-db3rmj3ncjis73bi8fl0"
+          },
+          {
+            "name": "instance",
+            "value": "srv-db3rmj3ncjis73bi8fl0-hf25w"
+          },
+          {
+            "name": "level",
+            "value": "info"
+          },
+          {
+            "name": "type",
+            "value": "app"
+          }
+        ],
+        "message": "{\"event\": \"model_ready\", \"elapsed_ms\": 27233.22}",
+        "timestamp": "2026-10-17T08:33:33.887557102Z"
+      },
+      {
+        "id": "118b0142-5880-477e-9212-3b637065151d",
+        "labels": [
+          {
+            "name": "resource",
+            "value": "srv-db3rmj3ncjis73bi8fl0"
+          },
+          {
+            "name": "instance",
+            "value": "srv-db3rmj3ncjis73bi8fl0-6gmdt"
+          },
+          {
+            "name": "level",
+            "value": "info"
+          },
+          {
+            "name": "type",
+            "value": "app"
+          }
+        ],
+        "message": "{\"event\": \"model_process_starting\", \"elapsed_ms\": 0.033, \"startup_budget_seconds\": 90.0}",
+        "timestamp": "2026-10-17T09:20:45.558462505Z"
+      },
+      {
+        "id": "1c6b3407-3f77-47df-95df-9a594956f276",
+        "labels": [
+          {
+            "name": "resource",
+            "value": "srv-db3rmj3ncjis73bi8fl0"
+          },
+          {
+            "name": "instance",
+            "value": "srv-db3rmj3ncjis73bi8fl0-6gmdt"
+          },
+          {
+            "name": "level",
+            "value": "info"
+          },
+          {
+            "name": "type",
+            "value": "app"
+          }
+        ],
+        "message": "{\"event\": \"model_ready\", \"elapsed_ms\": 24627.286}",
+        "timestamp": "2026-10-17T09:21:10.185684824Z"
+      },
+      {
+        "id": "08ac122f-3e98-4baf-9f91-3cf5a9a975dd",
+        "labels": [
+          {
+            "name": "resource",
+            "value": "srv-db3rmj3ncjis73bi8fl0"
+          },
+          {
+            "name": "instance",
+            "value": "srv-db3rmj3ncjis73bi8fl0-s8hbk"
+          },
+          {
+            "name": "level",
+            "value": "info"
+          },
+          {
+            "name": "type",
+            "value": "app"
+          }
+        ],
+        "message": "{\"event\": \"model_process_starting\", \"elapsed_ms\": 0.029, \"startup_budget_seconds\": 90.0}",
+        "timestamp": "2026-10-17T13:45:43.950010787Z"
+      },
+      {
+        "id": "1d9ab022-5b53-4804-81bc-85abc664f1a0",
+        "labels": [
+          {
+            "name": "resource",
+            "value": "srv-db3rmj3ncjis73bi8fl0"
+          },
+          {
+            "name": "instance",
+            "value": "srv-db3rmj3ncjis73bi8fl0-s8hbk"
+          },
+          {
+            "name": "level",
+            "value": "info"
+          },
+          {
+            "name": "type",
+            "value": "app"
+          }
+        ],
+        "message": "{\"event\": \"model_ready\", \"elapsed_ms\": 25090.801}",
+        "timestamp": "2026-10-17T13:46:09.040226791Z"
+      },
+      {
+        "id": "427b8dbb-7747-4c2a-8f1b-6f3d1001c4ed",
+        "labels": [
+          {
+            "name": "resource",
+            "value": "srv-db3rmj3ncjis73bi8fl0"
+          },
+          {
+            "name": "instance",
+            "value": "srv-db3rmj3ncjis73bi8fl0-szwwj"
+          },
+          {
+            "name": "level",
+            "value": "info"
+          },
+          {
+            "name": "type",
+            "value": "app"
+          }
+        ],
+        "message": "{\"event\": \"model_process_starting\", \"elapsed_ms\": 0.025, \"startup_budget_seconds\": 90.0}",
+        "timestamp": "2026-10-17T17:13:42.109963486Z"
+      },
+      {
+        "id": "9af4fff4-ff1b-450d-914d-f980a69fd5d6",
+        "labels": [
+          {
+            "name": "resource",
+            "value": "srv-db3rmj3ncjis73bi8fl0"
+          },
+          {
+            "name": "instance",
+            "value": "srv-db3rmj3ncjis73bi8fl0-szwwj"
+          },
+          {
+            "name": "level",
+            "value": "info"
+          },
+          {
+            "name": "type",
+            "value": "app"
+          }
+        ],
+        "message": "{\"event\": \"model_ready\", \"elapsed_ms\": 23995.612}",
+        "timestamp": "2026-10-17T17:14:06.104892993Z"
+      },
+      {
+        "id": "e85fdcae-ea13-4746-803b-256b7eac81a4",
+        "labels": [
+          {
+            "name": "resource",
+            "value": "srv-db3rmj3ncjis73bi8fl0"
+          },
+          {
+            "name": "instance",
+            "value": "srv-db3rmj3ncjis73bi8fl0-bkszf"
+          },
+          {
+            "name": "level",
+            "value": "info"
+          },
+          {
+            "name": "type",
+            "value": "app"
+          }
+        ],
+        "message": "{\"event\": \"model_process_starting\", \"elapsed_ms\": 0.026, \"startup_budget_seconds\": 90.0}",
+        "timestamp": "2026-10-17T19:27:15.966320776Z"
+      },
+      {
+        "id": "74c32c0b-31d6-47e3-a57a-0f2527365b04",
+        "labels": [
+          {
+            "name": "resource",
+            "value": "srv-db3rmj3ncjis73bi8fl0"
+          },
+          {
+            "name": "instance",
+            "value": "srv-db3rmj3ncjis73bi8fl0-bkszf"
+          },
+          {
+            "name": "level",
+            "value": "info"
+          },
+          {
+            "name": "type",
+            "value": "app"
+          }
+        ],
+        "message": "{\"event\": \"model_ready\", \"elapsed_ms\": 26243.743}",
+        "timestamp": "2026-10-17T19:27:42.210701715Z"
+      },
+      {
+        "id": "f1509183-2268-4aff-9734-59420358a767",
+        "labels": [
+          {
+            "name": "resource",
+            "value": "srv-db3rmj3ncjis73bi8fl0"
+          },
+          {
+            "name": "instance",
+            "value": "srv-db3rmj3ncjis73bi8fl0-6tkjh"
+          },
+          {
+            "name": "level",
+            "value": "info"
+          },
+          {
+            "name": "type",
+            "value": "app"
+          }
+        ],
+        "message": "{\"event\": \"model_process_starting\", \"elapsed_ms\": 0.028, \"startup_budget_seconds\": 90.0}",
+        "timestamp": "2026-10-17T22:22:03.942383284Z"
+      },
+      {
+        "id": "907ee334-c575-423f-a802-b227569afae5",
+        "labels": [
+          {
+            "name": "resource",
+            "value": "srv-db3rmj3ncjis73bi8fl0"
+          },
+          {
+            "name": "instance",
+            "value": "srv-db3rmj3ncjis73bi8fl0-6tkjh"
+          },
+          {
+            "name": "level",
+            "value": "info"
+          },
+          {
+            "name": "type",
+            "value": "app"
+          }
+        ],
+        "message": "{\"event\": \"model_ready\", \"elapsed_ms\": 23587.301}",
+        "timestamp": "2026-10-17T22:22:27.52912072Z"
+      },
+      {
+        "id": "6bf32f55-84a1-43d9-8849-cd3d91f2bfc4",
+        "labels": [
+          {
+            "name": "resource",
+            "value": "srv-db3rmj3ncjis73bi8fl0"
+          },
+          {
+            "name": "instance",
+            "value": "srv-db3rmj3ncjis73bi8fl0-jg96z"
+          },
+          {
+            "name": "level",
+            "value": "info"
+          },
+          {
+            "name": "type",
+            "value": "app"
+          }
+        ],
+        "message": "{\"event\": \"model_process_starting\", \"elapsed_ms\": 0.039, \"startup_budget_seconds\": 90.0}",
+        "timestamp": "2026-10-18T01:05:51.836097062Z"
+      },
+      {
+        "id": "df640dad-8a81-4658-8315-a5b1c1f3a42e",
+        "labels": [
+          {
+            "name": "resource",
+            "value": "srv-db3rmj3ncjis73bi8fl0"
+          },
+          {
+            "name": "instance",
+            "value": "srv-db3rmj3ncjis73bi8fl0-jg96z"
+          },
+          {
+            "name": "level",
+            "value": "info"
+          },
+          {
+            "name": "type",
+            "value": "app"
+          }
+        ],
+        "message": "{\"event\": \"model_ready\", \"elapsed_ms\": 25954.991}",
+        "timestamp": "2026-10-18T01:06:17.790381935Z"
+      },
+      {
+        "id": "015efaa2-7aea-4424-b466-2ce2864323ec",
+        "labels": [
+          {
+            "name": "resource",
+            "value": "srv-db3rmj3ncjis73bi8fl0"
+          },
+          {
+            "name": "instance",
+            "value": "srv-db3rmj3ncjis73bi8fl0-w9kqr"
+          },
+          {
+            "name": "level",
+            "value": "info"
+          },
+          {
+            "name": "type",
+            "value": "app"
+          }
+        ],
+        "message": "{\"event\": \"model_process_starting\", \"elapsed_ms\": 0.046, \"startup_budget_seconds\": 90.0}",
+        "timestamp": "2026-10-18T05:57:34.291694881Z"
+      },
+      {
+        "id": "63bde701-0993-44dd-85d7-007fa3056869",
+        "labels": [
+          {
+            "name": "resource",
+            "value": "srv-db3rmj3ncjis73bi8fl0"
+          },
+          {
+            "name": "instance",
+            "value": "srv-db3rmj3ncjis73bi8fl0-w9kqr"
+          },
+          {
+            "name": "level",
+            "value": "info"
+          },
+          {
+            "name": "type",
+            "value": "app"
+          }
+        ],
+        "message": "{\"event\": \"model_ready\", \"elapsed_ms\": 28254.81}",
+        "timestamp": "2026-10-18T05:58:02.546435492Z"
+      }
+    ],
+    "nextEndTime": "2026-10-17T08:33:06.655081241Z",
+    "nextStartTime": "2026-10-17T08:00:00Z"
+  }
+}

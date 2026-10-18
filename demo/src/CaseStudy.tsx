@@ -219,7 +219,7 @@ export default function CaseStudy({
             <LoaderCircle className="case-spin" size={14} />
             <span>
               {state.step === 0
-                ? "서버 연결·문서 검색 중입니다. 서버가 쉬고 있었다면 최대 90초가 걸립니다."
+                ? "서버 연결·문서 검색 중입니다. 첫 연결 응답은 최대 90초 동안 기다립니다. 저장된 시연도 볼 수 있습니다."
                 : `${working[state.step]} 중…`}
             </span>
           </>
@@ -259,9 +259,9 @@ export default function CaseStudy({
           <span className="replay-case-number">01</span>
           <div>
             <span className="case-route-label">
-              01 / 실행 재현 · 실시간 API
+              01 / 실행 재현 · {state.restored ? "브라우저에 복원한 과거 기록" : "실시간 API"}
             </span>
-            <h2>상담 기록, 실행 직전 검증</h2>
+            <h2>원문·답변·기록 비교</h2>
             <p>
               300만 → 100만 원 변경을 적용하고, 이전 답변의 기록이 차단되는지
               확인합니다.
@@ -294,7 +294,13 @@ export default function CaseStudy({
       </div>
 
       {state.storageWarning && <p className="case-persistence-note" role="status" data-testid="case-storage-warning">{state.storageWarning}</p>}
-      {state.restored && <p className="case-persistence-note" data-testid="case-restored">이 탭의 실행 기록을 복원했습니다. ‘이어서 실행’으로 서버 상태를 확인하고 계속하세요.</p>}
+      {state.restored && <p className="case-persistence-note" data-testid="case-restored">{state.step >= 6
+        ? "완료 기록을 이 탭에서 복원했습니다. 아래의 저장된 차단 결과와 작업 ID를 확인하세요."
+        : state.sessionExpired
+          ? "만료된 세션의 과거 기록입니다. ‘처음부터’로 새 실행을 시작하세요."
+          : expired
+            ? "기록을 복원했습니다. ‘새 답변 다시 준비’로 답변을 갱신한 뒤 계속하세요."
+            : "이 탭의 실행 기록을 복원했습니다. ‘이어서 실행’으로 서버 상태를 확인하고 계속하세요."}</p>}
       <div className={`replay-machine gate-${gate}`}>
         {transport}
         <div className="replay-ruler" aria-hidden="true">
@@ -445,10 +451,10 @@ export default function CaseStudy({
             <h2>
               {state.action
                 ? state.action.replayed
-                  ? "기록 반환"
-                  : "기록 완료"
+                  ? "같은 작업 반환"
+                  : "정상 답변 기록"
                 : blocked && !state.freshReceipt
-                  ? "실행 차단"
+                  ? "오래된 답변 차단"
                   : mismatched
                     ? "변경 감지"
                     : state.freshReceipt
@@ -468,15 +474,6 @@ export default function CaseStudy({
                       ? "갱신한 답변으로 기록을 시도합니다."
                       : "답변과 현재 근거가 일치해야 기록합니다."}
             </p>
-            <code className="replay-gate-code">
-              {state.action
-                ? state.action.replayed
-                  ? "200 / replayed"
-                  : "200 / recorded"
-                : blocked && !state.freshReceipt
-                  ? "409 / source_changed"
-                  : "검증 후 서버 응답 표시"}
-            </code>
             <p className="replay-result-guide">
               {state.action
                 ? state.action.replayed
@@ -514,7 +511,7 @@ export default function CaseStudy({
           </div>
           <div className="case-trail" aria-label="실제 API 응답 기록">
             {state.events.length > 0 ? (
-              <CaseJournal events={state.events} />
+              <CaseJournal events={state.events} restored={state.restored} />
             ) : (
               <div className="replay-empty-log">
                 <span>—</span>
@@ -539,7 +536,7 @@ export default function CaseStudy({
                 <div>
                   <dt>이전 답변</dt>
                   <dd className="is-blocked">
-                    {blocked ? "실행 차단" : "확인 전"}
+                    {blocked ? "오래된 답변 차단" : "확인 전"}
                   </dd>
                 </div>
                 <div>
@@ -608,7 +605,7 @@ export default function CaseStudy({
         </button>
       </div>
       <p className="case-scope">
-        가상 상담 문서 · TF-IDF 검색 · /evidence/…/execute
+        가상 상담 문서 · TF-IDF 검색 · 실제 API의 검증과 작업 기록
       </p>
     </section>
   );

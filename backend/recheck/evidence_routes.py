@@ -3,11 +3,12 @@ import asyncio
 import time
 from typing import Literal
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request, Response
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from .admission import Admission, DeadlineExceeded, Overloaded
 from .evidence import EvidenceStore
+from .evidence_observation import observe_execute
 
 
 class SourceEvent(BaseModel):
@@ -60,7 +61,7 @@ class Execute(BaseModel):
         return value
 
 
-def evidence_router(store):
+def evidence_router(store, metrics, tracer):
     lab = EvidenceStore(store)
     router = APIRouter(prefix='/api/sessions/{sid}/evidence', tags=['evidence-lab'])
     admission = Admission(2, 4)
@@ -82,8 +83,8 @@ def evidence_router(store):
         return lab.use(sid, rid)
 
     @router.post('/receipts/{rid}/execute')
-    def execute(sid: str, rid: str, body: Execute):
-        return lab.execute(sid, rid, body)
+    def execute(sid: str, rid: str, body: Execute, request: Request, response: Response):
+        return observe_execute(lab.execute, sid, rid, body, request, response, metrics, tracer)
 
     @router.get('/actions')
     def actions(sid: str):

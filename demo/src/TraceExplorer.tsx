@@ -41,7 +41,7 @@ export default function TraceExplorer() {
       aria-label="저장된 실패와 복구 추적 탐색"
     >
       <div className="inspector-heading">
-        <h3>요청을 선택하고, 어디서 달라졌는지 확인하세요.</h3>
+        <h3>실패·복구 요청 비교</h3>
         <span>저장된 OTLP · 로컬 실험</span>
       </div>
       <div
@@ -67,13 +67,13 @@ export default function TraceExplorer() {
       </div>
       <div className={`request-verdict verdict-${which}`} data-testid="request-verdict" aria-live="polite">
         <div><span>HTTP 응답</span><strong>{record.http_status}</strong><small>통신 결과</small></div>
-        <div><span>모델 판단</span><strong>{which === "failed" ? "추론 실패 · 보류" : "정상 추론"}</strong><small>{record.receipt.status} / {record.receipt.reason}</small></div>
+        <div><span>모델 판단</span><strong>{which === "failed" ? "추론 실패 · 보류" : "정상 추론"}</strong><small>{which === "failed" ? "모델 응답 오류" : "정상 응답과 기록"}</small></div>
         <div><span>독립 SQL 대조</span><strong>{sqlMatches ? "같은 기록 확인" : "불일치"}</strong><small>수신 receipt와 저장된 payload 비교</small></div>
       </div>
       <p className="request-reading">{which === "failed"
         ? "모델 예외를 보류 상태로 기록했습니다. HTTP 200이지만 유효한 판단으로 세지 않습니다."
         : "오류 주입을 해제한 다음 요청입니다. 실제 예측과 새 기록의 SQL 일치를 확인했습니다."}</p>
-      <code className="trace-identity">trace {record.receipt.trace_id}</code>
+      <details className="trace-correlation"><summary>HTTP·판단 코드와 trace ID</summary><code className="trace-identity">HTTP {record.http_status} · {record.receipt.status} / {record.receipt.reason}<br />trace {record.receipt.trace_id}</code></details>
       <div className="trace-workspace">
         <div
           className="trace-waterfall"

@@ -25,7 +25,7 @@ def main():
         entry = page.get_by_role('navigation', name='실험 선택')
         assert entry.count() == 1, 'First screen must expose serving and recovery evidence'
         entry.get_by_role('link', name='모델 부하').click()
-        page.get_by_role('heading', name='서버의 경계를 찾았습니다.').wait_for()
+        page.get_by_role('heading', name='처리 한계').wait_for()
         assert '180초' in page.get_by_test_id('sustained-review').inner_text()
         page.get_by_role('group', name='저장된 부하 구간 선택').wait_for()
         page.get_by_test_id('sustained-review').locator('.load-interpretation > summary').click()
@@ -50,10 +50,10 @@ def main():
         page.screenshot(path=str(args.output / 'serving-desktop.png'), full_page=True)
         checks.append('all request outcomes including late HTTP 200 are visible; boundary and stored evidence are labeled')
         page.reload(wait_until='networkidle')
-        page.get_by_role('heading', name='서버의 경계를 찾았습니다.').wait_for()
+        page.get_by_role('heading', name='처리 한계').wait_for()
         checks.append('serving deep link survives reload')
         page.get_by_role('navigation', name='실험 선택').get_by_role('link', name='장애 복구').click()
-        page.get_by_role('heading', name='원인부터 복구까지.').wait_for()
+        page.get_by_role('heading', name='복구 기록').wait_for()
         assert 'model_unavailable' in page.get_by_test_id('failure-review').inner_text()
         page.get_by_test_id('prior-recovery').locator(':scope > summary').click()
         assert '503' in page.get_by_test_id('recovery-proof').inner_text()
@@ -72,7 +72,7 @@ def main():
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'), f'overflow at {width}'
             page.screenshot(path=str(args.output / f'recovery-{width}.png'), full_page=True)
         page.go_back(wait_until='networkidle')
-        page.get_by_role('heading', name='서버의 경계를 찾았습니다.').wait_for()
+        page.get_by_role('heading', name='처리 한계').wait_for()
         if not page.get_by_test_id('prior-serving').evaluate('(el) => el.open'):
             page.get_by_test_id('prior-serving').locator(':scope > summary').click()
         page.get_by_role('button', name='60 req/s').click()

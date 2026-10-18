@@ -4,7 +4,7 @@ import type { CaseEvent } from "./caseFlow";
 import { selectEvents, type EventFilter } from "./caseJournal";
 import "./evidenceInspector.css";
 
-export default function CaseJournal({ events }: { events: CaseEvent[] }) {
+export default function CaseJournal({ events, restored = false }: { events: CaseEvent[]; restored?: boolean }) {
   const [filter, setFilter] = useState<EventFilter>("all");
   const rows = selectEvents(events, filter);
   return (
@@ -34,8 +34,7 @@ export default function CaseJournal({ events }: { events: CaseEvent[] }) {
         </span>
       </div>
       <p className="inspector-caption">
-        현재 실행의 API 응답입니다. 차단 이유와 작업 ID를 확인하고 원본 응답을
-        펼쳐 볼 수 있습니다.
+        {restored ? "브라우저에 복원한 과거 API 응답입니다. 현재 서버를 다시 조회한 결과는 아닙니다." : "이번 실행에서 받은 API 응답입니다."} 차단 이유와 작업 ID를 확인하고 원본 응답을 펼쳐 볼 수 있습니다.
       </p>
       <ol data-testid="case-events">
         {rows.map(({ event, index, view }) => (
@@ -60,9 +59,9 @@ export default function CaseJournal({ events }: { events: CaseEvent[] }) {
                 {JSON.stringify(event.data, null, 2)}
               </pre>
             </details>
-            {view.identity && (
+            {view.identity && view.kind !== "blocked" && (
               <div className="journal-identity">
-                <span>{view.kind === "blocked" ? "차단 사유" : "작업 ID"}</span>
+                <span>작업 ID</span>
                 <code>{view.identity}</code>
               </div>
             )}

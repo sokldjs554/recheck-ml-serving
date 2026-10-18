@@ -7,8 +7,8 @@ const n = (value: number) => value.toLocaleString("ko-KR");
 const kinds = [
   { key: "useful_on_time", label: "유효 응답", hint: "300ms 안에 도착한 유효한 판단", tone: "useful" },
   { key: "deferred", label: "보류", hint: "HTTP 200이어도 사용할 수 없는 판단", tone: "deferred" },
-  { key: "refused", label: "수용 거절", hint: "HTTP 429 · 처리 한도 초과", tone: "refused" },
-  { key: "server_timeout", label: "시간 초과", hint: "HTTP 504 · 응답 시간 예산 초과", tone: "timeout" },
+  { key: "refused", label: "처리 한도 초과", hint: "HTTP 429 · 처리 한도 초과", tone: "refused" },
+  { key: "server_timeout", label: "응답 시간 초과", hint: "HTTP 504 · 응답 시간 예산 초과", tone: "timeout" },
 ];
 
 export default function LoadExplorer() {

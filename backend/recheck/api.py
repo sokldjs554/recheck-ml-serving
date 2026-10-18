@@ -63,9 +63,9 @@ def create_app(settings=None, model_client=None):
         provider.shutdown()
 
     app = FastAPI(title="RECHECK version-fenced inference receipts", lifespan=lifespan)
-    app.add_middleware(CORSMiddleware, allow_origins=list(settings.cors_origins), allow_methods=["GET", "POST"], allow_headers=["Content-Type", "traceparent", "tracestate"])
-    install_metrics(app, "api")
-    app.include_router(evidence_router(store))
+    app.add_middleware(CORSMiddleware, allow_origins=list(settings.cors_origins), allow_methods=["GET", "POST"], allow_headers=["Content-Type", "traceparent", "tracestate"], expose_headers=["X-Recheck-Trace-Id"])
+    metrics = install_metrics(app, "api")
+    app.include_router(evidence_router(store, metrics, tracer))
     app.state.store = store
     app.state.admission = Admission(settings.gateway_concurrency, settings.gateway_queue)
     app.state.active_sessions = Counter()
@@ -74,7 +74,8 @@ def create_app(settings=None, model_client=None):
     @app.exception_handler(SQLAlchemyError)
     async def database_error(request, exc):
         logger.error("database operation failed: %s", type(exc).__name__)
-        return JSONResponse(status_code=503, content={"detail": "database_unavailable"})
+        return JSONResponse(status_code=503, content={"detail": "database_unavailable"},
+            headers={"X-Recheck-Trace-Id": request.state.evidence_trace_id} if hasattr(request.state, "evidence_trace_id") else None)
 
     @app.get("/ready")
     @app.get("/health")

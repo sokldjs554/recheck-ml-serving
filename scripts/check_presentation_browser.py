@@ -67,11 +67,13 @@ def main():
         count = page.get_by_test_id('case-events').locator('li').count()
         journal.get_by_role('button', name='실행 차단', exact=True).click()
         assert page.get_by_test_id('case-events').locator('li').count() == 1
-        assert 'source_changed' in journal.inner_text()
+        assert '오래된 답변 차단' in journal.inner_text()
+        journal.locator('details').first.locator('summary').click()
+        assert 'source_changed' in journal.locator('pre').first.inner_text()
         journal.get_by_role('button', name='기록·재시도', exact=True).click()
         assert page.get_by_test_id('case-events').locator('li').count() == 2
         assert journal.inner_text().count(action) == 2
-        assert '새 작업 기록' in journal.inner_text() and '기존 작업 반환' in journal.inner_text()
+        assert '정상 답변 기록' in journal.inner_text() and '같은 작업 반환' in journal.inner_text()
         journal.locator('details').first.locator('summary').click()
         assert action in journal.locator('pre').first.inner_text()
         journal.get_by_role('button', name='전체', exact=True).click()

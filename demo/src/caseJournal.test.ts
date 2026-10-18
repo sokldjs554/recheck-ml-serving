@@ -19,12 +19,12 @@ describe("case evidence inspection", () => {
     expect(describeEvent(recorded)).toMatchObject({
       kind: "record",
       identity: "same-id",
-      title: "새 작업 기록",
+      title: "정상 답변 기록",
     });
     expect(describeEvent(replayed)).toMatchObject({
       kind: "record",
       identity: "same-id",
-      title: "기존 작업 반환",
+      title: "같은 작업 반환",
     });
     const rows = [event({ sources: [] }), blocked, recorded, replayed];
     expect(selectEvents(rows, "blocked").map((r) => r.index)).toEqual([1]);

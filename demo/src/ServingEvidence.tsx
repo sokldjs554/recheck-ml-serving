@@ -56,7 +56,7 @@ export default function ServingEvidence({
         </span>
         <div>
           <h1>
-            {view === "serving" ? <>부하를 걸고,<br /><em>서버의 경계를 찾았습니다.</em></> : <>실패한 요청 하나,<br /><em>원인부터 복구까지.</em></>}
+            {view === "serving" ? <>모델 부하와<br /><em>처리 한계</em></> : <>모델 장애와<br /><em>복구 기록</em></>}
           </h1>
           <p>
             {view === "serving"
