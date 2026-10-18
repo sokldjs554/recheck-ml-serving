@@ -1,0 +1,125 @@
+{
+  "runtime_commit": "2c3d10f07c2ef6094149345c9bc7d478add48fcc",
+  "scope": "Render logs emitted by regular deployed-browser acceptance; no public load or database fault injection",
+  "logs": [
+    {
+      "timestamp": "2026-10-18T08:49:26.541483299Z",
+      "event": "evidence_execution_finished",
+      "session_id": "ac41c717-42a5-4da2-ab3b-514dc9487756",
+      "receipt_id": "da2b7bfd-6e90-4c75-a3c5-ed1cbb4b912e",
+      "request_key": "692007a8-608f-4e16-9c8d-6c085c049df6",
+      "action_id": null,
+      "trace_id": "007c3c7e47517c42f085f8b2cd60c479",
+      "outcome": "blocked",
+      "reason": "source_changed",
+      "storage": "not_written",
+      "response_budget": "within",
+      "response_budget_seconds": 15,
+      "duration_ms": 24.086,
+      "dispatch_ms": 0.656,
+      "worker_ms": 23.486,
+      "phases_ms": {
+        "lock_acquire": 10.545663069933653,
+        "state_read": 7.438316009938717
+      }
+    },
+    {
+      "timestamp": "2026-10-18T08:49:26.542585016Z",
+      "event": "evidence_http_finished",
+      "outcome": "failed_response",
+      "http_status": 409,
+      "trace_id": "007c3c7e47517c42f085f8b2cd60c479",
+      "duration_ms": 25.328
+    },
+    {
+      "timestamp": "2026-10-18T08:49:28.587310884Z",
+      "event": "evidence_execution_finished",
+      "session_id": "ac41c717-42a5-4da2-ab3b-514dc9487756",
+      "receipt_id": "20e4ab72-1118-4b1d-8958-3c80c0cbd774",
+      "request_key": "4fd8514f-fa59-45ec-a3f0-32ad7b4f629f",
+      "action_id": "f0115657-e191-44e7-9174-a15f5329d01e",
+      "trace_id": "f860e38780a6b98824049ed774e091ca",
+      "outcome": "recorded",
+      "reason": "current",
+      "storage": "committed",
+      "response_budget": "within",
+      "response_budget_seconds": 15,
+      "duration_ms": 27.639,
+      "dispatch_ms": 0.807,
+      "worker_ms": 26.895,
+      "phases_ms": {
+        "lock_acquire": 7.93393817730248,
+        "state_read": 5.373904015868902,
+        "flush_commit": 11.415444780141115
+      }
+    },
+    {
+      "timestamp": "2026-10-18T08:49:28.588101013Z",
+      "event": "evidence_http_finished",
+      "outcome": "response_sent",
+      "http_status": 200,
+      "trace_id": "f860e38780a6b98824049ed774e091ca",
+      "duration_ms": 28.634
+    },
+    {
+      "timestamp": "2026-10-18T08:49:30.046156575Z",
+      "event": "evidence_execution_finished",
+      "session_id": "ac41c717-42a5-4da2-ab3b-514dc9487756",
+      "receipt_id": "20e4ab72-1118-4b1d-8958-3c80c0cbd774",
+      "request_key": "4fd8514f-fa59-45ec-a3f0-32ad7b4f629f",
+      "action_id": "f0115657-e191-44e7-9174-a15f5329d01e",
+      "trace_id": "c0f3a4ede037ce317ab063a76b421726",
+      "outcome": "replayed",
+      "reason": "same_key",
+      "storage": "committed",
+      "response_budget": "within",
+      "response_budget_seconds": 15,
+      "duration_ms": 17.371,
+      "dispatch_ms": 0.649,
+      "worker_ms": 16.77,
+      "phases_ms": {
+        "lock_acquire": 7.535717915743589,
+        "state_read": 4.6559961047023535,
+        "flush_commit": 3.233870957046747
+      }
+    },
+    {
+      "timestamp": "2026-10-18T08:49:30.046869543Z",
+      "event": "evidence_http_finished",
+      "outcome": "response_sent",
+      "http_status": 200,
+      "trace_id": "c0f3a4ede037ce317ab063a76b421726",
+      "duration_ms": 18.222
+    },
+    {
+      "timestamp": "2026-10-18T08:49:30.292195312Z",
+      "event": "evidence_execution_finished",
+      "session_id": "ac41c717-42a5-4da2-ab3b-514dc9487756",
+      "receipt_id": "20e4ab72-1118-4b1d-8958-3c80c0cbd774",
+      "request_key": "4fd8514f-fa59-45ec-a3f0-32ad7b4f629f",
+      "action_id": "f0115657-e191-44e7-9174-a15f5329d01e",
+      "trace_id": "5c94ae88981245cc22acbf05e566fbf0",
+      "outcome": "replayed",
+      "reason": "same_key",
+      "storage": "committed",
+      "response_budget": "within",
+      "response_budget_seconds": 15,
+      "duration_ms": 19.408,
+      "dispatch_ms": 0.623,
+      "worker_ms": 18.846,
+      "phases_ms": {
+        "lock_acquire": 8.3191879093647,
+        "state_read": 5.959769012406468,
+        "flush_commit": 3.083706833422184
+      }
+    },
+    {
+      "timestamp": "2026-10-18T08:49:30.292963341Z",
+      "event": "evidence_http_finished",
+      "outcome": "response_sent",
+      "http_status": 200,
+      "trace_id": "5c94ae88981245cc22acbf05e566fbf0",
+      "duration_ms": 20.328
+    }
+  ]
+}

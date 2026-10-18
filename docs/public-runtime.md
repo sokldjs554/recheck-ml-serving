@@ -1,5 +1,7 @@
 # Public runtime and its boundaries
 
+Latest check: [2026-10-18 deployment, execution logs, and scheduled-monitor results](release-2026-10-18.md#4-운영-기록-대조). The service still reports an empty `healthCheckPath`, although `render.yaml` specifies `/health`. The successful deployment/browser checks do not supersede the failed five-second scheduled checks.
+
 The Render Python service uses a dedicated Neon PostgreSQL 17 database in Singapore.
 `DATABASE_URL` is injected through Render; credentials never enter the repository.
 SQLite remains a local-only convenience. The public launcher refuses to start if

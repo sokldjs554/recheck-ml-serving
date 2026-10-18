@@ -3,8 +3,9 @@
   "backend": {
     "command": "PYTHONPATH=backend RECHECK_NETWORK_TESTS=1 python -m pytest backend/tests -q",
     "database": "temporary SQLite",
-    "result": "159 passed in 37.50s",
-    "network_tests": true
+    "result": "160 passed in 35.57s",
+    "network_tests": true,
+    "scope": "Final feature code plus historical-provenance regression test"
   },
   "frontend": {
     "command": "npm --prefix demo test",

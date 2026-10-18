@@ -36,6 +36,8 @@
 
 [이번 로컬 실행 로그·trace·독립 SQL 대조](evidence/release-2026-10-18/local-execution-observation.json)와 [회귀 테스트](../backend/tests/test_evidence_observability.py)를 참고한다. 공개 체험에서 `전체 과정 실행`을 완료하고 실행 로그의 원본 응답을 펼치면 차단·새 기록·같은 작업 반환을 확인할 수 있다.
 
+배포 후 [공개 Render 로그](evidence/release-2026-10-18/public-execution-observation.json)에서도 원문 변경 차단, 새 작업 기록, 같은 작업 반환과 세 SQL 단계를 확인했다. [공개 WebKit 실행·복원 결과](evidence/release-2026-10-18/public-webkit-results.json)의 작업 ID와 서버 로그가 일치한다. 공개 검사는 정상 기능 체험이며, DB 오류·잠금·연결 종료의 실패 조건은 격리된 회귀 검사에서 다룬다.
+
 ## 직접 재현
 
 ```sh

@@ -1,0 +1,13 @@
+{
+  "runtime_commit": "2c3d10f07c2ef6094149345c9bc7d478add48fcc",
+  "service_id": "srv-db3rmj3ncjis73bi8fl0",
+  "plan": "free",
+  "healthCheckPath": "",
+  "startCommand": "python scripts/serve_demo.py",
+  "deploy_id": "dep-dba8dmu7bikc73eceqdg",
+  "live_at_utc": "2026-10-18T08:46:25.166631Z",
+  "model_ready_ms": 25500.423,
+  "pages_run": 39112594249,
+  "api_bundle": "index-4f4C70As.js",
+  "provenance": "Render deploy metadata/startup logs and GitHub Pages matching-bundle wait, followed by public browser checks"
+}

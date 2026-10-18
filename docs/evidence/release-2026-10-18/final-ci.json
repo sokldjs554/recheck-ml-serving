@@ -1,0 +1,83 @@
+{
+  "source_commit": "30340dc0a15e9db8a4cf8c4aecd8c48359ea8151",
+  "run_url": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39113173764",
+  "job_id": 117633420831,
+  "conclusion": "success",
+  "backend": "159 passed, 1 skipped in 53.05s",
+  "skipped_test": "backend/tests/test_database.py::test_session_capacity_and_expired_session_cleanup",
+  "skip_reason": "Isolated SQLite capacity fixture; covered by local 160 passed run",
+  "frontend": "61 passed",
+  "scheduling_sensitive_repetitions": 3,
+  "selected_log_lines": [
+    "2026-10-18T08:54:40.7963527Z 159 passed, 1 skipped in 53.05s",
+    "2026-10-18T08:54:50.3878011Z {\"passed\": 6, \"predictions_matched\": 9, \"output\": \"work/model-handoff.json\"}",
+    "2026-10-18T08:55:13.7780940Z 8 passed, 1 skipped in 10.55s",
+    "2026-10-18T08:55:13.7782642Z 8 passed, 1 skipped in 10.64s",
+    "2026-10-18T08:55:25.3801866Z 8 passed, 1 skipped in 10.68s",
+    "2026-10-18T08:55:52.5593533Z \u001b[2m Test Files \u001b[22m \u001b[1m\u001b[32m11 passed\u001b[39m\u001b[22m\u001b[90m (11)\u001b[39m",
+    "2026-10-18T08:55:52.5594976Z \u001b[2m      Tests \u001b[22m \u001b[1m\u001b[32m61 passed\u001b[39m\u001b[22m\u001b[90m (61)\u001b[39m",
+    "2026-10-18T08:56:00.1131835Z ##[group]Run python scripts/build_safety_summary.py --check",
+    "2026-10-18T08:56:00.2266197Z ##[group]Run python scripts/build_serving_summary.py --check",
+    "2026-10-18T08:56:00.6163396Z ##[group]Run python scripts/build_fullpath_summary.py --check",
+    "2026-10-18T08:56:00.6996490Z ##[group]Run diff -qr demo/dist web_static"
+  ],
+  "artifacts": [
+    {
+      "id": 12131965259,
+      "name": "action-workloads",
+      "size_in_bytes": 38313,
+      "url": "https://api.github.com/repos/sokldjs554/recheck-ml-serving/actions/artifacts/12131965259",
+      "archive_download_url": "https://api.github.com/repos/sokldjs554/recheck-ml-serving/actions/artifacts/12131965259/zip",
+      "expired": false,
+      "created_at": "2026-10-18T08:55:46Z",
+      "expires_at": "2027-01-16T08:53:08Z",
+      "updated_at": "2026-10-18T08:55:46Z",
+      "digest": "sha256:1bf5ee75ef52069121d521551b962fe0bb667b50a05524ccd6734fa6a5d419b4",
+      "workflow_run": {
+        "id": 39113173764,
+        "repository_id": 1409594050,
+        "head_repository_id": 1409594050,
+        "head_branch": "main",
+        "head_sha": "30340dc0a15e9db8a4cf8c4aecd8c48359ea8151"
+      }
+    },
+    {
+      "id": 12131725262,
+      "name": "model-handoff-evidence",
+      "size_in_bytes": 1748,
+      "url": "https://api.github.com/repos/sokldjs554/recheck-ml-serving/actions/artifacts/12131725262",
+      "archive_download_url": "https://api.github.com/repos/sokldjs554/recheck-ml-serving/actions/artifacts/12131725262/zip",
+      "expired": false,
+      "created_at": "2026-10-18T08:54:51Z",
+      "expires_at": "2027-01-16T08:53:08Z",
+      "updated_at": "2026-10-18T08:54:51Z",
+      "digest": "sha256:e8ecd5dc17b94b5c2e72e47dfa1f80b1fd841210a4efeee00ecf067d8d6183c4",
+      "workflow_run": {
+        "id": 39113173764,
+        "repository_id": 1409594050,
+        "head_repository_id": 1409594050,
+        "head_branch": "main",
+        "head_sha": "30340dc0a15e9db8a4cf8c4aecd8c48359ea8151"
+      }
+    },
+    {
+      "id": 12131141878,
+      "name": "safety-evaluation",
+      "size_in_bytes": 11484,
+      "url": "https://api.github.com/repos/sokldjs554/recheck-ml-serving/actions/artifacts/12131141878",
+      "archive_download_url": "https://api.github.com/repos/sokldjs554/recheck-ml-serving/actions/artifacts/12131141878/zip",
+      "expired": false,
+      "created_at": "2026-10-18T08:55:30Z",
+      "expires_at": "2027-01-16T08:53:08Z",
+      "updated_at": "2026-10-18T08:55:30Z",
+      "digest": "sha256:3c95fc31e6602e842cf4bd7baaead4e11f65e83aeee8a228dc4ad37fe66d53ff",
+      "workflow_run": {
+        "id": 39113173764,
+        "repository_id": 1409594050,
+        "head_repository_id": 1409594050,
+        "head_branch": "main",
+        "head_sha": "30340dc0a15e9db8a4cf8c4aecd8c48359ea8151"
+      }
+    }
+  ]
+}
