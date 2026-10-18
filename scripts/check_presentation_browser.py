@@ -93,6 +93,12 @@ def main():
             article=page.get_by_test_id(selector)
             article.locator('.review-scope').wait_for()
             assert article.locator('.review-scope').is_visible()
+            origin = article.get_by_test_id('measurement-origin').first
+            assert origin.is_visible()
+            assert '현재 코드의 재측정값 아님' in origin.inner_text()
+            assert origin.locator('time').get_attribute('datetime').startswith('2026-10-12T05:')
+            assert origin.locator('a').first.get_attribute('href').endswith('/tree/0b99e35cf7d59f624cbc8eab5c31bc1359ca4108')
+            assert origin.locator('a').first.get_attribute('target') == '_blank'
             if route == 'serving':
                 selected = page.get_by_test_id('phase-detail')
                 phases = json.loads((Path(__file__).resolve().parents[1] / 'demo/src/serving-evidence.json').read_text())['sustained']['phases']

@@ -3,6 +3,7 @@ import data from "./serving-evidence.json";
 import fullpath from "./fullpath-evidence.json";
 import PublicOperations from "./PublicOperations";
 import ModelHandoff from "./ModelHandoff";
+import MeasurementOrigin from "./MeasurementOrigin";
 import {
   SustainedReview,
   FailureReview,
@@ -84,6 +85,7 @@ export default function ServingEvidence({
               aria-label="API 모델 PostgreSQL 전체 경로 부하"
             >
               <h2>API에서 SQL 기록까지</h2>
+              <MeasurementOrigin file="fullpath-load.json" />
               <p>
                 HTTP API → CPU 추론 프로세스 2개 → PostgreSQL. 아래는 전체
                 경로를 호출한 별도 실험입니다. 각 요청률을 5초씩 2회 측정했고,
@@ -139,6 +141,7 @@ export default function ServingEvidence({
                 전체 시도·조건·실패 원본 ↗
               </a>
               <h3>요청률별 응답 결과</h3>
+              <MeasurementOrigin file="fullpath-saturation.json.gz" />
               <p>
                 전용 테스트 DB로 분리한 뒤 60·120 req/s를 각각 2초씩 2회
                 실행했습니다. HTTP 200이라도 추론이 보류되면 성공에서 뺐습니다.
@@ -183,6 +186,7 @@ export default function ServingEvidence({
               </a>
             </section>
             <div className="serving-instrument">
+              <MeasurementOrigin file={sample.source} />
               <aside className="serving-settings">
                 <h2>요청률 선택</h2>
                 <div
@@ -320,6 +324,7 @@ export default function ServingEvidence({
               기존 운영 근거 · Jaeger·알림·Kubernetes·공개 API 점검
             </summary>
             <div className="recovery-proof" data-testid="recovery-proof">
+              <MeasurementOrigin file="observability-latest.json" />
               <div className="recovery-wiring">
                 <span>Python API</span>
                 <b>→</b>

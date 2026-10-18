@@ -1,5 +1,6 @@
 import LoadExplorer from "./LoadExplorer";
 import TraceExplorer from "./TraceExplorer";
+import MeasurementOrigin from "./MeasurementOrigin";
 import data from "./serving-evidence.json";
 const docs = "https://github.com/sokldjs554/recheck-ml-serving/blob/main/docs/";
 const names: Record<string, string> = {
@@ -22,6 +23,7 @@ export function SustainedReview() {
         저장된 로컬 측정 · /decisions → CPU 프로세스 2개 → PostgreSQL · 180초 ·
         공유 호스트 CPU quota 4코어 · 5초 워밍업 제외
       </p>
+      <MeasurementOrigin file="fullpath-sustained.json.gz" />
       <LoadExplorer />
       <details className="review-details load-interpretation">
         <summary>부하 해제 후 회복·전체 집계·설계 비용</summary>
@@ -198,12 +200,14 @@ export function FailureReview() {
       <p className="review-scope">
         저장된 로컬 장애 주입 · /decisions · lightweight 모델 → PostgreSQL · Kubernetes 복구는 별도 측정
       </p>
+      <MeasurementOrigin file="failure-trace-proof.json" />
       <TraceExplorer />
       <section
         className="recovery-outline"
         aria-label="별도 Kubernetes 복구 관측"
       >
         <strong>별도 kind 실험 · DB Pod 교체 후 기존 기록 보존</strong>
+        <MeasurementOrigin file="kubernetes-proof.json" />
         <ol className="failure-chain">
           <li>
             <strong>장애 발생</strong>
@@ -338,6 +342,7 @@ export function ConsistencyReview() {
         저장된 로컬 SQL 직접 호출 · 54조건 × 3회 · 각 4개 wave. HTTP·CPU 모델
         처리량이 아니며, wave마다 모든 요청의 완료를 기다렸습니다.
       </p>
+      <MeasurementOrigin file="consistency-costs.json.gz" />
       <section className="review-section">
         <h3>관측 결과</h3>
         <div>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import data from "./safety-evidence.json";
+import MeasurementOrigin from "./MeasurementOrigin";
 import "./safetyComparison.css";
 
 const labels: Record<string, string> = {
@@ -129,8 +130,9 @@ export default function SafetyComparison() {
       <div className="comparison-heading">
         <div>
           <p className="comparison-kicker" data-testid="comparison-scope">
-            저장된 SQL 실행 기록 · {data.measured_at.slice(0, 10)}
+            저장된 SQL 실행 기록
           </p>
+          <MeasurementOrigin file="safety-evaluation.json" />
           <h2>동일 요청의 방식별 기록 결과</h2>
           <p>
             사건을 골라 세 방식의 결과를 비교하세요. 각 결과는 실제 DB 실행에서
@@ -464,8 +466,9 @@ export default function SafetyComparison() {
           </table>
         </div>
         <p>{db.database_version}</p>
+        <MeasurementOrigin file="action-workloads.json" />
         <p>
-          동시 요청·비용 측정: {data.workloads.measured_at} · Python{" "}
+          동시 요청·비용 측정: {data.workloads.measured_at} (UTC) · Python{" "}
           {data.workloads.environment.python}. 고정된 합성 사건과 내부 SQL
           작업만 다룹니다. 무작위 부하·실서비스 사고율·외부 송금·검색 품질의
           증거가 아닙니다.

@@ -1,0 +1,853 @@
+{
+  "checked_date_kst": "2026-10-19",
+  "scope": "Read existing scheduled samples and Render metadata; not a new performance measurement",
+  "service": {
+    "id": "srv-db3rmj3ncjis73bi8fl0",
+    "plan": "free",
+    "healthCheckPath": "",
+    "startCommand": "python scripts/serve_demo.py"
+  },
+  "monitors": [
+    {
+      "run_id": 39122204727,
+      "read_on_kst": "2026-10-19",
+      "execution_commit": "fe5df9d84be0c5bb29fcfb9132a4d7dcea15ba1a",
+      "runtime_commit": "2c3d10f07c2ef6094149345c9bc7d478add48fcc",
+      "samples": [
+        {
+          "at": "2026-10-18T11:11:08.834445+00:00",
+          "ok": true,
+          "steps": [
+            "health",
+            "session",
+            "inference",
+            "current_validation",
+            "mutation",
+            "stale_rejection"
+          ],
+          "requests": [
+            {
+              "step": "health",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 72479.331
+            },
+            {
+              "step": "session",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 620.656
+            },
+            {
+              "step": "inference",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 258.351
+            },
+            {
+              "step": "current_validation",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 212.957
+            },
+            {
+              "step": "mutation",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 208.826
+            },
+            {
+              "step": "stale_rejection",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 205.373
+            }
+          ],
+          "trace_id": "b75bf1fc92417f7f534441d48edc7553",
+          "duration_ms": 73985.738
+        },
+        {
+          "at": "2026-10-18T11:12:37.835679+00:00",
+          "ok": true,
+          "steps": [
+            "health",
+            "session",
+            "inference",
+            "current_validation",
+            "mutation",
+            "stale_rejection"
+          ],
+          "requests": [
+            {
+              "step": "health",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 239.324
+            },
+            {
+              "step": "session",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 212.627
+            },
+            {
+              "step": "inference",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 607.708
+            },
+            {
+              "step": "current_validation",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 232.035
+            },
+            {
+              "step": "mutation",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 226.236
+            },
+            {
+              "step": "stale_rejection",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 212.318
+            }
+          ],
+          "trace_id": "264a55ea520be584ad69eac7105e5a79",
+          "duration_ms": 1730.496
+        },
+        {
+          "at": "2026-10-18T11:12:54.574907+00:00",
+          "ok": true,
+          "steps": [
+            "health",
+            "session",
+            "inference",
+            "current_validation",
+            "mutation",
+            "stale_rejection"
+          ],
+          "requests": [
+            {
+              "step": "health",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 592.461
+            },
+            {
+              "step": "session",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 216.599
+            },
+            {
+              "step": "inference",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 232.426
+            },
+            {
+              "step": "current_validation",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 208.655
+            },
+            {
+              "step": "mutation",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 220.292
+            },
+            {
+              "step": "stale_rejection",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 207.398
+            }
+          ],
+          "trace_id": "0de7cb6f0cc5bd0da6d2b723bc059d90",
+          "duration_ms": 1678.045
+        }
+      ],
+      "summary": {
+        "total": 3,
+        "good": 2,
+        "bad": 1,
+        "availability": 0.6666666666666666,
+        "target": 0.99,
+        "latency_budget_ms": 5000,
+        "allowed_bad_samples": 0.030000000000000027,
+        "budget_consumed_ratio": 33.33333333333331,
+        "scope": "sampled synthetic workflow, not continuous production uptime",
+        "window_start": "2026-10-18T11:11:08.834445+00:00",
+        "window_end": "2026-10-18T11:12:56.253357+00:00",
+        "interval_seconds": 15
+      }
+    },
+    {
+      "run_id": 39136779184,
+      "read_on_kst": "2026-10-19",
+      "execution_commit": "fe5df9d84be0c5bb29fcfb9132a4d7dcea15ba1a",
+      "runtime_commit": "2c3d10f07c2ef6094149345c9bc7d478add48fcc",
+      "samples": [
+        {
+          "at": "2026-10-18T14:36:55.697189+00:00",
+          "ok": true,
+          "steps": [
+            "health",
+            "session",
+            "inference",
+            "current_validation",
+            "mutation",
+            "stale_rejection"
+          ],
+          "requests": [
+            {
+              "step": "health",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 1262.444
+            },
+            {
+              "step": "session",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 249.849
+            },
+            {
+              "step": "inference",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 276.876
+            },
+            {
+              "step": "current_validation",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 247.988
+            },
+            {
+              "step": "mutation",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 239.597
+            },
+            {
+              "step": "stale_rejection",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 210.161
+            }
+          ],
+          "trace_id": "4beb472b5333289dec7d28e9ff10b1d9",
+          "duration_ms": 2487.144
+        },
+        {
+          "at": "2026-10-18T14:37:13.199755+00:00",
+          "ok": true,
+          "steps": [
+            "health",
+            "session",
+            "inference",
+            "current_validation",
+            "mutation",
+            "stale_rejection"
+          ],
+          "requests": [
+            {
+              "step": "health",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 267.029
+            },
+            {
+              "step": "session",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 219.674
+            },
+            {
+              "step": "inference",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 630.245
+            },
+            {
+              "step": "current_validation",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 207.656
+            },
+            {
+              "step": "mutation",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 207.192
+            },
+            {
+              "step": "stale_rejection",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 199.872
+            }
+          ],
+          "trace_id": "3ad410684abcc2bee6c47c05542ebf00",
+          "duration_ms": 1731.889
+        },
+        {
+          "at": "2026-10-18T14:37:29.947008+00:00",
+          "ok": true,
+          "steps": [
+            "health",
+            "session",
+            "inference",
+            "current_validation",
+            "mutation",
+            "stale_rejection"
+          ],
+          "requests": [
+            {
+              "step": "health",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 262.774
+            },
+            {
+              "step": "session",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 218.977
+            },
+            {
+              "step": "inference",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 390.73
+            },
+            {
+              "step": "current_validation",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 227.456
+            },
+            {
+              "step": "mutation",
+              "method": "POST",
+              "http_status": 200,
+              "duration_ms": 224.103
+            },
+            {
+              "step": "stale_rejection",
+              "method": "GET",
+              "http_status": 200,
+              "duration_ms": 233.84
+            }
+          ],
+          "trace_id": "ea487f4abb74c7e486c0c1d89ff63abd",
+          "duration_ms": 1558.097
+        }
+      ],
+      "summary": {
+        "total": 3,
+        "good": 3,
+        "bad": 0,
+        "availability": 1,
+        "target": 0.99,
+        "latency_budget_ms": 5000,
+        "allowed_bad_samples": 0.030000000000000027,
+        "budget_consumed_ratio": 0,
+        "scope": "sampled synthetic workflow, not continuous production uptime",
+        "window_start": "2026-10-18T14:36:55.697189+00:00",
+        "window_end": "2026-10-18T14:37:31.505475+00:00",
+        "interval_seconds": 15
+      }
+    }
+  ],
+  "startup_logs": [
+    {
+      "id": "e744d944-8783-40a9-840d-61e10b3c9235",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db3rmj3ncjis73bi8fl0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db3rmj3ncjis73bi8fl0-vhbj4"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "{\"event\": \"model_process_starting\", \"elapsed_ms\": 0.037, \"startup_budget_seconds\": 90.0}",
+      "timestamp": "2026-10-18T11:11:35.219007331Z"
+    },
+    {
+      "id": "c79d61e7-c505-4a81-9b71-b66de486f8bc",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db3rmj3ncjis73bi8fl0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db3rmj3ncjis73bi8fl0-vhbj4"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "INFO:     Application startup complete.",
+      "timestamp": "2026-10-18T11:11:58.78948491Z"
+    },
+    {
+      "id": "efee4652-4ce9-411c-bd43-3086bb1f19c8",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db3rmj3ncjis73bi8fl0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db3rmj3ncjis73bi8fl0-vhbj4"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "INFO:     Uvicorn running on http://127.0.0.1:8001 (Press CTRL+C to quit)",
+      "timestamp": "2026-10-18T11:11:58.791244356Z"
+    },
+    {
+      "id": "827d6987-8b5f-4220-a672-d53389cc5964",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db3rmj3ncjis73bi8fl0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db3rmj3ncjis73bi8fl0-vhbj4"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "{\"event\": \"model_ready\", \"elapsed_ms\": 23644.783}",
+      "timestamp": "2026-10-18T11:11:58.840486877Z"
+    },
+    {
+      "id": "c79fa8fe-dfa9-4470-9065-bcc9291ea6cd",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db3rmj3ncjis73bi8fl0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db3rmj3ncjis73bi8fl0-vhbj4"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "{\"event\": \"api_process_starting\", \"elapsed_ms\": 23644.828}",
+      "timestamp": "2026-10-18T11:11:58.840499958Z"
+    },
+    {
+      "id": "10dfae6a-00e9-4f61-ac48-5334c6c71243",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db3rmj3ncjis73bi8fl0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db3rmj3ncjis73bi8fl0-vhbj4"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "INFO:     Application startup complete.",
+      "timestamp": "2026-10-18T11:12:15.886735652Z"
+    },
+    {
+      "id": "ce884f58-5bc0-4d0f-bab9-b4f37dc823d6",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db3rmj3ncjis73bi8fl0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db3rmj3ncjis73bi8fl0-vhbj4"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "INFO:     Uvicorn running on http://0.0.0.0:10000 (Press CTRL+C to quit)",
+      "timestamp": "2026-10-18T11:12:15.887507002Z"
+    },
+    {
+      "id": "db0ef7b0-c17e-4ab7-a7e9-539ba01dac01",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db3rmj3ncjis73bi8fl0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db3rmj3ncjis73bi8fl0-29xfc"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "{\"event\": \"model_process_starting\", \"elapsed_ms\": 0.052, \"startup_budget_seconds\": 90.0}",
+      "timestamp": "2026-10-18T14:27:23.692037103Z"
+    },
+    {
+      "id": "8b2c0cb4-23fc-4432-b889-5f7e7aa4d4cf",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db3rmj3ncjis73bi8fl0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db3rmj3ncjis73bi8fl0-29xfc"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "INFO:     Application startup complete.",
+      "timestamp": "2026-10-18T14:27:48.593491008Z"
+    },
+    {
+      "id": "e479855c-3bc9-47b0-9f82-9e797b5b0440",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db3rmj3ncjis73bi8fl0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db3rmj3ncjis73bi8fl0-29xfc"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "INFO:     Uvicorn running on http://127.0.0.1:8001 (Press CTRL+C to quit)",
+      "timestamp": "2026-10-18T14:27:48.672718521Z"
+    },
+    {
+      "id": "4cfad157-a95e-402c-b28f-fdb8368964aa",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db3rmj3ncjis73bi8fl0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db3rmj3ncjis73bi8fl0-29xfc"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "{\"event\": \"model_ready\", \"elapsed_ms\": 24987.618}",
+      "timestamp": "2026-10-18T14:27:48.678958134Z"
+    },
+    {
+      "id": "3d6f0de8-b7fc-4d8d-bb0d-fc9806421dc4",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db3rmj3ncjis73bi8fl0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db3rmj3ncjis73bi8fl0-29xfc"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "{\"event\": \"api_process_starting\", \"elapsed_ms\": 24987.658}",
+      "timestamp": "2026-10-18T14:27:48.678967254Z"
+    },
+    {
+      "id": "45bb50f6-3002-4bc0-b452-d90dd7f3a066",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db3rmj3ncjis73bi8fl0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db3rmj3ncjis73bi8fl0-29xfc"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "INFO:     Application startup complete.",
+      "timestamp": "2026-10-18T14:28:06.285054015Z"
+    },
+    {
+      "id": "57889c68-530f-498b-a229-c4eca9eea215",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db3rmj3ncjis73bi8fl0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db3rmj3ncjis73bi8fl0-29xfc"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "INFO:     Uvicorn running on http://0.0.0.0:10000 (Press CTRL+C to quit)",
+      "timestamp": "2026-10-18T14:28:06.28640832Z"
+    },
+    {
+      "id": "8056e7b8-dc7e-4228-9363-3eefb9f9e753",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db3rmj3ncjis73bi8fl0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db3rmj3ncjis73bi8fl0-7zdks"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "{\"event\": \"model_process_starting\", \"elapsed_ms\": 0.052, \"startup_budget_seconds\": 90.0}",
+      "timestamp": "2026-10-18T15:17:31.460724859Z"
+    },
+    {
+      "id": "610fc7f2-7c41-4321-aea7-55e873378ee7",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db3rmj3ncjis73bi8fl0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db3rmj3ncjis73bi8fl0-7zdks"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "INFO:     Application startup complete.",
+      "timestamp": "2026-10-18T15:17:57.680882256Z"
+    },
+    {
+      "id": "db0407ed-7f35-4980-bda3-ef10a6f3f83d",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db3rmj3ncjis73bi8fl0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db3rmj3ncjis73bi8fl0-7zdks"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "INFO:     Uvicorn running on http://127.0.0.1:8001 (Press CTRL+C to quit)",
+      "timestamp": "2026-10-18T15:17:57.687694342Z"
+    },
+    {
+      "id": "57c6cf6c-ffd7-4b0c-8144-22658b980a9e",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db3rmj3ncjis73bi8fl0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db3rmj3ncjis73bi8fl0-7zdks"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "{\"event\": \"model_ready\", \"elapsed_ms\": 26354.698}",
+      "timestamp": "2026-10-18T15:17:57.814664179Z"
+    },
+    {
+      "id": "2c44f858-cd03-496a-aa8d-05dd848faed3",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db3rmj3ncjis73bi8fl0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db3rmj3ncjis73bi8fl0-7zdks"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "{\"event\": \"api_process_starting\", \"elapsed_ms\": 26355.216}",
+      "timestamp": "2026-10-18T15:17:57.815152106Z"
+    },
+    {
+      "id": "f68b5030-76e1-472b-8bb3-24fad753c69d",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db3rmj3ncjis73bi8fl0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db3rmj3ncjis73bi8fl0-7zdks"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "INFO:     Application startup complete.",
+      "timestamp": "2026-10-18T15:18:16.275189211Z"
+    },
+    {
+      "id": "404b21b8-0ba7-4e2b-9023-d1ce5ff7d74b",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db3rmj3ncjis73bi8fl0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db3rmj3ncjis73bi8fl0-7zdks"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "INFO:     Uvicorn running on http://0.0.0.0:10000 (Press CTRL+C to quit)",
+      "timestamp": "2026-10-18T15:18:16.361676484Z"
+    }
+  ]
+}

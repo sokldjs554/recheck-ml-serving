@@ -665,7 +665,7 @@ export default function App() {
               </div>
               <RecordedDemo />
               <div className="entry-evidence-links">
-                <a href="#serving"><span>02 / 모델 부하 <ArrowUpRight size={14} /></span><small>목표 {overloadPhases[0].target_rps} → 유효 약 {overloadGoodRate} req/s<br />저장된 로컬 측정</small></a>
+                <a href="#serving"><span>02 / 모델 부하 <ArrowUpRight size={14} /></span><small>목표 {overloadPhases[0].target_rps} → 유효 약 {overloadGoodRate} req/s<br />과거 로컬 측정 · 2026-10-12</small></a>
                 <a href="#recovery"><span>03 / 장애 복구 <ArrowUpRight size={14} /></span><small>실패 요청 → trace → SQL<br />저장된 복구 기록</small></a>
               </div>
             </div>

@@ -4163,3 +4163,13 @@ footer small {
     font-size: 12px;
   }
 }
+/* Provenance accompanies archived numbers without changing the execution flow. */
+.measurement-origin {
+  font-size: 12px;
+  line-height: 1.8;
+  color: #52627b;
+  margin: 10px 0 18px;
+  overflow-wrap: anywhere;
+}
+.measurement-origin a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.serving-instrument > .measurement-origin { grid-column: 1 / -1; }

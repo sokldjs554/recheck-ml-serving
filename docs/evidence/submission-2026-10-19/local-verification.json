@@ -1,0 +1,19 @@
+{
+  "checked_date_kst": "2026-10-19",
+  "scope": "Local regression of unchanged backend contracts and updated presentation; not a performance remeasurement",
+  "focused_backend": {
+    "result": "30 passed in 5.84s",
+    "files": [
+      "test_hosted_startup.py",
+      "test_synthetic_monitor.py",
+      "test_evidence_observability.py",
+      "test_compute.py"
+    ]
+  },
+  "frontend": {
+    "result": "61 passed",
+    "build": "passed"
+  },
+  "archived_evidence_guards": "safety, serving, fullpath passed; demo/dist matches web_static",
+  "browser": "7 groups passed, real local API and SQLite, Chromium; source dates/links and 1440/768/390/320 widths"
+}

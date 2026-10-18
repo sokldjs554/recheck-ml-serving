@@ -8,6 +8,8 @@ Python/Kotlin/Go 중 하나 이상의 경험을 요구하므로 언어 수를 �
 초기 검토 커밋 `af69d2daa9b4d5a71335d7f741fb691c980749d5` 이후 SQL·멱등성·지속 부하·정합성 비용·Kubernetes 근거를 축적했다.
 이번에는 `a12dd2857f8d20eba24392c4ed22043f9c812f58`에서 이어 공개 실행 관측과 복원 안내를 보완했다. [2026-10-18 제출·배포 버전과 직접 실행한 검증](release-2026-10-18.md)을 기준으로 읽는다. 과거 부하 수치는 재측정하지 않았다.
 
+최종 제출 정리: [2026-10-19 완료 기준·운영 설정·검증](submission-2026-10-19.md). [수치 출처](measurement-provenance.md)와 [현재 설계의 비용](decisions.md)을 구분해 읽는다. 친구 대상 점검은 준비 완료이며 실제 관찰과 그에 따른 UI 수정은 대기한다.
+
 | 공고 요구 / 평가 질문 | 구현 위치 | 실행 근거 | 보장하지 않는 범위 |
 |---|---|---|---|
 | Python 백엔드: 어떤 문제를 푸는가 | [`api.py`](../backend/recheck/api.py), [`evidence_routes.py`](../backend/recheck/evidence_routes.py), [`evidence.py`](../backend/recheck/evidence.py) | [실시간 정합성 체험](https://sokldjs554.github.io/recheck-ml-serving/#case): 답변 이후 원문 변경 → 이전 답변 실행 409 → 새 근거 기록 → 같은 작업 ID 재시도 | 합성 상담 문서와 내부 SQL 작업 기록. 실제 상담 발송·송금·금융 원장·LLM 생성 없음 |
