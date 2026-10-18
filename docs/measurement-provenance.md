@@ -22,6 +22,32 @@
 
 [이번 대조 원자료](evidence/submission-2026-10-19/measurement-audit.json). 화면에서도 같은 JSON을 읽어 날짜와 소스 대조/자료 보관을 표시한다. 원본 실험 수치·날짜·파일은 수정하지 않았다.
 
+<details>
+<summary>고정 커밋의 소스 해시 대조 재현</summary>
+
+전체 Git 이력을 받은 저장소 루트에서 실행한다. 해시가 없는 자료를 소스가 검증된 것으로 처리하지 않는다.
+
+```sh
+python - <<'PY'
+import gzip, json
+from pathlib import Path
+from scripts.evidence_provenance import verify_sources
+root = Path.cwd()
+records = json.loads((root / 'docs/evidence/submission-2026-10-19/measurement-audit.json').read_text())
+for entry in records:
+    if not entry['matching_revisions']:
+        print('자료 보관만 확인:', entry['file'])
+        continue
+    path = root / 'docs/evidence' / entry['file']
+    raw = path.read_bytes()
+    report = json.loads(gzip.decompress(raw) if path.suffix == '.gz' else raw)
+    verify_sources(root, report, entry['matching_revisions'][0])
+    print('소스 해시 일치:', entry['file'])
+PY
+```
+
+</details>
+
 ## 현재 검증과 다른 숫자
 
 - 공개 상담 TF-IDF 체험의 실시간 결과·작업 ID·로그는 현재 API 응답이다. 브라우저 복원 기록은 그 과거 응답이며 재조회로 표시하지 않는다.

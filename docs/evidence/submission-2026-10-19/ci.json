@@ -1,0 +1,22 @@
+{
+  "source_commit": "b999cb9fca31cb0bec2df956f54b45b99413ab87",
+  "run_url": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39144572841",
+  "job_id": 117725689969,
+  "conclusion": "success",
+  "backend": "159 passed, 1 skipped in 51.72s",
+  "frontend": "61 passed",
+  "scheduling_repetitions": "8 passed, 1 skipped x 3",
+  "skipped": "test_database.py::test_session_capacity_and_expired_session_cleanup (SQLite-only fixture)",
+  "skip_evidence": "Covered by 2026-10-18 local 160-test run; reused evidence, unchanged backend source; not rerun locally today",
+  "log_excerpt": [
+    "2026-10-18T16:22:18.2377442Z 159 passed, 1 skipped in 51.72s",
+    "2026-10-18T16:22:27.0667083Z {\"passed\": 6, \"predictions_matched\": 9, \"output\": \"work/model-handoff.json\"}",
+    "2026-10-18T16:22:38.9608068Z 8 passed, 1 skipped in 10.18s",
+    "2026-10-18T16:22:49.9483129Z 8 passed, 1 skipped in 10.23s",
+    "2026-10-18T16:23:00.8838372Z 8 passed, 1 skipped in 10.19s",
+    "2026-10-18T16:23:26.1812008Z \u001b[2m Test Files \u001b[22m \u001b[1m\u001b[32m11 passed\u001b[39m\u001b[22m\u001b[90m (11)\u001b[39m",
+    "2026-10-18T16:23:26.1813269Z \u001b[2m      Tests \u001b[22m \u001b[1m\u001b[32m61 passed\u001b[39m\u001b[22m\u001b[90m (61)\u001b[39m",
+    "2026-10-18T16:23:33.5351506Z PASS UI comparison is derived from raw evidence",
+    "2026-10-18T16:23:33.9006555Z PASS serving view matches source evidence"
+  ]
+}
