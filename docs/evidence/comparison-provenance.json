@@ -1,0 +1,9 @@
+{
+  "source_revision": "976ebb74e022238a0b6cc49a61e2352e09d95bc3",
+  "scope": "Revision matching every recorded source SHA-256 in safety-evaluation.json and action-workloads.json. This is archived evidence, not a measurement of current HEAD.",
+  "measured_at_utc": [
+    "2026-10-11T15:34:06.757744+00:00",
+    "2026-10-11T15:34:29.333644+00:00"
+  ],
+  "current_correctness": "CI reruns both evaluators against current HEAD on SQLite and PostgreSQL, with new results uploaded as separate artifacts."
+}

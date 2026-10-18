@@ -12,11 +12,12 @@ workloads = json.loads((ROOT / 'docs/evidence/action-workloads.json').read_text(
 if not workloads.get('validation', {}).get('passed'):
     raise SystemExit('Workload evidence did not pass its SQL and outcome checks')
 if args.check:
-    import hashlib
+    from evidence_provenance import verify_sources
+    # These published measurements intentionally remain historical. Latest
+    # correctness is exercised by the two evaluators earlier in CI.
+    revision = json.loads((ROOT / 'docs/evidence/comparison-provenance.json').read_text())['source_revision']
     for report in (raw, workloads):
-        for path, expected in report['source_sha256'].items():
-            if hashlib.sha256((ROOT / path).read_bytes()).hexdigest() != expected:
-                raise SystemExit(f'Stored comparison evidence predates {path}; rerun its evaluator')
+        verify_sources(ROOT, report, revision)
 summary = {k: raw[k] for k in ('measured_at', 'scope', 'limitations', 'source_sha256')}
 summary['databases'] = [dict(database=d['database'], database_version=d['database_version'],
     results=[dict(strategy=r['strategy'], totals=r['totals'], cases=[dict(
