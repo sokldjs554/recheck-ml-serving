@@ -1,0 +1,24 @@
+{
+  "baseline": "08fb9d2e60bf2e77f553ac98ef56a2a0bc7cc077",
+  "runtime_commit": "0678cca1166d44f2a0ad083afebb002db3b83e7c",
+  "environment": "local Python API + SQLite, Chromium /usr/bin/chromium, Vite frontend; no public load",
+  "frontend": {
+    "passed": 61,
+    "failed": 0
+  },
+  "build": "passed",
+  "case_checks": 13,
+  "restoration_checks": 9,
+  "presentation_checks": 7,
+  "real_server_ttl_expiry": "passed, separate owned API/worker pair with 2-second TTL",
+  "initial_failures": [
+    "React render test still expected removed footer auto-run button; changed to rendering top auto-run and shared case together.",
+    "Browser download expected visible log button; changed to expand actual request details before downloading."
+  ],
+  "runner_warning": "Restoration completed all 9 checks with exit 0 and no page errors; Playwright emitted CancelledError while closing a held route callback.",
+  "unmeasured": [
+    "No new serving throughput measurement",
+    "No human usability retest",
+    "No physical mobile Safari test"
+  ]
+}

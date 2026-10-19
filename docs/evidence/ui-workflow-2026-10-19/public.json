@@ -1,0 +1,528 @@
+{
+  "runtime_commit": "0678cca1166d44f2a0ad083afebb002db3b83e7c",
+  "run": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39216074601",
+  "chromium_job": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39216074601/job/117940112951",
+  "artifact_id": 12169573597,
+  "artifact_sha256": "05a7422cbfa00b5881077a3ce2568d973685d2e52c1148ef765b037ad951587a",
+  "reports": {
+    "public-browser/browser-checks.json": {
+      "captured_at": "2026-10-19T07:29:29.350112+00:00",
+      "frontend": "https://sokldjs554.github.io/recheck-ml-serving/",
+      "api": "https://recheck-ml-serving.onrender.com",
+      "browser_executable": "/home/runner/.cache/ms-playwright/chromium-1187/chrome-linux/chrome",
+      "checks": [
+        {
+          "name": "browser valid receipt then feature change refuses use",
+          "passed": true
+        },
+        {
+          "name": "immutable receipt amount stays unchanged while the next request is pending",
+          "passed": true
+        },
+        {
+          "name": "browser 정책 갱신 refuses stale receipt",
+          "passed": true
+        },
+        {
+          "name": "browser 모델 교체 refuses stale receipt",
+          "passed": true
+        },
+        {
+          "name": "protected inference race invalidates stale result",
+          "passed": true
+        },
+        {
+          "name": "unsafe baseline is visible but validation refuses; JSON download and Escape",
+          "passed": true,
+          "downloaded": "recheck-34a297de-a086-4748-b383-2049a7f36b4f.json"
+        },
+        {
+          "name": "browser fault 시간 초과 produces explicit review reason",
+          "passed": true
+        },
+        {
+          "name": "browser fault 응답 불가 produces explicit review reason",
+          "passed": true
+        },
+        {
+          "name": "dated operations evidence and source links are readable on desktop and mobile",
+          "passed": true
+        },
+        {
+          "name": "architecture, design rationale, receipts, and successful guided comparison",
+          "passed": true
+        },
+        {
+          "name": "a previous successful browser validation becomes refusal after actual expiry",
+          "passed": true,
+          "waited_ms": 21000
+        },
+        {
+          "name": "responsive layout without horizontal overflow",
+          "passed": true,
+          "width": 390
+        },
+        {
+          "name": "responsive layout without horizontal overflow",
+          "passed": true,
+          "width": 768
+        },
+        {
+          "name": "responsive layout without horizontal overflow",
+          "passed": true,
+          "width": 1024
+        },
+        {
+          "name": "supporting evidence menu opens by keyboard and all six destinations are focusable on landscape",
+          "passed": true
+        },
+        {
+          "name": "live revalidation waits for mutation response before checking current state",
+          "passed": true
+        },
+        {
+          "name": "live Python HTTP mode validates clear result and refuses feature-stale use",
+          "passed": true
+        },
+        {
+          "name": "no browser page errors",
+          "passed": true
+        }
+      ],
+      "page_errors": [],
+      "notes": [
+        "Browser mode is a synthetic local state machine, not Python inference or a backend benchmark.",
+        "Live checks use actual HTTP requests only when --api is supplied.",
+        "Acceptance duration is test runtime, not model or serving performance."
+      ],
+      "passed": true,
+      "screenshots": [
+        "demo-desktop.png",
+        "demo-comparison.png",
+        "demo-mobile.png"
+      ],
+      "test_duration_seconds": 35.097
+    },
+    "public-evidence/acceptance.json": {
+      "captured_at": "2026-10-19T07:30:05.822187+00:00",
+      "frontend": "https://sokldjs554.github.io/recheck-ml-serving/",
+      "api": "https://recheck-ml-serving.onrender.com",
+      "checks": [
+        {
+          "name": "real Python connection and isolated persistent session",
+          "passed": true
+        },
+        {
+          "name": "actual retrieval creates a currently usable receipt",
+          "passed": true
+        },
+        {
+          "name": "actual source edit preserves historical output and refuses its use",
+          "passed": true
+        },
+        {
+          "name": "same dimension incompatible model/index cannot deploy",
+          "passed": true
+        },
+        {
+          "name": "computed quality regression fails and real report is downloadable",
+          "passed": true
+        },
+        {
+          "name": "paired rebuild switches atomically and new receipt cites edited content",
+          "passed": true
+        },
+        {
+          "name": "second product reuses the evidence lifecycle",
+          "passed": true
+        },
+        {
+          "name": "deleted evidence cannot be used",
+          "passed": true
+        },
+        {
+          "name": "390/768/1440 responsive layout without document overflow",
+          "passed": true
+        },
+        {
+          "name": "HTTP failure clears previous validation instead of showing success",
+          "passed": true
+        },
+        {
+          "name": "failed document update leaves no stale success assertion",
+          "passed": true
+        },
+        {
+          "name": "pending mutation disables reuse and late completion cannot overwrite a new lab",
+          "passed": true
+        }
+      ],
+      "page_errors": [],
+      "scope": "actual HTTP API; fictional lexical retrieval; not LLM"
+    },
+    "public-case/case-browser.json": {
+      "frontend": "https://sokldjs554.github.io/recheck-ml-serving/",
+      "api": "https://recheck-ml-serving.onrender.com",
+      "checks": [
+        "compact working screen exposes check criteria and leaves unfetched policy blank",
+        "automatic and contextual buttons clicked in one turn create one session and one flow",
+        "one-click actual HTTP run preserves old/new answers and produces exactly one persisted task",
+        "result button focuses the current run summary without navigation or API requests",
+        "completed compare -> primary execution navigation preserves exact downloaded evidence and action with zero API requests",
+        "held actual HTTP mutation continues while case view is absent; return preserves session, event prefix and one persisted action without duplicate navigation requests",
+        "blocked reason is visible beside the result with 7.32:1 text contrast",
+        "lost commit response cannot claim success; retry retains original key and displays replay",
+        "actual HTTP: old answer blocked, fresh task recorded, replay returns one historical action, JSON contains actual responses",
+        "390 portrait, 768 tablet, 844 landscape: no horizontal overflow and reset reachable",
+        "network failure clears success and same-step retry completes with actual HTTP",
+        "injected HTTP404 session_missing_or_expired preserves historical evidence across navigation, disables continuation and requires explicit reset for a new real session",
+        "pending controls locked; late session completion after reset does not restore old state"
+      ],
+      "page_errors": [],
+      "api_requests": [
+        {
+          "method": "GET",
+          "url": "https://recheck-ml-serving.onrender.com/health"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions"
+        },
+        {
+          "method": "GET",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/766fdd43-ba36-4719-9663-362959b6d874/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/766fdd43-ba36-4719-9663-362959b6d874/evidence/prepare"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/766fdd43-ba36-4719-9663-362959b6d874/evidence/events"
+        },
+        {
+          "method": "GET",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/766fdd43-ba36-4719-9663-362959b6d874/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/766fdd43-ba36-4719-9663-362959b6d874/evidence/receipts/1ab80bad-2fec-4897-b228-e439b51b9b8a/execute"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/766fdd43-ba36-4719-9663-362959b6d874/evidence/releases/evaluate"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/766fdd43-ba36-4719-9663-362959b6d874/evidence/releases/70dd06ca-578b-4f5d-b7eb-ab6bf8b63791/promote"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/766fdd43-ba36-4719-9663-362959b6d874/evidence/prepare"
+        },
+        {
+          "method": "GET",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/766fdd43-ba36-4719-9663-362959b6d874/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/766fdd43-ba36-4719-9663-362959b6d874/evidence/receipts/58e11afc-4837-476e-b036-9aead9966fa3/execute"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/766fdd43-ba36-4719-9663-362959b6d874/evidence/receipts/58e11afc-4837-476e-b036-9aead9966fa3/execute"
+        },
+        {
+          "method": "GET",
+          "url": "https://recheck-ml-serving.onrender.com/health"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions"
+        },
+        {
+          "method": "GET",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/6fc3a78e-4a87-4b9d-b776-36b550747576/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/6fc3a78e-4a87-4b9d-b776-36b550747576/evidence/prepare"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/6fc3a78e-4a87-4b9d-b776-36b550747576/evidence/events"
+        },
+        {
+          "method": "GET",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/6fc3a78e-4a87-4b9d-b776-36b550747576/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/6fc3a78e-4a87-4b9d-b776-36b550747576/evidence/receipts/8ef13eb9-2e7a-4190-b702-73a6c45d5946/execute"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/6fc3a78e-4a87-4b9d-b776-36b550747576/evidence/releases/evaluate"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/6fc3a78e-4a87-4b9d-b776-36b550747576/evidence/releases/20b4e0c7-9794-45e4-9b60-b5c29a6642f7/promote"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/6fc3a78e-4a87-4b9d-b776-36b550747576/evidence/prepare"
+        },
+        {
+          "method": "GET",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/6fc3a78e-4a87-4b9d-b776-36b550747576/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/6fc3a78e-4a87-4b9d-b776-36b550747576/evidence/receipts/852dbf77-a41b-4a05-89f0-75864b2fbc98/execute"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/6fc3a78e-4a87-4b9d-b776-36b550747576/evidence/receipts/852dbf77-a41b-4a05-89f0-75864b2fbc98/execute"
+        },
+        {
+          "method": "GET",
+          "url": "https://recheck-ml-serving.onrender.com/health"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions"
+        },
+        {
+          "method": "GET",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/f78adc66-2bf0-4dd8-b433-e85d2f1e0e44/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/f78adc66-2bf0-4dd8-b433-e85d2f1e0e44/evidence/prepare"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/f78adc66-2bf0-4dd8-b433-e85d2f1e0e44/evidence/events"
+        },
+        {
+          "method": "GET",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/f78adc66-2bf0-4dd8-b433-e85d2f1e0e44/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/f78adc66-2bf0-4dd8-b433-e85d2f1e0e44/evidence/receipts/550c78b7-90ef-45b5-a04b-d0f7d154d229/execute"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/f78adc66-2bf0-4dd8-b433-e85d2f1e0e44/evidence/releases/evaluate"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/f78adc66-2bf0-4dd8-b433-e85d2f1e0e44/evidence/releases/3be55559-0b90-41da-a582-24cb1efd5ea5/promote"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/f78adc66-2bf0-4dd8-b433-e85d2f1e0e44/evidence/prepare"
+        },
+        {
+          "method": "GET",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/f78adc66-2bf0-4dd8-b433-e85d2f1e0e44/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/f78adc66-2bf0-4dd8-b433-e85d2f1e0e44/evidence/receipts/0d861225-815f-4c8c-9259-214bc7818774/execute"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/f78adc66-2bf0-4dd8-b433-e85d2f1e0e44/evidence/receipts/0d861225-815f-4c8c-9259-214bc7818774/execute"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/f78adc66-2bf0-4dd8-b433-e85d2f1e0e44/evidence/receipts/0d861225-815f-4c8c-9259-214bc7818774/execute"
+        },
+        {
+          "method": "GET",
+          "url": "https://recheck-ml-serving.onrender.com/health"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions"
+        },
+        {
+          "method": "GET",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/b507580f-bf71-4331-8d2d-4348405cae79/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/b507580f-bf71-4331-8d2d-4348405cae79/evidence/prepare"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/b507580f-bf71-4331-8d2d-4348405cae79/evidence/events"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/b507580f-bf71-4331-8d2d-4348405cae79/evidence/events"
+        },
+        {
+          "method": "GET",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/b507580f-bf71-4331-8d2d-4348405cae79/evidence"
+        },
+        {
+          "method": "GET",
+          "url": "https://recheck-ml-serving.onrender.com/health"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions"
+        },
+        {
+          "method": "GET",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/6a66cf96-2069-467d-88f4-f380dbb24862/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/6a66cf96-2069-467d-88f4-f380dbb24862/evidence/prepare"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/6a66cf96-2069-467d-88f4-f380dbb24862/evidence/events"
+        },
+        {
+          "method": "GET",
+          "url": "https://recheck-ml-serving.onrender.com/health"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions"
+        },
+        {
+          "method": "GET",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/830caa35-a117-4ad4-b6f2-7cbdcfff199d/evidence"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions/830caa35-a117-4ad4-b6f2-7cbdcfff199d/evidence/prepare"
+        },
+        {
+          "method": "GET",
+          "url": "https://recheck-ml-serving.onrender.com/health"
+        },
+        {
+          "method": "POST",
+          "url": "https://recheck-ml-serving.onrender.com/api/sessions"
+        }
+      ],
+      "expiry_scope": "controlled HTTP404 response injection; real SQL-age expiry is a separate server check"
+    },
+    "public-comparison/acceptance.json": {
+      "captured_at": "2026-10-19T07:30:54.862414+00:00",
+      "frontend": "https://sokldjs554.github.io/recheck-ml-serving/",
+      "scope": "browser inspection of stored actual SQL experiments; no live comparison writes",
+      "checks": [
+        {
+          "name": "comparison is reachable from the first screen and identifies stored evidence",
+          "passed": true
+        },
+        {
+          "name": "sqlite: stale rejection, selective invalidation, ABA and retry match SQL evidence",
+          "passed": true
+        },
+        {
+          "name": "postgresql: stale rejection, selective invalidation, ABA and retry match SQL evidence",
+          "passed": true
+        },
+        {
+          "name": "contended outcomes and separate normal-path latency have visible denominators",
+          "passed": true
+        },
+        {
+          "name": "real lock-timeout errors remain visible beside separately recorded recovery",
+          "passed": true
+        },
+        {
+          "name": "record inspection never triggers unsafe API execution",
+          "passed": true
+        },
+        {
+          "name": "390/768/1440 layouts fit and native controls are keyboard reachable",
+          "passed": true
+        }
+      ],
+      "page_errors": []
+    },
+    "public-serving/results.json": {
+      "checks": [
+        "model handoff shows startup rejection cases and expandable prediction values",
+        "all request outcomes including late HTTP 200 are visible; boundary and stored evidence are labeled",
+        "serving deep link survives reload",
+        "actual dependency failure and nonzero DB restart errors are retained",
+        "postgresql API journal is fetched and labeled as boot-scoped observations",
+        "back navigation, return to live case, and mobile layouts work"
+      ],
+      "page_errors": []
+    },
+    "public-presentation/results.json": {
+      "checks": [
+        "actual recording decodes while live health request is pending; stored label, live state, and shared controls remain distinct",
+        "journal filters retain all original events; blocked write and same-ID record/replay are distinguishable",
+        "1440/768/390/320: top control, expanded recording and case have no page overflow",
+        "six phase cohorts preserve outcome denominators; the committed 504 links to its original request key and SQL row with no API calls",
+        "serving: visible scope/results, collapsed conditions/raw data, expanded layout and contained table scrolling at four widths",
+        "captured failure/recovery spans, model exception and matching SQL receipt are inspectable without fabricated DB span",
+        "recovery: visible scope/results, collapsed conditions/raw data, expanded layout and contained table scrolling at four widths"
+      ],
+      "media": {
+        "source": "https://sokldjs554.github.io/recheck-ml-serving/media/recheck-walkthrough.webm",
+        "duration": 41.36,
+        "width": 1280,
+        "height": 1080,
+        "poster": "https://sokldjs554.github.io/recheck-ml-serving/media/recheck-poster.webp"
+      },
+      "action_id": "30e9130b-de88-4ec9-9b5f-0dbac8e6bd34",
+      "page_errors": []
+    },
+    "public-restoration-chromium/results.json": {
+      "engine": "chromium",
+      "browser_version": "140.0.7339.16",
+      "scope": "Playwright engine; not real-device Safari or user comprehension research",
+      "base": "https://sokldjs554.github.io/recheck-ml-serving/",
+      "api": "https://recheck-ml-serving.onrender.com",
+      "checks": [
+        "completed reload and navigation preserve session, drafts, action and exact logs without API requests",
+        "stored real recording decodes in the selected engine and remains separate from restored API evidence",
+        "explicit reset clears the same-tab checkpoint across reload",
+        "reload with a real committed response held preserves its key; explicit resume returns one SQL-backed action",
+        "restored historical labels and action remain readable without document overflow at four widths",
+        "injected session-expiry preflight stops continuation while preserving historical evidence",
+        "damaged checkpoint is rejected without breaking the page",
+        "stored serving exception and recovery layouts work in the selected browser engine",
+        "injected localStorage and sessionStorage denial keeps live execution usable with an explicit no-restore warning"
+      ],
+      "failures": [],
+      "page_errors": [],
+      "media": {
+        "source": "https://sokldjs554.github.io/recheck-ml-serving/media/recheck-walkthrough.webm",
+        "width": 1280,
+        "height": 1080,
+        "duration": 41.36
+      },
+      "action_id": "20386a3a-c65a-492a-89a2-ecc28d4c54ce",
+      "session": "b95f6200-3595-451c-acf2-f69d2a59c8b3"
+    }
+  },
+  "captures": {
+    "public-case/blocked-desktop.png": "public-blocked-1440.png",
+    "public-case/record-desktop.png": "public-record-1440.png",
+    "public-case/record-mobile.png": "public-record-390.png",
+    "public-restoration-chromium/case-restored-390.png": "public-restored-390.png",
+    "public-restoration-chromium/serving-1440.png": "public-serving-1440.png",
+    "public-restoration-chromium/recovery-1440.png": "public-recovery-1440.png",
+    "public-case/case-initial-desktop.png": "public-entry-1440.png"
+  },
+  "chromium_checks": 72,
+  "conclusion": "success",
+  "webkit_checks": 9,
+  "total_checks": 81,
+  "webkit_report": "public-webkit.json"
+}

@@ -82,3 +82,77 @@
 - 최종 공개 캡처: [첫 화면](evidence/product-ui-2026-10-19/public-entry-1440.png) · [이전 답변 차단](evidence/product-ui-2026-10-19/public-blocked-1440.png) · [모바일 완료](evidence/product-ui-2026-10-19/public-complete-390.png) · [모바일 복원](evidence/product-ui-2026-10-19/public-restored-390.png)
 
 이번 화면 수정과 배포 검증은 완료했다. 친구가 수정 후 화면을 다시 사용한 결과는 아직 없으며, 기존 발언을 재검증·중복 방지의 기술 검증으로 해석하지 않는다. 공개 검사는 저장 처리의 기능 확인이며 무료 서버의 첫 응답 지연이나 SLA 개선을 주장하는 자료가 아니다.
+
+## 작업 흐름 재구성
+
+시작 상태는 `feat/project-introduction`의 `08fb9d2e60bf2e77f553ac98ef56a2a0bc7cc077`이며 당시 미커밋 변경이 없고 `origin/main`과 같았다. 위의 1차·후속 변경을 되돌리지 않고 이어서 수정했다. 이번 입력도 같은 비전공자 친구 1명의 세 답변이며, 새로운 관찰 결과나 정량 조사 결과는 아니다.
+
+### 확인한 참고 자료
+
+2026-10-19 KST에 접근한 범위와 참고 목적을 구분한다. 아래 자료는 합격자 프로젝트 목록이 아니며, 코드·문장·디자인 자산·성능 수치를 가져오지 않았다.
+
+| 자료 | 실제 확인한 범위 | 이번 작업에 적용한 원칙 |
+|---|---|---|
+| [공식 ML Backend Engineer 공고](https://toss.im/career/job-detail?job_id=6600650003) | 서버 설계·구현, 모델 응답 속도·처리량, 대규모 트래픽, MSA 추적, Kubernetes 및 선택의 비용 | 기술을 새로 늘리지 않고 기존 서버 구조·서빙·추적·비용 근거를 README에서 연결 |
+| [Bank of Anthos](https://github.com/GoogleCloudPlatform/bank-of-anthos) | README, [실제 frontend 템플릿](https://github.com/GoogleCloudPlatform/bank-of-anthos/blob/main/src/frontend/templates/index.html)의 잔액·작업·거래 기록 구조. [공개 사이트](https://cymbal-bank.fsi.cymbal.dev/)는 로그인 화면만 읽음 | 사용 화면에서는 작업과 상태를 먼저, 저장소에서는 아키텍처를 설명. 로그인 후 거래 조작은 미실행 |
+| [OpenTelemetry Demo](https://github.com/open-telemetry/opentelemetry-demo) | README와 [공식 메모리 누수 진단 시나리오](https://opentelemetry.io/docs/demo/feature-flags/recommendation-cache/): flag 활성화→metrics→지연 trace→속성 확인 | 저장된 실패·복구 trace와 SQL 대조를 이어서 읽도록 유지. 타 프로젝트를 직접 배포하거나 장애 주입하지 않음 |
+| [BentoSentenceTransformers](https://github.com/bentoml/BentoSentenceTransformers) | README, `service.py`, `locustfile.py` 실제 소스. `/encode`, batchable API, 가변 문장 개수와 Locust 대기 범위 | API 목적·실행 명령·부하 재현 코드를 연결. 해당 모델의 실행·성능 측정은 하지 않음 |
+| [HARI](https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN22-Final-4Team-WEB) | 공개 README의 대표 이미지 참조, 기능, 구조도 참조와 개발·배포 설명 | README 상단 화면과 기능→구조→실행 순서 참고. 공개 앱 조작이나 영상 시청을 확인했다고 쓰지 않음 |
+| [함종현 공개 이력서](https://refresh.cv/jh.ham) | 공개 경력 설명과 프로젝트/기술 글 연결 | 짧은 문제·결과 뒤 상세 근거 연결. 개인 성과 수치를 재사용하거나 채용 원인으로 해석하지 않음 |
+
+### 변경 전 문제와 선택
+
+| 코드·화면에서 확인한 문제 | 변경 내용 | 유지한 동작 / 비용 |
+|---|---|---|
+| 상단·하단의 동일 자동 실행 버튼과 단계 버튼이 서로 경쟁함. ‘답변 확인 시작’이 실제로는 전체 여섯 단계를 실행 | 자동 실행은 상단의 보조 버튼 하나로. 답변 아래에는 현재 단계에 해당하는 행동 버튼을 주 행동으로 배치 | 두 진입점은 App 소유 `CaseFlow`의 busy/running 방어 공유. 한 단계씩 읽으면 자동 실행보다 클릭 수가 많음 |
+| 비슷한 너비의 원문·답변 영역 뒤에 전체 너비 처리 결과가 떨어져 있음 | 현재 안내를 좁은 참고 영역에, 준비 답변·처리 이유·다음 행동을 넓은 작업 영역에 묶음. 모바일은 원문→답변→처리 순서 | 문서 v2와 답변 인용 v1을 동시에 보존. 금액 비교로 서버 계약을 바꾸지 않음 |
+| 완료 요약이 작업 영역 앞에 나타나며 동작을 밀어내고, 동일 결과가 상태 줄에도 반복 | 현재 작업을 먼저, 누적 결과를 아래 배치. 완료 버튼은 결과로 스크롤·초점 이동. 성공 상태의 aria-live 안내는 스크린리더에 유지 | 차단 후 미실행 단계는 ‘기록 확인 전’. 응답 유실 시 성공으로 표시하지 않음 |
+| 원문 전문·요청 로그가 기본 화면을 길게 차지함 | 원문과 요청별 응답을 펼침 영역으로 이동. 결과 요약·작업 ID·다음 행동은 접지 않음 | JSON 다운로드·차단/기록 필터 유지. 원본을 읽으려면 한 번 펼쳐야 함 |
+| 긴 설명보다 시각적 구별과 행동 연결이 필요 | 짙은 녹색은 주 행동·정상 처리, 갈색은 차단, 회색은 대기. 문구·구분선·상태 표시도 함께 사용. 짧은 화면명 유지 | 색상만으로 상태를 전달하지 않음. 사람의 이해도 개선 여부는 후속 확인 필요 |
+
+변경 코드: [CaseStudy](../demo/src/CaseStudy.tsx), [자동 실행 버튼](../demo/src/CaseRunButton.tsx), [작업 화면 스타일](../demo/src/interface.css). API 계약·세션 소유 구조·멱등 키·백엔드·성능 실험은 변경하지 않았다. 누적되던 `interface.css`의 중복 덮어쓰기 규칙을 정리해 작업·결과·상세 근거의 순서로 재구성했다.
+
+README는 기능 소개→화면→실행 흐름→구조→선택의 비용→조건을 붙인 과거 측정→재현→역할·한계 순서로 재구성했다. 구조도는 공개 상담 `/evidence/.../execute`와 로컬 CPU `/decisions`를 구분한다. 사용성 상태의 오래된 ‘관찰 대기’ 문구도 ‘첫 답변 수신, 수정 후 재확인 대기’로 바로잡았다.
+
+### 검증 범위
+
+로컬 Python API·SQLite에서 프런트 61개, 대표 흐름 13개, 새로고침 복원 9개, 화면·영상·저장 근거 검사 7개를 확인했다. 실제 차단 사유의 대비는 7.32:1로 측정했다. 320/390/768/1440 너비, 키보드 초점 순서, 긴 작업 ID와 펼친 표·도식의 문서 가로 넘침을 검사했다. 모델 부하·trace 선택은 저장된 데이터를 읽으며 API를 호출하지 않는지 확인했다.
+
+초기 검사에서 삭제한 하단 자동 버튼을 찾는 렌더링 테스트와 접힌 로그의 다운로드 버튼을 찾는 브라우저 검사가 실패했다. 최종 화면 구조에 맞춰 상단 자동 버튼과 단계 버튼의 동시 클릭, 로그 펼침 후 다운로드로 변경하고 다시 실행했다. 실제 동작 검증 조건을 없애지 않았다. 복원 검사 종료 시 Playwright route callback의 `CancelledError`가 로그에 남았지만, 9개 검사·프로세스 종료 코드 0·page error 0을 별도로 확인했다.
+
+### 친구에게 다시 부탁할 과제
+
+버튼 이름·위치·예상 결과를 설명하지 않은 채 요청한다.
+
+1. 처음 화면을 보고 어떤 일을 할 수 있는 곳인지 본인의 말로 설명해 주세요.
+2. 화면에서 가능한 작업을 진행한 뒤, 무엇이 달라졌는지 화면을 보면서 설명해 주세요.
+3. 페이지를 새로고침한 뒤, 남아 있는 정보가 무엇인지 설명해 주세요.
+
+[관찰 양식](usability-record.md)에 익명 참여자·기기/브라우저·완료 여부·도움 제공·막힌 지점·실제 발언을 기록한다. 동일 참여자의 학습 효과를 구분하고, 답변이 도착하기 전에는 재확인 완료·이해도 향상이라고 쓰지 않는다.
+
+
+### 배포 코드와 제출 자료 연결
+
+- 이번 실행 코드: [`0678cca`](https://github.com/sokldjs554/recheck-ml-serving/commit/0678cca1166d44f2a0ad083afebb002db3b83e7c). [공개 화면](https://sokldjs554.github.io/recheck-ml-serving/?v=0678cca#case).
+- [기존 필수 CI](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39216074604): 백엔드 159개 통과·SQLite 전용 1개 제외, 프런트 61개, 두 DB의 정합성 비교·경합 워크로드, 정적 번들·저장 근거 일치 검사 성공. 이번 UI 수정에서 백엔드 동작은 변경하지 않았다.
+- [배포 확인](evidence/ui-workflow-2026-10-19/deployment.json): Render `dep-dbasck3m8hqs73bnvt00`, 같은 코드가 2026-10-19 16:29:26 KST에 live 상태로 전환. 기존 무료 플랜 유지.
+- [로컬 요약](evidence/ui-workflow-2026-10-19/local.json), [체험](evidence/ui-workflow-2026-10-19/local-case.json), [복원](evidence/ui-workflow-2026-10-19/local-restoration.json), [화면·영상](evidence/ui-workflow-2026-10-19/local-presentation.json).
+- 구조도는 [README 시스템 구조](../README.md#시스템-구조와-요청-흐름), 설계 이유·비용·코드 위치는 [현재 설계](decisions.md), 조건·날짜·소스 커밋이 있는 측정값은 [측정 출처](measurement-provenance.md)를 사용한다. 기존 자료를 중복 작성하지 않는다.
+- 본인 역할은 주제·방향 결정, 요구 구체화, 기능·범위 조정, 수정 요청과 결과 검토다. AI가 주로 작성한 코드·데모와 구분한다. 자기소개서·제출용 포트폴리오는 이번에 수정하지 않았다.
+
+
+공개 검증: [배포·브라우저 워크플로](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39216074601) 성공. **Chromium 72개 + macOS WebKit 9개 = 81개 검사 항목**이다. [공개 API 검사와 캡처 출처](evidence/ui-workflow-2026-10-19/public.json), [WebKit 실행 결과](evidence/ui-workflow-2026-10-19/public-webkit.json). 기능·표시 회귀의 검사 개수이며 사람이 화면을 이해했다는 측정값이 아니다.
+
+### 변경 전후 화면과 원본
+
+아래 변경 후 이미지는 로컬 목업이 아니라 `0678cca`가 배포된 Pages·공개 Python API를 사용한 CI의 원본 캡처다. 첫 화면은 요청 전, 차단·기록 화면은 실제 응답 이후다. 모바일 결과는 390px 너비의 결과 영역을 캡처해 글자를 읽을 수 있게 했다. ID는 가상 세션의 작업 ID이며 개인정보는 없다.
+
+| 자료 | 변경 전 | 변경 후 |
+|---|---|---|
+| 첫 화면 | [이전 공개 화면](evidence/product-ui-2026-10-19/public-entry-1440.png) | [현재 공개 화면](evidence/ui-workflow-2026-10-19/public-entry-1440.png) |
+| 이전 답변 차단 | [이전 차단 화면](evidence/product-ui-2026-10-19/public-blocked-1440.png) | [현재 조건·이전 답변·차단 이유와 다음 행동](evidence/ui-workflow-2026-10-19/public-blocked-1440.png) |
+| 기록과 재시도 | [이전 모바일](evidence/product-ui-2026-10-19/public-complete-390.png) | [데스크톱](evidence/ui-workflow-2026-10-19/public-record-1440.png) · [모바일 결과](evidence/ui-workflow-2026-10-19/public-record-390.png) |
+| 새로고침 복원 | [이전 복원](evidence/product-ui-2026-10-19/public-restored-390.png) | [현재 복원](evidence/ui-workflow-2026-10-19/public-restored-390.png) |
+| 기술 근거 | 기존 측정 재사용 | [모델 부하](evidence/ui-workflow-2026-10-19/public-serving-1440.png) · [실패 trace·SQL·복구](evidence/ui-workflow-2026-10-19/public-recovery-1440.png) |
+
+남은 범위: 수정 후 친구의 실제 재확인, 실기기 Safari 검사는 미실시다. 무료 서버 첫 응답 지연과 실제 Health Check Path 설정은 [기존 운영 기록](submission-2026-10-19.md#첫-응답-지연과-실제-배포-설정)에 남아 있으며 이번 UI 변경으로 해결했다고 주장하지 않는다. 시연 영상은 이전 UI임을 표시했고, 과거 성능 측정을 현재 코드의 재측정으로 바꾸지 않았다. 이번 UI·README 작업은 공개 배포와 회귀 검증까지 완료했으며, 다음 사람 관찰 결과는 별도의 후속 수정 근거로 받는다.

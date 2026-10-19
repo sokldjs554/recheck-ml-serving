@@ -1,0 +1,124 @@
+{
+  "runtime_commit": "0678cca1166d44f2a0ad083afebb002db3b83e7c",
+  "baseline": "08fb9d2e60bf2e77f553ac98ef56a2a0bc7cc077",
+  "ci_url": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39216074604",
+  "ci_conclusion": "success",
+  "ci_summary": [
+    "2026-10-19T07:28:23.3941080Z 159 passed, 1 skipped in 32.03s",
+    "2026-10-19T07:28:36.2448121Z 8 passed, 1 skipped in 6.50s",
+    "2026-10-19T07:28:43.1996370Z 8 passed, 1 skipped in 6.48s",
+    "2026-10-19T07:28:50.2859582Z 8 passed, 1 skipped in 6.61s",
+    "2026-10-19T07:29:06.6455812Z  Test Files  11 passed (11)",
+    "2026-10-19T07:29:06.6456625Z       Tests  61 passed (61)",
+    "2026-10-19T07:29:10.4993410Z ✓ built in 1.58s"
+  ],
+  "ci_steps": [
+    {
+      "name": "Set up job",
+      "conclusion": "success"
+    },
+    {
+      "name": "Initialize containers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/checkout@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/setup-python@v5",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/setup-node@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run pip install -r backend/requirements.txt",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run python -m pytest backend/tests -q",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify training-to-serving handoff",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/upload-artifact@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Repeat scheduling-sensitive correctness and timeout contracts",
+      "conclusion": "success"
+    },
+    {
+      "name": "Reproduce safety counterexamples on both databases",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/upload-artifact@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Reproduce contended action workloads on both databases",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/upload-artifact@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run npm ci && npm test && npm run build",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run python scripts/build_safety_summary.py --check",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run python scripts/build_serving_summary.py --check",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run python scripts/build_fullpath_summary.py --check",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run diff -qr demo/dist web_static",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run python -m compileall -q scripts backend/recheck",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/setup-node@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/setup-python@v5",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/checkout@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Stop containers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Complete job",
+      "conclusion": "success"
+    }
+  ],
+  "render": {
+    "id": "dep-dbasck3m8hqs73bnvt00",
+    "status": "live",
+    "commit": "0678cca1166d44f2a0ad083afebb002db3b83e7c",
+    "finishedAt": "2026-10-19T07:29:26.502088Z"
+  },
+  "scope": "UI and README only; historical performance measurements retained; no new infrastructure or load tests."
+}

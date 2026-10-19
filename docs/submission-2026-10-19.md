@@ -1,5 +1,7 @@
 # 제출 기준과 마무리 기록
 
+> 이 문서는 `b999cb9` 시점의 운영·측정 출처 정리다. 이후 UI·README와 친구 답변 반영, 최신 배포·검증은 [작업 흐름 재구성](usability-feedback-2026-10-19.md#작업-흐름-재구성)에 이어 기록한다. 아래의 ‘관찰 대기’는 당시 상태다.
+
 시작 기준: `fe5df9d84be0c5bb29fcfb9132a4d7dcea15ba1a`, 브랜치 `feat/project-introduction`. 원격 main과 같았고 미커밋 변경이 없었다. 시작 시 실제 Render live 커밋은 `2c3d10f07c2ef6094149345c9bc7d478add48fcc`였다. 이후 검사·문서 커밋은 백엔드 실행 코드를 변경하지 않았다.
 
 제출 UI·코드 버전: [`b999cb9`](https://github.com/sokldjs554/recheck-ml-serving/commit/b999cb9fca31cb0bec2df956f54b45b99413ab87). [공개 데모](https://sokldjs554.github.io/recheck-ml-serving/?v=b999cb9#case). 후속 검증 기록 커밋은 문서·캡처만 갱신한다.
