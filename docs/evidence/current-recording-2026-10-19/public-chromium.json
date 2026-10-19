@@ -1,0 +1,28 @@
+{
+  "engine": "chromium",
+  "browser_version": "140.0.7339.16",
+  "scope": "Playwright engine; not real-device Safari or user comprehension research",
+  "base": "https://sokldjs554.github.io/recheck-ml-serving/",
+  "api": "https://recheck-ml-serving.onrender.com",
+  "checks": [
+    "completed reload and navigation preserve session, drafts, action and exact logs without API requests",
+    "stored real recording decodes in the selected engine and remains separate from restored API evidence",
+    "explicit reset clears the same-tab checkpoint across reload",
+    "reload with a real committed response held preserves its key; explicit resume returns one SQL-backed action",
+    "restored historical labels and action remain readable without document overflow at four widths",
+    "injected session-expiry preflight stops continuation while preserving historical evidence",
+    "damaged checkpoint is rejected without breaking the page",
+    "stored serving exception and recovery layouts work in the selected browser engine",
+    "injected localStorage and sessionStorage denial keeps live execution usable with an explicit no-restore warning"
+  ],
+  "failures": [],
+  "page_errors": [],
+  "media": {
+    "source": "https://sokldjs554.github.io/recheck-ml-serving/media/recheck-walkthrough-20261019.webm",
+    "width": 1280,
+    "height": 1080,
+    "duration": 56
+  },
+  "action_id": "a2c999ba-bb9b-4f4f-8e78-99074f802f81",
+  "session": "5c977531-ce7d-4113-9e2e-c58215160f6a"
+}

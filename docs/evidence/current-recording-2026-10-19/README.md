@@ -36,4 +36,15 @@ Python Playwright·Chromium·ffmpeg가 필요하다. 촬영 스크립트의 안�
 - [브라우저 7개 검사](local-presentation.json): 실제 영상 디코딩·재생, health 대기 중 실시간 요청과 영상 구분, API 로그 필터, 1440/768/390/320px 표시, 저장된 6개 부하 구간과 SQL 예외 연결, 실패·복구 trace 상세.
 - 영상에서 실제 409 차단 뒤 두 번의 200이 같은 작업 `0e1b3ba1-02bc-4144-a7fc-1fd144239428`을 가리키는 것을 원본 사건 기록으로 확인할 수 있다. 기존 백엔드와 상태 관리 동작은 변경하지 않았다.
 - 첫 로컬 브라우저 검사는 개발 서버 연결 종료로 `ERR_CONNECTION_REFUSED`로 중단됐다. 서버 재시작 후 위 검사를 통과했다. 이 실패를 공개 API 장애로 해석하지 않는다.
-- 공개 배포와 CI 결과는 확인 후 아래에 연결한다. 과거 부하 성능을 이번 커밋에서 재측정하지 않았다.
+- 공개 배포와 CI 결과는 아래에 연결한다. 과거 부하 성능을 이번 커밋에서 재측정하지 않았다.
+
+## 배포 버전
+
+- 영상·UI 코드: [`8b60aa640efc6d8c798b4171919297b286639063`](https://github.com/sokldjs554/recheck-ml-serving/commit/8b60aa640efc6d8c798b4171919297b286639063).
+- [CI 39221213486](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39221213486): 성공.
+- Render `dep-dbat263m8hqs73bomt6g`: 위 커밋으로 2026-10-19 08:15:11 UTC live. 새로운 유료 리소스나 요금제 변경 없음.
+
+- [공개 Chromium 검사](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39221213508/job/117956693427): 성공. 새 MP4/WebM 모두 HTTP200·정확한 MIME, 56초 영상 재생, 실제 API 체험과 별도 상태 표시 확인. 완료/중간 복원·재시도·화면 왕복은 [public-chromium.json](public-chromium.json)에 기록했다.
+- [검증 로그 발췌](verification.json): 백엔드 159개 통과·1개 제외, 프런트 61개 통과, production bundle과 web_static 일치. 제외 항목을 이번 영상 작업에서 새 검증했다고 세지 않는다.
+
+- [공개 macOS WebKit 검사](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39221213508/job/117958338785): 9개 통과. [결과 JSON](public-webkit.json). 공개 Chromium 72개(로그 PASS66+서빙 JSON6)와 합해 81개 검사다. 이는 자동화 검사 수이며 실제 사용자 이해도나 모든 기기 지원을 뜻하지 않는다.

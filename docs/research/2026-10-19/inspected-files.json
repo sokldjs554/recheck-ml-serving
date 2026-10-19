@@ -1,0 +1,117 @@
+[
+  {
+    "repo": "mlflow/mlflow",
+    "path": "mlflow/server/js/src/shared/web-shared/model-trace-explorer/ModelTraceExplorerDetailView.tsx",
+    "url": "https://github.com/mlflow/mlflow/blob/ee3c16654baf96ff83ca5e67ac05e0558dc48587/mlflow/server/js/src/shared/web-shared/model-trace-explorer/ModelTraceExplorerDetailView.tsx"
+  },
+  {
+    "repo": "mlflow/mlflow",
+    "path": "assets/readme-tracing.png",
+    "url": "https://github.com/mlflow/mlflow/blob/ee3c16654baf96ff83ca5e67ac05e0558dc48587/assets/readme-tracing.png"
+  },
+  {
+    "repo": "vllm-project/vllm",
+    "path": "vllm/benchmarks/serve.py",
+    "url": "https://github.com/vllm-project/vllm/blob/852989f580820849113d67d13fd8053e279d0444/vllm/benchmarks/serve.py"
+  },
+  {
+    "repo": "triton-inference-server/server",
+    "path": "docs/user_guide/batcher.md",
+    "url": "https://github.com/triton-inference-server/server/blob/57b3eba6b5ac9b493747bec0eb8c69f0a0cee7a4/docs/user_guide/batcher.md"
+  },
+  {
+    "repo": "triton-inference-server/server",
+    "path": "docs/user_guide/metrics.md",
+    "url": "https://github.com/triton-inference-server/server/blob/57b3eba6b5ac9b493747bec0eb8c69f0a0cee7a4/docs/user_guide/metrics.md"
+  },
+  {
+    "repo": "restatedev/agent",
+    "path": "packages/libs/core/src/agent/service.ts",
+    "url": "https://github.com/restatedev/agent/blob/95a56fdece5cee57fa0df9a327ea1eb72a3a5d29/packages/libs/core/src/agent/service.ts"
+  },
+  {
+    "repo": "restatedev/agent",
+    "path": "docs/turn-runtime.md",
+    "url": "https://github.com/restatedev/agent/blob/95a56fdece5cee57fa0df9a327ea1eb72a3a5d29/docs/turn-runtime.md"
+  },
+  {
+    "repo": "temporal-sa/durable-agent-skills",
+    "path": "skills/money_transfer/workflow.py",
+    "url": "https://github.com/temporal-sa/durable-agent-skills/blob/c0333fb86fdbeb2010265a921c29b96d0cc16931/skills/money_transfer/workflow.py"
+  },
+  {
+    "repo": "Dababykogitarl/llm-inference-bench",
+    "path": "python/serve/ray_serve_app.py",
+    "url": "https://github.com/Dababykogitarl/llm-inference-bench/blob/58258bcb0f85b1ae5efebf7048e58b9a62a69b92/python/serve/ray_serve_app.py"
+  },
+  {
+    "repo": "Dababykogitarl/llm-inference-bench",
+    "path": "api/generate.js",
+    "url": "https://github.com/Dababykogitarl/llm-inference-bench/blob/58258bcb0f85b1ae5efebf7048e58b9a62a69b92/api/generate.js"
+  },
+  {
+    "repo": "Dababykogitarl/llm-inference-bench",
+    "path": "results/raw/_summary.csv",
+    "url": "https://github.com/Dababykogitarl/llm-inference-bench/blob/58258bcb0f85b1ae5efebf7048e58b9a62a69b92/results/raw/_summary.csv"
+  },
+  {
+    "repo": "Dababykogitarl/llm-inference-bench",
+    "path": "python/experiments/run_experiments.py",
+    "url": "https://github.com/Dababykogitarl/llm-inference-bench/blob/58258bcb0f85b1ae5efebf7048e58b9a62a69b92/python/experiments/run_experiments.py"
+  },
+  {
+    "repo": "Dababykogitarl/llm-inference-bench",
+    "path": "index.html",
+    "url": "https://github.com/Dababykogitarl/llm-inference-bench/blob/58258bcb0f85b1ae5efebf7048e58b9a62a69b92/index.html"
+  },
+  {
+    "repo": "langgenius/dify",
+    "path": "web/app/components/workflow/run/index.tsx",
+    "url": "https://github.com/langgenius/dify/blob/67887de9e427da2892282ce878d8f53c1c18f080/web/app/components/workflow/run/index.tsx"
+  },
+  {
+    "repo": "infiniflow/ragflow",
+    "path": "web/src/pages/next-search/retrieval-documents/index.tsx",
+    "url": "https://github.com/infiniflow/ragflow/blob/24889253765b5acc0aaf7651754ef29742bbbfc1/web/src/pages/next-search/retrieval-documents/index.tsx"
+  },
+  {
+    "repo": "argilla-io/argilla",
+    "path": "argilla-frontend/components/features/annotation/container/fields/RecordStatus.vue",
+    "url": "https://github.com/argilla-io/argilla/blob/5338519accb13ae422f8bf9c0642651c249c49af/argilla-frontend/components/features/annotation/container/fields/RecordStatus.vue"
+  },
+  {
+    "repo": "GokuMohandas/Made-With-ML",
+    "path": "madewithml/serve.py",
+    "url": "https://github.com/GokuMohandas/Made-With-ML/blob/3361aeb8ddfc2affdba9f545c978c38c85cee764/madewithml/serve.py"
+  },
+  {
+    "repo": "GoogleCloudPlatform/bank-of-anthos",
+    "path": "src/frontend/templates/index.html",
+    "url": "https://github.com/GoogleCloudPlatform/bank-of-anthos/blob/db35fea9fd090150e2398106aadb475576f80d94/src/frontend/templates/index.html"
+  },
+  {
+    "repo": "GoogleCloudPlatform/bank-of-anthos",
+    "path": "src/loadgenerator/locustfile.py",
+    "url": "https://github.com/GoogleCloudPlatform/bank-of-anthos/blob/db35fea9fd090150e2398106aadb475576f80d94/src/loadgenerator/locustfile.py"
+  },
+  {
+    "repo": "GoogleCloudPlatform/bank-of-anthos",
+    "path": "docs/img/transactions.png",
+    "url": "https://github.com/GoogleCloudPlatform/bank-of-anthos/blob/db35fea9fd090150e2398106aadb475576f80d94/docs/img/transactions.png"
+  },
+  {
+    "repo": "open-telemetry/opentelemetry-demo",
+    "path": "src/flagd/demo.flagd.json",
+    "url": "https://github.com/open-telemetry/opentelemetry-demo/blob/85c2cb253ae3519ef2b3a02984c32614106de5ea/src/flagd/demo.flagd.json"
+  },
+  {
+    "repo": "bentoml/BentoSentenceTransformers",
+    "path": "service.py",
+    "url": "https://github.com/bentoml/BentoSentenceTransformers/blob/4190091903523385686fce50b04c926071b37ac4/service.py"
+  },
+  {
+    "repo": "bentoml/BentoSentenceTransformers",
+    "path": "locustfile.py",
+    "url": "https://github.com/bentoml/BentoSentenceTransformers/blob/4190091903523385686fce50b04c926071b37ac4/locustfile.py"
+  }
+]

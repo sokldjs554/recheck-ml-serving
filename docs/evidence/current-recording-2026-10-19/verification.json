@@ -1,0 +1,31 @@
+{
+  "commit": "8b60aa640efc6d8c798b4171919297b286639063",
+  "ci": {
+    "url": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39221213486",
+    "job": 117956693223,
+    "conclusion": "success",
+    "evidence": [
+      "2026-10-19T08:14:43.6926079Z 159 passed, 1 skipped in 43.04s",
+      "2026-10-19T08:15:41.5593951Z       Tests  61 passed (61)",
+      "2026-10-19T08:15:47.9109443Z ##[group]Run diff -qr demo/dist web_static",
+      "2026-10-19T08:15:47.9109801Z diff -qr demo/dist web_static"
+    ]
+  },
+  "public_chromium": {
+    "url": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39221213508",
+    "job": 117956693427,
+    "conclusion": "success",
+    "evidence": [
+      "2026-10-19T08:16:46.8862829Z Media delivered https://sokldjs554.github.io/recheck-ml-serving/media/recheck-walkthrough-20261019.mp4 200 video/mp4",
+      "2026-10-19T08:16:47.0970071Z Media delivered https://sokldjs554.github.io/recheck-ml-serving/media/recheck-walkthrough-20261019.webm 200 video/webm",
+      "2026-10-19T08:16:58.0269916Z PASS actual recording decodes while live health request is pending; stored label, live state, and shared controls remain distinct",
+      "2026-10-19T08:16:58.0271739Z PASS 1440/768/390/320: top control, expanded recording and case have no page overflow"
+    ]
+  },
+  "public_webkit": {
+    "job": 117958338785,
+    "conclusion": "success",
+    "checks": 9,
+    "url": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39221213508/job/117958338785"
+  }
+}
