@@ -14,6 +14,7 @@ function harness() {
   let loseResponse = false;
   const api = {
     base: "http://api.test",
+    actions: async () => [...rows.values()],
     connect: async () => { connects++; return { session_id: "session" }; },
     state: async () => { checks++; if (expired) throw new CaseApiError(404, "session_missing_or_expired"); return structuredClone(state); },
     prepare: async () => ({ id: ++prepares === 1 ? "old" : "fresh", output: source.text, references: [{ source_id: source.source_id, title: source.title, text: source.text, revision: source.revision }], expires_at: Date.now() / 1000 + 60 }),
@@ -35,7 +36,7 @@ function harness() {
 
 describe("same-tab case checkpoints", () => {
   it("restores completed evidence without sending any request", async () => {
-    const h = harness(), first = h.create(); await first.runAll();
+    const h = harness(), first = h.create(); await first.runAll(); await first.runAll(); await first.runAll();
     const before = first.getSnapshot(), counts = h.counts(); first.dispose();
     const restored = h.create();
     expect(restored.getSnapshot()).toMatchObject({ step: 6, session: before.session, action: before.action, events: before.events, restored: true, busy: false, running: false });
@@ -51,7 +52,7 @@ describe("same-tab case checkpoints", () => {
     expect(restored.getSnapshot().status).toContain("중단");
     expect(restored.getSnapshot().status).toContain("response lost after commit");
     expect(restored.getSnapshot().error).toBe("");
-    await restored.runAll();
+    await restored.runAll(); await restored.runAll();
     expect(restored.getSnapshot()).toMatchObject({ step: 6, action: { action_id: "one", replayed: true } });
     expect(new Set(h.keys.slice(1)).size).toBe(1);
     expect(h.rows.size).toBe(1);
@@ -80,7 +81,7 @@ describe("same-tab case checkpoints", () => {
     const original = h.api.state;
     h.api.state = () => new Promise(resolve => { release = async () => resolve(await original()); });
     const first = h.create(), pending = first.next();
-    await Promise.resolve(); await Promise.resolve(); await Promise.resolve();
+    while (!release) await Promise.resolve();
     first.dispose(); const restored = h.create();
     expect(restored.getSnapshot().session).toBe("session");
     h.api.state = original; release(); await pending;
@@ -89,7 +90,7 @@ describe("same-tab case checkpoints", () => {
     expect(restored.getSnapshot().step).toBe(1);
   });
   it("explicit reset removes the checkpoint and never restores the old action", async () => {
-    const h = harness(), first = h.create(); await first.runAll(); first.reset();
+    const h = harness(), first = h.create(); await first.runAll(); await first.runAll(); await first.runAll(); first.reset();
     expect(h.storage.read()).toBeNull();
     expect(h.create().getSnapshot()).toMatchObject({ step: 0, events: [], session: "", action: null });
   });

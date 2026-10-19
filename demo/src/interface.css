@@ -262,3 +262,50 @@
 .workspace-theme .evidence-lab .ink-button { background: #275a43; border-color: #275a43; color: white; border-radius: 3px; }
 .workspace-theme .el-products button.selected { color: #275a43; border-color: #275a43; }
 .workspace-theme .phase-judgment { padding: 14px 0; border-block: 1px solid var(--rule); font-size: 13px; color: #495e51; line-height: 1.8; }
+
+/* Answer and GET-confirmed records form one work surface. */
+.replay-canvas { grid-template-columns: minmax(210px, .7fr) minmax(0, 1.5fr); }
+.replay-answer .case-answer-text, .stored-answer, .replay-source-text p, .case-superseded p { font-size: 16px; line-height: 1.8; white-space: pre-wrap; overflow-wrap: anywhere; }
+.replay-source .replay-node-label { display: none; }
+.replay-work { min-width: 0; }
+.server-records { margin: 20px 0 0; border: 0; border-top: 2px solid #234d3b; border-radius: 0; padding: 22px 0 0; background: transparent; }
+.server-records h3 { font-size: 20px; }
+.server-records ul { list-style: none; padding: 0; margin: 16px 0; }
+.server-records li { padding: 18px 0; border-top: 1px solid #c7d1c9; background: transparent; }
+.server-records .stored-answer { color: #182d23; margin: 0 0 16px; font-weight: 500; }
+.server-records details { font-size: 12px; color: #526156; }
+.server-records details code { display: block; overflow-wrap: anywhere; white-space: normal; }
+.record-confirmation { border-left: 3px solid #537961; padding-left: 14px; margin: 16px 0; }
+.record-confirmation p { font-size: 14px; line-height: 1.65; }
+.record-observed { color: #536157; font-size: 12px; }
+.case-outcome-summary { padding: 12px 0; border: 0; }
+.case-outcome-summary > details > summary { font-size: 13px; }
+.case-superseded { border-left: 3px solid #986443; padding-left: 14px; }
+.replay-transport { margin-top: 14px; }
+.task-result details { margin-top: 8px; }
+@media (max-width: 720px) {
+  .replay-canvas { display: flex; flex-direction: column; }
+  .replay-source { padding: 16px; }
+  .replay-work { padding: 16px; }
+  .record-heading { gap: 10px; flex-wrap: wrap; }
+  .server-records .stored-answer { font-size: 16px; }
+}
+.case-study .replay-canvas { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); align-items: start; }
+.case-study .replay-source { grid-column: 1; grid-row: 1; padding: 24px; border-right: 0; border-bottom: 1px solid #d6ded8; }
+.case-study .replay-work { display: contents; }
+.case-study .replay-answer { grid-column: 1; grid-row: 2; padding: 24px; }
+.case-study .replay-transport { grid-column: 1; grid-row: 3; margin: 0; padding: 0 24px 24px; }
+.case-study .server-records { grid-column: 2; grid-row: 1 / 4; align-self: stretch; margin: 0; padding: 24px; border-top: 0; border-left: 1px solid #c7d1c9; background: #fbfcfa; }
+.case-study .case-draft { min-height: 0; }
+.case-study .replay-source-text { margin-top: 12px; padding-top: 12px; }
+.case-study .replay-query { margin-bottom: 18px; }
+.case-study .replay-ticket-foot { padding-top: 12px; margin-top: 12px; }
+.case-study .replay-now > span { display: none; }
+.case-study .case-progress-detail { margin-bottom: 8px; }
+.case-run-top:not(:disabled) { color: #fff !important; background: #25583f !important; }
+@media (max-width: 720px) {
+  .case-study .replay-canvas { display: flex; flex-direction: column; }
+  .case-study .replay-work { display: contents; }
+  .case-study .replay-source, .case-study .replay-answer, .case-study .replay-transport, .case-study .server-records { width: 100%; padding: 18px; box-sizing: border-box; }
+  .case-study .server-records { border-left: 0; border-top: 2px solid #234d3b; }
+}

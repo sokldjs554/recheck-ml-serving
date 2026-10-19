@@ -44,8 +44,8 @@ export default function CaseRunButton({
         : state.running
           ? "실행 중"
           : state.step === 0
-            ? "전체 과정 실행"
-            : "이어서 실행"}
+            ? "상담 기록 시작"
+            : state.step === 3 ? "답변 갱신 후 기록" : state.step === 5 ? "같은 요청 재시도" : "이어서 실행"}
     </button>
   );
 }

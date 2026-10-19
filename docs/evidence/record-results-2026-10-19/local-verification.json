@@ -1,0 +1,17 @@
+{
+  "baseline": "eda2073dd18b8213eff75c2010a2d4b11a6f689f",
+  "scope": "actual local Python API and SQLite; Chromium; final source digests supplied separately",
+  "frontend_tests": 66,
+  "sqlite_exception_test": "1 passed in 0.52s",
+  "browser_checks": {
+    "reconciliation": 10,
+    "case": 13,
+    "custom": 14,
+    "restoration": 9,
+    "presentation": 7
+  },
+  "stored_evidence_generation_checks": "passed; historical measurements not rerun",
+  "build": "TypeScript and Vite passed; demo/dist matches web_static",
+  "video_duration_seconds": 39.88,
+  "human_recheck": "not performed"
+}

@@ -8,6 +8,8 @@ on:
       - 'scripts/check_browser.py'
       - 'scripts/check_evidence_browser.py'
       - 'scripts/check_case_browser.py'
+      - 'scripts/case_browser_steps.py'
+      - 'scripts/check_records_browser.py'
       - 'scripts/check_comparison_browser.py'
       - 'scripts/check_serving_browser.py'
       - 'scripts/check_presentation_browser.py'
@@ -103,6 +105,10 @@ jobs:
         run: |
           RECHECK_CHROMIUM=$(python -c 'from playwright.sync_api import sync_playwright; p=sync_playwright().start(); print(p.chromium.executable_path); p.stop()')
           python scripts/check_case_browser.py --base "${{ steps.deployment.outputs.page_url }}" --api https://recheck-ml-serving.onrender.com --browser-executable "$RECHECK_CHROMIUM" --output work/public-case
+      - name: Reconcile displayed consultation records with public API
+        run: |
+          RECHECK_CHROMIUM=$(python -c 'from playwright.sync_api import sync_playwright; p=sync_playwright().start(); print(p.chromium.executable_path); p.stop()')
+          python scripts/check_records_browser.py --base "${{ steps.deployment.outputs.page_url }}" --api https://recheck-ml-serving.onrender.com --browser-executable "$RECHECK_CHROMIUM" --output work/public-records
       - name: Inspect stored SQL comparison on the public demo
         run: |
           RECHECK_CHROMIUM=$(python -c 'from playwright.sync_api import sync_playwright; p=sync_playwright().start(); print(p.chromium.executable_path); p.stop()')
@@ -128,6 +134,7 @@ jobs:
             work/public-browser
             work/public-evidence
             work/public-case
+            work/public-records
             work/public-comparison
             work/public-serving
             work/public-presentation

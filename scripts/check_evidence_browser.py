@@ -57,7 +57,7 @@ def main():
             execution = page.get_by_test_id('custom-execution')
             expect(execution.get_by_role('alert')).to_contain_text('변경')
             click('서버 기록 조회')
-            expect(execution.get_by_test_id('server-records')).to_contain_text('0개 작업')
+            expect(page.get_by_test_id('server-records')).to_contain_text('0개 작업')
             passed('changed receipt execute is rejected and server contains zero actions')
             page.get_by_label('배포 후보',exact=True).select_option('mismatch')
             click('후보 평가')
@@ -105,15 +105,15 @@ def main():
             page.unroute('**/evidence/receipts/*/execute')
             assert not conflicting_edits, 'A conflicting mutation in the same JS turn must not send a request'
             click('서버 기록 조회')
-            records=execution.get_by_test_id('server-records')
+            records=page.get_by_test_id('server-records')
             expect(records).to_contain_text('1개 작업')
-            saved=records.locator('li code').inner_text()
+            saved=records.locator('li').get_attribute('data-action-id')
             page.get_by_role('link',name='모델 부하',exact=True).click()
             page.get_by_role('navigation',name='화면 선택').get_by_role('button',name='실행 기록',exact=True).click()
             click('직접 구성')
             page.evaluate("""() => { const b=document.querySelector('[data-testid=custom-execution] > button'); b.click(); b.click(); }""")
             expect(execution.locator('.task-result')).to_contain_text('같은 작업 반환')
-            assert execution.locator('.task-result code').inner_text()==saved
+            assert execution.locator('.task-result code').text_content()==saved
             expect(page.get_by_role('button',name='답변 준비',exact=True)).to_be_enabled()
             assert len(writes)==2 and writes[0]==writes[1], writes
             click('서버 기록 조회')

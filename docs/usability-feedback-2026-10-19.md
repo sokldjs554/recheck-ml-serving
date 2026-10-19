@@ -1,6 +1,7 @@
 # 전달받은 사용 피드백과 화면 보완
 
-최신 변경은 [실행 작업과 근거 탐색 보완](#실행-작업과-근거-탐색-보완)입니다. 아래 이전 섹션의 UI·검증 숫자·영상 표시는 해당 커밋 당시 기록입니다.
+최신 보완: [답변과 실제 상담 기록 연결](#답변과-실제-상담-기록-연결). 이전 절은 당시 화면·검증 이력입니다.
+직전 변경은 [실행 작업과 근거 탐색 보완](#실행-작업과-근거-탐색-보완)입니다. 아래 이전 섹션의 UI·검증 숫자·영상 표시는 해당 커밋 당시 기록입니다.
 
 ## 입력과 확인 범위
 
@@ -205,7 +206,7 @@ Python Playwright·Chromium 필요. 시스템 브라우저를 사용할 때 `--b
 - 로컬 Chromium: 대표 흐름 13개, 직접 구성 14개, 복원 9개, 화면·영상·자료 탐색 7개, 부하·복구 탐색 7개 검사 그룹 통과. [대표 흐름](evidence/workspace-upgrade-2026-10-19/case-browser.json) · [복원](evidence/workspace-upgrade-2026-10-19/restoration-results.json) · [화면·영상](evidence/workspace-upgrade-2026-10-19/presentation-results.json) · [부하·복구 탐색](evidence/workspace-upgrade-2026-10-19/serving-results.json). 기존 상태와 새 동작의 회귀 검사이며 사용자 이해도 측정이 아니다.
 - 320·390·768·1440px에서 주요 버튼·로그·영상·표의 문서 가로 넘침을 검사했다. 직접 구성은 390·768·1440px에서 확인했다. 키보드 구간 선택과 포커스 이동은 화면·자료 검사에 포함된다.
 - 복원 검사의 첫 실행은 브라우저 경로 미지정으로 시작하지 못했다. 설치된 Chromium을 명시한 실행은 9개 검사·page error 0·종료 코드 0이었다. 종료 시 기존 route callback의 `CancelledError`가 별도로 출력됐다.
-- [현재 영상](https://sokldjs554.github.io/recheck-ml-serving/media/recheck-workspace-20261019.mp4)은 로컬 API·SQLite 실제 응답으로 촬영했다. [소스/미디어 해시와 HTTP 목록](evidence/workspace-upgrade-2026-10-19/capture.json), [대표 흐름 원본](evidence/workspace-upgrade-2026-10-19/case.json), [직접 구성 기록](evidence/workspace-upgrade-2026-10-19/custom-action.json).
+- [당시 영상](https://github.com/sokldjs554/recheck-ml-serving/blob/0b2e139517652a3b085837e5182cbce6ad9cd0c4/demo/public/media/recheck-workspace-20261019.mp4)은 로컬 API·SQLite 실제 응답으로 촬영했다. [소스/미디어 해시와 HTTP 목록](evidence/workspace-upgrade-2026-10-19/capture.json), [대표 흐름 원본](evidence/workspace-upgrade-2026-10-19/case.json), [직접 구성 기록](evidence/workspace-upgrade-2026-10-19/custom-action.json).
 - README의 구조도·기술 선택·수치 조건을 유지하고 실제 사용 경로를 먼저 설명했다. 과거 120 req/s 투입 목표·약 67.6 req/s 유효 처리량을 새 측정으로 바꾸지 않았다.
 
 ### 친구에게 다시 부탁할 과제
@@ -225,3 +226,51 @@ Python Playwright·Chromium 필요. 시스템 브라우저를 사용할 때 `--b
 공개 화면: [완료 기록 복원·데스크톱](evidence/workspace-upgrade-2026-10-19/public-case-restored-1440.png) · [완료 기록 복원·모바일](evidence/workspace-upgrade-2026-10-19/public-case-restored-390.png) · [모델 부하](evidence/workspace-upgrade-2026-10-19/public-serving-1440.png) · [장애 복구](evidence/workspace-upgrade-2026-10-19/public-recovery-1440.png) · [캡처 출처와 해시](evidence/workspace-upgrade-2026-10-19/public-capture-source.json).
 
 남은 범위는 직접 구성의 새로고침 초기화, 무료 서버 첫 연결 대기, 실기기 Safari와 수정 후 사람의 재확인이다. 기존 과거 성능·운영 실패 기록은 유지했다. 이번 데모·README 보완과 공개 배포 검증은 완료했으며, 지원자의 역할은 요구 정의·수정 요청·결과 검토로 구분한다.
+
+
+## 답변과 실제 상담 기록 연결
+
+작업 기준은 `eda2073dd18b8213eff75c2010a2d4b11a6f689f`이며 시작 시 브랜치 `feat/project-introduction`의 미커밋 변경은 없었습니다. 이 절은 이전 검증을 대체해 재측정한 성능 보고가 아닌, 상담 화면의 결과 연결 보완 기록입니다.
+
+### 확인한 문제와 수정
+
+친구는 한도 변경을 인식했지만 결과의 의미를 모르겠다고 답했습니다. 어떤 배치 때문에 그랬는지는 관찰되지 않았습니다. 코드에서는 기존 `ServerRecords.tsx`가 별도 수동 조회 뒤에만 본문을 보여주고, 같은 작업 ID의 재시도 전후를 조회 시점으로 구분하기 어려운 구조를 확인했습니다.
+
+기존 GET API와 기록 표시를 재사용했습니다. `recordStore.ts`는 세션별 실제 조회 목록, 요청 회차, 조회 완료 회차, 조회 실패와 마지막 확인 시각을 관리합니다. `CaseFlow`와 `EvidenceLab`이 화면보다 오래 유지되는 저장소를 소유합니다. `TaskExecution`은 준비한 답변·원래 요청 키·실행 응답을 이 저장소에 전달하며, 목록을 프런트에서 추가하지 않습니다.
+
+- 상담 답변과 현재 안내, 실제 상담 기록을 같은 작업 화면에서 읽습니다. 차단된 답변은 상담 기록 목록 밖에 보존합니다.
+- 세션 시작, 기록 요청, 같은 키 재시도 뒤에 GET을 수행합니다. 같은 작업 ID라도 요청 회차가 바뀌므로 이전 조회로 새 요청을 확인했다고 표시하지 않습니다.
+- 자동 진행은 차단 결과와 새 기록 뒤에 멈춥니다. 다음 행동은 사용자가 선택하며 제품에 인위적인 대기는 넣지 않았습니다.
+- 기록 요청 응답 미확인, GET 확인 중, GET 실패, 마지막 확인 기록, 새로고침으로 복원한 과거 응답을 구분합니다. 응답을 잃어도 요청 키를 유지합니다.
+- 새 세션이나 새 요청 이전에 시작된 늦은 조회는 generation·query 번호로 버립니다. 화면 이동만으로는 재조회하지 않습니다.
+- 두 경로가 같은 기록 표시를 사용하지만 세션은 합치지 않습니다. 직접 구성의 질문·문서·원문 수정은 유지합니다.
+
+### 선택의 비용과 범위
+
+자동 조회는 기록 요청마다 GET 한 번과 네트워크 대기 시간을 추가합니다. 해당 조회까지 진행 중 잠금을 유지해 결과 확인 중 다음 기록 요청이 겹치지 않도록 했습니다. 목록은 조회 시점의 세션 저장 내역이며 원자적인 POST+GET 스냅샷은 아닙니다. 그래서 목록 전체의 건수 차이를 이번 요청의 추가 건수로 해석하지 않습니다. 추가 0건은 같은 키의 replay 응답 및 기존 작업 ID 대조로 설명합니다.
+
+조회 실패가 나도 확인했던 목록을 버리지 않으며 현재 결과와 구분합니다. GET만으로 답변 저장을 확인하더라도 POST 성공 응답을 받았다고 쓰지 않습니다. 대표 흐름의 새로고침은 과거 실행 응답만 복원하며 GET 목록은 조회 전으로 시작합니다. 직접 구성은 화면 이동 유지까지만 지원합니다. 백엔드 API·세션 잠금·SQL 처리·CPU 서빙 구조와 과거 측정은 변경하지 않았습니다.
+
+### 화면과 실제 API 대조
+
+[이전 화면](https://github.com/sokldjs554/recheck-ml-serving/blob/eda2073dd18b8213eff75c2010a2d4b11a6f689f/docs/evidence/workspace-upgrade-2026-10-19/step-3.jpg) · [차단된 답변](evidence/record-results-2026-10-19/blocked.jpg) · [저장된 답변](evidence/record-results-2026-10-19/recorded.jpg) · [재시도 이후 동일 기록](evidence/record-results-2026-10-19/replayed.jpg) · [모바일 기록](evidence/record-results-2026-10-19/records-mobile.jpg) · [직접 구성](evidence/record-results-2026-10-19/custom.jpg)
+
+로컬 검사는 실제 Python API·SQLite를 사용했습니다. 응답 유실은 실제 commit 후 브라우저 전달만 차단했고, GET 실패는 브라우저에서 503을 주입했습니다. 합성 응답을 정상 저장 증거로 사용하지 않았습니다. [요청 키·POST·GET·화면 본문과 ID 대조 자료](evidence/record-results-2026-10-19/reconciliation.json)의 observations에서 재시도 전후 행을 확인할 수 있습니다.
+
+재현:
+
+```bash
+python scripts/check_records_browser.py --base http://127.0.0.1:5173 --api http://127.0.0.1:8025 --browser-executable /usr/bin/chromium --output work/records-browser
+npm --prefix demo test
+```
+
+로컬 기록: [대표 흐름](evidence/record-results-2026-10-19/case.json) · [직접 구성](evidence/record-results-2026-10-19/custom.json) · [새로고침 복원](evidence/record-results-2026-10-19/restoration.json). 자동화는 사람의 이해도를 입증하지 않습니다. 복원 검사에서 페이지 오류는 없지만, 의도적으로 응답을 보류한 브라우저 route의 종료 시 `CancelledError` 진단이 출력됩니다.
+
+### 사람의 재확인 대기
+
+기술 구현·자동화와 구분해 **친구의 재확인은 아직 수행하지 않았습니다.** 다음 과제만 전달하고 정답이나 버튼 위치는 알려주지 않습니다.
+
+1. 작업을 진행한 뒤, 실제로 저장된 내용을 화면에서 찾아 설명해 주세요.
+2. 다시 요청한 뒤, 저장된 기록에 어떤 변화가 있는지 설명해 주세요.
+
+지원자의 역할은 주제·방향 결정, 요구사항 구체화, 기능 추가·범위 조정, 수정 요청과 결과 검토입니다. 코드 작성과 데모 제작은 AI가 주로 담당했습니다. 이번 구현·실험을 지원자가 직접 수행했다고 서술하지 않습니다.

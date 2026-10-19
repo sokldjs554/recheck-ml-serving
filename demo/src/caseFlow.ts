@@ -1,4 +1,5 @@
 import { CaseApiError, type CaseAction, type CaseApi } from "./caseApi";
+import { RecordStore, type RecordAttempt } from "./recordStore";
 import { EvidenceApiError } from "./evidenceApi";
 import { parseCheckpoint, type CaseStorage } from "./caseStorage";
 import type {
@@ -47,6 +48,7 @@ const QUERY = "하루 이체 한도";
 class Superseded extends Error {}
 /** Every awaited response is fenced before another request or UI write. */
 export class CaseFlow {
+  readonly records: RecordStore;
   private value = initial();
   private generation = 0;
   private disposed = false;
@@ -54,11 +56,13 @@ export class CaseFlow {
   private actionKey: string = crypto.randomUUID();
   private oldActionKey: string = crypto.randomUUID();
   constructor(private api: CaseApi, private storage?: CaseStorage) {
+    this.records = new RecordStore(session => this.api.actions(session));
     if (!storage) return;
     try {
       const raw = storage.read();
       if (!raw) return;
       const saved = parseCheckpoint(raw, api.base);
+      this.records.reset(saved.snapshot.session);
       this.actionKey = saved.actionKey;
       this.oldActionKey = saved.oldActionKey;
       const interrupted = !saved.snapshot.sessionExpired && saved.snapshot.step < 6 &&
@@ -99,6 +103,7 @@ export class CaseFlow {
   }
   reset = () => {
     this.generation++;
+    this.records.reset();
     this.actionKey = crypto.randomUUID();
     this.oldActionKey = crypto.randomUUID();
     this.set(initial());
@@ -151,7 +156,7 @@ export class CaseFlow {
       ) {
         const before = this.value.step;
         await this.advance();
-        if (this.value.error || this.value.step <= before) break;
+        if (this.value.error || this.value.step <= before || [3, 5].includes(this.value.step)) break;
       }
     } finally {
       if (!this.disposed && generation === this.generation)
@@ -187,6 +192,9 @@ export class CaseFlow {
       });
       return result;
     };
+    const writeReceipt = current.step === 2 ? current.oldReceipt : [4, 5].includes(current.step) ? current.freshReceipt : null;
+    let attempt: RecordAttempt | null = writeReceipt ? { key: current.step === 2 ? this.oldActionKey : this.actionKey, receiptId: writeReceipt.id, output: writeReceipt.output } : null;
+    if (attempt) this.records.begin(attempt);
     this.set({ busy: true, error: "", status: "" });
     try {
       if (current.restored && current.session) {
@@ -200,7 +208,10 @@ export class CaseFlow {
         const session = current.session ? { session_id: current.session } : await take("Python API 연결 · 세션 생성", () =>
           this.api.connect(),
         );
+        this.records.reset(session.session_id);
         this.set({ session: session.session_id });
+        await this.records.refresh();
+        check();
         const state = await take("현재 원문 조회", () =>
           this.api.state(session.session_id),
         );
@@ -258,6 +269,7 @@ export class CaseFlow {
             error.detail !== "source_changed"
           )
             throw error;
+          if (attempt) { attempt = { ...attempt, rejected: true, reason: "답변이 인용한 안내가 변경되어 상담 기록에 추가하지 않았습니다." }; this.records.complete(attempt); }
           this.set({
             events: [
               ...this.value.events,
@@ -305,6 +317,7 @@ export class CaseFlow {
             this.actionKey,
           ),
         );
+        if (attempt) { attempt = { ...attempt, result: action }; this.records.complete(attempt); }
         this.set({
           action,
           step: 5,
@@ -324,6 +337,7 @@ export class CaseFlow {
           throw new Error(
             "동일 작업 재시도 응답이 일치하지 않습니다. 기록을 확인하세요.",
           );
+        if (attempt) { attempt = { ...attempt, result: action }; this.records.complete(attempt); }
         this.set({
           action,
           step: 6,
@@ -332,6 +346,9 @@ export class CaseFlow {
         });
       }
     } catch (error) {
+      if (attempt && generation === this.generation && !this.disposed && error instanceof EvidenceApiError && [404, 409, 422, 429].includes(error.status)) {
+        attempt = { ...attempt, rejected: true, reason: error.message };
+      }
       if (
         !(error instanceof Superseded) &&
         generation === this.generation &&
@@ -357,8 +374,10 @@ export class CaseFlow {
           status: "",
         });
     } finally {
-      if (generation === this.generation && !this.disposed)
-        this.set({ busy: false });
+      if (generation === this.generation && !this.disposed) {
+        if (attempt) { this.records.complete(attempt); await this.records.refresh(); }
+        if (generation === this.generation && !this.disposed) this.set({ busy: false });
+      }
     }
   };
 }

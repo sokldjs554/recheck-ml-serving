@@ -1,3 +1,6 @@
+import ServerRecords from "./ServerRecords";
+import { RecordStore } from "./recordStore";
+import { CaseApi } from "./caseApi";
 import TaskExecution from "./TaskExecution";
 import { visibleValidation, staleRelease } from "./evidencePresentation";
 import { useEffect, useRef, useState } from "react";
@@ -55,6 +58,7 @@ function download(value: unknown, name: string) {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
+  const [records] = useState(() => new RecordStore(session => new CaseApi(api.current?.base || base).actions(session)));
   const [base, setBase] = useState(defaultBase);
   const [state, setState] = useState<EvidenceState | null>(null);
   const [sid, setSid] = useState("");
@@ -109,7 +113,9 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
       const next = await nextApi.state(session.session_id);
       if (generation !== epoch.current) return;
       api.current = nextApi;
+      records.reset(session.session_id);
       setSid(session.session_id);
+      void records.refresh();
       setState(next);
       setSourceId("transfer");
       setText(next.sources.find((s) => s.source_id === "transfer")!.text);
@@ -360,7 +366,7 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
               <div className="el-section-head">
                 <span className="eyebrow">답변에 쓰인 근거</span>
                 <span className="el-tag">
-                  RECEIPT / {receipt ? `r${receipt.release_epoch}` : "—"}
+                  상담 답변
                 </span>
               </div>
               <div
@@ -444,7 +450,8 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
                   </>
                 )}
               </div>
-              {receipt && <TaskExecution key={`${sid}:${receipt.id}`} base={api.current?.base || base} session={sid} receiptId={receipt.id} disabled={!!busy} onBusyChange={setExecutionBusy} onUnconfirmedChange={setUnconfirmedWrite} requestLock={pending} />}
+              {receipt && <TaskExecution key={`${sid}:${receipt.id}`} base={api.current?.base || base} session={sid} receiptId={receipt.id} disabled={!!busy} onBusyChange={setExecutionBusy} onUnconfirmedChange={setUnconfirmedWrite} requestLock={pending} records={records} output={receipt.output} />}
+              <ServerRecords store={records} />
               <details className="validation-detail"><summary>기록 없이 사용 가능 여부만 확인</summary>
               <button
                 className="el-use"

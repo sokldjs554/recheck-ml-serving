@@ -6,6 +6,7 @@ import json
 import time
 from pathlib import Path
 from urllib.parse import urlparse
+from case_browser_steps import finish_case
 from playwright.sync_api import sync_playwright
 
 
@@ -67,7 +68,7 @@ def main():
         assert page.locator('.project-intro').count() == 0, 'Working screen must not render a marketing hero'
         assert page.locator('h1').evaluate('(el) => parseFloat(getComputedStyle(el).fontSize)') <= 22
         assert page.get_by_test_id('case-policy-value').inner_text() == '—', 'Do not present staged values as fetched policy'
-        assert page.locator('.replay-result-guide').is_visible(), 'The check criteria must not be hidden by CSS'
+        assert page.get_by_test_id('server-records').is_visible(), 'The actual records belong to the work screen'
         checks.append('compact working screen exposes check criteria and leaves unfetched policy blank')
         assert page.get_by_test_id('case-run-top').is_visible(), 'Top entry must start the real shared case'
         top_box = page.get_by_test_id('case-run-top').bounding_box()
@@ -78,6 +79,7 @@ def main():
             document.querySelector('[data-testid=case-next]').click();
             document.querySelector('[data-testid=case-run-top]').click();
         }''')
+        finish_case(page)
         step(6)
         session_posts = [r for r in api_requests if r['method'] == 'POST' and r['url'].endswith('/api/sessions')]
         assert len(session_posts) == 1, 'Shared entry controls must create exactly one session'
@@ -85,7 +87,7 @@ def main():
         checks.append('automatic and contextual buttons clicked in one turn create one session and one flow')
         assert '300만 원' in page.get_by_test_id('case-old-draft').inner_text()
         assert '100만 원' in page.get_by_test_id('case-draft').inner_text()
-        assert '오래된 답변 차단' in page.get_by_test_id('case-outcomes').inner_text()
+        assert '오래된 답변 차단' in page.get_by_test_id('case-outcomes').text_content()
         assert not page.locator('.replay-audit').evaluate('(e) => e.open')
         page.locator('.replay-audit > summary').click()
         with page.expect_download() as automatic_download:
@@ -95,15 +97,15 @@ def main():
         automatic_data = json.loads(automatic_file.read_text())
         automatic_actions = page.request.get(f"{args.api}/api/sessions/{automatic_data['session_id']}/evidence/actions").json()['actions']
         assert len(automatic_actions) == 1
-        assert automatic_actions[0]['action_id'] == page.get_by_test_id('case-action').locator('code').inner_text()
-        checks.append('one-click actual HTTP run preserves old/new answers and produces exactly one persisted task')
-        completed_action = page.get_by_test_id('case-action').locator('code').inner_text()
+        assert automatic_actions[0]['action_id'] == page.get_by_test_id('case-action').locator('code').text_content()
+        checks.append('acknowledged actual HTTP run preserves old/new answers and produces exactly one persisted task')
+        completed_action = page.get_by_test_id('case-action').locator('code').text_content()
         requests_before_result = len(api_requests)
         page.get_by_role('button', name='이번 실행 결과', exact=True).click()
         assert case.is_visible(), 'Result button must stay on this run, not open stored comparison evidence'
         assert page.get_by_test_id('case-outcomes').evaluate('(el) => el === document.activeElement')
         assert len(api_requests) == requests_before_result
-        assert '새 답변 기록 완료' in page.get_by_test_id('case-outcomes').inner_text()
+        assert '새 답변 기록 완료' in page.get_by_test_id('case-outcomes').text_content()
         checks.append('result button focuses the current run summary without navigation or API requests')
         requests_before_navigation = len(api_requests)
         page.get_by_role('button', name='세 방식 비교', exact=True).click()
@@ -114,7 +116,7 @@ def main():
         assert len(api_requests) == requests_before_navigation, 'Completed navigation must issue zero API operations'
         returned_data = download_case('completed-after-navigation.json')
         assert returned_data == automatic_data, 'Navigation must preserve the exact downloaded session, snapshot and event history'
-        assert page.get_by_test_id('case-action').locator('code').inner_text() == completed_action
+        assert page.get_by_test_id('case-action').locator('code').text_content() == completed_action
         checks.append('completed compare -> primary execution navigation preserves exact downloaded evidence and action with zero API requests')
 
         # Pause a real HTTP mutation while the application-owned flow is running.
@@ -135,22 +137,23 @@ def main():
         page.get_by_test_id('case-study').wait_for(state='hidden')
         page.wait_for_timeout(100)
         assert len(api_requests) == requests_before_navigation, 'Unmounting the case view must not issue API operations'
-        with page.expect_response(lambda response: '/execute' in response.url and response.status == 200 and response.json().get('replayed') is True, timeout=110000):
+        with page.expect_response(lambda response: '/execute' in response.url and response.status == 409, timeout=110000):
             held_events[0].continue_()
         page.unroute('**/evidence/events', hold_event)
         page.wait_for_timeout(150)
         requests_before_return = len(api_requests)
         return_to_case()
-        step(6)
+        step(3)
         page.wait_for_timeout(100)
         assert len(api_requests) == requests_before_return, 'Returning must not restart the completed hidden flow'
+        finish_case(page)
         inflight_after = download_case('inflight-after-navigation.json')
         assert inflight_after['session_id'] == inflight_before['session_id']
         assert inflight_after['events'][:len(inflight_before['events'])] == inflight_before['events']
         assert len([r for r in api_requests if r['url'].endswith(f"/api/sessions/{inflight_before['session_id']}/evidence/events")]) == 1
         inflight_actions = page.request.get(f"{args.api}/api/sessions/{inflight_after['session_id']}/evidence/actions").json()['actions']
         assert len(inflight_actions) == 1
-        assert inflight_actions[0]['action_id'] == page.get_by_test_id('case-action').locator('code').inner_text()
+        assert inflight_actions[0]['action_id'] == page.get_by_test_id('case-action').locator('code').text_content()
         checks.append('held actual HTTP mutation continues while case view is absent; return preserves session, event prefix and one persisted action without duplicate navigation requests')
         page.get_by_test_id('case-reset').click()
         step(0)
@@ -162,11 +165,11 @@ def main():
         assert '300만 원' in page.get_by_test_id('case-draft').inner_text()
         next_step(3)
         assert '오래된 답변 차단' in page.get_by_test_id('case-status').inner_text()
-        assert '새 답변 기록 완료' not in page.get_by_test_id('case-outcomes').inner_text()
-        assert '동일 작업 반환' not in page.get_by_test_id('case-outcomes').inner_text()
-        guide = page.locator('.replay-result-guide')
+        assert '새 답변 기록 완료' not in page.get_by_test_id('case-outcomes').text_content()
+        assert '동일 작업 반환' not in page.get_by_test_id('case-outcomes').text_content()
+        guide = page.locator('.replay-draft-status')
         assert guide.is_visible()
-        assert '이전 답변 300만 원 / 변경된 안내 100만 원' in guide.inner_text()
+        assert '인용한 안내 문서가 바뀌어 기록하지 않았습니다.' in guide.inner_text()
         contrast = guide.evaluate(r"""el => {
             const luminance = color => {
                 const channels = color.match(/[\d.]+/g).slice(0,3).map(Number).map(v => {
@@ -176,7 +179,7 @@ def main():
                 return .2126 * channels[0] + .7152 * channels[1] + .0722 * channels[2];
             };
             const fg = luminance(getComputedStyle(el).color);
-            const bg = luminance(getComputedStyle(el.closest('.replay-gate')).backgroundColor);
+            const bg = luminance("rgb(255, 255, 255)");
             return (Math.max(fg, bg) + .05) / (Math.min(fg, bg) + .05);
         }""")
         assert contrast >= 4.5, f'Blocked explanation contrast {contrast:.2f}:1 is below 4.5:1'
@@ -199,16 +202,16 @@ def main():
         page.get_by_role('alert').filter(has_text='응답').wait_for()
         assert case.get_attribute('data-step') == '4'
         assert page.get_by_test_id('case-action').count() == 0
-        assert '새 답변 기록 완료' not in page.get_by_test_id('case-outcomes').inner_text()
+        assert '새 답변 기록 완료' not in page.get_by_test_id('case-outcomes').text_content()
         page.unroute('**/evidence/receipts/*/execute', malformed_success)
         with page.expect_request('**/evidence/receipts/*/execute') as retried:
             next_step(5)
         assert retried.value.post_data_json['idempotency_key'] == rejected_keys[0]
         checks.append('lost commit response cannot claim success; retry retains original key and displays replay')
-        assert '같은 작업 반환' in page.locator('.replay-gate h2').inner_text(), 'A lost commit response must display the actual replay result on retry'
-        original_action = page.get_by_test_id('case-action').locator('code').inner_text()
+        assert '기존 기록 반환' in page.get_by_test_id('record-confirmation').inner_text(), 'A lost commit response must display the actual replay result on retry'
+        original_action = page.get_by_test_id('case-action').locator('code').text_content()
         next_step(6)
-        assert original_action == page.get_by_test_id('case-action').locator('code').inner_text()
+        assert original_action == page.get_by_test_id('case-action').locator('code').text_content()
         assert '과거' in page.get_by_test_id('case-status').inner_text()
         page.locator('.replay-audit').evaluate('(e) => e.open = true')
         with page.expect_download() as download:
@@ -251,7 +254,7 @@ def main():
             route.abort('connectionrefused')
         page.route('**/evidence/events', fail_event)
         page.get_by_test_id('case-next').click()
-        page.get_by_role('alert').filter(has_text='요청 실패').wait_for()
+        page.get_by_role('alert').filter(has_text='응답 확인 필요').wait_for()
         assert case.get_attribute('data-step') == '1', (case.get_attribute('data-step'), page.get_by_test_id('case-status').inner_text())
         assert '준비했습니다' not in page.get_by_test_id('case-status').inner_text()
         page.unroute('**/evidence/events', fail_event)

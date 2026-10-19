@@ -3,6 +3,7 @@ import argparse
 import json
 from pathlib import Path
 from urllib.parse import urljoin
+from case_browser_steps import finish_case
 from playwright.sync_api import sync_playwright, expect
 
 
@@ -59,8 +60,8 @@ def main():
         assert page.get_by_test_id('case-run-top').is_disabled()
         pending[0].continue_()
         page.unroute('**/health')
-        page.wait_for_function('document.querySelector("[data-testid=case-study]").dataset.step === "6"', timeout=110000)
-        action = page.get_by_test_id('case-action').locator('code').inner_text()
+        finish_case(page)
+        action = page.get_by_test_id('case-action').locator('code').text_content()
         checks.append('actual recording decodes while live health request is pending; stored label, live state, and shared controls remain distinct')
         page.locator('.replay-audit > summary').click()
         journal = page.get_by_test_id('case-journal')

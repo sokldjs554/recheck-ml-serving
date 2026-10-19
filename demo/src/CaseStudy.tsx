@@ -15,7 +15,7 @@ import ServerRecords from "./ServerRecords";
 
 const actions = [
   "답변 불러오기",
-  "안내 한도를 100만 원으로 변경",
+  "안내 문서 변경",
   "이 답변으로 기록 요청",
   "변경된 안내로 답변 갱신",
   "새 답변으로 기록 요청",
@@ -40,17 +40,6 @@ const descriptions = [
 ];
 function short(value?: string) {
   return value ? value.slice(0, 8) : "—";
-}
-function Highlight({ text }: { text: string }) {
-  return (
-    <>
-      {text
-        .split(/(300만 원|100만 원)/)
-        .map((part, i) =>
-          /^(300|100)만 원$/.test(part) ? <mark key={i}>{part}</mark> : part,
-        )}
-    </>
-  );
 }
 
 export default function CaseStudy({
@@ -179,6 +168,8 @@ export default function CaseStudy({
             className="case-next"
             disabled={locked || expired || state.sessionExpired}
             onClick={state.step < 6 ? () => void flow.next() : () => {
+              const detail = outcomeRef.current?.querySelector("details");
+              if (detail) detail.open = true;
               outcomeRef.current?.scrollIntoView({ block: "start" });
               outcomeRef.current?.focus({ preventScroll: true });
             }}
@@ -209,7 +200,7 @@ export default function CaseStudy({
       >
         {state.error ? (
           <>
-            <strong>{state.sessionExpired ? "세션 만료" : "요청 실패"}</strong>
+            <strong>{state.sessionExpired ? "세션 만료" : "응답 확인 필요"}</strong>
             <span>{state.error}</span>
             <span>
               {state.sessionExpired
@@ -298,34 +289,24 @@ export default function CaseStudy({
               ? "아래의 저장된 차단 결과와 작업 ID를 확인하세요."
               : expired
                 ? "‘새 답변 다시 준비’로 답변을 갱신한 뒤 계속하세요."
-                : "‘이어서 실행’으로 서버 상태를 확인하고 계속하세요."}</p>
+                : "상단 실행 버튼으로 서버 상태를 확인하고 계속하세요."}</p>
         </div>
       )}
       <div className={`replay-machine gate-${gate}`}>
-        <div className="task-state-strip" aria-label="기록 처리 요약">
-          <div><span>이전 답변</span><strong>{blocked ? "기록 차단" : mismatched ? "원문과 불일치" : "확인 전"}</strong></div>
-          <div><span>새 작업</span><strong>{state.action ? "기록 완료" : "완료 응답 없음"}</strong></div>
-          <div><span>같은 요청</span><strong>{state.step === 6 ? "기존 작업 반환" : "재시도 전"}</strong></div>
-        </div>
         <div className="replay-canvas">
           <aside className="replay-source" data-testid="case-source">
             <div className="replay-node-label">
               <span>현재 안내 문서</span>
               <span>{source ? `문서 v${source.revision}` : "불러오기 전"}</span>
             </div>
-            <h2>현재 원문</h2>
-            <p className="source-example">예시 문서 · 이체 한도 안내</p>
-            <div className="policy-value" data-testid="case-policy-value">
-              {source ? <Highlight text={state.step >= 2 ? "100만 원" : "300만 원"} /> : "—"}
-            </div>
-            <div className="replay-source-caption">
-              {source ? (state.step >= 2 ? "변경된 안내 · 이전 한도 300만 원" : "현재 안내") : "서버 연결 후 표시"}
-            </div>
+            <h2>현재 안내</h2>
+            <p className="source-example">{source?.title || "안내 문서 불러오기 전"}</p>
+            <span hidden data-testid="case-policy-value">{source?.text || "—"}</span>
             <details className="replay-source-text" open><summary>원문 보기</summary>
               {source ? (
                 <>
                   <p>
-                    <Highlight text={source.text} />
+                    {source.text}
                   </p>
                   <span className="replay-index-status">
                     {state.state?.index_stale
@@ -352,7 +333,7 @@ export default function CaseStudy({
               data-testid="case-draft"
             >
               <div className="replay-ticket-heading">
-                <h2>실행할 답변</h2>
+                <h2>상담 답변</h2>
                 <span>
                   {receipt
                     ? `인용 v${receipt.references[0]?.revision}`
@@ -362,7 +343,7 @@ export default function CaseStudy({
               {receipt ? (
                 <>
                   <p className="case-answer-text">
-                    <Highlight text={receipt.output} />
+                    {receipt.output}
                   </p>
                   <div
                     className={`replay-draft-status ${mismatched ? "is-warning" : ""}`}
@@ -399,67 +380,23 @@ export default function CaseStudy({
               )}
             </article>
             {state.freshReceipt && state.oldReceipt && (
-              <details className="case-superseded" data-testid="case-old-draft">
+              <details className="case-superseded" data-testid="case-old-draft" open>
                 <summary>
-                  <span>차단된 최초 답변 · 300만 원</span>
+                  <span>상담 기록에 추가되지 않은 답변</span>
                   <ChevronDown size={13} />
                 </summary>
                 <p>
-                  <Highlight text={state.oldReceipt.output} />
+                  {state.oldReceipt.output}
                 </p>
                 <small>
-                  문서 v{state.oldReceipt.references[0]?.revision} · 차단 근거
-                  보존
+                  인용한 안내가 변경되어 기록 요청이 거절됐습니다.
                 </small>
               </details>
             )}
           </div>
 
-          <div className="replay-gate">
-            <div className="replay-node-label">
-              <span>기록 처리</span>
-            </div>
-            <h2>
-              {state.action
-                ? state.action.replayed
-                  ? "같은 작업 반환"
-                  : "정상 답변 기록"
-                : blocked && !state.freshReceipt
-                  ? "오래된 답변 차단"
-                  : mismatched
-                    ? "변경 감지"
-                    : state.freshReceipt
-                      ? "새 답변 확인 대기"
-                      : "아직 기록하지 않음"}
-            </h2>
-            <p>
-              {state.action
-                ? state.action.replayed
-                  ? "재시도에도 같은 작업을 반환했습니다."
-                  : "현재 안내 문서를 인용한 새 답변을 기록했습니다."
-                : blocked && !state.freshReceipt
-                  ? "인용한 안내 문서가 변경되어 기록을 거절했습니다. 새 답변이 필요합니다."
-                  : mismatched
-                    ? "답변은 이전 안내를 인용하고 있습니다. 기록 요청 시 서버가 변경 여부를 확인합니다."
-                    : state.freshReceipt
-                      ? "갱신한 답변으로 기록을 시도합니다."
-                      : "준비된 답변으로 기록을 요청하면 서버가 현재 안내와 일치하는지 확인합니다."}
-            </p>
-            <p className="replay-result-guide">
-              {state.action
-                ? state.action.replayed
-                  ? "같은 요청 키의 재시도: 아래 작업 ID로 기존 기록과 비교"
-                  : "현재 원문과 답변의 일치 확인 후 작업 기록 생성"
-                : blocked && !state.freshReceipt
-                  ? "이전 답변 300만 원 / 변경된 안내 100만 원"
-                  : mismatched
-                    ? "비교 대상: 변경 전 답변 300만 원 / 현재 한도 100만 원"
-                    : state.freshReceipt
-                      ? "갱신 결과: 현재 한도 100만 원을 반영한 새 답변"
-                      : "확인 대상: 인용 문서의 변경 여부 · 답변 유효기간"}
-            </p>
-          </div>
           {transport}
+          <ServerRecords store={flow.records} />
           </div>
         </div>
       </div>
@@ -472,22 +409,22 @@ export default function CaseStudy({
           tabIndex={-1}
           aria-labelledby="case-outcome-title"
         >
-          <h2 id="case-outcome-title">{state.restored ? "이전 실행 결과" : "이번 실행 결과"}</h2>
+          <details><summary id="case-outcome-title">{state.restored ? "이전 실행 결과" : "이번 실행 결과"}</summary>
           <p className="case-outcome-explanation">
             {blocked
-              ? "300만 원을 안내한 답변은 문서 변경으로 차단됐습니다. 현재 안내는 100만 원입니다."
+              ? "이전 답변은 인용 문서가 변경되어 상담 기록에 추가되지 않았습니다."
               : "서버가 반환한 상담 기록입니다. 이전 답변의 차단 여부는 실행 로그를 확인하세요."}
           </p>
           <dl>
             <div>
               <dt>변경 전 답변</dt>
               <dd className={blocked ? "is-blocked" : "is-pending"}>{blocked ? "오래된 답변 차단" : "확인 전"}</dd>
-              <dd className="case-outcome-detail">{blocked ? "300만 원 안내 · 인용 문서 변경으로 기록 거절" : "차단 응답 확인 전"}</dd>
+              <dd className="case-outcome-detail">{blocked ? "인용 문서 변경으로 기록 거절" : "차단 응답 확인 전"}</dd>
             </div>
             <div>
               <dt>변경 후 답변</dt>
               <dd className={state.action ? "" : "is-pending"}>{state.action ? "새 답변 기록 완료" : "기록 확인 전"}</dd>
-              <dd className="case-outcome-detail">{state.action ? "100만 원 안내 · 현재 문서를 확인한 뒤 기록" : "성공 응답을 받아야 기록 완료로 표시"}</dd>
+              <dd className="case-outcome-detail">{state.action ? "현재 문서를 확인한 뒤 기록" : "성공 응답을 받아야 기록 완료로 표시"}</dd>
             </div>
             <div>
               <dt>같은 요청 재시도</dt>
@@ -502,11 +439,12 @@ export default function CaseStudy({
               <small>{state.action.replayed ? "동일 작업 · 과거 기록" : "기록됨"}</small>
             </div>
           )}
+          </details>
         </section>
       )}
 
 
-      {state.session && <ServerRecords key={state.session} base={configuredBase} session={state.session} expectedId={state.action?.action_id} />}
+
 
       <div className="replay-below">
         <details className="replay-audit"><summary>요청별 응답 · {state.events.length}건</summary>

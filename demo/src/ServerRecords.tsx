@@ -1,33 +1,26 @@
-import { useEffect, useRef, useState } from "react";
-import { CaseApi } from "./caseApi";
+import { useSyncExternalStore } from "react";
+import type { RecordStore } from "./recordStore";
 
-export default function ServerRecords({ base, session, expectedId }: { base: string; session: string; expectedId?: string }) {
-  const [rows, setRows] = useState<{ action_id: string; receipt_id: string; output: string }[] | null>(null);
-  const [observed, setObserved] = useState("");
-  const [queriedFor, setQueriedFor] = useState<string | undefined>(undefined);
-  const [error, setError] = useState("");
-  const [busy, setBusy] = useState(false);
-  const pending = useRef(false);
-  const generation = useRef(0);
-  useEffect(() => { generation.current++; pending.current = false; setRows(null); setQueriedFor(undefined); setObserved(""); setError(""); setBusy(false); return () => { generation.current++; }; }, [session, base]);
-  async function inspect() {
-    if (!session || pending.current) return;
-    pending.current = true; setBusy(true); setError("");
-    const token = generation.current;
-    try {
-      const result = await new CaseApi(base).actions(session);
-      if (token !== generation.current) return;
-      setRows(result); setQueriedFor(expectedId); setObserved(new Date().toLocaleTimeString("ko-KR"));
-    } catch (e) { if (token === generation.current) setError(e instanceof Error ? e.message : "조회 실패"); }
-    finally { if (token === generation.current) { pending.current = false; setBusy(false); } }
-  }
-  return <section className="server-records" data-testid="server-records" aria-label="서버 저장 기록">
-    <div className="record-heading"><h3>서버 저장 기록</h3><button disabled={!session || busy} onClick={() => void inspect()}>{busy ? "조회 중…" : "서버 기록 조회"}</button></div>
-    <p>현재 세션의 기록을 API에서 조회합니다. 조회는 새 작업을 만들지 않습니다.</p>
-    {error && <p role="alert">{error} {rows && "아래는 마지막 조회 기록입니다."}</p>}
-    {rows === null ? <p className="record-empty">{session ? "조회 전 · 화면의 실행 응답과 별도로 확인" : "작업을 시작하면 조회할 수 있습니다."}</p> : <div aria-live="polite">
-      <p>{observed} 조회 · <strong>{rows.length}개 작업</strong>{expectedId && (queriedFor !== expectedId ? " · 이후 실행 결과가 바뀜 · 다시 조회 필요" : rows.some(row => row.action_id === expectedId) ? " · 실행 응답의 작업 ID와 일치" : " · 실행 응답의 작업 ID 없음")}</p>
-      {rows.length === 0 ? <p>저장된 작업이 없습니다.</p> : <ul>{rows.map(row => <li key={row.action_id}><code>{row.action_id}</code><p>{row.output}</p></li>)}</ul>}
+export default function ServerRecords({ store }: { store: RecordStore }) {
+  const s = useSyncExternalStore(store.subscribe, store.getSnapshot);
+  const a = s.attempt;
+  const current = !s.writing && !s.busy && !s.error && s.checkedAttempt === s.attemptNumber;
+  const match = a && s.rows?.find(row => row.receipt_id === a.receiptId && row.output === a.output && (!a.result || row.action_id === a.result.action_id));
+  return <section className="server-records" data-testid="server-records" aria-label="서버 저장 기록" aria-busy={s.busy}>
+    <div className="record-heading"><h3>상담 기록</h3><button disabled={!s.session || s.busy || s.writing} onClick={() => void store.refresh()}>{s.busy ? "조회 중…" : "서버 기록 조회"}</button></div>
+    {s.busy && <p role="status">서버에 저장된 내용을 확인 중입니다.</p>}
+    {s.error && <p role="alert">현재 조회 실패 · {s.error}{s.rows !== null && " 아래는 마지막으로 확인한 기록입니다."}</p>}
+    {a && <div className="record-confirmation" data-testid="record-confirmation" aria-live="polite">
+      <p>{s.writing ? "기록 요청 처리 중 · 아직 처리 응답을 받지 않았습니다." : a.result ? a.result.replayed ? (a.previousId === a.result.action_id ? "기록 요청 응답: 같은 요청 키·작업 ID의 기존 기록 반환 · 이번 요청으로 추가된 기록 0건" : "기록 요청 응답: 기존 기록 반환 · 이전 작업 ID와의 대조는 확인되지 않았습니다.") : "기록 요청 응답: 답변 기록 완료" : a.rejected ? `기록 요청 거절: ${a.reason}` : "기록 요청 응답 미확인 · 저장 실패를 뜻하지 않습니다. 같은 요청 키를 유지합니다."}</p>
+      <p>{!current ? "이번 요청 이후의 저장 내역은 아직 확인되지 않았습니다." : match ? "이후 서버 조회: 요청한 답변 본문과 상담 기록이 일치합니다." : a.rejected && !s.rows?.some(row => row.receipt_id === a.receiptId) ? "이후 서버 조회: 거절된 답변은 상담 기록에 없습니다." : "이후 서버 조회: 이 답변의 기록을 찾지 못했습니다. 같은 요청으로 재시도해 확인하세요."}</p>
+      {current && match && !a.result && <p>저장된 답변은 확인했습니다. 같은 요청 재시도로 처리 응답을 확인하세요.</p>}
+    </div>}
+    {s.rows === null ? <p className="record-empty">{s.session ? "조회 전 · 저장된 기록 수는 아직 모릅니다." : "조회 전 · 작업을 시작하면 서버 기록을 확인합니다."}</p> : <div aria-live="polite">
+      <p className="record-observed">{!current ? "마지막 확인 기록" : "서버 조회 결과"} · <time dateTime={s.observed}>{new Date(s.observed).toLocaleTimeString("ko-KR")}</time> · <strong data-testid="record-count">{s.rows.length}개 작업</strong></p>
+      {s.rows.length === 0 ? <p>저장된 상담 기록이 없습니다.</p> : <ul>{s.rows.map(row => <li key={row.action_id} data-action-id={row.action_id}>
+        <p className="stored-answer" data-testid="stored-answer">{row.output}</p>
+        <details><summary>기록 식별 정보</summary><span>작업 ID</span><code>{row.action_id}</code><span>답변 ID</span><code>{row.receipt_id}</code></details>
+      </li>)}</ul>}
     </div>}
   </section>;
 }

@@ -2,6 +2,7 @@
 import argparse
 import json
 from pathlib import Path
+from case_browser_steps import finish_case
 from playwright.sync_api import sync_playwright
 
 
@@ -39,7 +40,7 @@ def main():
             details.locator('summary').click()
         page.goto(args.base, wait_until='networkidle')
         configure()
-        page.get_by_test_id('case-run-top').click(); step(6)
+        page.get_by_test_id('case-run-top').click(); finish_case(page); step(6)
         before = snapshot(); count = len(requests)
         page.reload(wait_until='networkidle'); step(6)
         assert len(requests) == count, 'Reload must not send API requests'
@@ -49,7 +50,7 @@ def main():
         page.locator('.replay-audit > summary').click()
         assert '브라우저에 복원한 과거 API 응답' in page.get_by_test_id('case-journal').inner_text()
         assert page.get_by_test_id('case-api-base').input_value() == args.api
-        assert page.get_by_test_id('case-action').locator('code').inner_text() == before['snapshot']['action']['action_id']
+        assert page.get_by_test_id('case-action').locator('code').text_content() == before['snapshot']['action']['action_id']
         for field in ['session', 'events', 'oldReceipt', 'freshReceipt', 'action']:
             assert snapshot()['snapshot'][field] == before['snapshot'][field]
         page.get_by_role('navigation', name='화면 선택').get_by_role('link', name='모델 부하', exact=True).click()
@@ -123,13 +124,13 @@ def main():
         assert len(requests) == count
         assert '중단' in page.get_by_test_id('case-status').inner_text()
         assert page.get_by_test_id('case-run-top').is_enabled()
-        assert '이어서 실행' in page.get_by_test_id('case-restored').inner_text()
+        assert '상단 실행 버튼' in page.get_by_test_id('case-restored').inner_text()
         assert '이어서 실행' in page.get_by_test_id('case-run-top').inner_text()
         page.unroute_all(behavior='ignoreErrors')
         try: pending[0][0].abort()
         except Exception: pass  # Reload may already have closed the old route.
         assert snapshot()['actionKey'] == pending[0][2]['idempotency_key']
-        page.get_by_test_id('case-run-top').click(); step(6)
+        page.get_by_test_id('case-run-top').click(); finish_case(page); step(6)
         after = snapshot()['snapshot']
         assert after['action']['action_id'] == pending[0][1]['action_id']
         assert after['action']['replayed'] is True

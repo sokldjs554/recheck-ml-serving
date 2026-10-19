@@ -24,6 +24,7 @@ function fixture() {
   };
   const receipt = { id: "old", output: source.text, references: [source] };
   const api = {
+    actions: vi.fn().mockResolvedValue([]),
     connect: vi.fn().mockResolvedValue({ session_id: "session" }),
     state: vi.fn().mockResolvedValue(state),
     prepare: vi.fn().mockResolvedValue(receipt),
@@ -111,6 +112,12 @@ describe("guided case lifecycle", () => {
         receipt_id: "fresh",
         replayed: true,
       });
+    await flow.runAll();
+    expect(flow.getSnapshot().step).toBe(3);
+    expect(api.execute).toHaveBeenCalledTimes(1);
+    await flow.runAll();
+    expect(flow.getSnapshot().step).toBe(5);
+    expect(api.execute).toHaveBeenCalledTimes(2);
     await flow.runAll();
     expect(flow.getSnapshot()).toMatchObject({
       step: 6,
