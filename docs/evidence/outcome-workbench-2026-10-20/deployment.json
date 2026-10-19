@@ -1,0 +1,135 @@
+{
+  "service": {
+    "id": "srv-db3rmj3ncjis73bi8fl0",
+    "updatedAt": "2026-10-19T15:39:34.103472Z",
+    "plan": "free",
+    "healthCheckPath": "/health",
+    "startCommand": "python scripts/serve_demo.py"
+  },
+  "runtime_commit": "189307046e0c4ff378e8d3314162375a1d291b5a",
+  "deploy": {
+    "id": "dep-dbb3iv9um5fc73bf5rs0",
+    "status": "live",
+    "startedAt": "2026-10-19T15:39:34.297476Z",
+    "finishedAt": "2026-10-19T15:41:36.228997Z"
+  },
+  "observed_instance": "srv-db3rmj3ncjis73bi8fl0-s92w7",
+  "logs": [
+    {
+      "id": "a23ccbaa-0e99-469f-95d8-f57fb16ce8fe",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db3rmj3ncjis73bi8fl0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db3rmj3ncjis73bi8fl0-s92w7"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "{\"event\": \"model_process_starting\", \"elapsed_ms\": 0.025, \"startup_budget_seconds\": 90.0}",
+      "timestamp": "2026-10-19T15:40:40.780360105Z"
+    },
+    {
+      "id": "993d9dd0-d503-4ca0-8d98-158e91d3ed78",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db3rmj3ncjis73bi8fl0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db3rmj3ncjis73bi8fl0-s92w7"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "INFO:     Uvicorn running on http://127.0.0.1:8001 (Press CTRL+C to quit)",
+      "timestamp": "2026-10-19T15:41:10.584817125Z"
+    },
+    {
+      "id": "abe0dabc-1847-4425-bd43-b19642a3cb26",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db3rmj3ncjis73bi8fl0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db3rmj3ncjis73bi8fl0-s92w7"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "{\"event\": \"model_ready\", \"elapsed_ms\": 30045.455}",
+      "timestamp": "2026-10-19T15:41:10.8256843Z"
+    },
+    {
+      "id": "1c61a779-ee50-487d-a595-d99d2a4d490d",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db3rmj3ncjis73bi8fl0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db3rmj3ncjis73bi8fl0-s92w7"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "{\"event\": \"api_process_starting\", \"elapsed_ms\": 30045.503}",
+      "timestamp": "2026-10-19T15:41:10.825692251Z"
+    },
+    {
+      "id": "028ccfdf-86f2-4c4f-b944-51b3dd638011",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db3rmj3ncjis73bi8fl0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db3rmj3ncjis73bi8fl0-s92w7"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "INFO:     Uvicorn running on http://0.0.0.0:10000 (Press CTRL+C to quit)",
+      "timestamp": "2026-10-19T15:41:32.685752263Z"
+    }
+  ],
+  "scope": "Deployment-window process initialization logs. Not an end-to-end client request latency measurement. No retrospective diagnosis of the October 13 failure."
+}

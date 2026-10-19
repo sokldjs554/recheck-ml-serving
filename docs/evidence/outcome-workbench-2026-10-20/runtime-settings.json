@@ -2,11 +2,15 @@
   "source": "Render get_service tool, current session read",
   "service_id": "srv-db3rmj3ncjis73bi8fl0",
   "plan": "free",
-  "healthCheckPath": "",
   "repository_healthCheckPath": "/health",
   "startCommand": "python scripts/serve_demo.py",
   "last_service_updated_at": "2026-10-19T09:55:26.514899Z",
-  "change_applied": false,
-  "reason": "Available connector has no update-service/health-path method; environment reports no Render credential binding. User notified of exact Dashboard field.",
-  "queried_on_utc": "2026-10-19"
+  "change_applied": true,
+  "reason": "User applied /health after the connector reported an empty path; a fresh get_service read confirms /health and free plan.",
+  "queried_on_utc": "2026-10-19",
+  "initial_query_healthCheckPath": "",
+  "healthCheckPath": "/health",
+  "changed_by": "user via Render Dashboard, confirmed in tool query",
+  "confirmed_service_updated_at": "2026-10-19T15:39:34.103472Z",
+  "confirmation_queried_on_utc": "2026-10-19"
 }

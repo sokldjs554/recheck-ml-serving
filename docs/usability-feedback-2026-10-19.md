@@ -326,7 +326,7 @@ npm --prefix demo test
 | 결과 명칭보다 처리 단계·원문이 앞섬 | 요청 응답의 거절 / 새 기록 저장 / 기존 기록 반환을 큰 결과로 표시. 이후 GET 확인은 별도 표시. 모바일은 답변→요청→저장 결과→원문 상세 순서 | blocked/recorded/replayed 캡처, 키보드 순서 검사 |
 | 공개 검색과 CPU 실험의 관계가 모호함 | 세 화면의 입증 대상·별도 실행 경로를 접힌 구조 안내와 README에 연결 | `/evidence/.../execute`와 `/decisions` 분리, 과거 측정 출처 유지 |
 | 자료 최신화와 전달력 개선을 혼동 | 현재 UI 실제 API 영상으로 교체. 자동화 결과와 사람의 재확인 상태를 분리 | 현재 영상, capture.json, 아래 재확인 과제 |
-| 부분 수정을 전체 개선으로 표현 | 이 표의 각 항목과 검증·미적용 항목을 대조. 사용자 이해 향상·직무 적합성 점수·합격 성과를 주장하지 않음 | 아래 범위·미적용 설정 |
+| 부분 수정을 전체 개선으로 표현 | 이 표의 각 항목과 검증·설정 적용 상태를 대조. 사용자 이해 향상·직무 적합성 점수·합격 성과를 주장하지 않음 | 아래 범위·설정 확인 |
 
 ### 화면과 영상
 
@@ -366,14 +366,20 @@ python scripts/check_case_browser.py --base http://127.0.0.1:5173 --api http://1
 
 ### 운영 설정과 남은 범위
 
-Render 실제 서비스 조회는 [이 기록](evidence/outcome-workbench-2026-10-20/runtime-settings.json)처럼 **Health Check Path가 빈 문자열**이었다. 저장소 `render.yaml`은 `/health`다. 현재 연결 도구에는 기존 서비스의 health path 수정 메서드가 없고 환경에 Render 관리 자격 증명 바인딩도 없어 수정 적용을 주장하지 않는다. [공식 문서](https://render.com/docs/health-checks)의 설정 경로와 대조했다.
+Render 실제 서비스 조회는 [이 기록](evidence/outcome-workbench-2026-10-20/runtime-settings.json)처럼 **Health Check Path가 빈 문자열**이었다. 저장소 `render.yaml`은 `/health`다. 현재 연결 도구에는 기존 서비스의 health path 수정 메서드가 없고 환경에 Render 관리 자격 증명 바인딩도 없어 AI가 직접 수정하지 못했다. 이후 사용자 적용과 재조회 결과는 다음 문단과 원자료에 기록했다. [공식 문서](https://render.com/docs/health-checks)의 설정 경로와 대조했다.
 
-직접 적용 위치: [서비스 Settings](https://dashboard.render.com/web/srv-db3rmj3ncjis73bi8fl0/settings) → **Health Checks → Edit → `/health` → Save Changes**. 사용자에게 이 위치를 전달했다. HTTP 준비 검사 설정과 무료 호스트 시작 지연 해소는 같은 일이 아니다. 10월 13일 정기 점검의 약 54.04초 / 2.13초 / 1.63초 표본과 5초 실패 기준은 [기존 운영 기록](inspection-update.md)에 보존하며 이번 배포 성공으로 대체하지 않는다. 당시 지연 원인은 여전히 미확정이다.
+직접 적용 위치: [서비스 Settings](https://dashboard.render.com/web/srv-db3rmj3ncjis73bi8fl0/settings) → **Health Checks → Edit → `/health` → Save Changes**. 사용자에게 이 위치를 전달한 뒤 사용자가 설정 완료를 알렸다. **후속 get_service 조회에서 실제 `/health` 반영과 무료 플랜을 확인했다**(service updatedAt `2026-10-19T15:39:34.103472Z`). AI가 직접 설정했다고 기록하지 않는다. HTTP 준비 검사 설정과 무료 호스트 시작 지연 해소는 같은 일이 아니다. 10월 13일 정기 점검의 약 54.04초 / 2.13초 / 1.63초 표본과 5초 실패 기준은 [기존 운영 기록](inspection-update.md)에 보존하며 이번 배포 성공으로 대체하지 않는다. 당시 지연 원인은 여전히 미확정이다.
 
 - 공개 TF-IDF 체험과 CPU 서빙 실험은 분리되어 있다. 과거 120 req/s는 목표 투입, 약 67.6 req/s는 특정 조건의 유효 응답률이다. 장기 용량·SLA·현재 화면의 성능이 아니다.
 - 대표 흐름은 같은 탭 새로고침 복원을 지원한다. 직접 구성은 화면 이동까지 유지하고 전체 새로고침 시 초기화한다. 이 범위 차이를 숨기거나 다른 세션의 기록으로 대체하지 않는다.
 - 실제 iPhone Safari 검사·최신 화면의 사람 이해도는 미검증이다. 자동화의 WebKit/모바일 너비 검사를 이 결과로 바꾸지 않는다.
 - 지원자의 역할은 주제·방향 결정, 요구 구체화·범위 조정·수정 요구·결과 검토다. 코드·데모 제작은 AI가 주로 담당했다. 이번 기술 설명을 직접 설계·구현·실험 경력으로 바꾸지 않는다. 자소서·제출용 포트폴리오는 수정하지 않았다.
+
+### 공개 배포 진행 기록
+
+코드 커밋 [`1893070`](https://github.com/sokldjs554/recheck-ml-serving/commit/189307046e0c4ff378e8d3314162375a1d291b5a)의 Render 배포 `dep-dbb3iv9um5fc73bf5rs0`가 2026-10-19 15:41:36 UTC에 live가 됐다. 설정 변경으로 먼저 배포된 이전 코드 `92afcce`와 구분했다. [실제 배포·서비스 설정·시작 로그](evidence/outcome-workbench-2026-10-20/deployment.json).
+
+해당 배포 시간대 새 인스턴스에서 모델 준비까지 30.045초, API 프로세스 시작 로그부터 포트 바인딩 로그까지 약 21.860초였다. 서버 초기화 구간의 관측이며 사용자 요청 전체 지연이나 정확한 플랫폼 대기 시간은 아니다. 90초 모델 초기화 예산 안에서 준비됐고 해당 시작에서 조기 종료는 관측되지 않았다. 무료 호스트의 첫 응답 지연이 해결됐다고 주장하지 않는다.
 
 ### 친구에게 다시 확인할 과제
 
