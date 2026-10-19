@@ -1,6 +1,6 @@
 # 검증 기록
 
-최신 검증: [2026-10-19 제출 정리·공개 배포 검사](submission-2026-10-19.md). [2026-10-18 검증](release-2026-10-18.md)과 아래 이전 숫자·화면은 해당 시점의 기록입니다.
+최신 화면·기능 검증: [2026-10-19 실행 작업·근거 탐색 보완](usability-feedback-2026-10-19.md#실행-작업과-근거-탐색-보완). [이전 제출 정리·공개 배포 검사](submission-2026-10-19.md). [2026-10-18 검증](release-2026-10-18.md)과 아래 이전 숫자·화면은 해당 시점의 기록입니다.
 
 2026-10-08, Linux 개발 컨테이너, Python 3.12.14, Node 24.19, PostgreSQL 16. 합성 데이터만 사용했다. CI 설정의 존재와 실제 실행을 구분한다.
 
@@ -12,7 +12,7 @@
 
 동일 날짜에 사이드바·휴대폰 목업을 버전 비교 화면으로 교체했다. 최신 로컬 production 번들에서 브라우저 15개 확인(실제 Python API 연결 1개 포함), 페이지 오류 0, TypeScript 10개 테스트, production build와 저장된 정적 번들 일치를 확인했다. 판단 생성 전 빈 기록, 버전 변경 뒤에도 남는 원본 snapshot, 다음 요청 중 기존 금액 불변을 검사한다. 390·768·1024px의 가로 넘침을 자동 검사하고 데스크톱·모바일 캡처를 검토했다. 별도 리뷰에서도 320–1440px의 네 탭을 확인했다.
 
-현재 화면 증거: [버전 불일치](evidence/demo-comparison.png) · [정상 판단](evidence/demo-desktop.png) · [모바일](evidence/demo-mobile.png). 공개 배포 후 실행되는 브라우저 검증은 아래 로컬 기록과 구분하며, [Pages 워크플로](https://github.com/sokldjs554/recheck-ml-serving/actions/workflows/pages.yml)의 해당 커밋 실행에서 확인할 수 있다.
+당시 화면 증거: [버전 불일치](evidence/demo-comparison.png) · [정상 판단](evidence/demo-desktop.png) · [모바일](evidence/demo-mobile.png). 공개 배포 후 실행되는 브라우저 검증은 아래 로컬 기록과 구분하며, [Pages 워크플로](https://github.com/sokldjs554/recheck-ml-serving/actions/workflows/pages.yml)의 해당 커밋 실행에서 확인할 수 있다.
 
 ## 문구 개선 검증
 

@@ -1,0 +1,7 @@
+{
+  "artifact_id": 12173577841,
+  "workflow_run": 39225968039,
+  "source_commit": "0b2e139517652a3b085837e5182cbce6ad9cd0c4",
+  "zip_sha256": "5b29fae22ac748283e953eff0fd4fe1305d3cd6847967d256b2d96dcae2b473a",
+  "scope": "Actual public Pages + Render capture by GitHub Actions macOS WebKit; exact extracted PNGs, no cropping or synthesized frames."
+}

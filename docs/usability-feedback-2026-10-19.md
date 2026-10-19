@@ -1,5 +1,7 @@
 # 전달받은 사용 피드백과 화면 보완
 
+최신 변경은 [실행 작업과 근거 탐색 보완](#실행-작업과-근거-탐색-보완)입니다. 아래 이전 섹션의 UI·검증 숫자·영상 표시는 해당 커밋 당시 기록입니다.
+
 ## 입력과 확인 범위
 
 2026-10-19 KST에 프로젝트 작성자가 전달한 지인 1명의 체험 후 답변을 근거로 삼았습니다. 관찰자가 실시간으로 행동을 기록한 연구나 실제 은행 고객의 이용 실적은 아닙니다. 실제 체험 일시, 기기·브라우저, 도움 제공 여부, 소요 시간은 확인되지 않았습니다. 점검 당시 배포 버전도 응답만으로 확정하지 않습니다.
@@ -199,7 +201,7 @@ Python Playwright·Chromium 필요. 시스템 브라우저를 사용할 때 `--b
 
 ### 이번 검증과 자료
 
-- 프런트 62개 통과. 새 검사는 서버 조회 응답의 형식·세션 만료를 다룬다.
+- 프런트 62개 통과·production build와 `web_static` 일치. 새 검사는 서버 조회 응답의 형식·세션 만료를 다룬다. [최종 로컬 명령·범위](evidence/workspace-upgrade-2026-10-19/local-verification.json). PostgreSQL CI에서 제외하는 SQLite 전용 세션 용량·만료 정리 검사도 이번에 별도로 실행해 1개 통과(0.50초)를 확인했다.
 - 로컬 Chromium: 대표 흐름 13개, 직접 구성 14개, 복원 9개, 화면·영상·자료 탐색 7개, 부하·복구 탐색 7개 검사 그룹 통과. [대표 흐름](evidence/workspace-upgrade-2026-10-19/case-browser.json) · [복원](evidence/workspace-upgrade-2026-10-19/restoration-results.json) · [화면·영상](evidence/workspace-upgrade-2026-10-19/presentation-results.json) · [부하·복구 탐색](evidence/workspace-upgrade-2026-10-19/serving-results.json). 기존 상태와 새 동작의 회귀 검사이며 사용자 이해도 측정이 아니다.
 - 320·390·768·1440px에서 주요 버튼·로그·영상·표의 문서 가로 넘침을 검사했다. 직접 구성은 390·768·1440px에서 확인했다. 키보드 구간 선택과 포커스 이동은 화면·자료 검사에 포함된다.
 - 복원 검사의 첫 실행은 브라우저 경로 미지정으로 시작하지 못했다. 설치된 Chromium을 명시한 실행은 9개 검사·page error 0·종료 코드 0이었다. 종료 시 기존 route callback의 `CancelledError`가 별도로 출력됐다.
@@ -211,3 +213,15 @@ Python Playwright·Chromium 필요. 시스템 브라우저를 사용할 때 `--b
 처음 화면을 보고 어떤 일을 할 수 있는지 자유롭게 설명해 주세요. 한 번 사용한 뒤 어떤 결과가 남았는지, 원하는 작업이 처리됐다고 판단한 근거가 무엇인지 이야기해 주세요. 다른 화면을 살펴보고 돌아오거나 새로고침한 뒤, 이전 내용을 어디까지 확인할 수 있는지 찾아 주세요.
 
 버튼 위치·정답은 미리 알려주지 않는다. 진행 경로·도움 여부·막힌 지점·실제 발언을 [기존 양식](usability-record.md)에 기록한다. 수정 후 사람의 재확인은 아직 없으며 기능 검사 통과를 이해도 개선으로 해석하지 않는다. 사용자의 요구·수정 요청·결과 검토와 AI의 코드·데모 제작을 구분한다. 자소서·포트폴리오는 수정하지 않았다.
+
+### 최종 배포와 공개 검증
+
+- UI·기능 변경: [`1e3251e`](https://github.com/sokldjs554/recheck-ml-serving/commit/1e3251e2155c09c5cc1020955ab107f18013f392). 미확정 기록의 새 답변 준비 제한을 포함한 **최종 실행 코드: [`0b2e139`](https://github.com/sokldjs554/recheck-ml-serving/commit/0b2e139517652a3b085837e5182cbce6ad9cd0c4)**.
+- [최종 CI](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39225968126): 백엔드 159개 통과·SQLite 전용 1개 제외, 프런트 62개 통과. 동시성·시간 예산 계약 3회 반복, 두 DB 비교, 과거 자료 생성기 검증, 정적 번들 일치 성공. 제외된 SQLite 검사는 위 로컬 실행에서 별도 통과했다.
+- [공개 배포·브라우저 검사](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39225968039): **Chromium 75개 + macOS WebKit 9개 = 84개 검사 항목 통과**. 실제 Pages·Render PostgreSQL에 연결했다. 직접 구성의 원문 변경 차단·서버 0건, 저장 후 브라우저 응답 유실·같은 키 재시도·서버 1건, 대표 흐름의 메뉴 왕복·중간/완료 복원, 부하/복구 자료 탐색·새 영상 재생을 포함한다. 부하를 주거나 공개 서버 장애를 주입하지 않았다.
+- Render `dep-dbatku9srm7s73ar834g`가 위 코드로 **2026-10-19 08:55:07 UTC live**였다. 새 유료 리소스나 인프라 구성은 추가하지 않았다. 배포 성공을 무료 서버 첫 응답 지연 해소나 SLA 달성으로 해석하지 않는다.
+- [공개 검증 로그·항목별 결과](evidence/workspace-upgrade-2026-10-19/public-verification.json), [WebKit 원본 JSON](evidence/workspace-upgrade-2026-10-19/public-results.json). 워크스페이스에서 공개 Pages 직접 접속은 프록시 403으로 차단되어, GitHub Actions에서 실제 공개 URL을 검사했다. 아래 공개 캡처는 해당 artifact에서 원본 PNG를 추출하고 ZIP 해시를 대조했다.
+
+공개 화면: [완료 기록 복원·데스크톱](evidence/workspace-upgrade-2026-10-19/public-case-restored-1440.png) · [완료 기록 복원·모바일](evidence/workspace-upgrade-2026-10-19/public-case-restored-390.png) · [모델 부하](evidence/workspace-upgrade-2026-10-19/public-serving-1440.png) · [장애 복구](evidence/workspace-upgrade-2026-10-19/public-recovery-1440.png) · [캡처 출처와 해시](evidence/workspace-upgrade-2026-10-19/public-capture-source.json).
+
+남은 범위는 직접 구성의 새로고침 초기화, 무료 서버 첫 연결 대기, 실기기 Safari와 수정 후 사람의 재확인이다. 기존 과거 성능·운영 실패 기록은 유지했다. 이번 데모·README 보완과 공개 배포 검증은 완료했으며, 지원자의 역할은 요구 정의·수정 요청·결과 검토로 구분한다.
