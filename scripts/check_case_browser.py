@@ -88,6 +88,13 @@ def main():
         assert automatic_actions[0]['action_id'] == page.get_by_test_id('case-action').locator('code').inner_text()
         checks.append('one-click actual HTTP run preserves old/new answers and produces exactly one persisted task')
         completed_action = page.get_by_test_id('case-action').locator('code').inner_text()
+        requests_before_result = len(api_requests)
+        page.get_by_role('button', name='이번 실행 결과', exact=True).click()
+        assert case.is_visible(), 'Result button must stay on this run, not open stored comparison evidence'
+        assert page.get_by_test_id('case-outcomes').evaluate('(el) => el === document.activeElement')
+        assert len(api_requests) == requests_before_result
+        assert '새 답변 기록 완료' in page.get_by_test_id('case-outcomes').inner_text()
+        checks.append('result button focuses the current run summary without navigation or API requests')
         requests_before_navigation = len(api_requests)
         page.get_by_role('button', name='세 방식 비교', exact=True).click()
         page.get_by_test_id('case-study').wait_for(state='hidden')
@@ -145,6 +152,8 @@ def main():
         assert '300만 원' in page.get_by_test_id('case-draft').inner_text()
         next_step(3)
         assert '오래된 답변 차단' in page.get_by_test_id('case-status').inner_text()
+        assert '새 답변 기록 완료' not in page.get_by_test_id('case-outcomes').inner_text()
+        assert '동일 작업 반환' not in page.get_by_test_id('case-outcomes').inner_text()
         page.screenshot(path=str(args.output / 'case-blocked-desktop.png'), full_page=True)
         next_step(4)
         assert '100만 원' in page.get_by_test_id('case-draft').inner_text()
@@ -160,6 +169,7 @@ def main():
         page.get_by_role('alert').filter(has_text='응답').wait_for()
         assert case.get_attribute('data-step') == '4'
         assert page.get_by_test_id('case-action').count() == 0
+        assert '새 답변 기록 완료' not in page.get_by_test_id('case-outcomes').inner_text()
         page.unroute('**/evidence/receipts/*/execute', malformed_success)
         with page.expect_request('**/evidence/receipts/*/execute') as retried:
             next_step(5)

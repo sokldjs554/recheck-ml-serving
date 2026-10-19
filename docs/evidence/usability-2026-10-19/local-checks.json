@@ -1,0 +1,22 @@
+{
+  "scope": "Local Chromium with real Python API and SQLite; no human retest or performance remeasurement",
+  "frontend": {
+    "tests_passed": 61,
+    "build": "passed"
+  },
+  "case_exit_code": 0,
+  "restoration_exit_code": 0,
+  "presentation_exit_code": 0,
+  "viewport_widths": [
+    1440,
+    768,
+    390,
+    320
+  ],
+  "initial_test_setup_failures": [
+    "restoration counter included static asset requests in same-origin setup",
+    "separate-origin test host initially used a port outside the default local CORS allowlist"
+  ],
+  "final_test_setup": "UI http://127.0.0.1:5173; API http://127.0.0.1:8025; case check also passed same-origin",
+  "human_retest": "not performed"
+}

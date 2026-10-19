@@ -655,8 +655,9 @@ export default function App() {
           >
             <div className="project-purpose">
               <span className="project-kicker"><i /> ANSWER → VERIFY → RECORD</span>
-              <h1>답변 검증과<br /><em>실행 기록</em></h1>
-              <p>원문이 바뀌면 이전 답변의 기록을 차단하는 Python ML 백엔드. 아래에서 직접 실행하고, 서버 결과와 실행 로그를 확인할 수 있습니다.</p>
+              <h1>한도 변경 후<br /><em>이전 답변 차단</em></h1>
+              <p>이체 한도가 300만 원에서 100만 원으로 바뀌었는데, 준비된 상담 답변은 여전히 300만 원이라면? 이전 답변의 기록을 막고, 새 한도를 반영한 답변을 기록하는 과정입니다.</p>
+              <p className="project-scope">가상 은행 상담 사례 · 실제 송금 없음 · Python 서버의 답변 검증과 상담 기록</p>
             </div>
             <div className="project-entry">
               <div className="project-start">

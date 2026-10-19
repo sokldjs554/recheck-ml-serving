@@ -1,4 +1,4 @@
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -69,6 +69,7 @@ export default function CaseStudy({
   const [base, setBase] = useState(configuredBase);
   const [configError, setConfigError] = useState("");
   const [now, setNow] = useState(Date.now());
+  const outcomeRef = useRef<HTMLElement>(null);
   useEffect(() => {
     const id = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(id);
@@ -176,13 +177,16 @@ export default function CaseStudy({
             data-testid="case-next"
             className="case-next"
             disabled={locked || expired || state.sessionExpired}
-            onClick={state.step < 6 ? () => void flow.next() : onEvidence}
+            onClick={state.step < 6 ? () => void flow.next() : () => {
+              outcomeRef.current?.scrollIntoView({ block: "start" });
+              outcomeRef.current?.focus({ preventScroll: true });
+            }}
           >
             {state.busy && !state.running ? (
               <LoaderCircle className="case-spin" size={14} />
             ) : null}
             {state.step >= 6
-              ? "검증 결과 보기"
+              ? "이번 실행 결과"
               : state.error
                 ? "이 단계 다시 시도"
                 : actions[state.step]}
@@ -261,10 +265,9 @@ export default function CaseStudy({
             <span className="case-route-label">
               01 / 실행 재현 · {state.restored ? "브라우저에 복원한 과거 기록" : "실시간 API"}
             </span>
-            <h2>원문·답변·기록 비교</h2>
+            <h2>한도 변경과 상담 기록</h2>
             <p>
-              300만 → 100만 원 변경을 적용하고, 이전 답변의 기록이 차단되는지
-              확인합니다.
+              안내 문서와 답변을 비교하고, 어떤 답변이 기록되는지 확인합니다.
             </p>
           </div>
         </div>
@@ -294,13 +297,59 @@ export default function CaseStudy({
       </div>
 
       {state.storageWarning && <p className="case-persistence-note" role="status" data-testid="case-storage-warning">{state.storageWarning}</p>}
-      {state.restored && <p className="case-persistence-note" data-testid="case-restored">{state.step >= 6
-        ? "완료 기록을 이 탭에서 복원했습니다. 아래의 저장된 차단 결과와 작업 ID를 확인하세요."
-        : state.sessionExpired
-          ? "만료된 세션의 과거 기록입니다. ‘처음부터’로 새 실행을 시작하세요."
-          : expired
-            ? "기록을 복원했습니다. ‘새 답변 다시 준비’로 답변을 갱신한 뒤 계속하세요."
-            : "이 탭의 실행 기록을 복원했습니다. ‘이어서 실행’으로 서버 상태를 확인하고 계속하세요."}</p>}
+      {state.restored && (
+        <div className="case-persistence-note" data-testid="case-restored">
+          <strong>이전 실행 기록</strong>
+          <p>새로고침 전 이 탭에 저장된 기록입니다. 복원만으로 새 요청을 보내거나 현재 서버 상태를 다시 확인하지 않습니다.</p>
+          <p>{state.sessionExpired
+            ? "만료된 세션의 과거 기록입니다. ‘처음부터’로 새 실행을 시작하세요."
+            : state.step >= 6
+              ? "아래의 저장된 차단 결과와 작업 ID를 확인하세요."
+              : expired
+                ? "‘새 답변 다시 준비’로 답변을 갱신한 뒤 계속하세요."
+                : "‘이어서 실행’으로 서버 상태를 확인하고 계속하세요."}</p>
+        </div>
+      )}
+      {(blocked || state.action) && (
+        <section
+          className="case-outcomes case-outcome-summary"
+          data-testid="case-outcomes"
+          ref={outcomeRef}
+          tabIndex={-1}
+          aria-labelledby="case-outcome-title"
+        >
+          <h2 id="case-outcome-title">{state.restored ? "이전 실행 결과" : "이번 실행 결과"}</h2>
+          <p className="case-outcome-explanation">
+            {blocked
+              ? "답변을 만든 뒤 한도 안내 문서가 바뀌어, 이전 답변으로 상담 기록을 남기는 요청을 서버가 거절했습니다."
+              : "서버가 반환한 상담 기록입니다. 이전 답변의 차단 여부는 실행 로그를 확인하세요."}
+          </p>
+          <dl>
+            <div>
+              <dt>변경 전 답변</dt>
+              <dd className={blocked ? "is-blocked" : "is-pending"}>{blocked ? "오래된 답변 차단" : "확인 전"}</dd>
+              <dd className="case-outcome-detail">{blocked ? "변경된 안내 문서가 반영되지 않아 기록 거절" : "차단 응답 확인 전"}</dd>
+            </div>
+            <div>
+              <dt>변경 후 답변</dt>
+              <dd className={state.action ? "" : "is-pending"}>{state.action ? "새 답변 기록 완료" : "기록 확인 전"}</dd>
+              <dd className="case-outcome-detail">{state.action ? "최신 문서를 반영한 상담 기록 반환" : "성공 응답을 받아야 기록 완료로 표시"}</dd>
+            </div>
+            <div>
+              <dt>같은 요청 재시도</dt>
+              <dd className={state.step === 6 ? "" : "is-pending"}>{state.step === 6 ? "동일 작업 반환" : "확인 전"}</dd>
+              <dd className="case-outcome-detail">{state.step === 6 ? "새 기록을 추가하지 않고 기존 작업 ID 반환" : "재시도 전후 작업 ID 비교 대기"}</dd>
+            </div>
+          </dl>
+          {state.action && (
+            <div className="case-action-receipt" data-testid="case-action">
+              <span>상담 기록의 작업 ID</span>
+              <code>{state.action.action_id}</code>
+              <small>{state.action.replayed ? "동일 작업 · 과거 기록" : "기록됨"}</small>
+            </div>
+          )}
+        </section>
+      )}
       <div className={`replay-machine gate-${gate}`}>
         {transport}
         <div className="replay-ruler" aria-hidden="true">
@@ -525,48 +574,10 @@ export default function CaseStudy({
           </div>
         </div>
         <aside className="replay-inspector">
-          {blocked || state.action ? (
-            <section
-              className="case-outcomes"
-              data-testid="case-outcomes"
-              aria-label="서버가 확인한 실행 결과"
-            >
-              <h2>기록 결과</h2>
-              <dl>
-                <div>
-                  <dt>이전 답변</dt>
-                  <dd className="is-blocked">
-                    {blocked ? "오래된 답변 차단" : "확인 전"}
-                  </dd>
-                </div>
-                <div>
-                  <dt>갱신한 답변</dt>
-                  <dd>{state.action ? "작업 기록됨" : "기록 전"}</dd>
-                </div>
-                <div>
-                  <dt>같은 요청 재시도</dt>
-                  <dd>{state.step === 6 ? "동일 작업 반환" : "확인 전"}</dd>
-                </div>
-              </dl>
-              {state.action && (
-                <div className="case-action-receipt" data-testid="case-action">
-                  <span>작업 ID</span>
-                  <code>{state.action.action_id}</code>
-                  <small>
-                    {state.action.replayed ? "동일 작업 · 과거 기록" : "기록됨"}
-                  </small>
-                </div>
-              )}
-            </section>
-          ) : (
-            <div className="replay-inspector-note">
-              <h2>실행 전에 확인할 것</h2>
-              <p>
-                답변을 준비할 때 맞았던 근거가 기록하는 순간에도 유효할까요?
-              </p>
-              <span>실제 API로 차단과 재시도를 확인합니다.</span>
-            </div>
-          )}
+          <div className="replay-inspector-note">
+            <h2>검증 방식 비교</h2>
+            <p>{blocked || state.action ? "이번 체험의 결과는 위에 있습니다. " : "실행 후 위에서 이번 체험의 결과를 확인할 수 있습니다. "}별도 실험에서는 기록 전 검증 방식에 따른 차이를 비교합니다.</p>
+          </div>
           <button className="case-compare" onClick={onEvidence}>
             세 방식 비교
             <ArrowUpRight size={16} />

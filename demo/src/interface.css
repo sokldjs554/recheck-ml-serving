@@ -235,3 +235,36 @@
   .workspace-theme .load-cohorts { grid-row: 3; }
   .workspace-theme .load-explorer .phase-detail { border-left: 0; border-top: 1px solid #e2e8f3; }
 }
+
+/* A plain-language outcome precedes the technical replay and logs. */
+.workspace-theme .project-purpose .project-scope {
+  margin-top: 12px;
+  color: #3e5271;
+  font-size: 12px;
+}
+.workspace-theme .case-outcome-summary {
+  margin: 0 0 20px;
+  padding: 24px;
+  border: 1px solid #ccd8ed;
+  border-left: 4px solid #4563df;
+  border-radius: 6px;
+  background: #f7f9fd;
+  scroll-margin-top: 24px;
+}
+.workspace-theme .case-outcome-summary:focus-visible { outline: 2px solid #3459ef; outline-offset: 3px; }
+.workspace-theme .case-outcome-summary h2 { font-size: 20px; margin: 0 0 10px; color: #1e2b43; }
+.workspace-theme .case-outcome-explanation { margin: 0; font-size: 14px; line-height: 1.8; color: #3e4e69; word-break: keep-all; }
+.workspace-theme .case-outcome-summary dl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin: 20px 0 0; }
+.workspace-theme .case-outcome-summary dl > div { display: block; padding: 12px 0 0; border-top: 1px solid #dbe2ed; }
+.workspace-theme .case-outcome-summary dt { margin-bottom: 8px; font-size: 12px; }
+.workspace-theme .case-outcome-summary dd { font-size: 16px; line-height: 1.6; }
+.workspace-theme .case-outcome-summary dd.is-pending { color: #637089; }
+.workspace-theme .case-outcome-summary dd.case-outcome-detail { margin-top: 6px; font-size: 12px; font-weight: 400; color: #52627b; word-break: keep-all; }
+.workspace-theme .case-outcome-summary .case-action-receipt { margin-top: 18px; }
+.workspace-theme .case-persistence-note strong { display: block; color: #304d7b; }
+.workspace-theme .case-persistence-note p { margin: 4px 0 0; }
+@media (max-width: 760px) {
+  .workspace-theme .case-outcome-summary { padding: 18px 16px; }
+  .workspace-theme .case-outcome-summary dl { grid-template-columns: minmax(0, 1fr); gap: 12px; margin-top: 14px; }
+  .workspace-theme .case-outcome-summary dd { font-size: 15px; }
+}
