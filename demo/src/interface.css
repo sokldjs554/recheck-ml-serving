@@ -224,7 +224,7 @@
   .workspace-theme .replay-timeline li > span:first-child { display: inline; margin-right: 5px; }
   .workspace-theme .replay-timeline i { display: block; margin-top: 8px; }
 }
-.workspace-theme .gate-blocked .replay-gate .replay-result-guide { display: block; grid-column: 2/-1; grid-row: 3; margin: 0; padding: 0; border: 0; color: #edbea6; font-size: 11px; }
+.workspace-theme .gate-blocked .replay-gate .replay-result-guide { display: block; grid-column: 2/-1; grid-row: 3; margin: 0; padding: 0; border: 0; color: #7a492c; font-size: 12px; }
 @media (max-width: 760px) { .workspace-theme .gate-blocked .replay-gate .replay-result-guide { grid-column: 1; grid-row: auto; } }
 .workspace-theme .replay-audit, .workspace-theme .replay-inspector { min-width: 0; }
 .workspace-theme .case-journal pre { max-width: 100%; white-space: pre-wrap; overflow-wrap: anywhere; }

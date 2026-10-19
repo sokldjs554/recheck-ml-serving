@@ -60,8 +60,15 @@
 ### 이번 실행 근거
 
 - 프런트 61개 통과, 빌드 성공.
-- 실제 로컬 Python API·SQLite에서 대표 흐름 12개, 복원 9개, 화면·영상 7개 검사 통과. [범위·초기 검사 실패 기록](evidence/product-ui-2026-10-19/local.json)
+- 실제 로컬 Python API·SQLite에서 대표 흐름 13개, 복원 9개, 화면·영상 7개, 부하·복구 화면 6개 검사 통과. [범위·초기 검사 실패 기록](evidence/product-ui-2026-10-19/local.json)
 - [대표 흐름](evidence/product-ui-2026-10-19/case.json) · [복원](evidence/product-ui-2026-10-19/restoration.json) · [화면 검사](evidence/product-ui-2026-10-19/presentation.json)
 - 로컬 캡처: [첫 화면 PC](evidence/product-ui-2026-10-19/entry-1440.png) · [첫 화면 모바일](evidence/product-ui-2026-10-19/entry-390.png) · [차단 결과](evidence/product-ui-2026-10-19/blocked-1440.png) · [완료 모바일](evidence/product-ui-2026-10-19/complete-390.png)
 
 수정 후 사람의 재확인은 아직 없다. 위 세 과제를 버튼이나 정답을 미리 설명하지 않고 다시 진행하고, 실제 발언·도움 여부를 기존 [기록 양식](usability-record.md)에 남긴다. 자동 검사는 이해도 개선을 입증하지 않는다.
+
+
+### 공개 캡처에서 발견한 색 대비 보완
+
+첫 수정 `5518507`은 [전체 CI](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39206909242)와 [공개 브라우저 검사 80개](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39206909276)를 통과했다. 그 뒤 실제 배포 캡처를 눈으로 검토하면서, 차단 상태의 보조 문구에 기존 높은 선택자 우선순위의 연한 글자색이 남은 것을 발견했다. 자동 기능 통과와 시각 검토를 구분한다.
+
+`interface.css`의 차단 상태 글자색을 어두운 갈색으로 수정하고, `check_case_browser.py`에 실제 계산 스타일의 텍스트/배경 대비 4.5:1 이상 검사를 추가했다. 로컬 API 대표 흐름 13개를 다시 통과했다. 이전 배포 원본은 [초기 공개 검사](evidence/product-ui-2026-10-19/initial-public.json)에 보존한다.

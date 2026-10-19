@@ -160,6 +160,23 @@ def main():
         assert '오래된 답변 차단' in page.get_by_test_id('case-status').inner_text()
         assert '새 답변 기록 완료' not in page.get_by_test_id('case-outcomes').inner_text()
         assert '동일 작업 반환' not in page.get_by_test_id('case-outcomes').inner_text()
+        guide = page.locator('.replay-result-guide')
+        assert guide.is_visible()
+        assert '이전 답변 300만 원 / 변경된 안내 100만 원' in guide.inner_text()
+        contrast = guide.evaluate(r"""el => {
+            const luminance = color => {
+                const channels = color.match(/[\d.]+/g).slice(0,3).map(Number).map(v => {
+                    const c = v / 255;
+                    return c <= .04045 ? c / 12.92 : ((c + .055) / 1.055) ** 2.4;
+                });
+                return .2126 * channels[0] + .7152 * channels[1] + .0722 * channels[2];
+            };
+            const fg = luminance(getComputedStyle(el).color);
+            const bg = luminance(getComputedStyle(el.closest('.replay-gate')).backgroundColor);
+            return (Math.max(fg, bg) + .05) / (Math.min(fg, bg) + .05);
+        }""")
+        assert contrast >= 4.5, f'Blocked explanation contrast {contrast:.2f}:1 is below 4.5:1'
+        checks.append(f'blocked reason is visible beside the result with {contrast:.2f}:1 text contrast')
         page.screenshot(path=str(args.output / 'case-blocked-desktop.png'), full_page=True)
         next_step(4)
         assert '100만 원' in page.get_by_test_id('case-draft').inner_text()

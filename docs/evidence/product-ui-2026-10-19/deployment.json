@@ -1,0 +1,30 @@
+{
+  "runtime_commit": "5518507afd1bc5b9335917d284551599e9d2bde7",
+  "baseline": "2e41e2786db4f246df58568654055d026ceb16ae",
+  "ci_url": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39206909242",
+  "ci_conclusion": "success",
+  "ci_summary": [
+    "2026-10-19T05:55:31.4781201Z 159 passed, 1 skipped in 50.49s",
+    "2026-10-19T05:55:51.6963286Z 8 passed, 1 skipped in 9.97s",
+    "2026-10-19T05:56:02.4974817Z 8 passed, 1 skipped in 10.11s",
+    "2026-10-19T05:56:13.2778412Z 8 passed, 1 skipped in 10.06s",
+    "2026-10-19T05:56:37.9267789Z  Test Files  11 passed (11)",
+    "2026-10-19T05:56:37.9269197Z       Tests  61 passed (61)",
+    "2026-10-19T05:56:45.3195181Z ✓ built in 2.90s"
+  ],
+  "render_deploy": {
+    "commit": {
+      "createdAt": "2026-10-19T05:53:40Z",
+      "id": "5518507afd1bc5b9335917d284551599e9d2bde7",
+      "message": "Replace presentation hero with compact consultation workspace and visible record checks"
+    },
+    "createdAt": "2026-10-19T05:53:56.934138Z",
+    "finishedAt": "2026-10-19T05:56:01.911191Z",
+    "id": "dep-dbar0t0ae00c73a2cda0",
+    "startedAt": "2026-10-19T05:53:56.911851Z",
+    "status": "live",
+    "trigger": "new_commit",
+    "updatedAt": "2026-10-19T05:56:29.431454Z"
+  },
+  "scope": "UI and presentation changes; no backend, model, database or performance remeasurement change. Friend feedback is reported observation; automated checks are separate."
+}

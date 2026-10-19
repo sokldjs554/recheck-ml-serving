@@ -1,7 +1,7 @@
 {
   "base_commit": "2e41e2786db4f246df58568654055d026ceb16ae",
   "frontend_tests": 61,
-  "case_checks": 12,
+  "case_checks": 13,
   "restoration_checks": 9,
   "presentation_checks": 7,
   "api": "local Python API with SQLite",
@@ -10,7 +10,10 @@
   "initial_failures": [
     "Restoration unit assertion still expected prior storage label; updated to new label while retaining explicit no-server-revalidation assertion.",
     "Mobile keyboard test expected controls before answers; updated to visible DOM order: answer disclosure, step disclosure, next control.",
-    "Restoration runner default browser was absent; reran with installed /usr/bin/chromium."
+    "Restoration runner default browser was absent; reran with installed /usr/bin/chromium.",
+    "Local operations route was disabled; enabled existing RECHECK_OBSERVE=1 and reran serving check successfully."
   ],
-  "runner_note": "Restoration assertions and exit code passed; Playwright printed a CancelledError during route teardown after the injected held-response test."
+  "runner_note": "Restoration assertions and exit code passed; Playwright printed a CancelledError during route teardown after the injected held-response test.",
+  "serving_checks": 6,
+  "contrast_check": "blocked reason is visible beside the result with 7.03:1 text contrast"
 }

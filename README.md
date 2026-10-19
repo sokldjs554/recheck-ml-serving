@@ -4,9 +4,9 @@
 
 [공개 데모 바로 실행](https://sokldjs554.github.io/recheck-ml-serving/) · [실제 API 시연 영상](https://sokldjs554.github.io/recheck-ml-serving/media/recheck-walkthrough.mp4)
 
-[![RECHECK 실제 실행 화면](docs/evidence/product-ui-2026-10-19/entry-1440.png)](https://sokldjs554.github.io/recheck-ml-serving/)
+[![RECHECK 실제 실행 화면](docs/evidence/product-ui-2026-10-19/public-entry-1440.png)](https://sokldjs554.github.io/recheck-ml-serving/)
 
-대표 이미지는 현재 화면을 로컬 API에 연결해 캡처했습니다. 영상은 **이전 화면을 로컬 Python API·SQLite에서 촬영한 기록**으로, 현재 화면과 배치·문구가 다릅니다. 공개 데모는 무료 Python 서버·PostgreSQL에 연결하며 첫 응답이 늦어질 수 있습니다. 대기 중에는 첫 화면에서 영상을 볼 수 있습니다.
+대표 이미지는 현재 공개 배포 화면을 실제 API에 연결해 캡처했습니다. 영상은 **이전 화면을 로컬 Python API·SQLite에서 촬영한 기록**으로, 현재 화면과 배치·문구가 다릅니다. 공개 데모는 무료 Python 서버·PostgreSQL에 연결하며 첫 응답이 늦어질 수 있습니다. 대기 중에는 첫 화면에서 영상을 볼 수 있습니다.
 
 ## 문제와 실행 흐름
 
@@ -31,7 +31,7 @@
 | [모델 부하](https://sokldjs554.github.io/recheck-ml-serving/#serving) | CPU 모델 보호, 과부하·회복, 정합성 비용 | 저장된 로컬 `/decisions` 실험 및 별도 SQL 측정 |
 | [장애 복구](https://sokldjs554.github.io/recheck-ml-serving/#recovery) | 실패 trace·로그·SQL 대조, 복구 후 추론·저장 | 저장된 로컬·Kubernetes 실험, 버튼으로 별도 공개 API 조회 |
 
-비전공자 지인 1명의 체험 후 답변을 바탕으로 목적 설명과 결과 배치를 보완했습니다. [입력 답변·수정 범위·재확인 조건](docs/usability-feedback-2026-10-19.md)을 구분해 기록했으며, 수정 후 이해도 개선은 아직 확인하지 않았습니다.
+전달받은 친구의 답변과 화면 수정 요구를 바탕으로 소개 영역을 줄이고, 상담 문서·답변·기록 처리 중심으로 배치를 보완했습니다. [입력 답변·수정 범위·재확인 조건](docs/usability-feedback-2026-10-19.md)을 구분해 기록했으며, 수정 후 이해도 개선은 아직 확인하지 않았습니다.
 
 ## 전체 시스템 구조
 
