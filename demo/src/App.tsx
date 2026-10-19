@@ -1,6 +1,5 @@
 import CaseRunButton from "./CaseRunButton";
 import RecordedDemo from "./RecordedDemo";
-import servingMeasurements from "./serving-evidence.json";
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
@@ -82,13 +81,6 @@ const diff = (r: Receipt, s: Session) =>
   r.model_version !== s.model_version;
 const money = (n: number) => new Intl.NumberFormat("ko-KR").format(n);
 const short = (s: string) => s.slice(0, 8);
-const overloadPhases = servingMeasurements.sustained.phases.filter(
-  (phase) => phase.name === "overload",
-);
-const overloadGoodRate = (
-  overloadPhases.reduce((sum, phase) => sum + phase.cohort_rates_rps.good, 0) /
-  overloadPhases.length
-).toFixed(1);
 const clock = (s: string) =>
   new Date(s).toLocaleTimeString("ko-KR", { hour12: false });
 const walkthrough = [
@@ -597,13 +589,13 @@ export default function App() {
           </button>
           <span className="desk-brand-caption">Python / ML backend</span>
         </div>
-        <nav aria-label="실험 선택">
+        <nav aria-label="화면 선택">
           <button
             className={`desk-nav-item ${tab === "case" ? "is-active" : ""}`}
             aria-current={tab === "case" ? "page" : undefined}
             onClick={() => setTab("case")}
           >
-            실행 재현
+            상담 기록
           </button>
           <a
             className={`desk-nav-item ${tab === "serving" ? "is-active" : ""}`}
@@ -649,33 +641,18 @@ export default function App() {
       </header>
       <main className="desk-main">
         {tab === "case" && (
-          <section
-            className="project-intro"
-            aria-label="프로젝트 목적과 확인 경로"
-          >
-            <div className="project-purpose">
-              <span className="project-kicker"><i /> ANSWER → VERIFY → RECORD</span>
-              <h1>한도 변경 후<br /><em>이전 답변 차단</em></h1>
-              <p>이체 한도가 300만 원에서 100만 원으로 바뀌었는데, 준비된 상담 답변은 여전히 300만 원이라면? 이전 답변의 기록을 막고, 새 한도를 반영한 답변을 기록하는 과정입니다.</p>
-              <p className="project-scope">가상 은행 상담 사례 · 실제 송금 없음 · Python 서버의 답변 검증과 상담 기록</p>
+          <section className="case-toolbar" aria-label="상담 기록 작업">
+            <div className="case-toolbar-main">
+              <h1>상담 기록</h1>
+              <CaseRunButton flow={caseFlow} top />
             </div>
-            <div className="project-entry">
-              <div className="project-start">
-                <CaseRunButton flow={caseFlow} top />
-                <span>실제 Python API로 확인하는 6단계</span>
-              </div>
-              <RecordedDemo />
-              <div className="entry-evidence-links">
-                <a href="#serving"><span>02 / 모델 부하 <ArrowUpRight size={14} /></span><small>목표 {overloadPhases[0].target_rps} → 유효 약 {overloadGoodRate} req/s<br />과거 로컬 측정 · 2026-10-12</small></a>
-                <a href="#recovery"><span>03 / 장애 복구 <ArrowUpRight size={14} /></span><small>실패 요청 → trace → SQL<br />저장된 복구 기록</small></a>
-              </div>
-            </div>
+            <RecordedDemo />
           </section>
         )}
         {!isExperiment && (
           <div className="return-to-case">
             <button onClick={() => setTab("case")}>
-              ← 실행 재현으로 돌아가기
+              ← 상담 기록으로 돌아가기
             </button>
             <span>화면을 이동해도 진행 상황과 실행 기록은 유지됩니다.</span>
           </div>

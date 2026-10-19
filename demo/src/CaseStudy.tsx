@@ -34,7 +34,7 @@ const descriptions = [
   "답변은 그대로 둔 채, 정책 원문의 한도를 100만 원으로 바꿉니다.",
   "바뀌기 전 답변으로 상담 기록을 남겨 봅니다.",
   "변경된 근거로 모델·인덱스를 평가하고 답변을 다시 준비합니다.",
-  "현재 근거를 검증하고 같은 트랜잭션에서 상담 작업을 기록합니다.",
+  "인용 문서와 유효기간을 확인한 뒤 상담 기록을 저장합니다.",
   "같은 키로 다시 요청해 중복 작업이 생기는지 확인합니다.",
   "실행 응답과 동일 키 재시도의 작업 ID가 일치합니다.",
 ];
@@ -150,6 +150,7 @@ export default function CaseStudy({
 
   const transport = (
     <div className="replay-transport">
+      <details className="case-progress-detail"><summary>처리 단계 · {state.step}/6</summary>
       <ol className="replay-timeline" aria-label="사례 실행 진행 상황">
         {phases.map((label, i) => (
           <li
@@ -162,13 +163,13 @@ export default function CaseStudy({
             <i />
           </li>
         ))}
-      </ol>
+      </ol></details>
       <div className="replay-controls">
         <div className="replay-now">
           <span>
             {state.step === 6
-              ? "COMPLETE"
-              : `STEP ${String(state.step + 1).padStart(2, "0")}`}
+              ? "완료"
+              : `${state.step + 1}/6`}
           </span>
           <p>{descriptions[state.step]}</p>
         </div>
@@ -259,18 +260,10 @@ export default function CaseStudy({
       aria-label="근거에서 실행까지 실제 API 사례"
     >
       <div className="replay-heading">
-        <div className="replay-title">
-          <span className="replay-case-number">01</span>
-          <div>
-            <span className="case-route-label">
-              01 / 실행 재현 · {state.restored ? "브라우저에 복원한 과거 기록" : "실시간 API"}
-            </span>
-            <h2>한도 변경과 상담 기록</h2>
-            <p>
-              안내 문서와 답변을 비교하고, 어떤 답변이 기록되는지 확인합니다.
-            </p>
-          </div>
-        </div>
+        <span className="case-route-label">
+          {state.restored ? "이전 상담 기록" : "답변 확인"}
+          <small>{state.restored ? "브라우저 저장본" : "실시간 API · 샘플 상담"}</small>
+        </span>
         <div className="replay-heading-tools">
           <span
             className={`case-connection ${state.session ? "is-connected" : ""}`}
@@ -321,19 +314,19 @@ export default function CaseStudy({
           <h2 id="case-outcome-title">{state.restored ? "이전 실행 결과" : "이번 실행 결과"}</h2>
           <p className="case-outcome-explanation">
             {blocked
-              ? "답변을 만든 뒤 한도 안내 문서가 바뀌어, 이전 답변으로 상담 기록을 남기는 요청을 서버가 거절했습니다."
+              ? "300만 원을 안내한 답변은 문서 변경으로 차단됐습니다. 현재 안내는 100만 원입니다."
               : "서버가 반환한 상담 기록입니다. 이전 답변의 차단 여부는 실행 로그를 확인하세요."}
           </p>
           <dl>
             <div>
               <dt>변경 전 답변</dt>
               <dd className={blocked ? "is-blocked" : "is-pending"}>{blocked ? "오래된 답변 차단" : "확인 전"}</dd>
-              <dd className="case-outcome-detail">{blocked ? "변경된 안내 문서가 반영되지 않아 기록 거절" : "차단 응답 확인 전"}</dd>
+              <dd className="case-outcome-detail">{blocked ? "300만 원 안내 · 인용 문서 변경으로 기록 거절" : "차단 응답 확인 전"}</dd>
             </div>
             <div>
               <dt>변경 후 답변</dt>
               <dd className={state.action ? "" : "is-pending"}>{state.action ? "새 답변 기록 완료" : "기록 확인 전"}</dd>
-              <dd className="case-outcome-detail">{state.action ? "최신 문서를 반영한 상담 기록 반환" : "성공 응답을 받아야 기록 완료로 표시"}</dd>
+              <dd className="case-outcome-detail">{state.action ? "100만 원 안내 · 현재 문서를 확인한 뒤 기록" : "성공 응답을 받아야 기록 완료로 표시"}</dd>
             </div>
             <div>
               <dt>같은 요청 재시도</dt>
@@ -351,7 +344,6 @@ export default function CaseStudy({
         </section>
       )}
       <div className={`replay-machine gate-${gate}`}>
-        {transport}
         <div className="replay-ruler" aria-hidden="true">
           <span>문제 상황 · 변경된 원문</span>
           <span>비교 대상 · 준비된 답변</span>
@@ -360,25 +352,15 @@ export default function CaseStudy({
         <div className="replay-canvas">
           <aside className="replay-source" data-testid="case-source">
             <div className="replay-node-label">
-              <span>01 / 원문</span>
-              <span>{source ? `v${source.revision}` : "실험 조건"}</span>
+              <span>안내 문서</span>
+              <span>{source ? `문서 v${source.revision}` : "불러오기 전"}</span>
             </div>
             <h2>하루 이체 한도</h2>
-            <div
-              className={`replay-amount ${state.step >= 2 ? "has-changed" : ""}`}
-            >
-              <span className="replay-amount-before">300</span>
-              <span className="replay-amount-arrow">↘</span>
-              <span className="replay-amount-after">
-                100<small>만 원</small>
-              </span>
+            <div className="policy-value" data-testid="case-policy-value">
+              {source ? <Highlight text={state.step >= 2 ? "100만 원" : "300만 원"} /> : "—"}
             </div>
             <div className="replay-source-caption">
-              {source
-                ? state.step >= 2
-                  ? "원문 변경 적용됨"
-                  : "현재 원문 · 300만 원"
-                : "300만 원에서 100만 원으로 변경 예정"}
+              {source ? (state.step >= 2 ? "변경된 안내 · 이전 한도 300만 원" : "현재 안내") : "서버 연결 후 표시"}
             </div>
             <div className="replay-source-text">
               {source ? (
@@ -394,7 +376,7 @@ export default function CaseStudy({
                 </>
               ) : (
                 <p>
-                  가상 정책 문서입니다. 실행하면 서버에서 원문을 가져옵니다.
+                  상담 답변이 인용할 안내 문서입니다.
                 </p>
               )}
             </div>
@@ -430,11 +412,11 @@ export default function CaseStudy({
                   >
                     {mismatched
                       ? blocked
-                        ? "바뀐 원문과 달라 실행이 차단됐습니다."
+                        ? "인용한 안내 문서가 바뀌어 기록하지 않았습니다."
                         : "원문이 바뀌었습니다. 이 답변은 그대로입니다."
                       : state.action
                         ? "이 답변으로 작업을 기록했습니다."
-                        : "현재 원문을 인용했습니다. 실행 전 다시 검증합니다."}
+                        : "기록 전에 인용 문서가 바뀌었는지 확인합니다."}
                   </div>
                   <div className="replay-ticket-foot">
                     <span>
@@ -449,9 +431,7 @@ export default function CaseStudy({
                     <span className="replay-placeholder-line" />
                     <span className="replay-placeholder-line" />
                     <p>
-                      문서를 검색해 답변을 준비합니다.
-                      <br />
-                      <strong>원문이 바뀌어도, 이 답변은 남습니다.</strong>
+                      아직 작성된 답변이 없습니다.
                     </p>
                   </div>
                   <div className="replay-ticket-foot">
@@ -483,7 +463,7 @@ export default function CaseStudy({
 
           <div className="replay-gate">
             <div className="replay-node-label">
-              <span>03 / 서버의 실행 판단</span>
+              <span>기록 처리</span>
             </div>
             <div className="replay-gate-symbol" aria-hidden="true">
               <span />
@@ -507,21 +487,21 @@ export default function CaseStudy({
                   : mismatched
                     ? "변경 감지"
                     : state.freshReceipt
-                      ? "다시 검증"
-                      : "검증 대기"}
+                      ? "새 답변 확인 대기"
+                      : "기록 전 확인"}
             </h2>
             <p>
               {state.action
                 ? state.action.replayed
                   ? "재시도에도 같은 작업을 반환했습니다."
-                  : "검증과 기록을 한 트랜잭션으로 처리했습니다."
+                  : "현재 안내 문서를 인용한 새 답변을 기록했습니다."
                 : blocked && !state.freshReceipt
-                  ? "이전 답변으로는 작업을 기록할 수 없습니다."
+                  ? "인용한 안내 문서가 변경되어 기록을 거절했습니다. 새 답변이 필요합니다."
                   : mismatched
-                    ? "이전 답변으로 기록을 시도해 보세요."
+                    ? "답변은 이전 안내를 인용하고 있습니다. 기록 요청 시 서버가 변경 여부를 확인합니다."
                     : state.freshReceipt
                       ? "갱신한 답변으로 기록을 시도합니다."
-                      : "답변과 현재 근거가 일치해야 기록합니다."}
+                      : "인용한 문서가 바뀌지 않았고 유효기간이 남아 있어야 상담 기록을 저장합니다."}
             </p>
             <p className="replay-result-guide">
               {state.action
@@ -529,17 +509,17 @@ export default function CaseStudy({
                   ? "같은 요청 키의 재시도: 아래 작업 ID로 기존 기록과 비교"
                   : "현재 원문과 답변의 일치 확인 후 작업 기록 생성"
                 : blocked && !state.freshReceipt
-                  ? "차단 이유: 답변의 300만 원과 현재 한도 100만 원의 불일치"
+                  ? "이전 답변 300만 원 / 변경된 안내 100만 원"
                   : mismatched
                     ? "비교 대상: 변경 전 답변 300만 원 / 현재 한도 100만 원"
                     : state.freshReceipt
                       ? "갱신 결과: 현재 한도 100만 원을 반영한 새 답변"
-                      : "확인 순서: 답변 준비 → 한도 변경 → 기록 차단 → 새 답변 기록"}
+                      : "확인 대상: 인용 문서의 변경 여부 · 답변 유효기간"}
             </p>
           </div>
         </div>
 
-
+        {transport}
       </div>
 
       <div className="replay-below">

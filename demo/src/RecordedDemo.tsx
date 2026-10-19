@@ -3,7 +3,7 @@ const media = `${import.meta.env.BASE_URL}media/`;
 export default function RecordedDemo() {
   return (
     <details className="recorded-demo" data-testid="recorded-demo">
-      <summary>서버를 기다리는 동안 · 저장된 실제 시연 보기</summary>
+      <summary>이전 실행 영상</summary>
       <p id="recorded-demo-scope">
         이전 화면을 로컬 Python API·SQLite에서 촬영한 실제 시연입니다. 현재 화면과 배치·문구가 다릅니다. 현재 요청의 진행 상황은 실행 화면에서 확인하세요.
       </p>

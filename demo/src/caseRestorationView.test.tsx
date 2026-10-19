@@ -15,7 +15,8 @@ it("completed restoration directs to saved results without offering a nonexisten
   const html = restoredView(6);
   expect(html).toContain("저장된 차단 결과와 작업 ID");
   expect(html).not.toContain("‘이어서 실행’");
-  expect(html).toContain("브라우저에 복원한 과거 기록");
+  expect(html).toContain("브라우저 저장본");
+  expect(html).toContain("복원만으로 새 요청을 보내거나 현재 서버 상태를 다시 확인하지 않습니다.");
 });
 it("interrupted restoration points to an actual resume button", () => {
   const html = restoredView(3);

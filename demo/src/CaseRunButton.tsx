@@ -44,7 +44,7 @@ export default function CaseRunButton({
         : state.running
           ? "실행 중"
           : state.step === 0
-            ? "전체 과정 실행"
+            ? "답변 확인 시작"
             : "이어서 실행"}
     </button>
   );

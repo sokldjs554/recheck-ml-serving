@@ -51,8 +51,8 @@ def main():
         assert page.get_by_test_id('case-action').locator('code').inner_text() == before['snapshot']['action']['action_id']
         for field in ['session', 'events', 'oldReceipt', 'freshReceipt', 'action']:
             assert snapshot()['snapshot'][field] == before['snapshot'][field]
-        page.get_by_role('navigation', name='실험 선택').get_by_role('link', name='모델 부하', exact=True).click()
-        page.get_by_role('navigation', name='실험 선택').get_by_role('button', name='실행 재현', exact=True).click()
+        page.get_by_role('navigation', name='화면 선택').get_by_role('link', name='모델 부하', exact=True).click()
+        page.get_by_role('navigation', name='화면 선택').get_by_role('button', name='상담 기록', exact=True).click()
         assert len(requests) == count
         checks.append('completed reload and navigation preserve session, drafts, action and exact logs without API requests')
         # Decode media before injecting/aborting a real request. WebKit's media

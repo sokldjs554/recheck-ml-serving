@@ -45,7 +45,7 @@ def main():
                 menu.locator('summary').click()
             target.click()
         def return_to_case():
-            page.get_by_role('navigation', name='실험 선택').get_by_role('button', name='실행 재현', exact=True).click()
+            page.get_by_role('navigation', name='화면 선택').get_by_role('button', name='상담 기록', exact=True).click()
         def download_case(name):
             with page.expect_download() as download:
                 page.get_by_role('button', name='사건 기록 JSON', exact=True).click()
@@ -61,6 +61,12 @@ def main():
             details.locator('summary').click()
         configure(args.api)
         page.screenshot(path=str(args.output / 'case-initial-desktop.png'), full_page=True)
+        assert page.get_by_role('heading', name='상담 기록', exact=True).is_visible()
+        assert page.locator('.project-intro').count() == 0, 'Working screen must not render a marketing hero'
+        assert page.locator('h1').evaluate('(el) => parseFloat(getComputedStyle(el).fontSize)') <= 22
+        assert page.get_by_test_id('case-policy-value').inner_text() == '—', 'Do not present staged values as fetched policy'
+        assert page.locator('.replay-result-guide').is_visible(), 'The check criteria must not be hidden by CSS'
+        checks.append('compact working screen exposes check criteria and leaves unfetched policy blank')
         assert page.get_by_test_id('case-run-top').is_visible(), 'Top entry must start the real shared case'
         top_box = page.get_by_test_id('case-run-top').bounding_box()
         assert top_box['y'] + top_box['height'] < 760, 'Start must be visible without scrolling on desktop'
@@ -197,7 +203,11 @@ def main():
             assert page.get_by_test_id('case-reset').evaluate('(el) => el.getBoundingClientRect().top >= 0')
             if width <= 760:
                 page.keyboard.press('Tab')
-                assert page.get_by_test_id('case-next').evaluate('(el) => document.activeElement === el'), 'Mobile focus must follow visible transport before old-answer details'
+                assert page.get_by_test_id('case-old-draft').locator('summary').evaluate('(el) => document.activeElement === el'), 'Focus must follow the visible answer before processing controls'
+                page.keyboard.press('Tab')
+                assert page.locator('.case-progress-detail summary').evaluate('(el) => document.activeElement === el')
+                page.keyboard.press('Tab')
+                assert page.get_by_test_id('case-next').evaluate('(el) => document.activeElement === el'), 'Collapsed progress must not trap keyboard focus'
             page.screenshot(path=str(args.output / f'case-complete-{width}x{height}.png'), full_page=True)
         checks.append('390 portrait, 768 tablet, 844 landscape: no horizontal overflow and reset reachable')
         page.set_viewport_size({'width': 1440, 'height': 1050})

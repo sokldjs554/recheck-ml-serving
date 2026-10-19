@@ -81,7 +81,7 @@ def main():
                 assert before['events'] == expired['events']
                 count = len(requests)
                 page.get_by_role('button', name='세 방식 비교', exact=True).click()
-                page.get_by_role('navigation', name='실험 선택').get_by_role('button', name='실행 재현').click()
+                page.get_by_role('navigation', name='화면 선택').get_by_role('button', name='상담 기록').click()
                 assert page.get_by_test_id('case-next').is_disabled()
                 assert page.get_by_test_id('case-run-all').is_disabled()
                 assert download('after-navigation.json') == expired

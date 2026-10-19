@@ -52,19 +52,7 @@ export default function ServingEvidence({
       aria-label={view === "serving" ? "모델 부하 실험" : "장애 복구 실험"}
     >
       <header className="serving-heading">
-        <span className="serving-index">
-          {view === "serving" ? "02" : "03"}
-        </span>
-        <div>
-          <h1>
-            {view === "serving" ? <>모델 부하와<br /><em>처리 한계</em></> : <>모델 장애와<br /><em>복구 기록</em></>}
-          </h1>
-          <p>
-            {view === "serving"
-              ? "요청량 증가에 따른 유효 응답·거절과 부하 감소 후 회복 결과"
-              : "모델 오류의 추적·저장 기록과 별도 Kubernetes 복구 실험"}
-          </p>
-        </div>
+        <h1>{view === "serving" ? "모델 부하" : "장애 복구"}</h1>
       </header>
       <p className="serving-record-note" data-testid="stored-evidence-note">
         {view === "serving"
