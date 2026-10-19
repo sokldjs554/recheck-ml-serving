@@ -29,7 +29,7 @@ export default function TaskExecution({ base, session, receiptId, disabled, onBu
     <button className="case-next" disabled={busy || disabled} onClick={() => void execute()}>{busy ? "기록 확인 중…" : attempted ? "같은 요청 재시도" : "이 답변으로 작업 기록"}</button>
     {error && <p role="alert">{error}</p>}
     {!action && <p>기록 완료 응답 없음{attempted && !error && !busy ? " · 서버 기록 조회로 확인" : ""}</p>}
-    {action && <div className="task-result" role="status"><strong>{busy || error ? "마지막 성공 응답 · " : ""}{action.replayed ? "같은 작업 반환" : "새 작업 기록"}</strong><details><summary>작업 ID</summary><code>{action.action_id}</code></details><p>{action.replayed ? "같은 요청 키의 기존 작업을 반환했습니다. 아래 상담 기록과 대조할 수 있습니다." : "가상 데이터의 내부 작업입니다. 실제 송금·발송은 하지 않습니다."}</p></div>}
+    {action && <div className="task-result" role="status"><strong>{busy || error ? "마지막 성공 응답 · " : ""}{action.replayed ? "같은 작업 반환" : "새 작업 기록"}</strong><details><summary>작업 ID</summary><code>{action.action_id}</code></details><p>{action.replayed ? "같은 요청 키의 기존 작업을 반환했습니다. 아래 작업 기록과 대조할 수 있습니다." : "가상 데이터의 내부 작업입니다. 실제 송금·발송은 하지 않습니다."}</p></div>}
     {attempted && <details className="execution-detail"><summary>요청·응답 근거</summary><pre>{JSON.stringify({receipt_id:receiptId,idempotency_key:key.current,last_success:action,failure},null,2)}</pre></details>}
   </section>;
 }

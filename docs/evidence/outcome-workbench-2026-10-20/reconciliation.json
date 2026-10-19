@@ -1,0 +1,543 @@
+{
+  "base": "http://127.0.0.1:5173",
+  "api": "http://127.0.0.1:8025",
+  "observed_at_utc": "2026-10-19T15:31:12Z",
+  "checks": [
+    "unqueried is distinct from GET-confirmed empty; prepared answer does not create a stored task",
+    "blocked intended answer remains readable and is absent from actual saved records",
+    "valid POST body and action ID match automatic GET and displayed full answer",
+    "same-key retry performs a new GET even with identical action ID; failed GET retains labelled old rows; successful refresh confirms same single record",
+    "view round trip preserves GET rows and creates no implicit API calls",
+    "actual answer text, ID details and controls fit 320/390/768/1440 widths",
+    "reload labels historical POST evidence and does not pretend to restore fresh GET results",
+    "lost POST response is not called save failure or POST success; GET reconciles actual commit; original key retry returns it",
+    "late GET from the previous session cannot populate the reset workspace",
+    "custom workspace uses the same full answer / GET count / action-ID semantics with its own isolated session and mobile layout"
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/d77ffa69-b143-43e4-8c4b-ad1b1daa73a1/evidence/actions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/d77ffa69-b143-43e4-8c4b-ad1b1daa73a1/evidence/prepare",
+      "body": {
+        "query": "하루 이체 한도",
+        "product": "answer",
+        "idempotency_key": "6530f56d-a53b-40f6-8a2f-10fc39e7bbef"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/d77ffa69-b143-43e4-8c4b-ad1b1daa73a1/evidence/events",
+      "body": {
+        "source_id": "transfer",
+        "revision": 2,
+        "text": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+        "deleted": false
+      }
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/d77ffa69-b143-43e4-8c4b-ad1b1daa73a1/evidence/receipts/9cb6ff70-08fb-45ce-bacd-15929b39c8e3/execute",
+      "body": {
+        "idempotency_key": "e5a48a9d-3fd8-4e3c-840d-a65bbb5271f3"
+      }
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/d77ffa69-b143-43e4-8c4b-ad1b1daa73a1/evidence/actions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/d77ffa69-b143-43e4-8c4b-ad1b1daa73a1/evidence/releases/evaluate",
+      "body": {
+        "candidate": "paired"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/d77ffa69-b143-43e4-8c4b-ad1b1daa73a1/evidence/releases/bbd183fa-9a69-4e50-8e4e-e23c8c249e1b/promote",
+      "body": {}
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/d77ffa69-b143-43e4-8c4b-ad1b1daa73a1/evidence/prepare",
+      "body": {
+        "query": "하루 이체 한도",
+        "product": "answer",
+        "idempotency_key": "ba1af054-f45f-4bcb-8ac1-678c57ad9916"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/d77ffa69-b143-43e4-8c4b-ad1b1daa73a1/evidence/receipts/2365ddcb-0081-41df-b84c-499a71b112bb/execute",
+      "body": {
+        "idempotency_key": "aed6c122-d068-4fe3-819e-e30c284ca392"
+      }
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/d77ffa69-b143-43e4-8c4b-ad1b1daa73a1/evidence/actions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/d77ffa69-b143-43e4-8c4b-ad1b1daa73a1/evidence/receipts/2365ddcb-0081-41df-b84c-499a71b112bb/execute",
+      "body": {
+        "idempotency_key": "aed6c122-d068-4fe3-819e-e30c284ca392"
+      }
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/d77ffa69-b143-43e4-8c4b-ad1b1daa73a1/evidence/actions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/d77ffa69-b143-43e4-8c4b-ad1b1daa73a1/evidence/actions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/d77ffa69-b143-43e4-8c4b-ad1b1daa73a1/evidence/actions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/5ff22358-b4c2-41e6-a52e-914fe65ee69e/evidence/actions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/5ff22358-b4c2-41e6-a52e-914fe65ee69e/evidence/prepare",
+      "body": {
+        "query": "하루 이체 한도",
+        "product": "answer",
+        "idempotency_key": "6ce310a4-8bb8-42a9-b572-8f130343497e"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/5ff22358-b4c2-41e6-a52e-914fe65ee69e/evidence/events",
+      "body": {
+        "source_id": "transfer",
+        "revision": 2,
+        "text": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+        "deleted": false
+      }
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/5ff22358-b4c2-41e6-a52e-914fe65ee69e/evidence/receipts/7a64e9aa-d49d-4e67-a35a-06c02d921343/execute",
+      "body": {
+        "idempotency_key": "95402cf7-0774-4abf-9b1b-1c5174a0b55d"
+      }
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/5ff22358-b4c2-41e6-a52e-914fe65ee69e/evidence/actions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/5ff22358-b4c2-41e6-a52e-914fe65ee69e/evidence/releases/evaluate",
+      "body": {
+        "candidate": "paired"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/5ff22358-b4c2-41e6-a52e-914fe65ee69e/evidence/releases/dfbfd86a-ec2a-4775-93c8-1eedc04bff90/promote",
+      "body": {}
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/5ff22358-b4c2-41e6-a52e-914fe65ee69e/evidence/prepare",
+      "body": {
+        "query": "하루 이체 한도",
+        "product": "answer",
+        "idempotency_key": "8c1c1f6d-9af4-4d9e-8167-8259931cb997"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/5ff22358-b4c2-41e6-a52e-914fe65ee69e/evidence/receipts/c531f3af-2c42-441d-bc1b-d80cbdb8fd41/execute",
+      "body": {
+        "idempotency_key": "34491ba7-144d-4cd5-9d8b-13282afb1444"
+      }
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/5ff22358-b4c2-41e6-a52e-914fe65ee69e/evidence/actions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/5ff22358-b4c2-41e6-a52e-914fe65ee69e/evidence/receipts/c531f3af-2c42-441d-bc1b-d80cbdb8fd41/execute",
+      "body": {
+        "idempotency_key": "34491ba7-144d-4cd5-9d8b-13282afb1444"
+      }
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/5ff22358-b4c2-41e6-a52e-914fe65ee69e/evidence/actions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/5ff22358-b4c2-41e6-a52e-914fe65ee69e/evidence/actions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/a2799dbd-b3db-40d0-aadc-56e0204c70f8/evidence/actions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/a2799dbd-b3db-40d0-aadc-56e0204c70f8/evidence/prepare",
+      "body": {
+        "query": "하루 이체 한도",
+        "product": "answer",
+        "idempotency_key": "5d5930a5-7f74-4f8b-addd-3c269bc0a37b"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/a2799dbd-b3db-40d0-aadc-56e0204c70f8/evidence/receipts/4c8b6bc4-4812-47b2-ae60-c17d81d3c511/execute",
+      "body": {
+        "idempotency_key": "d498d617-e1c3-4cf0-9ed4-9667d4852f6c"
+      }
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/a2799dbd-b3db-40d0-aadc-56e0204c70f8/evidence/actions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/a2799dbd-b3db-40d0-aadc-56e0204c70f8/evidence/receipts/4c8b6bc4-4812-47b2-ae60-c17d81d3c511/execute",
+      "body": {
+        "idempotency_key": "d498d617-e1c3-4cf0-9ed4-9667d4852f6c"
+      }
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/a2799dbd-b3db-40d0-aadc-56e0204c70f8/evidence/actions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/a2799dbd-b3db-40d0-aadc-56e0204c70f8/evidence/prepare",
+      "body": {
+        "query": "하루 이체 한도",
+        "product": "answer",
+        "idempotency_key": "0b1107a1-405a-4738-94b1-fea41dad620c"
+      }
+    }
+  ],
+  "observations": [
+    {
+      "label": "new empty session",
+      "session": "d77ffa69-b143-43e4-8c4b-ad1b1daa73a1",
+      "api_rows": [],
+      "rendered_rows": []
+    },
+    {
+      "label": "blocked answer absent",
+      "session": "d77ffa69-b143-43e4-8c4b-ad1b1daa73a1",
+      "api_rows": [],
+      "rendered_rows": []
+    },
+    {
+      "label": "recorded before retry",
+      "session": "d77ffa69-b143-43e4-8c4b-ad1b1daa73a1",
+      "api_rows": [
+        {
+          "action_id": "e4a21c5a-9fd6-415a-86b8-0869f2851417",
+          "receipt_id": "2365ddcb-0081-41df-b84c-499a71b112bb",
+          "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+          "committed_at": 1792423874.9962986,
+          "release_epoch": 2,
+          "references": [
+            {
+              "source_id": "transfer",
+              "title": "이체 한도 안내",
+              "text": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+              "revision": 2
+            }
+          ],
+          "scope": "atomic local synthetic support task recording; no external action",
+          "replayed": false
+        }
+      ],
+      "rendered_rows": [
+        {
+          "action_id": "e4a21c5a-9fd6-415a-86b8-0869f2851417",
+          "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다."
+        }
+      ]
+    },
+    {
+      "label": "after same-key retry and successful fresh GET",
+      "session": "d77ffa69-b143-43e4-8c4b-ad1b1daa73a1",
+      "api_rows": [
+        {
+          "action_id": "e4a21c5a-9fd6-415a-86b8-0869f2851417",
+          "receipt_id": "2365ddcb-0081-41df-b84c-499a71b112bb",
+          "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+          "committed_at": 1792423874.9962986,
+          "release_epoch": 2,
+          "references": [
+            {
+              "source_id": "transfer",
+              "title": "이체 한도 안내",
+              "text": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+              "revision": 2
+            }
+          ],
+          "scope": "atomic local synthetic support task recording; no external action",
+          "replayed": false
+        }
+      ],
+      "rendered_rows": [
+        {
+          "action_id": "e4a21c5a-9fd6-415a-86b8-0869f2851417",
+          "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다."
+        }
+      ]
+    },
+    {
+      "label": "return without implicit request",
+      "session": "d77ffa69-b143-43e4-8c4b-ad1b1daa73a1",
+      "api_rows": [
+        {
+          "action_id": "e4a21c5a-9fd6-415a-86b8-0869f2851417",
+          "receipt_id": "2365ddcb-0081-41df-b84c-499a71b112bb",
+          "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+          "committed_at": 1792423874.9962986,
+          "release_epoch": 2,
+          "references": [
+            {
+              "source_id": "transfer",
+              "title": "이체 한도 안내",
+              "text": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+              "revision": 2
+            }
+          ],
+          "scope": "atomic local synthetic support task recording; no external action",
+          "replayed": false
+        }
+      ],
+      "rendered_rows": [
+        {
+          "action_id": "e4a21c5a-9fd6-415a-86b8-0869f2851417",
+          "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다."
+        }
+      ]
+    },
+    {
+      "label": "explicit GET after historical browser restoration",
+      "session": "d77ffa69-b143-43e4-8c4b-ad1b1daa73a1",
+      "api_rows": [
+        {
+          "action_id": "e4a21c5a-9fd6-415a-86b8-0869f2851417",
+          "receipt_id": "2365ddcb-0081-41df-b84c-499a71b112bb",
+          "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+          "committed_at": 1792423874.9962986,
+          "release_epoch": 2,
+          "references": [
+            {
+              "source_id": "transfer",
+              "title": "이체 한도 안내",
+              "text": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+              "revision": 2
+            }
+          ],
+          "scope": "atomic local synthetic support task recording; no external action",
+          "replayed": false
+        }
+      ],
+      "rendered_rows": [
+        {
+          "action_id": "e4a21c5a-9fd6-415a-86b8-0869f2851417",
+          "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다."
+        }
+      ]
+    },
+    {
+      "label": "lost POST response, GET confirms actual save",
+      "session": "5ff22358-b4c2-41e6-a52e-914fe65ee69e",
+      "api_rows": [
+        {
+          "action_id": "657bc333-e258-43a9-85b4-dd1856379025",
+          "receipt_id": "c531f3af-2c42-441d-bc1b-d80cbdb8fd41",
+          "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+          "committed_at": 1792423877.939496,
+          "release_epoch": 2,
+          "references": [
+            {
+              "source_id": "transfer",
+              "title": "이체 한도 안내",
+              "text": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+              "revision": 2
+            }
+          ],
+          "scope": "atomic local synthetic support task recording; no external action",
+          "replayed": false
+        }
+      ],
+      "rendered_rows": [
+        {
+          "action_id": "657bc333-e258-43a9-85b4-dd1856379025",
+          "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다."
+        }
+      ]
+    },
+    {
+      "label": "same key resolves lost response",
+      "session": "5ff22358-b4c2-41e6-a52e-914fe65ee69e",
+      "api_rows": [
+        {
+          "action_id": "657bc333-e258-43a9-85b4-dd1856379025",
+          "receipt_id": "c531f3af-2c42-441d-bc1b-d80cbdb8fd41",
+          "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+          "committed_at": 1792423877.939496,
+          "release_epoch": 2,
+          "references": [
+            {
+              "source_id": "transfer",
+              "title": "이체 한도 안내",
+              "text": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+              "revision": 2
+            }
+          ],
+          "scope": "atomic local synthetic support task recording; no external action",
+          "replayed": false
+        }
+      ],
+      "rendered_rows": [
+        {
+          "action_id": "657bc333-e258-43a9-85b4-dd1856379025",
+          "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다."
+        }
+      ]
+    },
+    {
+      "label": "custom saved answer",
+      "session": "a2799dbd-b3db-40d0-aadc-56e0204c70f8",
+      "api_rows": [
+        {
+          "action_id": "c14d0a2d-b338-465c-a90b-60abd9afa8b0",
+          "receipt_id": "4c8b6bc4-4812-47b2-ae60-c17d81d3c511",
+          "output": "하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+          "committed_at": 1792423878.7948494,
+          "release_epoch": 1,
+          "references": [
+            {
+              "source_id": "transfer",
+              "title": "이체 한도 안내",
+              "text": "하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+              "revision": 1
+            }
+          ],
+          "scope": "atomic local synthetic support task recording; no external action",
+          "replayed": false
+        }
+      ],
+      "rendered_rows": [
+        {
+          "action_id": "c14d0a2d-b338-465c-a90b-60abd9afa8b0",
+          "output": "하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다."
+        }
+      ]
+    },
+    {
+      "label": "custom same-key retry",
+      "session": "a2799dbd-b3db-40d0-aadc-56e0204c70f8",
+      "api_rows": [
+        {
+          "action_id": "c14d0a2d-b338-465c-a90b-60abd9afa8b0",
+          "receipt_id": "4c8b6bc4-4812-47b2-ae60-c17d81d3c511",
+          "output": "하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+          "committed_at": 1792423878.7948494,
+          "release_epoch": 1,
+          "references": [
+            {
+              "source_id": "transfer",
+              "title": "이체 한도 안내",
+              "text": "하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+              "revision": 1
+            }
+          ],
+          "scope": "atomic local synthetic support task recording; no external action",
+          "replayed": false
+        }
+      ],
+      "rendered_rows": [
+        {
+          "action_id": "c14d0a2d-b338-465c-a90b-60abd9afa8b0",
+          "output": "하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다."
+        }
+      ]
+    },
+    {
+      "label": "new draft preserves old server rows but clears old request summary",
+      "session": "a2799dbd-b3db-40d0-aadc-56e0204c70f8",
+      "api_rows": [
+        {
+          "action_id": "c14d0a2d-b338-465c-a90b-60abd9afa8b0",
+          "receipt_id": "4c8b6bc4-4812-47b2-ae60-c17d81d3c511",
+          "output": "하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+          "committed_at": 1792423878.7948494,
+          "release_epoch": 1,
+          "references": [
+            {
+              "source_id": "transfer",
+              "title": "이체 한도 안내",
+              "text": "하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+              "revision": 1
+            }
+          ],
+          "scope": "atomic local synthetic support task recording; no external action",
+          "replayed": false
+        }
+      ],
+      "rendered_rows": [
+        {
+          "action_id": "c14d0a2d-b338-465c-a90b-60abd9afa8b0",
+          "output": "하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다."
+        }
+      ]
+    }
+  ],
+  "lost_response": [
+    {
+      "key": {
+        "idempotency_key": "34491ba7-144d-4cd5-9d8b-13282afb1444"
+      },
+      "response": {
+        "action_id": "657bc333-e258-43a9-85b4-dd1856379025",
+        "receipt_id": "c531f3af-2c42-441d-bc1b-d80cbdb8fd41",
+        "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+        "committed_at": 1792423877.939496,
+        "release_epoch": 2,
+        "references": [
+          {
+            "source_id": "transfer",
+            "title": "이체 한도 안내",
+            "text": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+            "revision": 2
+          }
+        ],
+        "scope": "atomic local synthetic support task recording; no external action",
+        "replayed": false
+      }
+    }
+  ],
+  "page_errors": []
+}

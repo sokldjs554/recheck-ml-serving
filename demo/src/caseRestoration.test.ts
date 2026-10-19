@@ -36,7 +36,7 @@ function harness() {
 
 describe("same-tab case checkpoints", () => {
   it("restores completed evidence without sending any request", async () => {
-    const h = harness(), first = h.create(); await first.runAll(); await first.runAll(); await first.runAll();
+    const h = harness(), first = h.create(); await first.runAll(); await first.runAll(); await first.runAll(); await first.runAll();
     const before = first.getSnapshot(), counts = h.counts(); first.dispose();
     const restored = h.create();
     expect(restored.getSnapshot()).toMatchObject({ step: 6, session: before.session, action: before.action, events: before.events, restored: true, busy: false, running: false });
@@ -107,7 +107,7 @@ describe("same-tab case checkpoints", () => {
     expect(restored.getSnapshot().step).toBe(1);
   });
   it("explicit reset removes the checkpoint and never restores the old action", async () => {
-    const h = harness(), first = h.create(); await first.runAll(); await first.runAll(); await first.runAll(); first.reset();
+    const h = harness(), first = h.create(); await first.runAll(); await first.runAll(); await first.runAll(); await first.runAll(); first.reset();
     expect(h.storage.read()).toBeNull();
     expect(h.create().getSnapshot()).toMatchObject({ step: 0, events: [], session: "", action: null });
   });

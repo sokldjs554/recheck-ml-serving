@@ -1,0 +1,87 @@
+{
+  "recorded_at_utc": "2026-10-19T15:33:15Z",
+  "source_base": "f1dd09690411f41fba91ca910a1deda057d55f95",
+  "scope": "Actual local Python API with SQLite, answer execution UI. Manual progression with reading pauses in recording only. Rejected answer, GET-confirmed single saved answer, same-key retry and unchanged action ID. No request mocks or speed changes.",
+  "observations": [
+    {
+      "label": "before retry",
+      "post_action": {
+        "action_id": "8657b9b8-aba0-478b-b4f5-bf6b9f26cc98",
+        "receipt_id": "4c2005d5-bf35-415c-9f11-699e72e78059",
+        "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+        "committed_at": 1792423974.4950378,
+        "release_epoch": 2,
+        "references": [
+          {
+            "source_id": "transfer",
+            "title": "이체 한도 안내",
+            "text": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+            "revision": 2
+          }
+        ],
+        "scope": "atomic local synthetic support task recording; no external action",
+        "replayed": false,
+        "trace_id": "8a796316b924e61096f5d2cfa9f55089"
+      },
+      "get_actions": [
+        {
+          "action_id": "8657b9b8-aba0-478b-b4f5-bf6b9f26cc98",
+          "receipt_id": "4c2005d5-bf35-415c-9f11-699e72e78059",
+          "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+          "committed_at": 1792423974.4950378,
+          "release_epoch": 2,
+          "references": [
+            {
+              "source_id": "transfer",
+              "title": "이체 한도 안내",
+              "text": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+              "revision": 2
+            }
+          ],
+          "scope": "atomic local synthetic support task recording; no external action",
+          "replayed": false
+        }
+      ]
+    },
+    {
+      "label": "after retry",
+      "post_action": {
+        "action_id": "8657b9b8-aba0-478b-b4f5-bf6b9f26cc98",
+        "receipt_id": "4c2005d5-bf35-415c-9f11-699e72e78059",
+        "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+        "committed_at": 1792423974.4950378,
+        "release_epoch": 2,
+        "references": [
+          {
+            "source_id": "transfer",
+            "title": "이체 한도 안내",
+            "text": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+            "revision": 2
+          }
+        ],
+        "scope": "atomic local synthetic support task recording; no external action",
+        "replayed": true,
+        "trace_id": "2f585471f10d40e540cebbf1f3f3cbd9"
+      },
+      "get_actions": [
+        {
+          "action_id": "8657b9b8-aba0-478b-b4f5-bf6b9f26cc98",
+          "receipt_id": "4c2005d5-bf35-415c-9f11-699e72e78059",
+          "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+          "committed_at": 1792423974.4950378,
+          "release_epoch": 2,
+          "references": [
+            {
+              "source_id": "transfer",
+              "title": "이체 한도 안내",
+              "text": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
+              "revision": 2
+            }
+          ],
+          "scope": "atomic local synthetic support task recording; no external action",
+          "replayed": false
+        }
+      ]
+    }
+  ]
+}

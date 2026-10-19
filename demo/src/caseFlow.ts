@@ -161,7 +161,7 @@ export class CaseFlow {
       ) {
         const before = this.value.step;
         await this.advance();
-        if (this.value.error || this.value.step <= before || [3, 5].includes(this.value.step)) break;
+        if (this.value.error || this.value.step <= before || [1, 3, 5].includes(this.value.step)) break;
       }
     } finally {
       if (!this.disposed && generation === this.generation)
@@ -274,7 +274,7 @@ export class CaseFlow {
             error.detail !== "source_changed"
           )
             throw error;
-          if (attempt) { attempt = { ...attempt, rejected: true, reason: "답변이 인용한 안내가 변경되어 상담 기록에 추가하지 않았습니다." }; this.records.complete(attempt); }
+          if (attempt) { attempt = { ...attempt, rejected: true, reason: "답변이 인용한 안내가 변경되어 작업 기록에 추가하지 않았습니다." }; this.records.complete(attempt); }
           this.set({
             events: [
               ...this.value.events,
@@ -316,7 +316,7 @@ export class CaseFlow {
         });
       } else if (current.step === 4) {
         this.set({ canReprepare: false });
-        const action = await take("최신 답변으로 로컬 상담 작업 기록", () =>
+        const action = await take("최신 답변으로 내부 작업 기록", () =>
           this.api.execute(
             current.session,
             current.freshReceipt!.id,
@@ -329,7 +329,7 @@ export class CaseFlow {
           step: 5,
           status: action.replayed
             ? "같은 작업 반환 · 응답을 확인하지 못한 요청의 기존 기록입니다."
-            : "상담 작업 1건 기록 · 검증과 기록을 같은 트랜잭션에서 처리했습니다.",
+            : "답변 작업 1건 기록 · 검증과 기록을 같은 트랜잭션에서 처리했습니다.",
         });
       } else {
         const action = await take("동일 키로 작업 재요청", () =>

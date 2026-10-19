@@ -1,8 +1,8 @@
-"""Film the final consultation workspace using actual local HTTP; no mocked responses or speed changes."""
+"""Film the answer execution workspace using actual local HTTP; no mocked responses or speed changes."""
 import argparse, json, subprocess, time
 from pathlib import Path
 from playwright.sync_api import sync_playwright, expect
-p=argparse.ArgumentParser(description=__doc__);p.add_argument('--base',default='http://127.0.0.1:5173');p.add_argument('--api',default='http://127.0.0.1:8025');p.add_argument('--output',type=Path,default=Path('work/record-results/film'));p.add_argument('--browser-executable',default='/usr/bin/chromium');a=p.parse_args();a.output.mkdir(parents=True,exist_ok=True)
+p=argparse.ArgumentParser(description=__doc__);p.add_argument('--base',default='http://127.0.0.1:5173');p.add_argument('--api',default='http://127.0.0.1:8025');p.add_argument('--output',type=Path,default=Path('work/outcome-workbench/film'));p.add_argument('--browser-executable',default='/usr/bin/chromium');a=p.parse_args();a.output.mkdir(parents=True,exist_ok=True)
 root=Path(__file__).resolve().parents[1];media=root/'demo/public/media';observations=[]
 with sync_playwright() as pw:
     b=pw.chromium.launch(executable_path=a.browser_executable,args=['--no-sandbox','--disable-dev-shm-usage'])
@@ -24,7 +24,7 @@ with sync_playwright() as pw:
     with page.expect_download() as d:page.get_by_role('button',name='사건 기록 JSON',exact=True).click()
     d.value.save_as(str(a.output/'case.json'))
     v=page.video;ctx.close();raw=Path(v.path());b.close()
-    (a.output/'capture.json').write_text(json.dumps({'recorded_at_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'source_base':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),'scope':'Actual local Python API with SQLite, final consultation UI. Manual progression with reading pauses in recording only. Rejected answer, GET-confirmed single saved answer, same-key retry and unchanged action ID. No request mocks or speed changes.','observations':observations},ensure_ascii=False,indent=2))
+    (a.output/'capture.json').write_text(json.dumps({'recorded_at_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'source_base':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),'scope':'Actual local Python API with SQLite, answer execution UI. Manual progression with reading pauses in recording only. Rejected answer, GET-confirmed single saved answer, same-key retry and unchanged action ID. No request mocks or speed changes.','observations':observations},ensure_ascii=False,indent=2))
     for extension,codec in [('mp4',['-c:v','libx264','-preset','fast','-crf','25','-pix_fmt','yuv420p','-movflags','+faststart']),('webm',['-c:v','libvpx-vp9','-b:v','0','-crf','34','-deadline','realtime','-cpu-used','6','-row-mt','1'])]:
-        subprocess.run(['ffmpeg','-y','-i',str(raw),'-an',*codec,str(media/f'recheck-records-query-20261019.{extension}'),'-loglevel','error'],check=True)
-    subprocess.run(['ffmpeg','-y','-i',str(a.output/'poster.png'),'-quality','85',str(media/'recheck-records-query-poster-20261019.webp'),'-loglevel','error'],check=True)
+        subprocess.run(['ffmpeg','-y','-i',str(raw),'-an',*codec,str(media/f'recheck-workbench-20261020.{extension}'),'-loglevel','error'],check=True)
+    subprocess.run(['ffmpeg','-y','-i',str(a.output/'poster.png'),'-quality','85',str(media/'recheck-workbench-poster-20261020.webp'),'-loglevel','error'],check=True)

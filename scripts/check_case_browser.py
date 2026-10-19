@@ -46,7 +46,7 @@ def main():
                 menu.locator('summary').click()
             target.click()
         def return_to_case():
-            page.get_by_role('navigation', name='화면 선택').get_by_role('button', name='실행 기록', exact=True).click()
+            page.get_by_role('navigation', name='화면 선택').get_by_role('button', name='답변 기록', exact=True).click()
         def download_case(name):
             page.locator('.replay-audit').evaluate('(e) => e.open = true')
             with page.expect_download() as download:
@@ -64,10 +64,10 @@ def main():
         configure(args.api)
         page.screenshot(path=str(args.output / 'case-initial-desktop.png'), full_page=True)
         page.screenshot(path=str(args.output / 'entry-desktop.png'))
-        assert page.get_by_role('heading', name='실행 기록', exact=True).is_visible()
+        assert page.get_by_role('heading', name='답변 기록', exact=True).is_visible()
         assert page.locator('.project-intro').count() == 0, 'Working screen must not render a marketing hero'
         assert page.locator('h1').evaluate('(el) => parseFloat(getComputedStyle(el).fontSize)') <= 22
-        assert page.get_by_test_id('case-policy-value').inner_text() == '—', 'Do not present staged values as fetched policy'
+        assert page.get_by_test_id('case-policy-value').text_content() == '—', 'Do not present staged values as fetched policy'
         assert page.get_by_test_id('server-records').is_visible(), 'The actual records belong to the work screen'
         checks.append('compact working screen exposes check criteria and leaves unfetched policy blank')
         assert page.get_by_test_id('case-run-top').is_visible(), 'Top entry must start the real shared case'
@@ -158,9 +158,11 @@ def main():
         page.get_by_test_id('case-reset').click()
         step(0)
         next_step(1)
+        page.get_by_test_id('case-source').evaluate('(el) => el.open = true')
         assert '300만 원' in page.get_by_test_id('case-source').inner_text()
         assert '300만 원' in page.get_by_test_id('case-draft').inner_text()
         next_step(2)
+        page.get_by_test_id('case-source').evaluate('(el) => el.open = true')
         assert '100만 원' in page.get_by_test_id('case-source').inner_text()
         assert '300만 원' in page.get_by_test_id('case-draft').inner_text()
         next_step(3)
@@ -234,13 +236,13 @@ def main():
             assert page.get_by_test_id('case-reset').evaluate('(el) => el.getBoundingClientRect().top >= 0')
             if width <= 760:
                 page.keyboard.press('Tab')
-                assert page.locator('.replay-source-text summary').evaluate('(el) => document.activeElement === el')
-                page.keyboard.press('Tab')
-                assert page.get_by_test_id('case-old-draft').locator('summary').evaluate('(el) => document.activeElement === el'), 'Focus must follow the visible answer before processing controls'
-                page.keyboard.press('Tab')
                 assert page.locator('.case-progress-detail summary').evaluate('(el) => document.activeElement === el')
                 page.keyboard.press('Tab')
-                assert page.get_by_test_id('case-next').evaluate('(el) => document.activeElement === el'), 'Collapsed progress must not trap keyboard focus'
+                assert page.get_by_test_id('case-next').evaluate('(el) => document.activeElement === el'), 'Visible request action follows collapsed technical progress'
+                page.keyboard.press('Tab')
+                assert page.get_by_role('button', name='실행 기록 저장', exact=True).evaluate('(el) => document.activeElement === el')
+                page.keyboard.press('Tab')
+                assert page.get_by_test_id('server-records').get_by_role('button', name='서버 기록 조회').evaluate('(el) => document.activeElement === el'), 'Keyboard follows the request into its actual saved results'
             page.screenshot(path=str(args.output / f'case-complete-{width}x{height}.png'), full_page=True)
             if width == 390:
                 page.get_by_test_id('case-outcomes').scroll_into_view_if_needed()

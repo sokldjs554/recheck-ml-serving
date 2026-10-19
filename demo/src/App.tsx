@@ -500,7 +500,7 @@ export default function App() {
   };
 
   const pageNames: Record<Tab, string> = {
-    case: "실행 기록",
+    case: "답변 기록",
     serving: "모델 부하",
     recovery: "장애 복구",
     lab: "판단 재검증",
@@ -599,7 +599,7 @@ export default function App() {
             </span>
             recheck
           </button>
-          <span className="desk-brand-caption">Python / ML backend</span>
+          <span className="desk-brand-caption">ML Backend · 정합성 / 서빙 / 추적</span>
         </div>
         <nav aria-label="화면 선택">
           <button
@@ -607,7 +607,7 @@ export default function App() {
             aria-current={tab === "case" || tab === "freshness" ? "page" : undefined}
             onClick={() => setTab("case")}
           >
-            실행 기록
+            답변 기록
           </button>
           <a
             className={`desk-nav-item ${tab === "serving" ? "is-active" : ""}`}
@@ -653,23 +653,24 @@ export default function App() {
       </header>
       <main className="desk-main">
         {(tab === "case" || tab === "freshness") && (
-          <section className="case-toolbar" aria-label="실행 기록 작업">
+          <section className="case-toolbar" aria-label="답변 기록 작업">
             <div className="case-toolbar-main">
-              <h1>실행 기록</h1>
+              <h1>답변 기록</h1>
               {tab === "case" && <CaseRunButton flow={caseFlow} top />}
             </div>
             <div className="work-modes" aria-label="실행 방식">
               <button aria-pressed={tab === "case"} onClick={() => setTab("case")}>대표 흐름</button>
               <button aria-pressed={tab === "freshness"} onClick={() => setTab("freshness")}>직접 구성</button>
-              <span>{tab === "case" ? "문서 변경 → 기록 차단 → 답변 갱신 → 같은 작업 반환" : "문서·질문 선택 → 조건 변경 → 작업 기록"}</span>
+              <span>{tab === "case" ? "준비한 답변과 실제 저장된 결과 대조" : "문서·질문 선택 → 조건 변경 → 작업 기록"}</span>
             </div>
+            <details className="project-context"><summary>프로젝트 구조와 확인 경로</summary><p>RECHECK는 결과의 근거가 바뀌거나 요청이 반복될 때 기록의 정합성을 지키고, 모델 연산이 몰릴 때 서버를 보호하는 Python 백엔드입니다.</p><dl><div><dt>지금 실행 · 답변 기록</dt><dd>TF-IDF 검색 결과 → 원문 재검사 → DB 기록. 답변과 체크리스트가 같은 기록 계약을 사용합니다.</dd></div><div><dt>저장된 실험 · 모델 부하</dt><dd>별도 CPU 모델 → 수용 제한·시간 예산 → PostgreSQL. 이 화면의 검색 응답 속도가 아닙니다.</dd></div><div><dt>저장된 실험 · 장애 복구</dt><dd>실패 요청의 API·모델 trace와 SQL 대조, 복구 후 정상 기록. 현재 요청의 trace와 구분합니다.</dd></div></dl><a href="https://github.com/sokldjs554/recheck-ml-serving#시스템-구조와-요청-흐름" target="_blank" rel="noreferrer">구조도·설계 비용·재현 방법 ↗</a></details>
             {tab === "case" && <RecordedDemo />}
           </section>
         )}
         {!isExperiment && (
           <div className="return-to-case">
             <button onClick={() => setTab("case")}>
-              ← 실행 기록으로 돌아가기
+              ← 답변 기록으로 돌아가기
             </button>
             <span>화면을 이동해도 진행 상황과 실행 기록은 유지됩니다.</span>
           </div>

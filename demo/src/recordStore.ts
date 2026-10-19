@@ -33,7 +33,7 @@ export class RecordStore {
       if (generation !== this.generation || query !== this.query) return;
       this.set({ rows, observed: new Date().toISOString(), checkedAttempt: attemptNumber });
     } catch (e) {
-      if (generation === this.generation && query === this.query) this.set({ error: e instanceof Error ? e.message : "상담 기록을 조회하지 못했습니다." });
+      if (generation === this.generation && query === this.query) this.set({ error: e instanceof Error ? e.message : "작업 기록을 조회하지 못했습니다." });
     } finally {
       if (generation === this.generation && query === this.query) this.set({ busy: false });
     }

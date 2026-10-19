@@ -11,13 +11,13 @@ export default function RecordedDemo() {
         controls
         preload="none"
         playsInline
-        poster={`${media}recheck-records-query-poster-20261019.webp`}
+        poster={`${media}recheck-workbench-poster-20261020.webp`}
         aria-label="저장된 실제 API 시연"
         aria-describedby="recorded-demo-scope"
       >
-        <source src={`${media}recheck-records-query-20261019.mp4`} type="video/mp4" />
-        <source src={`${media}recheck-records-query-20261019.webm`} type="video/webm" />
-        <a href={`${media}recheck-records-query-20261019.mp4`}>시연 영상 열기</a>
+        <source src={`${media}recheck-workbench-20261020.mp4`} type="video/mp4" />
+        <source src={`${media}recheck-workbench-20261020.webm`} type="video/webm" />
+        <a href={`${media}recheck-workbench-20261020.mp4`}>시연 영상 열기</a>
       </video>
       <p>
         원문 변경 → 이전 답변 차단 → 최신 답변 기록 → 동일 작업 반환.

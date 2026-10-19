@@ -1,4 +1,5 @@
 import ServerRecords from "./ServerRecords";
+import SourceComparison from "./SourceComparison";
 import { RecordStore } from "./recordStore";
 import { CaseApi } from "./caseApi";
 import TaskExecution from "./TaskExecution";
@@ -367,7 +368,7 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
               <div className="el-section-head">
                 <span className="eyebrow">답변에 쓰인 근거</span>
                 <span className="el-tag">
-                  상담 답변
+                  기록할 답변
                 </span>
               </div>
               <div
@@ -381,7 +382,7 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
                   disabled={locked}
                   onClick={() => setProduct("answer")}
                 >
-                  상담 답변 초안
+                  문서 답변
                 </button>
                 <button
                   className={product === "checklist" ? "selected" : ""}
@@ -425,9 +426,9 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
                     <div className="el-receipt-head">
                       <span>
                         {receipt.product === "answer"
-                          ? "상담 답변 초안"
+                          ? "문서 답변"
                           : "업무 체크리스트"}{" "}
-                        · 저장 당시 내용
+                        · 준비한 내용
                       </span>
                       <small>{receipt.retrieval_ms.toFixed(2)}ms 검색</small>
                     </div>
@@ -446,11 +447,12 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
                     <span className="el-quote">“</span>
                     <p>아직 준비한 답변이 없습니다.</p>
                     <small>
-                      질문을 보내면 실제 Python 검색 결과가 여기에 기록됩니다.
+                      질문을 보내면 Python 검색 결과가 여기에 표시됩니다. 작업 저장은 별도 요청입니다.
                     </small>
                   </>
                 )}
               </div>
+              {receipt && <SourceComparison receipt={receipt} sources={state.sources} />}
               {receipt && <TaskExecution key={`${sid}:${receipt.id}`} base={api.current?.base || base} session={sid} receiptId={receipt.id} disabled={!!busy} onBusyChange={setExecutionBusy} onUnconfirmedChange={setUnconfirmedWrite} requestLock={pending} records={records} output={receipt.output} />}
               <ServerRecords store={records} />
               <details className="validation-detail"><summary>기록 없이 사용 가능 여부만 확인</summary>

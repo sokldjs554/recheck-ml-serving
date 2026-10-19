@@ -91,7 +91,7 @@ def main():
             page.set_viewport_size({'width': width, 'height': 844})
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'), f'serving overflow at {width}'
             page.screenshot(path=str(args.output / f'serving-{width}.png'), full_page=True)
-        page.get_by_role('navigation', name='화면 선택').get_by_role('button', name='실행 기록').click()
+        page.get_by_role('navigation', name='화면 선택').get_by_role('button', name='답변 기록').click()
         page.get_by_test_id('case-study').wait_for()
         checks.append('back navigation, return to live case, and mobile layouts work')
         assert not errors, errors

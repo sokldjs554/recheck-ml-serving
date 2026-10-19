@@ -113,6 +113,10 @@ describe("guided case lifecycle", () => {
         replayed: true,
       });
     await flow.runAll();
+    expect(flow.getSnapshot().step).toBe(1);
+    expect(api.event).not.toHaveBeenCalled();
+    expect(api.execute).not.toHaveBeenCalled();
+    await flow.runAll();
     expect(flow.getSnapshot().step).toBe(3);
     expect(api.execute).toHaveBeenCalledTimes(1);
     await flow.runAll();
@@ -134,6 +138,7 @@ describe("guided case lifecycle", () => {
   it("stops a continuous run on network failure and resumes at the failed stage", async () => {
     const { api, flow } = fixture();
     api.event.mockRejectedValue(new Error("offline"));
+    await flow.runAll();
     await flow.runAll();
     expect(flow.getSnapshot()).toMatchObject({
       step: 1,

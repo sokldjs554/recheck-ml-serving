@@ -12,6 +12,7 @@ import type { CaseFlow } from "./caseFlow";
 import "./caseStudy.css";
 import CaseJournal from "./CaseJournal";
 import ServerRecords from "./ServerRecords";
+import SourceComparison from "./SourceComparison";
 
 const actions = [
   "답변 불러오기",
@@ -26,17 +27,17 @@ const working = [
   "정책 원문 변경",
   "이전 답변 실행 검증",
   "모델·인덱스 평가와 답변 갱신",
-  "상담 작업 기록",
+  "답변 작업 기록",
   "동일 요청 재시도",
 ];
 const descriptions = [
-  "문서를 검색해 300만 원을 인용한 답변을 준비합니다.",
-  "답변은 그대로 둔 채, 정책 원문의 한도를 100만 원으로 바꿉니다.",
-  "바뀌기 전 답변으로 상담 기록을 남겨 봅니다.",
+  "검색 결과를 불러옵니다. 아직 작업 기록을 저장하지 않습니다.",
+  "답변을 유지한 채 원문을 변경합니다. 인용한 내용과 달라지는지 비교하세요.",
+  "이 답변의 기록을 요청합니다. 서버가 변경된 원문과 다시 대조합니다.",
   "변경된 근거로 모델·인덱스를 평가하고 답변을 다시 준비합니다.",
-  "인용 문서와 유효기간을 확인한 뒤 상담 기록을 저장합니다.",
+  "인용 문서와 유효기간을 확인한 뒤 작업 기록을 저장합니다.",
   "같은 키로 다시 요청해 중복 작업이 생기는지 확인합니다.",
-  "실행 응답과 동일 키 재시도의 작업 ID가 일치합니다.",
+  "저장된 답변은 작업 기록에서, 동일 요청의 처리 근거는 상세 정보에서 확인합니다.",
 ];
 function short(value?: string) {
   return value ? value.slice(0, 8) : "—";
@@ -214,7 +215,7 @@ export default function CaseStudy({
             <LoaderCircle className="case-spin" size={14} />
             <span>
               {records.busy
-                ? "서버에 저장된 상담 기록 조회 중…"
+                ? "서버에 저장된 작업 기록 조회 중…"
                 : state.step === 0
                 ? "서버 연결·문서 검색 중입니다. 첫 연결 응답은 최대 90초 동안 기다립니다. 저장된 시연도 볼 수 있습니다."
                 : `${working[state.step]} 중…`}
@@ -253,7 +254,7 @@ export default function CaseStudy({
     >
       <div className="replay-heading">
         <span className="case-route-label">
-          {state.restored ? "이전 실행 기록" : "대표 흐름"}
+          {state.restored ? "이전 실행 기록" : "답변 기록"}
           <small>{state.restored ? "브라우저 저장본" : "실시간 API · 가상 문서의 내부 작업 기록"}</small>
         </span>
         <div className="replay-heading-tools">
@@ -297,33 +298,6 @@ export default function CaseStudy({
       )}
       <div className={`replay-machine gate-${gate}`}>
         <div className="replay-canvas">
-          <aside className="replay-source" data-testid="case-source">
-            <div className="replay-node-label">
-              <span>현재 안내 문서</span>
-              <span>{source ? `문서 v${source.revision}` : "불러오기 전"}</span>
-            </div>
-            <h2>현재 안내</h2>
-            <p className="source-example">{source?.title || "안내 문서 불러오기 전"}</p>
-            <span hidden data-testid="case-policy-value">{source?.text || "—"}</span>
-            <details className="replay-source-text" open><summary>원문 보기</summary>
-              {source ? (
-                <>
-                  <p>
-                    {source.text}
-                  </p>
-                  <span className="replay-index-status">
-                    {state.state?.index_stale
-                      ? "인덱스 갱신 대기"
-                      : "원문 · 인덱스 일치"}
-                  </span>
-                </>
-              ) : (
-                <p>
-                  상담 답변이 인용할 안내 문서입니다.
-                </p>
-              )}
-            </details>
-          </aside>
 
           <div className="replay-work">
           <div className="replay-answer">
@@ -336,7 +310,7 @@ export default function CaseStudy({
               data-testid="case-draft"
             >
               <div className="replay-ticket-heading">
-                <h2>상담 답변</h2>
+                <h2>기록할 답변</h2>
                 <span>
                   {receipt
                     ? `인용 v${receipt.references[0]?.revision}`
@@ -363,7 +337,7 @@ export default function CaseStudy({
                     <span>
                       {state.freshReceipt ? "갱신한 답변" : "최초 답변"}
                     </span>
-                    <code>{short(receipt.id)}</code>
+                    <span>검색 결과 · 작업 저장과 별개</span>
                   </div>
                 </>
               ) : (
@@ -372,7 +346,7 @@ export default function CaseStudy({
                     <span className="replay-placeholder-line" />
                     <span className="replay-placeholder-line" />
                     <p>
-                      안내 문서를 불러오면 답변이 여기에 표시됩니다.
+                      답변을 불러온 뒤, 저장할 내용을 확인하세요.
                     </p>
                   </div>
                   <div className="replay-ticket-foot">
@@ -382,10 +356,17 @@ export default function CaseStudy({
                 </>
               )}
             </article>
+
+          </div>
+
+          {transport}
+          <ServerRecords store={flow.records} />
+          <div className="replay-context">
+            {receipt && <SourceComparison receipt={receipt} sources={state.state?.sources || []} historical={state.restored} />}
             {state.freshReceipt && state.oldReceipt && (
               <details className="case-superseded" data-testid="case-old-draft" open>
                 <summary>
-                  <span>상담 기록에 추가되지 않은 답변</span>
+                  <span>작업 기록에 추가되지 않은 답변</span>
                   <ChevronDown size={13} />
                 </summary>
                 <p>
@@ -394,12 +375,10 @@ export default function CaseStudy({
                 <small>
                   인용한 안내가 변경되어 기록 요청이 거절됐습니다.
                 </small>
+
               </details>
             )}
           </div>
-
-          {transport}
-          <ServerRecords store={flow.records} />
           </div>
         </div>
       </div>
@@ -415,8 +394,8 @@ export default function CaseStudy({
           <details><summary id="case-outcome-title">{state.restored ? "이전 실행 결과" : "이번 실행 결과"}</summary>
           <p className="case-outcome-explanation">
             {blocked
-              ? "이전 답변은 인용 문서가 변경되어 상담 기록에 추가되지 않았습니다."
-              : "서버가 반환한 상담 기록입니다. 이전 답변의 차단 여부는 실행 로그를 확인하세요."}
+              ? "이전 답변은 인용 문서가 변경되어 작업 기록에 추가되지 않았습니다."
+              : "서버가 반환한 작업 기록입니다. 이전 답변의 차단 여부는 실행 로그를 확인하세요."}
           </p>
           <dl>
             <div>
@@ -437,7 +416,7 @@ export default function CaseStudy({
           </dl>
           {state.action && (
             <div className="case-action-receipt" data-testid="case-action">
-              <span>상담 기록의 작업 ID</span>
+              <span>작업 기록의 작업 ID</span>
               <code>{state.action.action_id}</code>
               <small>{state.action.replayed ? "동일 작업 · 과거 기록" : "기록됨"}</small>
             </div>
@@ -492,6 +471,7 @@ export default function CaseStudy({
         </aside>
       </div>
 
+      <details className="source-technical" data-testid="case-source"><summary>예시 문서 원본 · {source?.title || "불러오기 전"}</summary><p data-testid="case-policy-value">{source?.text || "—"}</p></details>
       <div className="case-bottom">
         <details className="case-connection-config">
           <summary>
@@ -523,7 +503,7 @@ export default function CaseStudy({
         </button>
       </div>
       <p className="case-scope">
-        가상 상담 문서 · TF-IDF 검색 · 내부 상담 작업만 기록하며 실제 송금은 하지 않습니다.
+        가상 문서의 검색 결과를 내부 DB에 기록합니다. 실제 송금·발송은 없습니다.
       </p>
     </section>
   );

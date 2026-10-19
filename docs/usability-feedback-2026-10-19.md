@@ -277,7 +277,7 @@ npm --prefix demo test
 
 최종 로컬 결과는 [검증 요약](evidence/record-results-2026-10-19/local-verification.json)에 있습니다. 프런트엔드 68개, 상담 기록 API 대조 10개 검증 그룹, 대표 흐름 13개, 직접 구성 14개, 복원 9개, 영상·상세 화면 7개가 통과했습니다. SQLite 전용 제외 항목은 별도 1개 통과했습니다. 새 답변 준비 시 직전 답변의 처리 요약은 해제하고 실제 GET 목록은 유지하는 조건도 대조했습니다. 이 숫자는 자동화 결과이며 사용성 또는 장기 운영 성과가 아닙니다.
 
-[최종 실제 API 영상](https://sokldjs554.github.io/recheck-ml-serving/media/recheck-records-query-20261019.mp4) · [영상의 POST/GET 대조](evidence/record-results-2026-10-19/capture.json) · [소스·미디어 SHA-256](evidence/record-results-2026-10-19/source-digests.json). 촬영 source_base는 작업 시작 커밋이며 변경된 최종 UI의 파일 해시는 별도로 보존했습니다.
+[최종 실제 API 영상](https://github.com/sokldjs554/recheck-ml-serving/blob/f1dd09690411f41fba91ca910a1deda057d55f95/demo/public/media/recheck-records-query-20261019.mp4) · [영상의 POST/GET 대조](evidence/record-results-2026-10-19/capture.json) · [소스·미디어 SHA-256](evidence/record-results-2026-10-19/source-digests.json). 촬영 source_base는 작업 시작 커밋이며 변경된 최종 UI의 파일 해시는 별도로 보존했습니다.
 
 
 공개 검증 첫 시도 `2524e2f`의 [Pages 실행 39231467114](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39231467114)는 대표 흐름 검사에서 실패했습니다. `check_case_browser.py`는 단계 번호만 기다린 뒤 완료 문구 assertion에 실패했습니다. 실패 순간의 DOM은 기존 로그에 없어 당시 문구는 확정하지 못했습니다. 코드와 로컬 보류 GET 재현에서는 단계 번호가 먼저 바뀌고 조회 완료 전까지 처리 중 문구가 남는 경합을 확인했습니다. 단계 번호가 바뀌어도 조회 중 표시와 실행 잠금이 유지되는 조건을 로컬의 보류한 실제 GET으로 확인했습니다. 검사 완료 조건에 진행 중 표시 해제를 추가했으며 차단 결과·본문·ID 대조 assertion과 시간 제한은 유지했습니다. 이 실패를 기능 검증 성공으로 계산하지 않습니다.
@@ -307,3 +307,79 @@ npm --prefix demo test
 실패 이력도 유지합니다. `2524e2f`의 단계 완료 시점 검사 실패, `bb7abf7`의 새로고침 요청 수 검사 실패에 더해 [`b01b0e7` 실행 39232706982](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39232706982)에서도 같은 복원 assertion이 실패했습니다. 이들을 성공 횟수에 합산하지 않았고, 원인 미수집 항목을 호스팅 시작 지연으로 단정하지 않았습니다. 종료 이벤트 경계를 보완한 `92afcce`에서 동일 조건을 통과했습니다.
 
 **기술 작업은 이 범위에서 완료했습니다.** 과거 성능 측정은 재측정하지 않았습니다. 영상은 로컬 Python·SQLite의 실제 실행이며, 위 화면과 API 대조는 최종 공개 환경의 실행입니다. 마지막 페이지 수명 수정은 영상에 나온 정상 상담 흐름의 화면을 변경하지 않았습니다. 무료 서버 시작 지연, 대표 흐름의 과거 응답 복원/별도 GET 조회, 직접 구성의 새로고침 초기화 범위는 유지됩니다. 실기기 Safari와 친구의 이해도 재확인은 수행하지 않았습니다. 제출용 자소서·포트폴리오는 수정하지 않았습니다.
+
+## 프로젝트 목적과 작업 결과 정리
+
+2026-10-20 KST 작업. 시작 브랜치 `feat/project-introduction`, 시작 커밋 `f1dd09690411f41fba91ca910a1deda057d55f95`. 원격 main과 같고 미커밋 변경이 없음을 확인했다. 앞선 기록은 당시 화면·검사이며 아래 변경의 성과로 합산하지 않는다.
+
+### 문제와 수정
+
+친구의 세 답변은 금융 상황과 금액 변경을 인식했지만 기록 결과의 의미는 이해하지 못했다는 근거다. 클릭 위치·체류 시간은 없고, 특정 배치가 원인이었다고 확정하지 않는다. 이번 변경은 이 피드백과 코드 검토에 따른 수정이며 **수정 후 사람의 이해도는 아직 확인되지 않았다.**
+
+| 확인된 문제 / 판단 | 이번 반영 | 확인할 근거 |
+|---|---|---|
+| 금융 사례가 프로젝트 정체성을 대신함 | README 첫 문장과 구조 설명을 과부하·결과 기록 정합성으로 정리. 금융 문서는 예시로 유지 | README, App의 접힌 프로젝트 구조 안내 |
+| 답변·작업·상담 기록 명칭 혼재 | 기록할 답변 / 근거 대조 / 저장된 작업으로 역할 구분. 실제 실행은 답변의 DB 기록이며 송금·발송 아님 | CaseStudy, ServerRecords, EvidenceLab |
+| 직접 구성의 준비 결과에 “저장 당시 내용” 표시 | “준비한 내용”으로 수정. 작업 저장은 별도 요청이고 실제 GET 목록만 저장 결과로 표시 | 직접 구성 실제 API 대조 |
+| 첫 자동 실행에서 준비한 답변을 읽기 전에 변경·거절까지 진행 | 최초 버튼은 준비까지만 실행. 이후 차단·새 기록·재시도 결과도 사용자 행동으로 진행 | CaseFlow 테스트: 첫 실행에서 event/execute 호출 0, 이후 전체 흐름 유지 |
+| 무엇과 달라져 거절됐는지 확인하기 어려움 | 답변의 references와 같은 source_id의 현재 원문을 대조. 특정 금액 추출·강조 없음 | SourceComparison, API 원문/화면 본문 일치 검사 |
+| 결과 명칭보다 처리 단계·원문이 앞섬 | 요청 응답의 거절 / 새 기록 저장 / 기존 기록 반환을 큰 결과로 표시. 이후 GET 확인은 별도 표시. 모바일은 답변→요청→저장 결과→원문 상세 순서 | blocked/recorded/replayed 캡처, 키보드 순서 검사 |
+| 공개 검색과 CPU 실험의 관계가 모호함 | 세 화면의 입증 대상·별도 실행 경로를 접힌 구조 안내와 README에 연결 | `/evidence/.../execute`와 `/decisions` 분리, 과거 측정 출처 유지 |
+| 자료 최신화와 전달력 개선을 혼동 | 현재 UI 실제 API 영상으로 교체. 자동화 결과와 사람의 재확인 상태를 분리 | 현재 영상, capture.json, 아래 재확인 과제 |
+| 부분 수정을 전체 개선으로 표현 | 이 표의 각 항목과 검증·미적용 항목을 대조. 사용자 이해 향상·직무 적합성 점수·합격 성과를 주장하지 않음 | 아래 범위·미적용 설정 |
+
+### 화면과 영상
+
+- 변경 전: [이전 배포 화면](evidence/record-results-2026-10-19/public-replayed.jpg).
+- 변경 후 로컬 실제 API: [기록 거절](evidence/outcome-workbench-2026-10-20/blocked.jpg), [새 기록 저장](evidence/outcome-workbench-2026-10-20/recorded.jpg), [동일 요청 재시도](evidence/outcome-workbench-2026-10-20/replayed.jpg), [모바일 저장 결과](evidence/outcome-workbench-2026-10-20/records-mobile.jpg), [직접 구성](evidence/outcome-workbench-2026-10-20/custom.jpg).
+- [현재 UI 실제 시연](https://sokldjs554.github.io/recheck-ml-serving/media/recheck-workbench-20261020.mp4): 로컬 Python API·SQLite, 1280px 너비. 실제 준비·원문 변경·거절·기록·동일 키 재시도를 촬영했다. 영상에서 읽을 시간을 둔 것이며 제품에 인위적인 대기 시간을 추가하지 않았다.
+- [촬영 응답·GET 행 대조](evidence/outcome-workbench-2026-10-20/film.json), [촬영 실행 원본](evidence/outcome-workbench-2026-10-20/recorded-case.json), [구현·미디어 SHA256](evidence/outcome-workbench-2026-10-20/source-digests.json). `source_base`는 촬영 작업 트리의 기반 커밋이다. 미커밋 수정이 포함된 영상이며 해당 기반 커밋의 화면이라고 표시하지 않는다.
+
+### 검증과 비용
+
+로컬 Python API·SQLite + Chromium을 실제 실행했다. 아래는 이번 실행이고 기존 CPU 부하 수치는 재측정하지 않았다.
+
+| 검증 | 결과 / 자료 |
+|---|---|
+| 프런트 기존 회귀 | 68개 통과. [출력](evidence/outcome-workbench-2026-10-20/frontend.log) |
+| 준비·기록·원문·목록·본문·작업 ID 대조 | 10개 검사 그룹 통과. [실제 요청과 GET/화면 대조](evidence/outcome-workbench-2026-10-20/reconciliation.json) |
+| 대표 흐름·중복 실행·이동·실패·만료·키보드 | 13개 그룹 통과. [검사](evidence/outcome-workbench-2026-10-20/case.json) |
+| 직접 구성·원문 변경/삭제·후보 평가·유실 응답 | 14개 그룹 통과. [검사](evidence/outcome-workbench-2026-10-20/custom.json) |
+| 새로고침·유실 응답 원래 키·과거 기록·저장 차단 | Chromium 9개 그룹 통과. [검사](evidence/outcome-workbench-2026-10-20/restoration.json) |
+| 영상 재생·부하/복구 자료·320/390/768/1440px | 7개 그룹 통과. [검사](evidence/outcome-workbench-2026-10-20/presentation.json) |
+| SQLite 전용 세션 용량·만료 fixture | 1개 통과. [출력](evidence/outcome-workbench-2026-10-20/sqlite.log) |
+
+원문 비교는 현재 편집기에서 선택한 문서가 아니라 **준비한 답변에 인용된 문서**를 기준으로 한다. 직접 구성에서 다른 문서를 선택해도 기존 답변의 근거가 바뀌지 않는 것을 실제 화면에서 확인했다. 초기 GET 0건, 차단 후 0건, 유효 답변의 본문·작업 ID, 동일 키 재시도 전후 동일 행, POST 응답 유실 뒤 실제 GET 결과를 대조했다. 건수 차이만으로 중복 방지를 추론하지 않는다.
+
+기존 기록 계약·SQL 경계·CPU 슬롯은 변경하지 않았다. 매 기록 요청 뒤 GET이 추가되는 네트워크·잠금 비용은 유지한다. POST 응답과 후속 GET은 원자적 스냅샷이 아니다. GET 실패는 마지막 확인 내역과 분리하며 응답 유실 시 원래 요청 키를 보존한다. 원문 대조 자체는 기존 API가 반환한 references와 state를 사용하므로 추가 조회를 만들지 않는다. 최초 준비에서 멈추는 변경은 사용자 행동 한 번이 늘어나는 비용을 선택한 것이다.
+
+첫 구현 검증에서는 새 준비 정지점에 맞지 않는 기존 완료 테스트 1개가 실패했고, 완료까지 실제로 네 번의 구간 실행을 확인하도록 갱신했다. 화면 원문을 접힌 상세 영역으로 옮기면서 기존 위치·포커스 순서를 가정한 브라우저 검사도 실패했다. 실제 원문을 펼치는 동작과 새 표시 순서의 키보드 이동으로 수정했고 내용·저장 계약 검사는 유지했다. 영상 생성과 겹친 최초 미디어 검사는 재생 시간 초과로 실패했다. 완성된 파일에서 동일 20초 기준으로 다시 검사해 통과했다. 이 실패를 서버 장애나 시작 지연으로 설명하지 않는다. 유실 응답을 고의로 보류한 테스트 종료 과정의 route `CancelledError`와 제품의 page error는 구분하며 최종 page error는 0이다.
+
+재현 명령(서버 시작 후):
+
+```sh
+npm --prefix demo test
+PYTHONPATH=backend backend/.venv/bin/python -m pytest backend/tests/test_database.py::test_session_capacity_and_expired_session_cleanup -q
+python scripts/check_records_browser.py --base http://127.0.0.1:5173 --api http://127.0.0.1:8025 --output work/record-check
+python scripts/check_case_browser.py --base http://127.0.0.1:5173 --api http://127.0.0.1:8025 --output work/case-check
+```
+
+### 운영 설정과 남은 범위
+
+Render 실제 서비스 조회는 [이 기록](evidence/outcome-workbench-2026-10-20/runtime-settings.json)처럼 **Health Check Path가 빈 문자열**이었다. 저장소 `render.yaml`은 `/health`다. 현재 연결 도구에는 기존 서비스의 health path 수정 메서드가 없고 환경에 Render 관리 자격 증명 바인딩도 없어 수정 적용을 주장하지 않는다. [공식 문서](https://render.com/docs/health-checks)의 설정 경로와 대조했다.
+
+직접 적용 위치: [서비스 Settings](https://dashboard.render.com/web/srv-db3rmj3ncjis73bi8fl0/settings) → **Health Checks → Edit → `/health` → Save Changes**. 사용자에게 이 위치를 전달했다. HTTP 준비 검사 설정과 무료 호스트 시작 지연 해소는 같은 일이 아니다. 10월 13일 정기 점검의 약 54.04초 / 2.13초 / 1.63초 표본과 5초 실패 기준은 [기존 운영 기록](inspection-update.md)에 보존하며 이번 배포 성공으로 대체하지 않는다. 당시 지연 원인은 여전히 미확정이다.
+
+- 공개 TF-IDF 체험과 CPU 서빙 실험은 분리되어 있다. 과거 120 req/s는 목표 투입, 약 67.6 req/s는 특정 조건의 유효 응답률이다. 장기 용량·SLA·현재 화면의 성능이 아니다.
+- 대표 흐름은 같은 탭 새로고침 복원을 지원한다. 직접 구성은 화면 이동까지 유지하고 전체 새로고침 시 초기화한다. 이 범위 차이를 숨기거나 다른 세션의 기록으로 대체하지 않는다.
+- 실제 iPhone Safari 검사·최신 화면의 사람 이해도는 미검증이다. 자동화의 WebKit/모바일 너비 검사를 이 결과로 바꾸지 않는다.
+- 지원자의 역할은 주제·방향 결정, 요구 구체화·범위 조정·수정 요구·결과 검토다. 코드·데모 제작은 AI가 주로 담당했다. 이번 기술 설명을 직접 설계·구현·실험 경력으로 바꾸지 않는다. 자소서·제출용 포트폴리오는 수정하지 않았다.
+
+### 친구에게 다시 확인할 과제
+
+버튼 위치나 정답을 설명하지 않고 다음 두 과제만 전달한다.
+
+1. 작업을 진행한 뒤, 실제로 저장된 내용을 화면에서 찾아 설명해 주세요.
+2. 다시 요청한 뒤, 저장된 기록에 어떤 변화가 있는지 설명해 주세요.
+
+익명 참여자 구분·기기/브라우저·실제 행동·완료 여부·도움 여부·막힌 지점·실제 발언을 [기존 기록 양식](usability-record.md)에 남긴다. **기술 검증과 사람의 이해도 재확인은 별개이며, 후자는 대기 중이다.**

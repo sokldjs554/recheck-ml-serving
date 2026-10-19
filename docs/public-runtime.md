@@ -1,6 +1,8 @@
 # Public runtime and its boundaries
 
-Latest check: [2026-10-19 actual settings, startup timeline, and failed/ready samples](submission-2026-10-19.md#첫-응답-지연과-실제-배포-설정). The service still reports an empty `healthCheckPath`, although `render.yaml` specifies `/health`. The successful deployment/browser checks do not supersede the failed five-second scheduled checks.
+Latest settings recheck: [2026-10-20 KST](usability-feedback-2026-10-19.md#운영-설정과-남은-범위), HTTP health path still empty; no setting change applied.
+
+Earlier check: [2026-10-19 actual settings, startup timeline, and failed/ready samples](submission-2026-10-19.md#첫-응답-지연과-실제-배포-설정). The service still reports an empty `healthCheckPath`, although `render.yaml` specifies `/health`. The successful deployment/browser checks do not supersede the failed five-second scheduled checks.
 
 The Render Python service uses a dedicated Neon PostgreSQL 17 database in Singapore.
 `DATABASE_URL` is injected through Render; credentials never enter the repository.

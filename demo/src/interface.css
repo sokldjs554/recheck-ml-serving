@@ -309,3 +309,58 @@
   .case-study .replay-source, .case-study .replay-answer, .case-study .replay-transport, .case-study .server-records { width: 100%; padding: 18px; box-sizing: border-box; }
   .case-study .server-records { border-left: 0; border-top: 2px solid #234d3b; }
 }
+
+/* One request surface: intended output / its evidence / confirmed persistence. */
+.workspace-theme .desk-brand-caption { display: block; color: #55635d; font-size: 11px; letter-spacing: 0; }
+.workspace-theme .project-context { font-size: 13px; color: #44574b; margin-top: 12px; }
+.workspace-theme .project-context > summary { cursor: pointer; min-height: 36px; padding-block: 8px; }
+.workspace-theme .project-context p { line-height: 1.8; max-width: 850px; }
+.workspace-theme .project-context dl { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 24px; margin: 16px 0; }
+.workspace-theme .project-context dt { font-weight: 650; margin-bottom: 8px; }
+.workspace-theme .project-context dd { margin: 0; line-height: 1.8; }
+.workspace-theme .case-study .replay-answer { grid-row: 1; }
+.workspace-theme .case-study .replay-transport { grid-row: 2; }
+.workspace-theme .case-study .server-records { grid-row: 1 / 3; }
+.workspace-theme .replay-ticket-heading h2, .workspace-theme .record-heading h3 { font-size: 19px; font-weight: 650; }
+.workspace-theme .replay-query p { font-size: 13px; font-weight: 400; }
+.workspace-theme .case-answer-text { font-size: 18px; line-height: 1.85; margin-block: 20px; }
+.workspace-theme .source-comparison { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--rule); }
+.workspace-theme .source-comparison h3 { font-size: 14px; font-weight: 650; margin: 0 0 12px; }
+.workspace-theme .source-pair-name { font-size: 12px; color: #53615b; margin: 0 0 12px; }
+.workspace-theme .source-pair-texts { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 18px; }
+.workspace-theme .source-pair-texts > div { min-width: 0; border-top: 2px solid #aebbb2; padding-top: 10px; }
+.workspace-theme .source-pair h4 { font-size: 12px; margin: 0 0 8px; color: #41534a; }
+.workspace-theme .source-pair-texts p { font-size: 15px; line-height: 1.8; margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.workspace-theme .source-pair.is-changed .source-pair-texts > div:first-child { border-color: #965b2b; }
+.workspace-theme .source-pair.is-changed .source-pair-texts > div:last-child { border-color: #29583e; }
+.workspace-theme .source-pair-state { font-size: 13px; line-height: 1.7; color: #47594e; }
+.workspace-theme .source-pair.is-changed .source-pair-state { color: #7b421b; }
+.workspace-theme .source-pair details { font-size: 12px; color: #58665f; }
+.workspace-theme .source-pair details summary { min-height: 32px; padding-block: 6px; cursor: pointer; }
+.workspace-theme .case-superseded .source-comparison { margin-top: 12px; }
+.workspace-theme .source-technical { font-size: 12px; margin-top: 20px; color: #53615b; }
+.workspace-theme .source-technical summary { min-height: 36px; cursor: pointer; }
+.workspace-theme .record-confirmation { padding: 18px 0 18px 16px; border-left: 3px solid #52685d; }
+.workspace-theme .record-confirmation h4 { margin: 6px 0 12px; font-size: 22px; color: #234e38; }
+.workspace-theme .record-confirmation.outcome-blocked { border-color: #9a602c; }
+.workspace-theme .record-confirmation.outcome-blocked h4 { color: #7b421b; }
+.workspace-theme .record-confirmation.outcome-unknown h4, .workspace-theme .record-confirmation.outcome-pending h4 { color: #45534c; }
+.workspace-theme .outcome-label, .workspace-theme .stored-answer-label { display: block; font-size: 12px; color: #526258; margin-bottom: 8px; }
+.workspace-theme .server-records ul { max-height: none; overflow: visible; }
+.workspace-theme .server-records .stored-answer { font-size: 18px; line-height: 1.85; }
+.workspace-theme .server-records .record-empty-confirmed { border-top: 1px solid var(--rule); padding-top: 20px; font-size: 16px; }
+.workspace-theme .server-records .read-verdict { border-top: 1px solid #d9e0da; padding-top: 12px; }
+.workspace-theme .case-superseded > summary { font-weight: 600; }
+.workspace-theme .replay-transport .replay-now { display: none; }
+@media(max-width:760px) {
+ .workspace-theme .desk-brand-caption { font-size: 10px; }
+ .workspace-theme .project-context dl { grid-template-columns: minmax(0,1fr); gap: 16px; }
+ .workspace-theme .source-pair-texts { grid-template-columns: minmax(0,1fr); gap: 16px; }
+ .workspace-theme .case-answer-text, .workspace-theme .server-records .stored-answer { font-size: 17px; }
+ .workspace-theme .source-pair-texts p { font-size: 16px; }
+}
+.workspace-theme .case-study .replay-context { grid-column: 1; grid-row: 3; padding: 0 24px 24px; min-width: 0; }
+.workspace-theme .case-study .server-records { grid-row: 1 / 4; }
+.workspace-theme .source-comparison > summary { cursor: pointer; font-size: 13px; font-weight: 600; min-height: 38px; }
+.workspace-theme .replay-context .source-comparison { margin-top: 0; }
+@media(max-width:720px) { .workspace-theme .case-study .replay-context { width: 100%; padding: 18px; box-sizing: border-box; } }

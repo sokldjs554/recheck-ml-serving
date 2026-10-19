@@ -109,7 +109,7 @@ def main():
             expect(records).to_contain_text('1개 작업')
             saved=records.locator('li').get_attribute('data-action-id')
             page.get_by_role('link',name='모델 부하',exact=True).click()
-            page.get_by_role('navigation',name='화면 선택').get_by_role('button',name='실행 기록',exact=True).click()
+            page.get_by_role('navigation',name='화면 선택').get_by_role('button',name='답변 기록',exact=True).click()
             click('직접 구성')
             page.evaluate("""() => { const b=document.querySelector('[data-testid=custom-execution] > button'); b.click(); b.click(); }""")
             expect(execution.locator('.task-result')).to_contain_text('같은 작업 반환')
