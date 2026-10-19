@@ -2,7 +2,7 @@
 
 **답변이 인용한 문서를 기록 직전에 다시 확인하는 Python ML 백엔드입니다.** 문서 변경에 따른 오래된 답변 차단, 같은 요청의 중복 기록 방지, 별도 CPU 모델의 부하·장애 처리를 구현했습니다.
 
-[공개 화면 열기](https://sokldjs554.github.io/recheck-ml-serving/) · [현재 화면의 실제 시연 영상](https://sokldjs554.github.io/recheck-ml-serving/media/recheck-records-20261019.mp4)
+[공개 화면 열기](https://sokldjs554.github.io/recheck-ml-serving/) · [현재 화면의 실제 시연 영상](https://sokldjs554.github.io/recheck-ml-serving/media/recheck-records-final-20261019.mp4)
 
 [![기록하려던 답변과 서버에 실제 저장된 상담 기록](docs/evidence/record-results-2026-10-19/replayed.jpg)](https://sokldjs554.github.io/recheck-ml-serving/)
 

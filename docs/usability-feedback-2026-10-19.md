@@ -274,3 +274,7 @@ npm --prefix demo test
 2. 다시 요청한 뒤, 저장된 기록에 어떤 변화가 있는지 설명해 주세요.
 
 지원자의 역할은 주제·방향 결정, 요구사항 구체화, 기능 추가·범위 조정, 수정 요청과 결과 검토입니다. 코드 작성과 데모 제작은 AI가 주로 담당했습니다. 이번 구현·실험을 지원자가 직접 수행했다고 서술하지 않습니다.
+
+최종 로컬 결과는 [검증 요약](evidence/record-results-2026-10-19/local-verification.json)에 있습니다. 프런트엔드 67개, 상담 기록 API 대조 10개 검증 그룹, 대표 흐름 13개, 직접 구성 14개, 복원 9개, 영상·상세 화면 7개가 통과했습니다. SQLite 전용 제외 항목은 별도 1개 통과했습니다. 새 답변 준비 시 직전 답변의 처리 요약은 해제하고 실제 GET 목록은 유지하는 조건도 대조했습니다. 이 숫자는 자동화 결과이며 사용성 또는 장기 운영 성과가 아닙니다.
+
+[최종 실제 API 영상](https://sokldjs554.github.io/recheck-ml-serving/media/recheck-records-final-20261019.mp4) · [영상의 POST/GET 대조](evidence/record-results-2026-10-19/capture.json) · [소스·미디어 SHA-256](evidence/record-results-2026-10-19/source-digests.json). 촬영 source_base는 작업 시작 커밋이며 변경된 최종 UI의 파일 해시는 별도로 보존했습니다.

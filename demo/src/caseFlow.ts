@@ -193,7 +193,7 @@ export class CaseFlow {
       return result;
     };
     const writeReceipt = current.step === 2 ? current.oldReceipt : [4, 5].includes(current.step) ? current.freshReceipt : null;
-    let attempt: RecordAttempt | null = writeReceipt ? { key: current.step === 2 ? this.oldActionKey : this.actionKey, receiptId: writeReceipt.id, output: writeReceipt.output } : null;
+    let attempt: RecordAttempt | null = writeReceipt ? { key: current.step === 2 ? this.oldActionKey : this.actionKey, receiptId: writeReceipt.id, output: writeReceipt.output, previousId: current.step === 5 ? current.action?.action_id : undefined } : null;
     if (attempt) this.records.begin(attempt);
     this.set({ busy: true, error: "", status: "" });
     try {
@@ -300,6 +300,7 @@ export class CaseFlow {
         const state = await take("새 배포 버전 조회", () =>
           this.api.state(current.session),
         );
+        this.records.prepared();
         this.set({
           report,
           freshReceipt,

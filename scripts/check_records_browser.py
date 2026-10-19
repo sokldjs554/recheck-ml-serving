@@ -88,6 +88,7 @@ def main():
         custom_before=reconcile('custom saved answer',custom_sid);page.get_by_role('button',name='같은 요청 재시도',exact=True).click();expect(page.get_by_role('button',name='같은 요청 재시도',exact=True)).to_be_enabled();assert reconcile('custom same-key retry',custom_sid)==custom_before;expect(records()).to_contain_text('추가된 기록 0건')
         page.locator('.el-workbench').screenshot(path=str(a.output/'custom.jpg'),type='jpeg',quality=85)
         page.set_viewport_size({'width':390,'height':1000});assert page.evaluate('document.documentElement.scrollWidth<=innerWidth');assert records().locator('.stored-answer').is_visible()
+        page.get_by_role('button',name='답변 준비',exact=True).click();expect(page.get_by_role('button',name='답변 준비',exact=True)).to_be_enabled();expect(records().get_by_test_id('record-confirmation')).to_have_count(0);assert reconcile('new draft preserves old server rows but clears old request summary',custom_sid)==custom_before
         passed('custom workspace uses the same full answer / GET count / action-ID semantics with its own isolated session and mobile layout')
         assert not errors; evidence['page_errors']=errors;b.close()
     (a.output/'results.json').write_text(json.dumps(evidence,ensure_ascii=False,indent=2))

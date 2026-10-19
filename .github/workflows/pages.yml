@@ -140,6 +140,12 @@ jobs:
             work/public-presentation
             work/public-restoration-chromium
 
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: public-consultation-records
+          path: work/public-records
+
   webkit:
     name: Verify public demo with macOS WebKit
     needs: deploy

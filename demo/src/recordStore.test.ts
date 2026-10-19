@@ -26,6 +26,13 @@ describe("GET-confirmed consultation records", () => {
     old.resolve([]); earlier.resolve([]); await Promise.all([p1,p2]);
     expect(store.getSnapshot()).toMatchObject({ session: "new", rows: [row], checkedAttempt: 1, busy: false });
   });
+  it("preparing a different answer clears the previous request summary without changing GET rows", async () => {
+    const read = vi.fn().mockResolvedValue([row]); const store = new RecordStore(read); store.reset("s");
+    store.begin({ key: "old", receiptId: "r", output: row.output }); await store.refresh(); store.prepared();
+    expect(store.getSnapshot()).toMatchObject({ attempt: null, rows: [row] }); expect(read).toHaveBeenCalledTimes(1);
+    store.begin({ key: "restored-key", receiptId: "r", output: row.output, previousId: "a" });
+    expect(store.getSnapshot().attempt?.previousId).toBe("a");
+  });
   it("never populates the list from the write response; a lost response can be reconciled by GET", async () => {
     const store = new RecordStore(async () => [row]); store.reset("s"); store.begin({ key: "kept", receiptId: "r", output: row.output });
     expect(store.getSnapshot().rows).toBeNull(); await store.refresh();

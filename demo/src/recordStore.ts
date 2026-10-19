@@ -14,11 +14,12 @@ export class RecordStore {
   subscribe = (listener: () => void) => { this.listeners.add(listener); return () => { this.listeners.delete(listener); }; };
   private set(patch: Partial<Snapshot>) { this.value = { ...this.value, ...patch }; this.listeners.forEach(fn => fn()); }
   reset(session = "") { this.generation++; this.query++; this.value = empty(session); this.listeners.forEach(fn => fn()); }
+  prepared() { this.set({ attempt: null }); }
   begin(attempt: RecordAttempt) {
     // A response to a GET started before this write must not confirm this attempt.
     this.query++;
     const previousId = this.value.attempt?.key === attempt.key ? this.value.attempt.result?.action_id || this.value.rows?.find(row => row.receipt_id === attempt.receiptId && row.output === attempt.output)?.action_id : undefined;
-    this.set({ attempt: { ...attempt, previousId }, attemptNumber: this.value.attemptNumber + 1, writing: true, busy: false, error: "" });
+    this.set({ attempt: { ...attempt, previousId: previousId || attempt.previousId }, attemptNumber: this.value.attemptNumber + 1, writing: true, busy: false, error: "" });
   }
   complete(attempt: RecordAttempt) { this.set({ writing: false, attempt: { ...attempt, previousId: this.value.attempt?.previousId } }); }
   refresh = async () => {

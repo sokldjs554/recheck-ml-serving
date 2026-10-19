@@ -1,15 +1,15 @@
 {
-  "recorded_at_utc": "2026-10-19T09:30:04Z",
-  "source_base": "eda2073dd18b8213eff75c2010a2d4b11a6f689f",
+  "recorded_at_utc": "2026-10-19T09:36:21Z",
+  "source_base": "1a98593eaf359cb7f877fcad78fa4e9cf1061573",
   "scope": "Actual local Python API with SQLite, final consultation UI. Manual progression with reading pauses in recording only. Rejected answer, GET-confirmed single saved answer, same-key retry and unchanged action ID. No request mocks or speed changes.",
   "observations": [
     {
       "label": "before retry",
       "post_action": {
-        "action_id": "9566d6be-b02b-46af-b89d-67e84b40fd88",
-        "receipt_id": "10dafa55-11fc-4399-8811-157bdccb6c6d",
+        "action_id": "4f16a141-6495-4bf0-99ba-c6bca7e47a3c",
+        "receipt_id": "34649771-1ba7-4182-a01e-3a4674ca4e1a",
         "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
-        "committed_at": 1792402184.8118408,
+        "committed_at": 1792402561.337621,
         "release_epoch": 2,
         "references": [
           {
@@ -21,14 +21,14 @@
         ],
         "scope": "atomic local synthetic support task recording; no external action",
         "replayed": false,
-        "trace_id": "d551ef1e45df03cd33a92ad95ab0b448"
+        "trace_id": "0135dc6852e6dd9499fe1c2631cb7e0f"
       },
       "get_actions": [
         {
-          "action_id": "9566d6be-b02b-46af-b89d-67e84b40fd88",
-          "receipt_id": "10dafa55-11fc-4399-8811-157bdccb6c6d",
+          "action_id": "4f16a141-6495-4bf0-99ba-c6bca7e47a3c",
+          "receipt_id": "34649771-1ba7-4182-a01e-3a4674ca4e1a",
           "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
-          "committed_at": 1792402184.8118408,
+          "committed_at": 1792402561.337621,
           "release_epoch": 2,
           "references": [
             {
@@ -46,10 +46,10 @@
     {
       "label": "after retry",
       "post_action": {
-        "action_id": "9566d6be-b02b-46af-b89d-67e84b40fd88",
-        "receipt_id": "10dafa55-11fc-4399-8811-157bdccb6c6d",
+        "action_id": "4f16a141-6495-4bf0-99ba-c6bca7e47a3c",
+        "receipt_id": "34649771-1ba7-4182-a01e-3a4674ca4e1a",
         "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
-        "committed_at": 1792402184.8118408,
+        "committed_at": 1792402561.337621,
         "release_epoch": 2,
         "references": [
           {
@@ -61,14 +61,14 @@
         ],
         "scope": "atomic local synthetic support task recording; no external action",
         "replayed": true,
-        "trace_id": "5d80ace6b9b4c132a1ae22cbec43daa5"
+        "trace_id": "69a12557bc642d6240899dd0caf6aac0"
       },
       "get_actions": [
         {
-          "action_id": "9566d6be-b02b-46af-b89d-67e84b40fd88",
-          "receipt_id": "10dafa55-11fc-4399-8811-157bdccb6c6d",
+          "action_id": "4f16a141-6495-4bf0-99ba-c6bca7e47a3c",
+          "receipt_id": "34649771-1ba7-4182-a01e-3a4674ca4e1a",
           "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
-          "committed_at": 1792402184.8118408,
+          "committed_at": 1792402561.337621,
           "release_epoch": 2,
           "references": [
             {

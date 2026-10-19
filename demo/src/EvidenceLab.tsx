@@ -168,6 +168,7 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
       "근거 검색 중",
       (a, s) => a.prepare(s, query, product),
       (value) => {
+        records.prepared();
         setReceipt(value);
         setNotice(
           "답변이 준비됐습니다. 원문을 수정하거나, 이 답변으로 작업을 기록할 수 있습니다.",

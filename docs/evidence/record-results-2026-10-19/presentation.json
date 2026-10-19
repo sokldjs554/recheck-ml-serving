@@ -9,12 +9,12 @@
     "recovery: visible scope/results, collapsed conditions/raw data, expanded layout and contained table scrolling at four widths"
   ],
   "media": {
-    "source": "http://127.0.0.1:5173/media/recheck-records-20261019.mp4",
+    "source": "http://127.0.0.1:5173/media/recheck-records-final-20261019.mp4",
     "duration": 39.88,
     "width": 1280,
     "height": 1080,
-    "poster": "http://127.0.0.1:5173/media/recheck-records-poster-20261019.webp"
+    "poster": "http://127.0.0.1:5173/media/recheck-records-final-poster-20261019.webp"
   },
-  "action_id": "40c3ebac-172d-4cbe-a66a-072709f4d51b",
+  "action_id": "b138a896-1eeb-47ca-8ee7-b2b589cd059a",
   "page_errors": []
 }
