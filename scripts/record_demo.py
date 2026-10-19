@@ -26,5 +26,5 @@ with sync_playwright() as pw:
     v=page.video;ctx.close();raw=Path(v.path());b.close()
     (a.output/'capture.json').write_text(json.dumps({'recorded_at_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'source_base':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),'scope':'Actual local Python API with SQLite, final consultation UI. Manual progression with reading pauses in recording only. Rejected answer, GET-confirmed single saved answer, same-key retry and unchanged action ID. No request mocks or speed changes.','observations':observations},ensure_ascii=False,indent=2))
     for extension,codec in [('mp4',['-c:v','libx264','-preset','fast','-crf','25','-pix_fmt','yuv420p','-movflags','+faststart']),('webm',['-c:v','libvpx-vp9','-b:v','0','-crf','34','-deadline','realtime','-cpu-used','6','-row-mt','1'])]:
-        subprocess.run(['ffmpeg','-y','-i',str(raw),'-an',*codec,str(media/f'recheck-records-final-20261019.{extension}'),'-loglevel','error'],check=True)
-    subprocess.run(['ffmpeg','-y','-i',str(a.output/'poster.png'),'-quality','85',str(media/'recheck-records-final-poster-20261019.webp'),'-loglevel','error'],check=True)
+        subprocess.run(['ffmpeg','-y','-i',str(raw),'-an',*codec,str(media/f'recheck-records-query-20261019.{extension}'),'-loglevel','error'],check=True)
+    subprocess.run(['ffmpeg','-y','-i',str(a.output/'poster.png'),'-quality','85',str(media/'recheck-records-query-poster-20261019.webp'),'-loglevel','error'],check=True)

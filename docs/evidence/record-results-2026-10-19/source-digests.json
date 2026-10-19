@@ -35,7 +35,7 @@
   "demo/src/recordStore.ts": "dd7717a8d17c65cb125f8f058bbb89884866fec6512b564ab8cba8e9367bfe73",
   "demo/src/LoadExplorer.tsx": "64fb3a0c0d2271cad0ab232f1ee0500284e9fee80ebe026a71660535517c6849",
   "demo/src/caseRestorationView.test.tsx": "fbe0d3d0e9f36c06f34e41aba350c2706df62d5beda1c5191847dbab08f8eef8",
-  "demo/src/CaseStudy.tsx": "f0990e879e61942f7077531dd399abb5aaa22fe22a3dd5c6f13f2ba694f75771",
+  "demo/src/CaseStudy.tsx": "03d94937f3bf00c584875a1a96075eca369ddd6af87ea1913c4a9a2c4c5dd375",
   "demo/src/simulation.ts": "87120d9c39b60fecde68bd614c3374320a1ed2b91a187c9b03088059702c15d6",
   "demo/src/reviewWorkspace.css": "4ff1d214112383139ec1bbec256fe1d374552fb033790bea0c2048b4b413ad39",
   "demo/src/types.ts": "5e920d0af1f3bbb439ae1ec107da4e8285dca0383a65dbaadec8ffc7c03cc78e",
@@ -47,7 +47,7 @@
   "demo/src/caseRestoration.test.ts": "b0bed5f6ffd50cdb1d60c38e461653fb98fd46df234e8106ae6ed5c43673ca89",
   "demo/src/CaseJournal.tsx": "f658bc15d97e96803c2585e2c5449cfcd057bd0c2a4885890e706f549911ef69",
   "demo/src/caseFlow.test.ts": "6d93590bbc581a699430c77ef90988091c7da52001e3130aa34a266a133efbe5",
-  "demo/src/RecordedDemo.tsx": "026f38bfe869e5f502d9123d251fc330cbf509ad7577eaf217d646e933d5d378",
+  "demo/src/RecordedDemo.tsx": "d66e8fa7062c17d8fb9cc88f0a9ee8c0653e7a1322b93723b866e6e779deead6",
   "demo/src/recordStore.test.ts": "7109173536a0515ce8cc9af6d80843170e4560ecd3ccf1882c022c90ff021048",
   "demo/src/EvidenceLab.tsx": "d6ddf91f5929208bed19695a6dcb63126f4be5652ca07ca819a67bd4d49a6655",
   "demo/src/caseJournal.ts": "542ba065df91f544a922d3863a51fe19fda384bbddde449e3363e6261b94db1b",
@@ -55,7 +55,7 @@
   "demo/src/simulation.test.ts": "4b374db738fc4d15dc241e74bf6afcfdcafd378e1c6ba687b14e17f8d3177000",
   "demo/src/api.test.ts": "7fe221ec7a0e54cc14c234370fbfa0cd651271e5b448badb9478efa8c1f68d2a",
   "demo/src/presentation.test.ts": "95d7397d104cc5b5796e6dd6634750f7e5bfb66447b125582c4ec797447b1acf",
-  "demo/public/media/recheck-records-final-poster-20261019.webp": "d9e1a9eb86fd3b0363daa3909f05677edcace00208f702ac261eb287608030db",
-  "demo/public/media/recheck-records-final-20261019.webm": "c1650276bd6cac7467d72d2b00010b57d557229ee14b5180167aa753cba43823",
-  "demo/public/media/recheck-records-final-20261019.mp4": "82e8079c6f9afba24b799cad098ba20d47624d70f2a21e9053dec9e4ac7abaea"
+  "demo/public/media/recheck-records-query-20261019.mp4": "c01bb4c8ad1579369afcb286d98d25a228e0aa19e7dc4ed7afcca808b0e22301",
+  "demo/public/media/recheck-records-query-poster-20261019.webp": "072c845c28da313376ea518e81abf8bff91b13ea33e9a64316c232153515b2bc",
+  "demo/public/media/recheck-records-query-20261019.webm": "4e50a9f3bbb93212b5765bd36c7aa13743e39a238b355a82ab8271c646910fa5"
 }

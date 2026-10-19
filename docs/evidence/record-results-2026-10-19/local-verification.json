@@ -12,6 +12,6 @@
   },
   "stored_evidence_generation_checks": "passed; historical measurements not rerun",
   "build": "TypeScript and Vite passed; demo/dist matches web_static",
-  "video_duration_seconds": 39.88,
+  "video_duration_seconds": 40.16,
   "human_recheck": "not performed"
 }

@@ -46,6 +46,7 @@ def main():
         held=[];page.route('**/evidence/actions',lambda r:held.append(r))
         page.get_by_test_id('case-next').click();page.wait_for_function('document.querySelector("[data-testid=case-study]").dataset.step==="6"');expect(records()).to_have_attribute('aria-busy','true')
         assert page.locator('[data-testid=case-status] .case-spin').count()==1, 'Step number advances before the follow-up GET finishes; it is not a completion signal'
+        expect(page.get_by_test_id('case-status')).to_contain_text('상담 기록 조회 중')
         expect(records()).to_contain_text('아직 확인되지')
         assert len(held)==1
         held[0].fulfill(status=503,content_type='application/json',body='{"detail":"injected_read_unavailable"}');settled()

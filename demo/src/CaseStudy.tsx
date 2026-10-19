@@ -64,6 +64,7 @@ export default function CaseStudy({
     return () => clearInterval(id);
   }, []);
   const state = useSyncExternalStore(flow.subscribe, flow.getSnapshot);
+  const records = useSyncExternalStore(flow.records.subscribe, flow.records.getSnapshot);
   const source = state.state?.sources.find(
     (item) => item.source_id === "transfer",
   );
@@ -212,7 +213,9 @@ export default function CaseStudy({
           <>
             <LoaderCircle className="case-spin" size={14} />
             <span>
-              {state.step === 0
+              {records.busy
+                ? "서버에 저장된 상담 기록 조회 중…"
+                : state.step === 0
                 ? "서버 연결·문서 검색 중입니다. 첫 연결 응답은 최대 90초 동안 기다립니다. 저장된 시연도 볼 수 있습니다."
                 : `${working[state.step]} 중…`}
             </span>
