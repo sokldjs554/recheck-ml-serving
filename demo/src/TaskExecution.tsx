@@ -3,7 +3,7 @@ import { CaseApiError, CaseApi, type CaseAction } from "./caseApi";
 import ServerRecords from "./ServerRecords";
 
 /** One mounted receipt owns one request key, including ambiguous response failures. */
-export default function TaskExecution({ base, session, receiptId, disabled, onBusyChange, requestLock }: { base: string; session: string; receiptId: string; disabled: boolean; onBusyChange: (busy: boolean) => void; requestLock: RefObject<boolean> }) {
+export default function TaskExecution({ base, session, receiptId, disabled, onBusyChange, onUnconfirmedChange, requestLock }: { base: string; session: string; receiptId: string; disabled: boolean; onBusyChange: (busy: boolean) => void; onUnconfirmedChange: (value: boolean) => void; requestLock: RefObject<boolean> }) {
   const key = useRef(crypto.randomUUID());
   const pending = useRef(false);
   const alive = useRef(true);
@@ -18,8 +18,8 @@ export default function TaskExecution({ base, session, receiptId, disabled, onBu
     pending.current = true; requestLock.current = true; setFailure(null); setBusy(true); onBusyChange(true); setAttempted(true); setError("");
     try {
       const result = await new CaseApi(base).execute(session, receiptId, key.current);
-      if (alive.current) setAction(result);
-    } catch (e) { if (alive.current) { setError(e instanceof CaseApiError ? e.message : "응답을 확인하지 못했습니다. 저장 여부는 같은 요청 재시도나 서버 기록 조회로 확인하세요."); setFailure(e instanceof CaseApiError ? {status:e.status, traceId:e.traceId, detail:e.detail} : {detail:"응답 확인 실패 · 저장 여부는 같은 키 재시도나 서버 조회로 확인"}); } }
+      if (alive.current) { setAction(result); onUnconfirmedChange(false); }
+    } catch (e) { if (alive.current) { onUnconfirmedChange(!(e instanceof CaseApiError && [404, 409, 422, 429].includes(e.status))); setError(e instanceof CaseApiError ? e.message : "응답을 확인하지 못했습니다. 저장 여부는 같은 요청 재시도나 서버 기록 조회로 확인하세요."); setFailure(e instanceof CaseApiError ? {status:e.status, traceId:e.traceId, detail:e.detail} : {detail:"응답 확인 실패 · 저장 여부는 같은 키 재시도나 서버 조회로 확인"}); } }
     finally { pending.current = false; requestLock.current = false; if (alive.current) { setBusy(false); onBusyChange(false); } }
   }
   return <section className="task-execution" data-testid="custom-execution">

@@ -66,6 +66,7 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
   const [validation, setValidation] = useState<UseResult | null>(null);
   const [candidate, setCandidate] = useState<Candidate>("paired");
   const [report, setReport] = useState<ReleaseReport | null>(null);
+  const [unconfirmedWrite, setUnconfirmedWrite] = useState(false);
   const [executionBusy, setExecutionBusy] = useState(false);
   const [busy, setBusy] = useState("");
   const [error, setError] = useState("");
@@ -114,6 +115,7 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
       setText(next.sources.find((s) => s.source_id === "transfer")!.text);
       setQuery(queries.transfer);
       setReceipt(null);
+      setUnconfirmedWrite(false);
       setReport(null);
       setNotice(
         "문서와 질문을 선택해 답변을 준비하세요. 조건을 바꾼 뒤 같은 답변으로 기록을 요청할 수 있습니다.",
@@ -155,6 +157,7 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
     }
   }
   function prepare() {
+    if (unconfirmedWrite) return;
     void run(
       "근거 검색 중",
       (a, s) => a.prepare(s, query, product),
@@ -394,7 +397,7 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
                 <button
                   className="ink-button"
                   disabled={
-                    locked || query.trim().length < 2 || state.index_stale
+                    locked || unconfirmedWrite || query.trim().length < 2 || state.index_stale
                   }
                   onClick={prepare}
                 >
@@ -402,6 +405,7 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
                   <ArrowRight size={15} />
                 </button>
               </div>
+              {unconfirmedWrite && <p className="el-rebuild-help" role="status">기록 응답을 아직 확인하지 못했습니다. 아래 ‘같은 요청 재시도’로 확인한 뒤 새 답변을 준비하세요. ‘새 실험’은 현재 요청 키를 초기화합니다.</p>}
               {state.index_stale && (
                 <small className="el-rebuild-help">
                   아래 배포 검증에서 정상 후보를 평가·적용하면 새 문서를 검색할
@@ -440,7 +444,7 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
                   </>
                 )}
               </div>
-              {receipt && <TaskExecution key={`${sid}:${receipt.id}`} base={api.current?.base || base} session={sid} receiptId={receipt.id} disabled={!!busy} onBusyChange={setExecutionBusy} requestLock={pending} />}
+              {receipt && <TaskExecution key={`${sid}:${receipt.id}`} base={api.current?.base || base} session={sid} receiptId={receipt.id} disabled={!!busy} onBusyChange={setExecutionBusy} onUnconfirmedChange={setUnconfirmedWrite} requestLock={pending} />}
               <details className="validation-detail"><summary>기록 없이 사용 가능 여부만 확인</summary>
               <button
                 className="el-use"

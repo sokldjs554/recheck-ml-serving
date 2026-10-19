@@ -101,6 +101,7 @@ def main():
             }""")
             expect(execution.get_by_role('alert')).to_be_visible()
             expect(execution.locator('.task-result')).not_to_be_visible()
+            expect(page.get_by_role('button',name='답변 준비',exact=True)).to_be_disabled()
             page.unroute('**/evidence/receipts/*/execute')
             assert not conflicting_edits, 'A conflicting mutation in the same JS turn must not send a request'
             click('서버 기록 조회')
@@ -113,6 +114,7 @@ def main():
             page.evaluate("""() => { const b=document.querySelector('[data-testid=custom-execution] > button'); b.click(); b.click(); }""")
             expect(execution.locator('.task-result')).to_contain_text('같은 작업 반환')
             assert execution.locator('.task-result code').inner_text()==saved
+            expect(page.get_by_role('button',name='답변 준비',exact=True)).to_be_enabled()
             assert len(writes)==2 and writes[0]==writes[1], writes
             click('서버 기록 조회')
             expect(records).to_contain_text('1개 작업')
