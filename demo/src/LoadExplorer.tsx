@@ -68,6 +68,11 @@ export default function LoadExplorer() {
           <span className="workspace-eyebrow">선택한 30초 구간</span>
           <h4>{selected.cycle}회 · {names[selected.name]} <span>{selected.start_seconds}–{selected.start_seconds + selected.duration_seconds}초</span></h4>
           <div className="selected-throughput"><strong>{selected.cohort_rates_rps.good.toFixed(2)}<small> 유효 req/s</small></strong><span>투입 목표 {selected.target_rps} req/s</span></div>
+          <p className="phase-judgment">{selected.name === "overload"
+            ? "수용 제한과 시간 예산의 비용: 투입한 요청 모두를 유효하게 처리하지는 못했습니다. 아래에서 보류·거절·시간 초과를 함께 확인합니다."
+            : selected.name === "recovery"
+              ? "부하를 낮춘 뒤의 관측: 이 30초 구간은 모든 예정 요청이 시간 예산 안의 유효 응답으로 돌아왔습니다. 장기 안정성을 뜻하지 않습니다."
+              : "정상 부하의 기준 구간: 목표 요청률에서 모든 예정 요청이 시간 예산 안의 유효 응답으로 돌아왔습니다."}</p>
           <p>예정 요청 <strong>{n(selected.attempted)}건</strong>의 결과</p>
           <dl className="outcome-breakdown" data-testid="outcome-breakdown">
             {kinds.map((kind) => <div key={kind.key} className={`outcome-row outcome-row-${kind.tone}`}>

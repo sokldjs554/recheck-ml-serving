@@ -45,7 +45,7 @@ def main():
                 menu.locator('summary').click()
             target.click()
         def return_to_case():
-            page.get_by_role('navigation', name='화면 선택').get_by_role('button', name='상담 기록', exact=True).click()
+            page.get_by_role('navigation', name='화면 선택').get_by_role('button', name='실행 기록', exact=True).click()
         def download_case(name):
             page.locator('.replay-audit').evaluate('(e) => e.open = true')
             with page.expect_download() as download:
@@ -63,7 +63,7 @@ def main():
         configure(args.api)
         page.screenshot(path=str(args.output / 'case-initial-desktop.png'), full_page=True)
         page.screenshot(path=str(args.output / 'entry-desktop.png'))
-        assert page.get_by_role('heading', name='상담 기록', exact=True).is_visible()
+        assert page.get_by_role('heading', name='실행 기록', exact=True).is_visible()
         assert page.locator('.project-intro').count() == 0, 'Working screen must not render a marketing hero'
         assert page.locator('h1').evaluate('(el) => parseFloat(getComputedStyle(el).fontSize)') <= 22
         assert page.get_by_test_id('case-policy-value').inner_text() == '—', 'Do not present staged values as fetched policy'

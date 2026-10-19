@@ -11,6 +11,7 @@ import { CaseApi } from "./caseApi";
 import type { CaseFlow } from "./caseFlow";
 import "./caseStudy.css";
 import CaseJournal from "./CaseJournal";
+import ServerRecords from "./ServerRecords";
 
 const actions = [
   "답변 불러오기",
@@ -258,8 +259,8 @@ export default function CaseStudy({
     >
       <div className="replay-heading">
         <span className="case-route-label">
-          {state.restored ? "이전 상담 기록" : "샘플 상담"}
-          <small>{state.restored ? "브라우저 저장본" : "실시간 API · 송금 없이 상담 작업만 기록"}</small>
+          {state.restored ? "이전 실행 기록" : "대표 흐름"}
+          <small>{state.restored ? "브라우저 저장본" : "실시간 API · 가상 문서의 내부 작업 기록"}</small>
         </span>
         <div className="replay-heading-tools">
           <span
@@ -301,20 +302,26 @@ export default function CaseStudy({
         </div>
       )}
       <div className={`replay-machine gate-${gate}`}>
+        <div className="task-state-strip" aria-label="기록 처리 요약">
+          <div><span>이전 답변</span><strong>{blocked ? "기록 차단" : mismatched ? "원문과 불일치" : "확인 전"}</strong></div>
+          <div><span>새 작업</span><strong>{state.action ? "기록 완료" : "완료 응답 없음"}</strong></div>
+          <div><span>같은 요청</span><strong>{state.step === 6 ? "기존 작업 반환" : "재시도 전"}</strong></div>
+        </div>
         <div className="replay-canvas">
           <aside className="replay-source" data-testid="case-source">
             <div className="replay-node-label">
               <span>현재 안내 문서</span>
               <span>{source ? `문서 v${source.revision}` : "불러오기 전"}</span>
             </div>
-            <h2>하루 이체 한도</h2>
+            <h2>현재 원문</h2>
+            <p className="source-example">예시 문서 · 이체 한도 안내</p>
             <div className="policy-value" data-testid="case-policy-value">
               {source ? <Highlight text={state.step >= 2 ? "100만 원" : "300만 원"} /> : "—"}
             </div>
             <div className="replay-source-caption">
               {source ? (state.step >= 2 ? "변경된 안내 · 이전 한도 300만 원" : "현재 안내") : "서버 연결 후 표시"}
             </div>
-            <details className="replay-source-text"><summary>원문 보기</summary>
+            <details className="replay-source-text" open><summary>원문 보기</summary>
               {source ? (
                 <>
                   <p>
@@ -337,7 +344,7 @@ export default function CaseStudy({
           <div className="replay-work">
           <div className="replay-answer">
             <div className="replay-query">
-              <span>상담 문의</span>
+              <span>검색 질문</span>
               <p>“하루 이체 한도가 얼마인가요?”</p>
             </div>
             <article
@@ -345,7 +352,7 @@ export default function CaseStudy({
               data-testid="case-draft"
             >
               <div className="replay-ticket-heading">
-                <h2>상담 답변</h2>
+                <h2>실행할 답변</h2>
                 <span>
                   {receipt
                     ? `인용 v${receipt.references[0]?.revision}`
@@ -498,6 +505,8 @@ export default function CaseStudy({
         </section>
       )}
 
+
+      {state.session && <ServerRecords key={state.session} base={configuredBase} session={state.session} expectedId={state.action?.action_id} />}
 
       <div className="replay-below">
         <details className="replay-audit"><summary>요청별 응답 · {state.events.length}건</summary>

@@ -1,8 +1,8 @@
+import TaskExecution from "./TaskExecution";
 import { visibleValidation, staleRelease } from "./evidencePresentation";
 import { useEffect, useRef, useState } from "react";
 import {
   ArrowDown,
-  Files,
   ArrowRight,
   ArrowUpRight,
   Check,
@@ -66,6 +66,7 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
   const [validation, setValidation] = useState<UseResult | null>(null);
   const [candidate, setCandidate] = useState<Candidate>("paired");
   const [report, setReport] = useState<ReleaseReport | null>(null);
+  const [executionBusy, setExecutionBusy] = useState(false);
   const [busy, setBusy] = useState("");
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
@@ -81,7 +82,7 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
     };
   }, []);
   const source = state?.sources.find((s) => s.source_id === sourceId);
-  const locked = !!busy;
+  const locked = !!busy || executionBusy;
   const expired = !!receipt && clock >= receipt.expires_at * 1000;
   const checked = visibleValidation(validation, receipt, state, clock);
   const staleReport = staleRelease(report, state);
@@ -92,7 +93,7 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
         : e.message
       : "요청을 완료하지 못했습니다.";
   async function connect(reset = false) {
-    if (pending.current) return;
+    if (pending.current || executionBusy) return;
     pending.current = true;
     const generation = ++epoch.current;
     setBusy(reset ? "새 실험 준비 중" : "Python 서버 연결 중");
@@ -115,7 +116,7 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
       setReceipt(null);
       setReport(null);
       setNotice(
-        "01 · 답변을 준비한 뒤, 왼쪽 문서의 300만 원을 100만 원으로 바꿔보세요.",
+        "문서와 질문을 선택해 답변을 준비하세요. 조건을 바꾼 뒤 같은 답변으로 기록을 요청할 수 있습니다.",
       );
     } catch (e) {
       if (generation === epoch.current) setError(failure(e));
@@ -131,7 +132,7 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
     operation: (api: EvidenceApi, sid: string) => Promise<T>,
     apply: (value: T, next: EvidenceState) => void,
   ) {
-    if (pending.current || !api.current || !sid) return;
+    if (pending.current || executionBusy || !api.current || !sid) return;
     pending.current = true;
     const generation = epoch.current;
     setBusy(label);
@@ -160,7 +161,7 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
       (value) => {
         setReceipt(value);
         setNotice(
-          "02 · 원문을 수정한 뒤, 이 답변을 지금 사용해도 되는지 확인하세요.",
+          "답변이 준비됐습니다. 원문을 수정하거나, 이 답변으로 작업을 기록할 수 있습니다.",
         );
       },
     );
@@ -173,7 +174,7 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
       () => {
         setReport(null);
         setNotice(
-          "03 · 원문은 바뀌었지만 오른쪽 답변은 그대로입니다. 사용 직전 검증으로 차이를 확인하세요.",
+          "원문을 변경했습니다. 준비한 답변은 그대로입니다. 기록 요청으로 서버의 처리 결과를 확인하세요.",
         );
       },
     );
@@ -197,10 +198,10 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
     <section className="evidence-lab" aria-label="근거 변경 실험실">
       <div className="el-connect">
         <div>
-          <span className="eyebrow">실제 PYTHON · 외부 LLM 호출 없음</span>
+          <h2>직접 구성</h2>
           <p>
-            가상의 안내 문서 4개에서 근거를 검색합니다. 실제 은행 정책이
-            아닙니다.
+            실시간 API · 가상 문서 4개 · 대표 흐름과 별도 세션
+            · 화면 이동 시 유지, 새로고침 시 초기화
           </p>
         </div>
         {!state ? (
@@ -240,49 +241,14 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
           </div>
         )}
       </div>
-      {!state && (
-        <div className="el-preview" aria-label="연결 전 화면 미리보기">
-          <div className="el-preview-toolbar">
-            <span>문서 / 답변 비교</span>
-            <span>연결 전 미리보기 · 실행 결과 아님</span>
-          </div>
-          <div className="el-preview-panes">
-            <div className="el-preview-source">
-              <span className="eyebrow">원문 · 예시 문서</span>
-              <h2>이체 한도 안내</h2>
-              <p>
-                하루 이체 한도는 <mark>300만 원</mark>입니다.
-              </p>
-              <p>한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.</p>
-              <small>실험을 시작하면 이 내용을 직접 수정할 수 있습니다.</small>
-            </div>
-            <div className="el-preview-result">
-              <span className="eyebrow">답변 기록 · 실행 전</span>
-              <div className="el-empty-document">
-                <Files size={25} />
-                <p>검색 결과가 여기에 기록됩니다.</p>
-              </div>
-              <ol>
-                <li>
-                  <span>1</span>문서에서 답변 준비
-                </li>
-                <li>
-                  <span>2</span>원문의 금액 또는 조건 수정
-                </li>
-                <li>
-                  <span>3</span>이전 답변의 사용 가능 여부 확인
-                </li>
-              </ol>
-            </div>
-          </div>
-          <div className="el-preview-foot">
-            무료 Python 서버의 첫 연결은 최대 90초 걸릴 수 있습니다. 연결이
-            끝나면 실제 검색과 검증을 실행합니다.
-          </div>
-        </div>
-      )}
+      {!state && <section className="custom-start">
+        <h3>문서부터 기록까지</h3>
+        <p>이체 한도 · 결제 취소 · 카드 재발급 · 대출 서류</p>
+        <ol><li>문서와 질문으로 답변 준비</li><li>원문 수정·삭제 또는 모델·인덱스 변경</li><li>기록 요청과 같은 키 재시도, 서버 저장 기록 조회</li></ol>
+        <p>연결 후 직접 조건을 바꿀 수 있습니다. 첫 연결은 최대 90초 동안 기다립니다.</p>
+      </section>}
       <div className="el-status" role="status" aria-live="polite">
-        {locked ? (
+        {busy ? (
           <>
             <LoaderCircle className="spin" size={16} />
             {busy}
@@ -474,6 +440,8 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
                   </>
                 )}
               </div>
+              {receipt && <TaskExecution key={`${sid}:${receipt.id}`} base={api.current?.base || base} session={sid} receiptId={receipt.id} disabled={!!busy} onBusyChange={setExecutionBusy} requestLock={pending} />}
+              <details className="validation-detail"><summary>기록 없이 사용 가능 여부만 확인</summary>
               <button
                 className="el-use"
                 disabled={locked || !receipt}
@@ -513,6 +481,7 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
                   </small>
                 </div>
               )}
+              </details>
               {expired && (
                 <p className="el-expired">
                   이 기록의 유효기간이 지났습니다. 새 답변을 준비하세요.
@@ -727,7 +696,7 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
           </section>
         </>
       )}
-      <section className="el-foundation">
+      <details className="foundation-detail"><summary>공통 API·SDK와 관련 기술 자료</summary><section className="el-foundation">
         <div>
           <span className="eyebrow">자료에서 구현으로</span>
           <h3>공통 API와 Python SDK</h3>
@@ -763,7 +732,7 @@ export default function EvidenceLab({ defaultBase }: { defaultBase: string }) {
             <small>측정과 선택 근거 → 품질·지연시간 배포 기준</small>
           </a>
         </div>
-      </section>
+      </section></details>
     </section>
   );
 }

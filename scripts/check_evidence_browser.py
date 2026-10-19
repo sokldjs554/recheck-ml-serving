@@ -28,10 +28,12 @@ def main():
             menu=page.locator('.supporting-menu')
             if menu.get_by_role('button',name=name,exact=True,include_hidden=True).count() and not target.is_visible():
                 menu.locator('summary').click()
+            if name == '지금 사용해도 되는지 확인' and not target.is_visible():
+                page.locator('.validation-detail > summary').click()
             target.click()
         try:
             page.goto(args.base,wait_until='networkidle')
-            click('근거 변경 실험')
+            click('직접 구성')
             page.get_by_label('근거 실험 API 주소',exact=True).fill(args.api)
             click('실험 시작')
             expect(page.get_by_test_id('evidence-ready')).to_be_visible(timeout=100000)
@@ -51,6 +53,12 @@ def main():
             expect(page.get_by_test_id('evidence-validation')).to_contain_text('인용한 문서가 수정')
             page.screenshot(path=str(args.output/'02-refused.png'),full_page=True)
             passed('actual source edit preserves historical output and refuses its use')
+            click('이 답변으로 작업 기록')
+            execution = page.get_by_test_id('custom-execution')
+            expect(execution.get_by_role('alert')).to_contain_text('변경')
+            click('서버 기록 조회')
+            expect(execution.get_by_test_id('server-records')).to_contain_text('0개 작업')
+            passed('changed receipt execute is rejected and server contains zero actions')
             page.get_by_label('배포 후보',exact=True).select_option('mismatch')
             click('후보 평가')
             expect(page.get_by_test_id('release-verdict')).to_contain_text('배포 차단')
@@ -77,6 +85,38 @@ def main():
             click('지금 사용해도 되는지 확인')
             expect(page.get_by_test_id('evidence-validation')).to_contain_text('사용 가능')
             passed('paired rebuild switches atomically and new receipt cites edited content')
+            # Let the actual server commit, then lose its response at the browser boundary.
+            writes=[]
+            conflicting_edits=[]
+            page.on('request', lambda r: conflicting_edits.append(r.url) if r.url.endswith('/evidence/events') else None)
+            page.on('request', lambda r: writes.append(r.post_data_json) if r.url.endswith('/execute') else None)
+            def lose_response(route):
+                response=route.fetch()
+                assert response.status == 200
+                route.abort()
+            page.route('**/evidence/receipts/*/execute',lose_response)
+            page.evaluate("""() => {
+                document.querySelector('[data-testid=custom-execution] > button').click();
+                [...document.querySelectorAll('.el-source button')].find(b=>b.textContent.trim()==='수정 반영').click();
+            }""")
+            expect(execution.get_by_role('alert')).to_be_visible()
+            expect(execution.locator('.task-result')).not_to_be_visible()
+            page.unroute('**/evidence/receipts/*/execute')
+            assert not conflicting_edits, 'A conflicting mutation in the same JS turn must not send a request'
+            click('서버 기록 조회')
+            records=execution.get_by_test_id('server-records')
+            expect(records).to_contain_text('1개 작업')
+            saved=records.locator('li code').inner_text()
+            page.get_by_role('link',name='모델 부하',exact=True).click()
+            page.get_by_role('navigation',name='화면 선택').get_by_role('button',name='실행 기록',exact=True).click()
+            click('직접 구성')
+            page.evaluate("""() => { const b=document.querySelector('[data-testid=custom-execution] > button'); b.click(); b.click(); }""")
+            expect(execution.locator('.task-result')).to_contain_text('같은 작업 반환')
+            assert execution.locator('.task-result code').inner_text()==saved
+            assert len(writes)==2 and writes[0]==writes[1], writes
+            click('서버 기록 조회')
+            expect(records).to_contain_text('1개 작업')
+            passed('commit then lost response remains unconfirmed; navigation preserves key; rapid retry sends one request and returns existing action; server has one record')
             click('업무 체크리스트')
             click('답변 준비')
             expect(page.get_by_test_id('evidence-output')).to_contain_text('□ 적용 내용 확인')
@@ -117,14 +157,15 @@ def main():
             expect(page.get_by_role('button',name='새 실험',exact=True)).to_be_disabled()
             page.wait_for_timeout(150)
             assert held, 'mutation request must actually be in flight'
-            # Unmount the old session; completion may not leak into a new lab.
+            # Navigation must retain the session and apply its pending response once.
             click('서버 설계')
             held[0].continue_()
             page.unroute('**/evidence/events')
             click('근거 변경 실험')
-            expect(page.get_by_role('button',name='실험 시작',exact=True)).to_be_visible()
-            expect(page.get_by_test_id('evidence-output')).not_to_be_visible()
-            passed('pending mutation disables reuse and late completion cannot overwrite a new lab')
+            expect(page.get_by_test_id('evidence-ready')).to_be_visible()
+            expect(page.get_by_test_id('index-freshness')).to_contain_text('재구축 필요')
+            expect(page.get_by_test_id('evidence-output')).to_contain_text('300만 원')
+            passed('pending mutation disables conflicting actions and completes in its retained session after navigation')
             assert not report['page_errors'], report['page_errors']
         finally:
             (args.output/'acceptance.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')

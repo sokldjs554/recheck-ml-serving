@@ -21,6 +21,16 @@ export class CaseApiError extends EvidenceApiError {
   }
 }
 export class CaseApi extends EvidenceApi {
+  async actions(sid: string): Promise<{action_id: string; receipt_id: string; output: string}[]> {
+    const response = await fetch(`${this.base}/api/sessions/${encodeURIComponent(sid)}/evidence/actions`, { signal: AbortSignal.timeout(15000) });
+    if (!response.ok) {
+      const body = await response.json().catch(() => ({}));
+      throw new CaseApiError(response.status, typeof body?.detail === "string" ? body.detail : "서버 기록 조회 실패");
+    }
+    const body = await response.json();
+    if (!body || !Array.isArray(body.actions) || !body.actions.every((row: Record<string, unknown>) => row && [row.action_id, row.receipt_id, row.output].every(v => typeof v === "string" && v.length > 0))) throw new Error("서버 기록 응답 형식을 확인할 수 없습니다.");
+    return body.actions;
+  }
   async execute(
     sid: string,
     receiptId: string,

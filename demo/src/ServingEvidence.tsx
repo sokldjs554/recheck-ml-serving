@@ -62,7 +62,7 @@ export default function ServingEvidence({
       {view === "serving" ? (
         <>
           <SustainedReview />
-          <ConsistencyReview />
+          <details className="review-details"><summary>같은 세션·다른 세션의 경합 비용</summary><ConsistencyReview /></details>
           <details className="review-details" data-testid="prior-serving">
             <summary>
               기존 비교 근거 · 프로세스 격리·모델 인계·짧은 회귀 실험

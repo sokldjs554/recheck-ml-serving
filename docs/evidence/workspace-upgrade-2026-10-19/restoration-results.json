@@ -1,0 +1,28 @@
+{
+  "engine": "chromium",
+  "browser_version": "151.0.7922.173",
+  "scope": "Playwright engine; not real-device Safari or user comprehension research",
+  "base": "http://127.0.0.1:5173",
+  "api": "http://127.0.0.1:8025",
+  "checks": [
+    "completed reload and navigation preserve session, drafts, action and exact logs without API requests",
+    "stored real recording decodes in the selected engine and remains separate from restored API evidence",
+    "explicit reset clears the same-tab checkpoint across reload",
+    "reload with a real committed response held preserves its key; explicit resume returns one SQL-backed action",
+    "restored historical labels and action remain readable without document overflow at four widths",
+    "injected session-expiry preflight stops continuation while preserving historical evidence",
+    "damaged checkpoint is rejected without breaking the page",
+    "stored serving exception and recovery layouts work in the selected browser engine",
+    "injected localStorage and sessionStorage denial keeps live execution usable with an explicit no-restore warning"
+  ],
+  "failures": [],
+  "page_errors": [],
+  "media": {
+    "source": "http://127.0.0.1:5173/media/recheck-walkthrough-20261019.mp4",
+    "width": 1280,
+    "height": 1080,
+    "duration": 56
+  },
+  "action_id": "b7523909-6c08-4fd5-902b-e3b52c3ef985",
+  "session": "cf012960-9b95-47e7-94f9-b6fdbe94e4ac"
+}

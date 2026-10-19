@@ -129,6 +129,8 @@ export default function App() {
       : "case";
   };
   const [tab, setCurrentTab] = useState<Tab>(readTab);
+  const [visited, setVisited] = useState<Set<Tab>>(() => new Set([readTab()]));
+  useEffect(() => { setVisited(previous => new Set([...previous, tab])); }, [tab]);
   const setTab = (value: Tab) => {
     window.location.hash = value;
     setCurrentTab(value);
@@ -139,7 +141,7 @@ export default function App() {
     return () => window.removeEventListener("hashchange", change);
   }, []);
   const isExperiment =
-    tab === "case" || tab === "serving" || tab === "recovery";
+    tab === "case" || tab === "freshness" || tab === "serving" || tab === "recovery";
   const [mode, setMode] = useState<"browser" | "live">("browser");
   const [session, setSession] = useState<Session | null>(null);
   const [observedAt, setObservedAt] = useState<string | null>(null);
@@ -488,7 +490,7 @@ export default function App() {
   };
 
   const pageNames: Record<Tab, string> = {
-    case: "이체 한도 사례",
+    case: "실행 기록",
     serving: "모델 부하",
     recovery: "장애 복구",
     lab: "판단 재검증",
@@ -591,11 +593,11 @@ export default function App() {
         </div>
         <nav aria-label="화면 선택">
           <button
-            className={`desk-nav-item ${tab === "case" ? "is-active" : ""}`}
-            aria-current={tab === "case" ? "page" : undefined}
+            className={`desk-nav-item ${tab === "case" || tab === "freshness" ? "is-active" : ""}`}
+            aria-current={tab === "case" || tab === "freshness" ? "page" : undefined}
             onClick={() => setTab("case")}
           >
-            상담 기록
+            실행 기록
           </button>
           <a
             className={`desk-nav-item ${tab === "serving" ? "is-active" : ""}`}
@@ -640,28 +642,33 @@ export default function App() {
         </a>
       </header>
       <main className="desk-main">
-        {tab === "case" && (
-          <section className="case-toolbar" aria-label="상담 기록 작업">
+        {(tab === "case" || tab === "freshness") && (
+          <section className="case-toolbar" aria-label="실행 기록 작업">
             <div className="case-toolbar-main">
-              <h1>상담 기록</h1>
-              <CaseRunButton flow={caseFlow} top />
+              <h1>실행 기록</h1>
+              {tab === "case" && <CaseRunButton flow={caseFlow} top />}
             </div>
-            <RecordedDemo />
+            <div className="work-modes" aria-label="실행 방식">
+              <button aria-pressed={tab === "case"} onClick={() => setTab("case")}>대표 흐름</button>
+              <button aria-pressed={tab === "freshness"} onClick={() => setTab("freshness")}>직접 구성</button>
+              <span>{tab === "case" ? "문서 변경 → 기록 차단 → 답변 갱신 → 같은 작업 반환" : "문서·질문 선택 → 조건 변경 → 작업 기록"}</span>
+            </div>
+            {tab === "case" && <RecordedDemo />}
           </section>
         )}
         {!isExperiment && (
           <div className="return-to-case">
             <button onClick={() => setTab("case")}>
-              ← 상담 기록으로 돌아가기
+              ← 실행 기록으로 돌아가기
             </button>
             <span>화면을 이동해도 진행 상황과 실행 기록은 유지됩니다.</span>
           </div>
         )}
-        {(tab === "serving" || tab === "recovery") && (
-          <Suspense fallback={<p role="status">측정 기록 불러오는 중…</p>}>
-            <ServingEvidence view={tab} />
-          </Suspense>
-        )}
+        {(["serving", "recovery"] as const).map(view => (visited.has(view) || tab === view) && (
+          <div key={view} hidden={tab !== view} className="retained-view">
+            <Suspense fallback={<p role="status">측정 기록 불러오는 중…</p>}><ServingEvidence view={view} /></Suspense>
+          </div>
+        ))}
         {!isExperiment && (
           <div className="desk-context">
             <span>RECHECK / {pageNames[tab]}</span>
@@ -799,7 +806,7 @@ export default function App() {
             onEvidence={() => setTab("evidence")}
           />
         )}
-        {tab === "freshness" && <EvidenceLab defaultBase={base} />}
+        {(visited.has("freshness") || tab === "freshness") && <div hidden={tab !== "freshness"} className="retained-view"><EvidenceLab defaultBase={caseBase} /></div>}
         {tab === "lab" && (
           <>
             {guided !== null && (

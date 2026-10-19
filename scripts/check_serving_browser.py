@@ -49,6 +49,16 @@ def main():
         assert 'API·DB' in page.get_by_test_id('serving-boundary').inner_text()
         page.screenshot(path=str(args.output / 'serving-desktop.png'), full_page=True)
         checks.append('all request outcomes including late HTTP 200 are visible; boundary and stored evidence are labeled')
+        page.get_by_test_id('phase-select').nth(4).click()
+        page.get_by_role('navigation', name='화면 선택').get_by_role('link', name='장애 복구').click()
+        page.get_by_test_id('trace-recovered').click()
+        page.get_by_role('navigation', name='화면 선택').get_by_role('link', name='모델 부하').click()
+        assert page.get_by_test_id('phase-select').nth(4).get_attribute('aria-pressed') == 'true'
+        assert page.get_by_test_id('prior-serving').evaluate('(e) => e.open')
+        page.get_by_role('navigation', name='화면 선택').get_by_role('link', name='장애 복구').click()
+        assert '정상 추론' in page.get_by_test_id('request-verdict').inner_text()
+        page.get_by_role('navigation', name='화면 선택').get_by_role('link', name='모델 부하').click()
+        checks.append('load phase, expanded evidence and recovered trace selection survive navigation')
         page.reload(wait_until='networkidle')
         page.get_by_role('heading', name='모델 부하', exact=True).wait_for()
         checks.append('serving deep link survives reload')
@@ -81,7 +91,7 @@ def main():
             page.set_viewport_size({'width': width, 'height': 844})
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'), f'serving overflow at {width}'
             page.screenshot(path=str(args.output / f'serving-{width}.png'), full_page=True)
-        page.get_by_role('navigation', name='화면 선택').get_by_role('button', name='상담 기록').click()
+        page.get_by_role('navigation', name='화면 선택').get_by_role('button', name='실행 기록').click()
         page.get_by_test_id('case-study').wait_for()
         checks.append('back navigation, return to live case, and mobile layouts work')
         assert not errors, errors

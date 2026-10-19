@@ -156,3 +156,58 @@ README는 기능 소개→화면→실행 흐름→구조→선택의 비용→�
 | 기술 근거 | 기존 측정 재사용 | [모델 부하](evidence/ui-workflow-2026-10-19/public-serving-1440.png) · [실패 trace·SQL·복구](evidence/ui-workflow-2026-10-19/public-recovery-1440.png) |
 
 남은 범위: 수정 후 친구의 실제 재확인, 실기기 Safari 검사는 미실시다. 무료 서버 첫 응답 지연과 실제 Health Check Path 설정은 [기존 운영 기록](submission-2026-10-19.md#첫-응답-지연과-실제-배포-설정)에 남아 있으며 이번 UI 변경으로 해결했다고 주장하지 않는다. 시연 영상은 이전 UI임을 표시했고, 과거 성능 측정을 현재 코드의 재측정으로 바꾸지 않았다. 이번 UI·README 작업은 공개 배포와 회귀 검증까지 완료했으며, 다음 사람 관찰 결과는 별도의 후속 수정 근거로 받는다.
+
+## 실행 작업과 근거 탐색 보완
+
+시작 기준은 `b340ba6`(브랜치 `feat/project-introduction`, 시작 시 미커밋 변경 없음)이다. 이 항목은 앞선 영상·UI 보완 이후의 작업이다. 기존 구현과 과거 실험을 보존하고 다음 공백을 연결했다. 외부 사례의 확인 범위는 [14개 저장소·공식 화면·접근 제한 기록](research/2026-10-19/README.md)에 있다. 합격자 성과나 다른 프로젝트의 성능을 RECHECK 근거로 사용하지 않는다.
+
+### 문제와 변경
+
+| 확인한 문제 | 변경과 확인 경로 |
+|---|---|
+| 첫 화면에서 한도 금액이 과하게 강조되고, 실제 작업 결과는 아래에 묻힘 | 금액을 원문 조건으로 낮추고 이전 답변 차단·새 작업·같은 요청 상태를 앞에 배치. 원문과 실행할 답변을 나란히 비교 |
+| 직접 문서를 바꾸는 화면이 상세 메뉴에 숨고, 읽기 전용 검증까지만 연결됨 | 실행 기록의 `대표 흐름 / 직접 구성`으로 연결. 기존 4개 문서·질문·답변/체크리스트·모델 교체 기능에서 실제 `/execute`와 같은 키 재시도까지 연결 |
+| 직접 구성은 메뉴를 나가면 세션·입력·결과를 잃음 | 방문한 화면을 유지하고 표시만 전환. 진행 중 요청이 같은 세션에서 한 번 완료되고 화면 복귀가 재요청하지 않음 |
+| 응답 유실 뒤 화면에서 저장 내역을 확인하기 어려움 | 명시적 GET `서버 기록 조회` 추가. 마지막 조회 시각·개수·작업 ID 대조 표시. 조회 후 새 실행이 생기면 재조회 필요 안내 |
+| 부하 구간·실패/복구 선택이 메뉴 이동 뒤 초기화됨 | 부하·복구 화면의 선택과 펼침 상태 유지. 선택 구간의 결과 해석을 가까이에 배치하고 긴 세션 경합 비용은 펼침 영역으로 이동 |
+| 이전 UI 영상과 현재 화면이 불일치 | 이전 MP4/WebM/poster를 현재 트리에서 제거. 현재 UI의 57.64초 실제 로컬 API 시연으로 교체 |
+
+변경 전: [이전 공개 화면](evidence/ui-workflow-2026-10-19/public-entry-1440.png). 변경 후: [원문 변경과 차단](evidence/workspace-upgrade-2026-10-19/step-3.jpg) · [작업 완료](evidence/workspace-upgrade-2026-10-19/step-6.jpg) · [결제 취소 문서의 직접 기록](evidence/workspace-upgrade-2026-10-19/custom.jpg) · [모바일 직접 구성](evidence/workspace-upgrade-2026-10-19/custom-mobile.jpg).
+
+### 설계 선택과 비용
+
+- `App.tsx`는 방문한 직접 구성·부하·복구 화면을 unmount하지 않고 `hidden`으로 전환한다. 입력·조회 결과·선택 상태를 유지하는 대신 최대 세 화면의 DOM·메모리를 유지한다. 숨긴 화면에 자동 API 조회는 없다. 직접 구성의 만료 표시용 타이머는 유지된다.
+- `TaskExecution.tsx`는 준비한 답변마다 요청 키 하나를 보존한다. 부모 문서 변경과 같은 ref 잠금을 공유해 기록 도중 새 답변·원문 수정·세션 재시작을 막는다. 쓰기 도중 조건 변경을 허용하는 UI보다 동시성이 낮지만 한 작업의 결과를 다른 답변에 잘못 붙이는 상황을 피한다.
+- HTTP 성공 형식을 검증한 뒤에만 작업 기록으로 표시한다. 응답 유실은 저장 실패로 단정하지 않는다. 같은 답변의 같은 키 재시도와 별도의 서버 조회로 확인한다. 새 답변 준비는 새 작업 키를 만든다.
+- `ServerRecords.tsx`의 조회는 사용자 요청 시만 실행한다. 원본 응답·브라우저 복원본과 현재 서버 조회를 구분하지만 자동 동기화는 하지 않는다. 조회 자체도 기존 세션 저장소의 잠금 경로를 사용한다. 화면 이동 때 대표 흐름의 조회 목록은 다시 조회해야 하며, 원래 실행 기록·작업 ID·로그는 유지된다.
+- 직접 구성의 요청 키는 탭 내 화면 이동까지 유지하며 **새로고침 복원은 지원하지 않는다**. 대표 흐름의 기존 새로고침 복원은 그대로 유지한다. 서버 트랜잭션·멱등성 계약, CPU 슬롯·프로세스 설계, 성능 실험은 변경하지 않았다.
+
+### 직접 재현할 사례
+
+로컬 Python API와 Vite를 실행한 뒤 아래 명령을 사용한다. 테스트는 실제 로컬 API의 저장을 완료시킨 후 브라우저 응답만 끊어 미확정 상태를 만든다. 서버에 장애나 부하를 주입하지 않는다.
+
+```sh
+python scripts/check_evidence_browser.py --base http://127.0.0.1:5173 --api http://127.0.0.1:8025 --output work/custom-check
+python scripts/check_case_browser.py --base http://127.0.0.1:5173 --api http://127.0.0.1:8025 --output work/case-check
+python scripts/check_restoration_browser.py --base http://127.0.0.1:5173 --api http://127.0.0.1:8025 --output work/restore-check
+python scripts/check_serving_browser.py --base http://127.0.0.1:5173 --api http://127.0.0.1:8025 --expected-storage sqlite --output work/serving-check
+```
+
+Python Playwright·Chromium 필요. 시스템 브라우저를 사용할 때 `--browser-executable /usr/bin/chromium`을 추가한다. 공개 배포의 기능 회귀는 같은 스크립트로 수행하되 부하 실험은 실행하지 않는다.
+
+저장 후 응답 유실 → 완료로 표시하지 않음 → 서버 조회에서 1건 → 메뉴 왕복 → 같은 키 두 번 연속 클릭 → POST 1회 → 같은 작업 ID 반환 → 서버 1건 유지의 순서로 검증했다. 원문 변경 뒤 `/execute` 거절과 서버 0건도 별도로 확인했다. [직접 구성 검사](evidence/workspace-upgrade-2026-10-19/custom-acceptance.json). 코드 위치: [기록 UI](../demo/src/TaskExecution.tsx), [조회 UI](../demo/src/ServerRecords.tsx), [API 응답 검증](../demo/src/caseApi.ts), [기존 원자적 기록](../backend/recheck/evidence.py).
+
+### 이번 검증과 자료
+
+- 프런트 62개 통과. 새 검사는 서버 조회 응답의 형식·세션 만료를 다룬다.
+- 로컬 Chromium: 대표 흐름 13개, 직접 구성 14개, 복원 9개, 화면·영상·자료 탐색 7개, 부하·복구 탐색 7개 검사 그룹 통과. [대표 흐름](evidence/workspace-upgrade-2026-10-19/case-browser.json) · [복원](evidence/workspace-upgrade-2026-10-19/restoration-results.json) · [화면·영상](evidence/workspace-upgrade-2026-10-19/presentation-results.json) · [부하·복구 탐색](evidence/workspace-upgrade-2026-10-19/serving-results.json). 기존 상태와 새 동작의 회귀 검사이며 사용자 이해도 측정이 아니다.
+- 320·390·768·1440px에서 주요 버튼·로그·영상·표의 문서 가로 넘침을 검사했다. 직접 구성은 390·768·1440px에서 확인했다. 키보드 구간 선택과 포커스 이동은 화면·자료 검사에 포함된다.
+- 복원 검사의 첫 실행은 브라우저 경로 미지정으로 시작하지 못했다. 설치된 Chromium을 명시한 실행은 9개 검사·page error 0·종료 코드 0이었다. 종료 시 기존 route callback의 `CancelledError`가 별도로 출력됐다.
+- [현재 영상](https://sokldjs554.github.io/recheck-ml-serving/media/recheck-workspace-20261019.mp4)은 로컬 API·SQLite 실제 응답으로 촬영했다. [소스/미디어 해시와 HTTP 목록](evidence/workspace-upgrade-2026-10-19/capture.json), [대표 흐름 원본](evidence/workspace-upgrade-2026-10-19/case.json), [직접 구성 기록](evidence/workspace-upgrade-2026-10-19/custom-action.json).
+- README의 구조도·기술 선택·수치 조건을 유지하고 실제 사용 경로를 먼저 설명했다. 과거 120 req/s 투입 목표·약 67.6 req/s 유효 처리량을 새 측정으로 바꾸지 않았다.
+
+### 친구에게 다시 부탁할 과제
+
+처음 화면을 보고 어떤 일을 할 수 있는지 자유롭게 설명해 주세요. 한 번 사용한 뒤 어떤 결과가 남았는지, 원하는 작업이 처리됐다고 판단한 근거가 무엇인지 이야기해 주세요. 다른 화면을 살펴보고 돌아오거나 새로고침한 뒤, 이전 내용을 어디까지 확인할 수 있는지 찾아 주세요.
+
+버튼 위치·정답은 미리 알려주지 않는다. 진행 경로·도움 여부·막힌 지점·실제 발언을 [기존 양식](usability-record.md)에 기록한다. 수정 후 사람의 재확인은 아직 없으며 기능 검사 통과를 이해도 개선으로 해석하지 않는다. 사용자의 요구·수정 요청·결과 검토와 AI의 코드·데모 제작을 구분한다. 자소서·포트폴리오는 수정하지 않았다.

@@ -1,4 +1,6 @@
-# 현재 UI 실제 시연 교체
+# 이전 UI 시연 교체 기록 · 8b60aa6
+
+이 문서는 이전 UI의 검증 이력입니다. 현재 화면·영상은 [후속 보완 기록](../../usability-feedback-2026-10-19.md#실행-작업과-근거-탐색-보완)을 확인하세요. 이전 영상은 현재 배포에서 제거했습니다.
 
 2026-10-19 08:02:35 UTC 촬영. 시작 소스 `2a67b78562aa0530d0fd3c20c550bca82853d7d9`에 현재 영상 안내·촬영 스크립트 변경을 적용한 작업 트리다. 해당 UI 소스 SHA-256, 영상 파일 SHA-256, HTTP 응답과 작업 ID는 [capture.json](capture.json)에 있다.
 
@@ -9,7 +11,7 @@
 - 원문 변경→이전 답변 기록 차단→최신 답변 준비→새 작업 기록→동일 키 재시도, 요청 로그 필터, 비교 화면 왕복을 실제 조작했다. 이후 모델 부하·장애 복구의 **저장된 과거 실험** 화면을 보고 돌아와 같은 작업 ID를 확인했다.
 - 공개 API 성능을 촬영한 영상이 아니다. 시연 영상 재생과 현재 방문자의 실행 상태는 별개다. 이체 한도는 샘플 상담 문서이며 실제 송금은 없다.
 
-[현재 영상](https://sokldjs554.github.io/recheck-ml-serving/media/recheck-walkthrough-20261019.mp4) · [실제 요청/응답 원본](case.json) · [외부 프로젝트 조사](../../research/2026-10-19/README.md)
+[당시 영상 · 고정 커밋](https://github.com/sokldjs554/recheck-ml-serving/blob/8b60aa640efc6d8c798b4171919297b286639063/demo/public/media/recheck-walkthrough-20261019.mp4) · [실제 요청/응답 원본](case.json) · [외부 프로젝트 조사](../../research/2026-10-19/README.md)
 
 ![실제 409 차단과 작업 미생성](blocked.jpg)
 

@@ -1,0 +1,255 @@
+{
+  "frontend": "http://127.0.0.1:5173",
+  "api": "http://127.0.0.1:8025",
+  "checks": [
+    "compact working screen exposes check criteria and leaves unfetched policy blank",
+    "automatic and contextual buttons clicked in one turn create one session and one flow",
+    "one-click actual HTTP run preserves old/new answers and produces exactly one persisted task",
+    "result button focuses the current run summary without navigation or API requests",
+    "completed compare -> primary execution navigation preserves exact downloaded evidence and action with zero API requests",
+    "held actual HTTP mutation continues while case view is absent; return preserves session, event prefix and one persisted action without duplicate navigation requests",
+    "blocked reason is visible beside the result with 7.32:1 text contrast",
+    "lost commit response cannot claim success; retry retains original key and displays replay",
+    "actual HTTP: old answer blocked, fresh task recorded, replay returns one historical action, JSON contains actual responses",
+    "390 portrait, 768 tablet, 844 landscape: no horizontal overflow and reset reachable",
+    "network failure clears success and same-step retry completes with actual HTTP",
+    "injected HTTP404 session_missing_or_expired preserves historical evidence across navigation, disables continuation and requires explicit reset for a new real session",
+    "pending controls locked; late session completion after reset does not restore old state"
+  ],
+  "page_errors": [],
+  "api_requests": [
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/health"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/e964df07-41e1-4ddb-8ee0-ce0812ab6868/evidence"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/e964df07-41e1-4ddb-8ee0-ce0812ab6868/evidence/prepare"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/e964df07-41e1-4ddb-8ee0-ce0812ab6868/evidence/events"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/e964df07-41e1-4ddb-8ee0-ce0812ab6868/evidence"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/e964df07-41e1-4ddb-8ee0-ce0812ab6868/evidence/receipts/58cf2ab9-3642-4224-91e5-9e7244afe310/execute"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/e964df07-41e1-4ddb-8ee0-ce0812ab6868/evidence/releases/evaluate"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/e964df07-41e1-4ddb-8ee0-ce0812ab6868/evidence/releases/a20e00d7-f59c-41cb-bd89-437e41f6ec69/promote"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/e964df07-41e1-4ddb-8ee0-ce0812ab6868/evidence/prepare"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/e964df07-41e1-4ddb-8ee0-ce0812ab6868/evidence"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/e964df07-41e1-4ddb-8ee0-ce0812ab6868/evidence/receipts/95d9f224-d61a-4aec-b5fd-ba209dad2da4/execute"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/e964df07-41e1-4ddb-8ee0-ce0812ab6868/evidence/receipts/95d9f224-d61a-4aec-b5fd-ba209dad2da4/execute"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/health"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/de16be2d-f603-4805-a87c-1ffeea8dede1/evidence"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/de16be2d-f603-4805-a87c-1ffeea8dede1/evidence/prepare"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/de16be2d-f603-4805-a87c-1ffeea8dede1/evidence/events"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/de16be2d-f603-4805-a87c-1ffeea8dede1/evidence"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/de16be2d-f603-4805-a87c-1ffeea8dede1/evidence/receipts/42c2818b-4878-4b36-a014-20b3ae1b4e31/execute"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/de16be2d-f603-4805-a87c-1ffeea8dede1/evidence/releases/evaluate"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/de16be2d-f603-4805-a87c-1ffeea8dede1/evidence/releases/ea550d91-1115-49e5-9e94-6255e4df59c0/promote"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/de16be2d-f603-4805-a87c-1ffeea8dede1/evidence/prepare"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/de16be2d-f603-4805-a87c-1ffeea8dede1/evidence"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/de16be2d-f603-4805-a87c-1ffeea8dede1/evidence/receipts/3e95f3d7-ed13-4e53-bb6c-dcd24e8ed4b3/execute"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/de16be2d-f603-4805-a87c-1ffeea8dede1/evidence/receipts/3e95f3d7-ed13-4e53-bb6c-dcd24e8ed4b3/execute"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/health"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/b161d534-0664-4265-99eb-6abcac5aa3f8/evidence"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/b161d534-0664-4265-99eb-6abcac5aa3f8/evidence/prepare"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/b161d534-0664-4265-99eb-6abcac5aa3f8/evidence/events"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/b161d534-0664-4265-99eb-6abcac5aa3f8/evidence"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/b161d534-0664-4265-99eb-6abcac5aa3f8/evidence/receipts/454e8b11-7093-4df8-a32a-305cbd0d76a7/execute"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/b161d534-0664-4265-99eb-6abcac5aa3f8/evidence/releases/evaluate"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/b161d534-0664-4265-99eb-6abcac5aa3f8/evidence/releases/ce10ef2b-8a57-4a24-b6ba-e4d740f3810f/promote"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/b161d534-0664-4265-99eb-6abcac5aa3f8/evidence/prepare"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/b161d534-0664-4265-99eb-6abcac5aa3f8/evidence"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/b161d534-0664-4265-99eb-6abcac5aa3f8/evidence/receipts/461bdcf8-173f-40fe-8f5d-a549f8cfc13f/execute"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/b161d534-0664-4265-99eb-6abcac5aa3f8/evidence/receipts/461bdcf8-173f-40fe-8f5d-a549f8cfc13f/execute"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/b161d534-0664-4265-99eb-6abcac5aa3f8/evidence/receipts/461bdcf8-173f-40fe-8f5d-a549f8cfc13f/execute"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/health"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/f69395c2-de3a-4c72-96cc-2b783965e319/evidence"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/f69395c2-de3a-4c72-96cc-2b783965e319/evidence/prepare"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/f69395c2-de3a-4c72-96cc-2b783965e319/evidence/events"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/f69395c2-de3a-4c72-96cc-2b783965e319/evidence/events"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/f69395c2-de3a-4c72-96cc-2b783965e319/evidence"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/health"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/d0e59de5-8106-4a1f-aebf-36fc85af95ba/evidence"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/d0e59de5-8106-4a1f-aebf-36fc85af95ba/evidence/prepare"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/d0e59de5-8106-4a1f-aebf-36fc85af95ba/evidence/events"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/health"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/113cccde-092c-410d-97cf-15c89078f303/evidence"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/113cccde-092c-410d-97cf-15c89078f303/evidence/prepare"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/health"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions"
+    }
+  ],
+  "expiry_scope": "controlled HTTP404 response injection; real SQL-age expiry is a separate server check"
+}

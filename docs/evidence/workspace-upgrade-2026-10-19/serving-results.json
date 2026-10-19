@@ -1,0 +1,12 @@
+{
+  "checks": [
+    "model handoff shows startup rejection cases and expandable prediction values",
+    "all request outcomes including late HTTP 200 are visible; boundary and stored evidence are labeled",
+    "load phase, expanded evidence and recovered trace selection survive navigation",
+    "serving deep link survives reload",
+    "actual dependency failure and nonzero DB restart errors are retained",
+    "sqlite API journal is fetched and labeled as boot-scoped observations",
+    "back navigation, return to live case, and mobile layouts work"
+  ],
+  "page_errors": []
+}

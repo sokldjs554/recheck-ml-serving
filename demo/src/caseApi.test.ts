@@ -56,3 +56,17 @@ it("preserves trace correlation on success and blocked responses without exposin
   vi.stubGlobal("fetch", async () => new Response(JSON.stringify({detail:"source_changed"}), {status:409, headers:{"X-Recheck-Trace-Id":trace}}));
   await expect(api.execute("s", "receipt-1", "k")).rejects.toMatchObject({traceId:trace, status:409, detail:"source_changed"});
 });
+
+it("reads server actions separately and rejects malformed successful lookups", async () => {
+  const api = new CaseApi("http://localhost");
+  const fetcher = vi.fn(async (_url: string) => new Response(JSON.stringify({actions:[valid]})));
+  vi.stubGlobal("fetch", fetcher);
+  expect(await api.actions("session/1")).toEqual([valid]);
+  expect(fetcher.mock.calls[0][0]).toBe("http://localhost/api/sessions/session%2F1/evidence/actions");
+  for (const body of [null, {}, {actions:[{action_id:"x"}]}]) {
+    vi.stubGlobal("fetch", async () => new Response(JSON.stringify(body)));
+    await expect(api.actions("session")).rejects.toThrow("서버 기록 응답 형식");
+  }
+  vi.stubGlobal("fetch", async () => new Response(JSON.stringify({detail:"session_missing_or_expired"}), {status:404}));
+  await expect(api.actions("session")).rejects.toMatchObject({status:404, detail:"session_missing_or_expired"});
+});
