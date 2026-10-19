@@ -1,7 +1,7 @@
 {
   "base": "http://127.0.0.1:5173",
   "api": "http://127.0.0.1:8025",
-  "observed_at_utc": "2026-10-19T09:45:37Z",
+  "observed_at_utc": "2026-10-19T09:52:54Z",
   "checks": [
     "unqueried is distinct from GET-confirmed empty; prepared answer does not create a consultation record",
     "blocked intended answer remains readable and is absent from actual saved records",
@@ -17,21 +17,21 @@
   "requests": [
     {
       "method": "GET",
-      "url": "http://127.0.0.1:8025/api/sessions/a27f183c-3d5d-425c-8b52-a5314b3099af/evidence/actions",
+      "url": "http://127.0.0.1:8025/api/sessions/117ca38b-c309-44cd-971a-dbe7e074f98a/evidence/actions",
       "body": null
     },
     {
       "method": "POST",
-      "url": "http://127.0.0.1:8025/api/sessions/a27f183c-3d5d-425c-8b52-a5314b3099af/evidence/prepare",
+      "url": "http://127.0.0.1:8025/api/sessions/117ca38b-c309-44cd-971a-dbe7e074f98a/evidence/prepare",
       "body": {
         "query": "하루 이체 한도",
         "product": "answer",
-        "idempotency_key": "6b5ea776-17e3-44bc-a891-ca81ae1e9ea1"
+        "idempotency_key": "cb27f2e4-c74f-483c-a4c6-c43f2abdd754"
       }
     },
     {
       "method": "POST",
-      "url": "http://127.0.0.1:8025/api/sessions/a27f183c-3d5d-425c-8b52-a5314b3099af/evidence/events",
+      "url": "http://127.0.0.1:8025/api/sessions/117ca38b-c309-44cd-971a-dbe7e074f98a/evidence/events",
       "body": {
         "source_id": "transfer",
         "revision": 2,
@@ -41,88 +41,88 @@
     },
     {
       "method": "POST",
-      "url": "http://127.0.0.1:8025/api/sessions/a27f183c-3d5d-425c-8b52-a5314b3099af/evidence/receipts/7a577ccc-2dbd-424b-bd76-d5c24da0e194/execute",
+      "url": "http://127.0.0.1:8025/api/sessions/117ca38b-c309-44cd-971a-dbe7e074f98a/evidence/receipts/5a8ba937-c4d4-4673-8e58-a5e1c3dc29ee/execute",
       "body": {
-        "idempotency_key": "dd08cd6d-197c-4f7c-93e1-6c2f6f59e9cd"
+        "idempotency_key": "0bd8408b-dbed-444d-8f45-7ebea96cba68"
       }
     },
     {
       "method": "GET",
-      "url": "http://127.0.0.1:8025/api/sessions/a27f183c-3d5d-425c-8b52-a5314b3099af/evidence/actions",
+      "url": "http://127.0.0.1:8025/api/sessions/117ca38b-c309-44cd-971a-dbe7e074f98a/evidence/actions",
       "body": null
     },
     {
       "method": "POST",
-      "url": "http://127.0.0.1:8025/api/sessions/a27f183c-3d5d-425c-8b52-a5314b3099af/evidence/releases/evaluate",
+      "url": "http://127.0.0.1:8025/api/sessions/117ca38b-c309-44cd-971a-dbe7e074f98a/evidence/releases/evaluate",
       "body": {
         "candidate": "paired"
       }
     },
     {
       "method": "POST",
-      "url": "http://127.0.0.1:8025/api/sessions/a27f183c-3d5d-425c-8b52-a5314b3099af/evidence/releases/49cb51d2-cb50-40c8-b335-456f2b4bd7ae/promote",
+      "url": "http://127.0.0.1:8025/api/sessions/117ca38b-c309-44cd-971a-dbe7e074f98a/evidence/releases/3b0ebf1b-3a6a-4f21-b154-fe630a345e95/promote",
       "body": {}
     },
     {
       "method": "POST",
-      "url": "http://127.0.0.1:8025/api/sessions/a27f183c-3d5d-425c-8b52-a5314b3099af/evidence/prepare",
+      "url": "http://127.0.0.1:8025/api/sessions/117ca38b-c309-44cd-971a-dbe7e074f98a/evidence/prepare",
       "body": {
         "query": "하루 이체 한도",
         "product": "answer",
-        "idempotency_key": "8412e9e6-767b-4fc2-b32d-1537f4a2418f"
+        "idempotency_key": "7007744b-d49c-4ec3-833b-8b9bafdd5ffe"
       }
     },
     {
       "method": "POST",
-      "url": "http://127.0.0.1:8025/api/sessions/a27f183c-3d5d-425c-8b52-a5314b3099af/evidence/receipts/e1c62827-bb13-48dd-b1f1-36ea272fbdcd/execute",
+      "url": "http://127.0.0.1:8025/api/sessions/117ca38b-c309-44cd-971a-dbe7e074f98a/evidence/receipts/77226826-0b49-4be0-b121-bc78ba8bd1f1/execute",
       "body": {
-        "idempotency_key": "32f3278b-f8c2-4603-ad4a-1a13c47a5363"
+        "idempotency_key": "b82b7bc3-48c7-4327-99d3-d749cb6d967c"
       }
     },
     {
       "method": "GET",
-      "url": "http://127.0.0.1:8025/api/sessions/a27f183c-3d5d-425c-8b52-a5314b3099af/evidence/actions",
+      "url": "http://127.0.0.1:8025/api/sessions/117ca38b-c309-44cd-971a-dbe7e074f98a/evidence/actions",
       "body": null
     },
     {
       "method": "POST",
-      "url": "http://127.0.0.1:8025/api/sessions/a27f183c-3d5d-425c-8b52-a5314b3099af/evidence/receipts/e1c62827-bb13-48dd-b1f1-36ea272fbdcd/execute",
+      "url": "http://127.0.0.1:8025/api/sessions/117ca38b-c309-44cd-971a-dbe7e074f98a/evidence/receipts/77226826-0b49-4be0-b121-bc78ba8bd1f1/execute",
       "body": {
-        "idempotency_key": "32f3278b-f8c2-4603-ad4a-1a13c47a5363"
+        "idempotency_key": "b82b7bc3-48c7-4327-99d3-d749cb6d967c"
       }
     },
     {
       "method": "GET",
-      "url": "http://127.0.0.1:8025/api/sessions/a27f183c-3d5d-425c-8b52-a5314b3099af/evidence/actions",
+      "url": "http://127.0.0.1:8025/api/sessions/117ca38b-c309-44cd-971a-dbe7e074f98a/evidence/actions",
       "body": null
     },
     {
       "method": "GET",
-      "url": "http://127.0.0.1:8025/api/sessions/a27f183c-3d5d-425c-8b52-a5314b3099af/evidence/actions",
+      "url": "http://127.0.0.1:8025/api/sessions/117ca38b-c309-44cd-971a-dbe7e074f98a/evidence/actions",
       "body": null
     },
     {
       "method": "GET",
-      "url": "http://127.0.0.1:8025/api/sessions/a27f183c-3d5d-425c-8b52-a5314b3099af/evidence/actions",
+      "url": "http://127.0.0.1:8025/api/sessions/117ca38b-c309-44cd-971a-dbe7e074f98a/evidence/actions",
       "body": null
     },
     {
       "method": "GET",
-      "url": "http://127.0.0.1:8025/api/sessions/605eabd0-9e28-41e0-a6a1-a2909d66150c/evidence/actions",
+      "url": "http://127.0.0.1:8025/api/sessions/3cbbb96e-0746-42bb-b6dc-114107e57276/evidence/actions",
       "body": null
     },
     {
       "method": "POST",
-      "url": "http://127.0.0.1:8025/api/sessions/605eabd0-9e28-41e0-a6a1-a2909d66150c/evidence/prepare",
+      "url": "http://127.0.0.1:8025/api/sessions/3cbbb96e-0746-42bb-b6dc-114107e57276/evidence/prepare",
       "body": {
         "query": "하루 이체 한도",
         "product": "answer",
-        "idempotency_key": "12a45bdb-a5df-4c50-87fa-c95fb1ac2ea8"
+        "idempotency_key": "419f108f-341e-4972-8b36-c25d952179ed"
       }
     },
     {
       "method": "POST",
-      "url": "http://127.0.0.1:8025/api/sessions/605eabd0-9e28-41e0-a6a1-a2909d66150c/evidence/events",
+      "url": "http://127.0.0.1:8025/api/sessions/3cbbb96e-0746-42bb-b6dc-114107e57276/evidence/events",
       "body": {
         "source_id": "transfer",
         "revision": 2,
@@ -132,136 +132,136 @@
     },
     {
       "method": "POST",
-      "url": "http://127.0.0.1:8025/api/sessions/605eabd0-9e28-41e0-a6a1-a2909d66150c/evidence/receipts/f7b8618b-c5d0-4a20-86bd-c3368f7774ba/execute",
+      "url": "http://127.0.0.1:8025/api/sessions/3cbbb96e-0746-42bb-b6dc-114107e57276/evidence/receipts/e18cd294-4dc9-4406-ad9a-c8a5b5944718/execute",
       "body": {
-        "idempotency_key": "841c945c-25ca-4fae-94ec-445234464ed5"
+        "idempotency_key": "17a44342-aa64-4ca7-80ba-1ef211a9b23d"
       }
     },
     {
       "method": "GET",
-      "url": "http://127.0.0.1:8025/api/sessions/605eabd0-9e28-41e0-a6a1-a2909d66150c/evidence/actions",
+      "url": "http://127.0.0.1:8025/api/sessions/3cbbb96e-0746-42bb-b6dc-114107e57276/evidence/actions",
       "body": null
     },
     {
       "method": "POST",
-      "url": "http://127.0.0.1:8025/api/sessions/605eabd0-9e28-41e0-a6a1-a2909d66150c/evidence/releases/evaluate",
+      "url": "http://127.0.0.1:8025/api/sessions/3cbbb96e-0746-42bb-b6dc-114107e57276/evidence/releases/evaluate",
       "body": {
         "candidate": "paired"
       }
     },
     {
       "method": "POST",
-      "url": "http://127.0.0.1:8025/api/sessions/605eabd0-9e28-41e0-a6a1-a2909d66150c/evidence/releases/8e60f9ce-e5f6-4857-a23b-829eb5db60b8/promote",
+      "url": "http://127.0.0.1:8025/api/sessions/3cbbb96e-0746-42bb-b6dc-114107e57276/evidence/releases/ef24ec3f-d32b-40ce-99e9-566003bf96b9/promote",
       "body": {}
     },
     {
       "method": "POST",
-      "url": "http://127.0.0.1:8025/api/sessions/605eabd0-9e28-41e0-a6a1-a2909d66150c/evidence/prepare",
+      "url": "http://127.0.0.1:8025/api/sessions/3cbbb96e-0746-42bb-b6dc-114107e57276/evidence/prepare",
       "body": {
         "query": "하루 이체 한도",
         "product": "answer",
-        "idempotency_key": "f3a50f78-7ce2-4f24-b829-8b08ecbfe66d"
+        "idempotency_key": "df41628d-7296-4809-a296-d1a6f1a6a540"
       }
     },
     {
       "method": "POST",
-      "url": "http://127.0.0.1:8025/api/sessions/605eabd0-9e28-41e0-a6a1-a2909d66150c/evidence/receipts/ffcd735d-933a-4eaa-9e00-14623208b34f/execute",
+      "url": "http://127.0.0.1:8025/api/sessions/3cbbb96e-0746-42bb-b6dc-114107e57276/evidence/receipts/ff9219b2-1a5f-4fb4-b55c-dccef61f3ab9/execute",
       "body": {
-        "idempotency_key": "ee761515-ff1a-42eb-b92e-3b0060bd32db"
+        "idempotency_key": "bfe16914-9e76-45c5-bffb-3a62b84b7008"
       }
     },
     {
       "method": "GET",
-      "url": "http://127.0.0.1:8025/api/sessions/605eabd0-9e28-41e0-a6a1-a2909d66150c/evidence/actions",
+      "url": "http://127.0.0.1:8025/api/sessions/3cbbb96e-0746-42bb-b6dc-114107e57276/evidence/actions",
       "body": null
     },
     {
       "method": "POST",
-      "url": "http://127.0.0.1:8025/api/sessions/605eabd0-9e28-41e0-a6a1-a2909d66150c/evidence/receipts/ffcd735d-933a-4eaa-9e00-14623208b34f/execute",
+      "url": "http://127.0.0.1:8025/api/sessions/3cbbb96e-0746-42bb-b6dc-114107e57276/evidence/receipts/ff9219b2-1a5f-4fb4-b55c-dccef61f3ab9/execute",
       "body": {
-        "idempotency_key": "ee761515-ff1a-42eb-b92e-3b0060bd32db"
+        "idempotency_key": "bfe16914-9e76-45c5-bffb-3a62b84b7008"
       }
     },
     {
       "method": "GET",
-      "url": "http://127.0.0.1:8025/api/sessions/605eabd0-9e28-41e0-a6a1-a2909d66150c/evidence/actions",
+      "url": "http://127.0.0.1:8025/api/sessions/3cbbb96e-0746-42bb-b6dc-114107e57276/evidence/actions",
       "body": null
     },
     {
       "method": "GET",
-      "url": "http://127.0.0.1:8025/api/sessions/605eabd0-9e28-41e0-a6a1-a2909d66150c/evidence/actions",
+      "url": "http://127.0.0.1:8025/api/sessions/3cbbb96e-0746-42bb-b6dc-114107e57276/evidence/actions",
       "body": null
     },
     {
       "method": "GET",
-      "url": "http://127.0.0.1:8025/api/sessions/f545e1af-fafa-421c-be05-68f42a8abcad/evidence/actions",
+      "url": "http://127.0.0.1:8025/api/sessions/32301216-16a6-4a4c-b326-f5cb9cf53e89/evidence/actions",
       "body": null
     },
     {
       "method": "POST",
-      "url": "http://127.0.0.1:8025/api/sessions/f545e1af-fafa-421c-be05-68f42a8abcad/evidence/prepare",
-      "body": {
-        "query": "하루 이체 한도",
-        "product": "answer",
-        "idempotency_key": "8f958ba0-3ac7-4a45-b4cb-b725c7c299b2"
-      }
-    },
-    {
-      "method": "POST",
-      "url": "http://127.0.0.1:8025/api/sessions/f545e1af-fafa-421c-be05-68f42a8abcad/evidence/receipts/39b6d87b-3890-4304-bea0-c92268822818/execute",
-      "body": {
-        "idempotency_key": "278c100a-6a73-45cf-8378-0133c0431735"
-      }
-    },
-    {
-      "method": "GET",
-      "url": "http://127.0.0.1:8025/api/sessions/f545e1af-fafa-421c-be05-68f42a8abcad/evidence/actions",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "url": "http://127.0.0.1:8025/api/sessions/f545e1af-fafa-421c-be05-68f42a8abcad/evidence/receipts/39b6d87b-3890-4304-bea0-c92268822818/execute",
-      "body": {
-        "idempotency_key": "278c100a-6a73-45cf-8378-0133c0431735"
-      }
-    },
-    {
-      "method": "GET",
-      "url": "http://127.0.0.1:8025/api/sessions/f545e1af-fafa-421c-be05-68f42a8abcad/evidence/actions",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "url": "http://127.0.0.1:8025/api/sessions/f545e1af-fafa-421c-be05-68f42a8abcad/evidence/prepare",
+      "url": "http://127.0.0.1:8025/api/sessions/32301216-16a6-4a4c-b326-f5cb9cf53e89/evidence/prepare",
       "body": {
         "query": "하루 이체 한도",
         "product": "answer",
-        "idempotency_key": "61b75a50-77a5-4e42-b4df-a02bae0c4722"
+        "idempotency_key": "92498811-e932-454e-a9e8-cdb331ed82e9"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/32301216-16a6-4a4c-b326-f5cb9cf53e89/evidence/receipts/ccb0fc32-639c-4dd2-b2b1-e2b36572654e/execute",
+      "body": {
+        "idempotency_key": "bdc2a88c-aa67-4f52-8210-cbf206b219a2"
+      }
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/32301216-16a6-4a4c-b326-f5cb9cf53e89/evidence/actions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/32301216-16a6-4a4c-b326-f5cb9cf53e89/evidence/receipts/ccb0fc32-639c-4dd2-b2b1-e2b36572654e/execute",
+      "body": {
+        "idempotency_key": "bdc2a88c-aa67-4f52-8210-cbf206b219a2"
+      }
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8025/api/sessions/32301216-16a6-4a4c-b326-f5cb9cf53e89/evidence/actions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8025/api/sessions/32301216-16a6-4a4c-b326-f5cb9cf53e89/evidence/prepare",
+      "body": {
+        "query": "하루 이체 한도",
+        "product": "answer",
+        "idempotency_key": "c8d16f5d-5dff-497e-9a5b-65d6693487b3"
       }
     }
   ],
   "observations": [
     {
       "label": "new empty session",
-      "session": "a27f183c-3d5d-425c-8b52-a5314b3099af",
+      "session": "117ca38b-c309-44cd-971a-dbe7e074f98a",
       "api_rows": [],
       "rendered_rows": []
     },
     {
       "label": "blocked answer absent",
-      "session": "a27f183c-3d5d-425c-8b52-a5314b3099af",
+      "session": "117ca38b-c309-44cd-971a-dbe7e074f98a",
       "api_rows": [],
       "rendered_rows": []
     },
     {
       "label": "recorded before retry",
-      "session": "a27f183c-3d5d-425c-8b52-a5314b3099af",
+      "session": "117ca38b-c309-44cd-971a-dbe7e074f98a",
       "api_rows": [
         {
-          "action_id": "39ab89aa-d21f-4db4-9f78-60316cc9e33f",
-          "receipt_id": "e1c62827-bb13-48dd-b1f1-36ea272fbdcd",
+          "action_id": "f39b453c-b9dc-44ed-acfb-cdfceaf4785c",
+          "receipt_id": "77226826-0b49-4be0-b121-bc78ba8bd1f1",
           "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
-          "committed_at": 1792403140.545307,
+          "committed_at": 1792403576.8581917,
           "release_epoch": 2,
           "references": [
             {
@@ -277,20 +277,20 @@
       ],
       "rendered_rows": [
         {
-          "action_id": "39ab89aa-d21f-4db4-9f78-60316cc9e33f",
+          "action_id": "f39b453c-b9dc-44ed-acfb-cdfceaf4785c",
           "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다."
         }
       ]
     },
     {
       "label": "after same-key retry and successful fresh GET",
-      "session": "a27f183c-3d5d-425c-8b52-a5314b3099af",
+      "session": "117ca38b-c309-44cd-971a-dbe7e074f98a",
       "api_rows": [
         {
-          "action_id": "39ab89aa-d21f-4db4-9f78-60316cc9e33f",
-          "receipt_id": "e1c62827-bb13-48dd-b1f1-36ea272fbdcd",
+          "action_id": "f39b453c-b9dc-44ed-acfb-cdfceaf4785c",
+          "receipt_id": "77226826-0b49-4be0-b121-bc78ba8bd1f1",
           "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
-          "committed_at": 1792403140.545307,
+          "committed_at": 1792403576.8581917,
           "release_epoch": 2,
           "references": [
             {
@@ -306,20 +306,20 @@
       ],
       "rendered_rows": [
         {
-          "action_id": "39ab89aa-d21f-4db4-9f78-60316cc9e33f",
+          "action_id": "f39b453c-b9dc-44ed-acfb-cdfceaf4785c",
           "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다."
         }
       ]
     },
     {
       "label": "return without implicit request",
-      "session": "a27f183c-3d5d-425c-8b52-a5314b3099af",
+      "session": "117ca38b-c309-44cd-971a-dbe7e074f98a",
       "api_rows": [
         {
-          "action_id": "39ab89aa-d21f-4db4-9f78-60316cc9e33f",
-          "receipt_id": "e1c62827-bb13-48dd-b1f1-36ea272fbdcd",
+          "action_id": "f39b453c-b9dc-44ed-acfb-cdfceaf4785c",
+          "receipt_id": "77226826-0b49-4be0-b121-bc78ba8bd1f1",
           "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
-          "committed_at": 1792403140.545307,
+          "committed_at": 1792403576.8581917,
           "release_epoch": 2,
           "references": [
             {
@@ -335,20 +335,20 @@
       ],
       "rendered_rows": [
         {
-          "action_id": "39ab89aa-d21f-4db4-9f78-60316cc9e33f",
+          "action_id": "f39b453c-b9dc-44ed-acfb-cdfceaf4785c",
           "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다."
         }
       ]
     },
     {
       "label": "explicit GET after historical browser restoration",
-      "session": "a27f183c-3d5d-425c-8b52-a5314b3099af",
+      "session": "117ca38b-c309-44cd-971a-dbe7e074f98a",
       "api_rows": [
         {
-          "action_id": "39ab89aa-d21f-4db4-9f78-60316cc9e33f",
-          "receipt_id": "e1c62827-bb13-48dd-b1f1-36ea272fbdcd",
+          "action_id": "f39b453c-b9dc-44ed-acfb-cdfceaf4785c",
+          "receipt_id": "77226826-0b49-4be0-b121-bc78ba8bd1f1",
           "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
-          "committed_at": 1792403140.545307,
+          "committed_at": 1792403576.8581917,
           "release_epoch": 2,
           "references": [
             {
@@ -364,20 +364,20 @@
       ],
       "rendered_rows": [
         {
-          "action_id": "39ab89aa-d21f-4db4-9f78-60316cc9e33f",
+          "action_id": "f39b453c-b9dc-44ed-acfb-cdfceaf4785c",
           "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다."
         }
       ]
     },
     {
       "label": "lost POST response, GET confirms actual save",
-      "session": "605eabd0-9e28-41e0-a6a1-a2909d66150c",
+      "session": "3cbbb96e-0746-42bb-b6dc-114107e57276",
       "api_rows": [
         {
-          "action_id": "cc0f031b-6218-4d16-bca6-2f4a4f29c96f",
-          "receipt_id": "ffcd735d-933a-4eaa-9e00-14623208b34f",
+          "action_id": "16d1329f-919a-407d-8667-c6a040c6cbd7",
+          "receipt_id": "ff9219b2-1a5f-4fb4-b55c-dccef61f3ab9",
           "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
-          "committed_at": 1792403143.5747535,
+          "committed_at": 1792403579.6654515,
           "release_epoch": 2,
           "references": [
             {
@@ -393,20 +393,20 @@
       ],
       "rendered_rows": [
         {
-          "action_id": "cc0f031b-6218-4d16-bca6-2f4a4f29c96f",
+          "action_id": "16d1329f-919a-407d-8667-c6a040c6cbd7",
           "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다."
         }
       ]
     },
     {
       "label": "same key resolves lost response",
-      "session": "605eabd0-9e28-41e0-a6a1-a2909d66150c",
+      "session": "3cbbb96e-0746-42bb-b6dc-114107e57276",
       "api_rows": [
         {
-          "action_id": "cc0f031b-6218-4d16-bca6-2f4a4f29c96f",
-          "receipt_id": "ffcd735d-933a-4eaa-9e00-14623208b34f",
+          "action_id": "16d1329f-919a-407d-8667-c6a040c6cbd7",
+          "receipt_id": "ff9219b2-1a5f-4fb4-b55c-dccef61f3ab9",
           "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
-          "committed_at": 1792403143.5747535,
+          "committed_at": 1792403579.6654515,
           "release_epoch": 2,
           "references": [
             {
@@ -422,20 +422,20 @@
       ],
       "rendered_rows": [
         {
-          "action_id": "cc0f031b-6218-4d16-bca6-2f4a4f29c96f",
+          "action_id": "16d1329f-919a-407d-8667-c6a040c6cbd7",
           "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다."
         }
       ]
     },
     {
       "label": "custom saved answer",
-      "session": "f545e1af-fafa-421c-be05-68f42a8abcad",
+      "session": "32301216-16a6-4a4c-b326-f5cb9cf53e89",
       "api_rows": [
         {
-          "action_id": "e96fca4b-88f5-4ba2-9384-0501e8dbfe19",
-          "receipt_id": "39b6d87b-3890-4304-bea0-c92268822818",
+          "action_id": "b2ec48e1-e393-4998-8ed3-4a58f62c8daa",
+          "receipt_id": "ccb0fc32-639c-4dd2-b2b1-e2b36572654e",
           "output": "하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
-          "committed_at": 1792403144.2745435,
+          "committed_at": 1792403580.3884547,
           "release_epoch": 1,
           "references": [
             {
@@ -451,20 +451,20 @@
       ],
       "rendered_rows": [
         {
-          "action_id": "e96fca4b-88f5-4ba2-9384-0501e8dbfe19",
+          "action_id": "b2ec48e1-e393-4998-8ed3-4a58f62c8daa",
           "output": "하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다."
         }
       ]
     },
     {
       "label": "custom same-key retry",
-      "session": "f545e1af-fafa-421c-be05-68f42a8abcad",
+      "session": "32301216-16a6-4a4c-b326-f5cb9cf53e89",
       "api_rows": [
         {
-          "action_id": "e96fca4b-88f5-4ba2-9384-0501e8dbfe19",
-          "receipt_id": "39b6d87b-3890-4304-bea0-c92268822818",
+          "action_id": "b2ec48e1-e393-4998-8ed3-4a58f62c8daa",
+          "receipt_id": "ccb0fc32-639c-4dd2-b2b1-e2b36572654e",
           "output": "하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
-          "committed_at": 1792403144.2745435,
+          "committed_at": 1792403580.3884547,
           "release_epoch": 1,
           "references": [
             {
@@ -480,20 +480,20 @@
       ],
       "rendered_rows": [
         {
-          "action_id": "e96fca4b-88f5-4ba2-9384-0501e8dbfe19",
+          "action_id": "b2ec48e1-e393-4998-8ed3-4a58f62c8daa",
           "output": "하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다."
         }
       ]
     },
     {
       "label": "new draft preserves old server rows but clears old request summary",
-      "session": "f545e1af-fafa-421c-be05-68f42a8abcad",
+      "session": "32301216-16a6-4a4c-b326-f5cb9cf53e89",
       "api_rows": [
         {
-          "action_id": "e96fca4b-88f5-4ba2-9384-0501e8dbfe19",
-          "receipt_id": "39b6d87b-3890-4304-bea0-c92268822818",
+          "action_id": "b2ec48e1-e393-4998-8ed3-4a58f62c8daa",
+          "receipt_id": "ccb0fc32-639c-4dd2-b2b1-e2b36572654e",
           "output": "하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
-          "committed_at": 1792403144.2745435,
+          "committed_at": 1792403580.3884547,
           "release_epoch": 1,
           "references": [
             {
@@ -509,7 +509,7 @@
       ],
       "rendered_rows": [
         {
-          "action_id": "e96fca4b-88f5-4ba2-9384-0501e8dbfe19",
+          "action_id": "b2ec48e1-e393-4998-8ed3-4a58f62c8daa",
           "output": "하루 이체 한도는 300만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다."
         }
       ]
@@ -518,13 +518,13 @@
   "lost_response": [
     {
       "key": {
-        "idempotency_key": "ee761515-ff1a-42eb-b92e-3b0060bd32db"
+        "idempotency_key": "bfe16914-9e76-45c5-bffb-3a62b84b7008"
       },
       "response": {
-        "action_id": "cc0f031b-6218-4d16-bca6-2f4a4f29c96f",
-        "receipt_id": "ffcd735d-933a-4eaa-9e00-14623208b34f",
+        "action_id": "16d1329f-919a-407d-8667-c6a040c6cbd7",
+        "receipt_id": "ff9219b2-1a5f-4fb4-b55c-dccef61f3ab9",
         "output": "하루 이체 한도는 100만 원입니다. 한도 상향을 위한 송금 본인 인증은 앱에서 진행합니다.",
-        "committed_at": 1792403143.5747535,
+        "committed_at": 1792403579.6654515,
         "release_epoch": 2,
         "references": [
           {

@@ -58,6 +58,7 @@ def main():
         page.locator('.replay-machine').screenshot(path=str(a.output/'replayed.jpg'),type='jpeg',quality=90)
         count=len(evidence['requests']);page.get_by_role('button',name='세 방식 비교',exact=True).click();page.get_by_role('navigation',name='화면 선택').get_by_role('button',name='실행 기록',exact=True).click();settled();assert len(evidence['requests'])==count;assert reconcile('return without implicit request',sid)==after
         passed('view round trip preserves GET rows and creates no implicit API calls')
+        records().locator('li details > summary').click();expect(records().locator('li code').first).to_have_text(before[0]['action_id']);expect(records().locator('li code').first).to_be_visible()
         for width in [390,320,768,1440]:
             page.set_viewport_size({'width':width,'height':1000});assert page.evaluate('document.documentElement.scrollWidth<=innerWidth')
             assert records().locator('.stored-answer').evaluate('(e)=>parseFloat(getComputedStyle(e).fontSize)')>=16

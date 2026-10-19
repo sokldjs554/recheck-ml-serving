@@ -57,6 +57,23 @@ describe("same-tab case checkpoints", () => {
     expect(new Set(h.keys.slice(1)).size).toBe(1);
     expect(h.rows.size).toBe(1);
   });
+  it("page departure fences a completed write and a history return resumes with the original key", async () => {
+    const h = harness(), flow = h.create();
+    for (let i = 0; i < 4; i++) await flow.next();
+    const read = h.api.actions; let departureReads = 0;
+    h.api.actions = async () => { departureReads++; return read(); };
+    const execute = h.api.execute; let release!: () => void;
+    const gate = new Promise<void>(resolve => { release = resolve; });
+    h.api.execute = async (...args) => { await gate; return execute(...args); };
+    const pending = flow.next(); flow.dispose(); release(); await pending;
+    expect(flow.getSnapshot()).toMatchObject({ step: 4, action: null, canReprepare: false });
+    expect(flow.records.getSnapshot().busy).toBe(false);
+    expect(departureReads).toBe(0);
+    expect(h.rows.size).toBe(1);
+    flow.resumeAfterNavigation(); await flow.next();
+    expect(flow.getSnapshot()).toMatchObject({ step: 5, action: { action_id: "one", replayed: true } });
+    expect(new Set(h.keys.slice(1)).size).toBe(1); expect(h.rows.size).toBe(1);
+  });
   it("reload during a pending mutation pauses instead of automatically retrying", async () => {
     const h = harness(), first = h.create(); await first.next();
     let release!: () => void;

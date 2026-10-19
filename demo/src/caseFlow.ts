@@ -129,9 +129,14 @@ export class CaseFlow {
   dispose = () => {
     this.disposed = true;
     this.generation++;
+    this.records.suspend();
   };
   activate = () => {
     this.disposed = false;
+  };
+  resumeAfterNavigation = () => {
+    this.activate();
+    this.set({ busy: false, running: false, restored: true, error: "", status: "이전 실행 상태입니다. 계속하려면 같은 요청으로 서버 상태를 확인하세요." });
   };
   next = async () => {
     if (this.value.running) return;

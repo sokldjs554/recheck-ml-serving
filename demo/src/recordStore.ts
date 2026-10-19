@@ -14,6 +14,7 @@ export class RecordStore {
   subscribe = (listener: () => void) => { this.listeners.add(listener); return () => { this.listeners.delete(listener); }; };
   private set(patch: Partial<Snapshot>) { this.value = { ...this.value, ...patch }; this.listeners.forEach(fn => fn()); }
   reset(session = "") { this.generation++; this.query++; this.value = empty(session); this.listeners.forEach(fn => fn()); }
+  suspend() { this.generation++; this.query++; this.set({ busy: false, writing: false, checkedAttempt: -1 }); }
   prepared() { this.set({ attempt: null }); }
   begin(attempt: RecordAttempt) {
     // A response to a GET started before this write must not confirm this attempt.

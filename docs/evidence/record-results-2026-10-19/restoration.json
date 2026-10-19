@@ -18,11 +18,11 @@
   "failures": [],
   "page_errors": [],
   "media": {
-    "source": "http://127.0.0.1:5173/media/recheck-workspace-20261019.mp4",
+    "source": "http://127.0.0.1:5173/media/recheck-records-query-20261019.mp4",
     "width": 1280,
     "height": 1080,
-    "duration": 57.64
+    "duration": 40.16
   },
-  "action_id": "259ca399-17f6-44e7-b0de-f3e4b5ca1829",
-  "session": "749731e3-47df-43f4-8e24-b95d8ce97e38"
+  "action_id": "2ef83b19-8143-4561-9761-e825b655fce1",
+  "session": "04a76ad6-a428-4149-af4a-8c36b2814837"
 }

@@ -55,7 +55,7 @@ def main():
             assert snapshot()['snapshot'][field] == before['snapshot'][field]
         page.get_by_role('navigation', name='화면 선택').get_by_role('link', name='모델 부하', exact=True).click()
         page.get_by_role('navigation', name='화면 선택').get_by_role('button', name='실행 기록', exact=True).click()
-        assert len(requests) == count
+        assert len(requests) == count, requests[count:]
         checks.append('completed reload and navigation preserve session, drafts, action and exact logs without API requests')
         # Decode media before injecting/aborting a real request. WebKit's media
         # loading must not inherit the deliberately interrupted route harness.
@@ -120,8 +120,8 @@ def main():
         assert interrupted['snapshot']['step'] == 4 and interrupted['snapshot']['canReprepare'] is False
         count = len(requests)
         page.reload(wait_until='networkidle'); step(4)
-        print('RESTORE_INTERRUPTION ' + json.dumps({'before': {k: interrupted['snapshot'][k] for k in ['step', 'busy', 'error', 'canReprepare']}, 'saved_after': {k: snapshot()['snapshot'][k] for k in ['step', 'busy', 'error', 'canReprepare']}, 'displayed_status': page.get_by_test_id('case-status').inner_text()}, ensure_ascii=False), flush=True)
-        assert len(requests) == count
+        print('RESTORE_INTERRUPTION ' + json.dumps({'before': {k: interrupted['snapshot'][k] for k in ['step', 'busy', 'error', 'canReprepare']}, 'saved_after': {k: snapshot()['snapshot'][k] for k in ['step', 'busy', 'error', 'canReprepare']}, 'displayed_status': page.get_by_test_id('case-status').inner_text(), 'requests_after_reload_started': requests[count:]}, ensure_ascii=False), flush=True)
+        assert len(requests) == count, requests[count:]
         assert '중단' in page.get_by_test_id('case-status').inner_text()
         assert page.get_by_test_id('case-run-top').is_enabled()
         assert '상단 실행 버튼' in page.get_by_test_id('case-restored').inner_text()

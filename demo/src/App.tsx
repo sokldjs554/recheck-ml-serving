@@ -177,7 +177,17 @@ export default function App() {
   );
   useEffect(() => {
     caseFlow.activate();
-    return () => caseFlow.dispose();
+    const suspend = () => caseFlow.dispose();
+    const resume = (event: PageTransitionEvent) => { if (event.persisted) caseFlow.resumeAfterNavigation(); };
+    window.addEventListener("beforeunload", suspend);
+    window.addEventListener("pagehide", suspend);
+    window.addEventListener("pageshow", resume);
+    return () => {
+      window.removeEventListener("beforeunload", suspend);
+      window.removeEventListener("pagehide", suspend);
+      window.removeEventListener("pageshow", resume);
+      caseFlow.dispose();
+    };
   }, [caseFlow]);
   const [, tick] = useState(0);
   const api = useRef<Adapter>(new Simulation());
