@@ -26,7 +26,7 @@ def main():
         page.on('request', lambda r: requests.append((r.method, r.url)) if r.url.startswith(args.api.rstrip('/') + '/') else None)
         page.set_default_timeout(15000)
         def step(n):
-            page.wait_for_function('(n) => document.querySelector("[data-testid=case-study]")?.dataset.step === String(n)', arg=n, timeout=110000)
+            page.wait_for_function('(n) => document.querySelector("[data-testid=case-study]")?.dataset.step === String(n) && !document.querySelector("[data-testid=case-status] .case-spin")', arg=n, timeout=110000)
         def snapshot():
             return page.evaluate('(key) => JSON.parse(sessionStorage.getItem(key))', key)
         def reset():

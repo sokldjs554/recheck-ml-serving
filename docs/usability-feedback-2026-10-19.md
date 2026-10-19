@@ -278,3 +278,6 @@ npm --prefix demo test
 최종 로컬 결과는 [검증 요약](evidence/record-results-2026-10-19/local-verification.json)에 있습니다. 프런트엔드 67개, 상담 기록 API 대조 10개 검증 그룹, 대표 흐름 13개, 직접 구성 14개, 복원 9개, 영상·상세 화면 7개가 통과했습니다. SQLite 전용 제외 항목은 별도 1개 통과했습니다. 새 답변 준비 시 직전 답변의 처리 요약은 해제하고 실제 GET 목록은 유지하는 조건도 대조했습니다. 이 숫자는 자동화 결과이며 사용성 또는 장기 운영 성과가 아닙니다.
 
 [최종 실제 API 영상](https://sokldjs554.github.io/recheck-ml-serving/media/recheck-records-final-20261019.mp4) · [영상의 POST/GET 대조](evidence/record-results-2026-10-19/capture.json) · [소스·미디어 SHA-256](evidence/record-results-2026-10-19/source-digests.json). 촬영 source_base는 작업 시작 커밋이며 변경된 최종 UI의 파일 해시는 별도로 보존했습니다.
+
+
+공개 검증 첫 시도 `2524e2f`의 [Pages 실행 39231467114](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39231467114)는 대표 흐름 검사에서 실패했습니다. `check_case_browser.py`는 단계 번호만 기다린 뒤 완료 문구 assertion에 실패했습니다. 실패 순간의 DOM은 기존 로그에 없어 당시 문구는 확정하지 못했습니다. 코드와 로컬 보류 GET 재현에서는 단계 번호가 먼저 바뀌고 조회 완료 전까지 처리 중 문구가 남는 경합을 확인했습니다. 단계 번호가 바뀌어도 조회 중 표시와 실행 잠금이 유지되는 조건을 로컬의 보류한 실제 GET으로 확인했습니다. 검사 완료 조건에 진행 중 표시 해제를 추가했으며 차단 결과·본문·ID 대조 assertion과 시간 제한은 유지했습니다. 이 실패를 기능 검증 성공으로 계산하지 않습니다.

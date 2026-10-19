@@ -35,7 +35,7 @@ def main():
         case = page.get_by_test_id('case-study')
         assert case.count() == 1, 'Guided case must be the default entry'
         def step(number):
-            page.wait_for_function('(n) => document.querySelector("[data-testid=case-study]")?.dataset.step === String(n)', arg=number, timeout=110000)
+            page.wait_for_function('(n) => document.querySelector("[data-testid=case-study]")?.dataset.step === String(n) && !document.querySelector("[data-testid=case-status] .case-spin")', arg=number, timeout=110000)
         def next_step(number):
             page.get_by_test_id('case-next').click()
             step(number)
@@ -164,7 +164,7 @@ def main():
         assert '100만 원' in page.get_by_test_id('case-source').inner_text()
         assert '300만 원' in page.get_by_test_id('case-draft').inner_text()
         next_step(3)
-        assert '오래된 답변 차단' in page.get_by_test_id('case-status').inner_text()
+        assert '오래된 답변 차단' in page.get_by_test_id('case-status').inner_text(), page.get_by_test_id('case-status').inner_text()
         assert '새 답변 기록 완료' not in page.get_by_test_id('case-outcomes').text_content()
         assert '동일 작업 반환' not in page.get_by_test_id('case-outcomes').text_content()
         guide = page.locator('.replay-draft-status')
