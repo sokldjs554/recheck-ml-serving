@@ -72,3 +72,13 @@
 첫 수정 `5518507`은 [전체 CI](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39206909242)와 [공개 브라우저 검사 80개](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39206909276)를 통과했다. 그 뒤 실제 배포 캡처를 눈으로 검토하면서, 차단 상태의 보조 문구에 기존 높은 선택자 우선순위의 연한 글자색이 남은 것을 발견했다. 자동 기능 통과와 시각 검토를 구분한다.
 
 `interface.css`의 차단 상태 글자색을 어두운 갈색으로 수정하고, `check_case_browser.py`에 실제 계산 스타일의 텍스트/배경 대비 4.5:1 이상 검사를 추가했다. 로컬 API 대표 흐름 13개를 다시 통과했다. 이전 배포 원본은 [초기 공개 검사](evidence/product-ui-2026-10-19/initial-public.json)에 보존한다.
+
+### 최종 공개 버전
+
+- 구현 커밋: [`a9637b4`](https://github.com/sokldjs554/recheck-ml-serving/commit/a9637b482aaddf8eb65741552ae29ffdbde12c96). [현재 화면](https://sokldjs554.github.io/recheck-ml-serving/?v=a9637b4#case)
+- [최종 CI](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39207582696): 백엔드 159개 통과·SQLite 전용 1개 제외, 프런트 61개 통과, production build·자료 생성기·정적 번들 일치 확인. 백엔드와 실행 컨트롤러는 기준 커밋에서 변경하지 않았다.
+- [최종 공개 브라우저 검사](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39207582691): 81개 통과(Chromium 72개, macOS WebKit 9개). 대표 처리, 이중 클릭, 화면 이동, 중간·완료 복원, 명시적 초기화, 저장된 영상, 원본 근거, 키보드·반응형 배치를 확인했다. 차단 사유의 실제 텍스트 대비는 7.03:1이다.
+- Render `dep-dbar4i8ae00c73a2fmgg`: 2026-10-19 15:03:54 KST live. [배포·CI 근거](evidence/product-ui-2026-10-19/final-deployment.json) · [공개 검사 항목·artifact](evidence/product-ui-2026-10-19/public.json)
+- 최종 공개 캡처: [첫 화면](evidence/product-ui-2026-10-19/public-entry-1440.png) · [이전 답변 차단](evidence/product-ui-2026-10-19/public-blocked-1440.png) · [모바일 완료](evidence/product-ui-2026-10-19/public-complete-390.png) · [모바일 복원](evidence/product-ui-2026-10-19/public-restored-390.png)
+
+이번 화면 수정과 배포 검증은 완료했다. 친구가 수정 후 화면을 다시 사용한 결과는 아직 없으며, 기존 발언을 재검증·중복 방지의 기술 검증으로 해석하지 않는다. 공개 검사는 저장 처리의 기능 확인이며 무료 서버의 첫 응답 지연이나 SLA 개선을 주장하는 자료가 아니다.

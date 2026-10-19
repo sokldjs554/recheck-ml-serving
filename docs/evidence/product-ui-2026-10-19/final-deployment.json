@@ -1,0 +1,30 @@
+{
+  "runtime_commit": "a9637b482aaddf8eb65741552ae29ffdbde12c96",
+  "baseline": "2e41e2786db4f246df58568654055d026ceb16ae",
+  "ci_url": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39207582696",
+  "ci_conclusion": "success",
+  "ci_summary": [
+    "2026-10-19T06:03:01.2898396Z 159 passed, 1 skipped in 34.81s",
+    "2026-10-19T06:03:15.4930444Z 8 passed, 1 skipped in 7.04s",
+    "2026-10-19T06:03:23.0580742Z 8 passed, 1 skipped in 6.94s",
+    "2026-10-19T06:03:30.8312530Z 8 passed, 1 skipped in 7.13s",
+    "2026-10-19T06:03:47.7109074Z  Test Files  11 passed (11)",
+    "2026-10-19T06:03:47.7109784Z       Tests  61 passed (61)",
+    "2026-10-19T06:03:52.2043103Z ✓ built in 1.88s"
+  ],
+  "render": {
+    "commit": {
+      "createdAt": "2026-10-19T06:01:36Z",
+      "id": "a9637b482aaddf8eb65741552ae29ffdbde12c96",
+      "message": "Fix blocked-explanation contrast after public visual review"
+    },
+    "createdAt": "2026-10-19T06:01:45.097768Z",
+    "finishedAt": "2026-10-19T06:03:54.955028Z",
+    "id": "dep-dbar4i8ae00c73a2fmgg",
+    "startedAt": "2026-10-19T06:01:45.077834Z",
+    "status": "live",
+    "trigger": "new_commit",
+    "updatedAt": "2026-10-19T06:04:23.024896Z"
+  },
+  "scope": "UI-only changes; no serving capacity remeasurement, no new infrastructure; user observation follow-up not performed."
+}
