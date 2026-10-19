@@ -331,8 +331,8 @@ npm --prefix demo test
 ### 화면과 영상
 
 - 변경 전: [이전 배포 화면](evidence/record-results-2026-10-19/public-replayed.jpg).
-- 변경 후 로컬 실제 API: [기록 거절](evidence/outcome-workbench-2026-10-20/blocked.jpg), [새 기록 저장](evidence/outcome-workbench-2026-10-20/recorded.jpg), [동일 요청 재시도](evidence/outcome-workbench-2026-10-20/replayed.jpg), [모바일 저장 결과](evidence/outcome-workbench-2026-10-20/records-mobile.jpg), [직접 구성](evidence/outcome-workbench-2026-10-20/custom.jpg).
-- [현재 UI 실제 시연](https://sokldjs554.github.io/recheck-ml-serving/media/recheck-workbench-20261020.mp4): 로컬 Python API·SQLite, 1280px 너비. 실제 준비·원문 변경·거절·기록·동일 키 재시도를 촬영했다. 영상에서 읽을 시간을 둔 것이며 제품에 인위적인 대기 시간을 추가하지 않았다.
+- 변경 후 [첫 화면](evidence/outcome-workbench-2026-10-20/entry.jpg) · 로컬 실제 API: [기록 거절](evidence/outcome-workbench-2026-10-20/blocked.jpg), [새 기록 저장](evidence/outcome-workbench-2026-10-20/recorded.jpg), [동일 요청 재시도](evidence/outcome-workbench-2026-10-20/replayed.jpg), [모바일 저장 결과](evidence/outcome-workbench-2026-10-20/records-mobile.jpg), [직접 구성](evidence/outcome-workbench-2026-10-20/custom.jpg).
+- [현재 UI 실제 시연](https://github.com/sokldjs554/recheck-ml-serving/raw/189307046e0c4ff378e8d3314162375a1d291b5a/demo/public/media/recheck-workbench-20261020.mp4): 로컬 Python API·SQLite, 1280px 너비. 실제 준비·원문 변경·거절·기록·동일 키 재시도를 촬영했다. 영상에서 읽을 시간을 둔 것이며 제품에 인위적인 대기 시간을 추가하지 않았다.
 - [촬영 응답·GET 행 대조](evidence/outcome-workbench-2026-10-20/film.json), [촬영 실행 원본](evidence/outcome-workbench-2026-10-20/recorded-case.json), [구현·미디어 SHA256](evidence/outcome-workbench-2026-10-20/source-digests.json). `source_base`는 촬영 작업 트리의 기반 커밋이다. 미커밋 수정이 포함된 영상이며 해당 기반 커밋의 화면이라고 표시하지 않는다.
 
 ### 검증과 비용
@@ -347,6 +347,8 @@ npm --prefix demo test
 | 직접 구성·원문 변경/삭제·후보 평가·유실 응답 | 14개 그룹 통과. [검사](evidence/outcome-workbench-2026-10-20/custom.json) |
 | 새로고침·유실 응답 원래 키·과거 기록·저장 차단 | Chromium 9개 그룹 통과. [검사](evidence/outcome-workbench-2026-10-20/restoration.json) |
 | 영상 재생·부하/복구 자료·320/390/768/1440px | 7개 그룹 통과. [검사](evidence/outcome-workbench-2026-10-20/presentation.json) |
+| 로컬 PostgreSQL 16·실제 HTTP | 159개 통과·SQLite 전용 1개 제외, 46.72초. 기존 이미지의 임시 DB를 사용 후 제거. [출력](evidence/outcome-workbench-2026-10-20/backend-postgres.log) |
+| 로컬 전체 백엔드·실제 HTTP | 160개 통과, 41.10초. SQLite 환경이며 원격 PostgreSQL CI와 구분. [출력](evidence/outcome-workbench-2026-10-20/backend-sqlite.log) |
 | SQLite 전용 세션 용량·만료 fixture | 1개 통과. [출력](evidence/outcome-workbench-2026-10-20/sqlite.log) |
 
 원문 비교는 현재 편집기에서 선택한 문서가 아니라 **준비한 답변에 인용된 문서**를 기준으로 한다. 직접 구성에서 다른 문서를 선택해도 기존 답변의 근거가 바뀌지 않는 것을 실제 화면에서 확인했다. 초기 GET 0건, 차단 후 0건, 유효 답변의 본문·작업 ID, 동일 키 재시도 전후 동일 행, POST 응답 유실 뒤 실제 GET 결과를 대조했다. 건수 차이만으로 중복 방지를 추론하지 않는다.
@@ -380,6 +382,14 @@ Render 실제 서비스 조회는 [이 기록](evidence/outcome-workbench-2026-1
 코드 커밋 [`1893070`](https://github.com/sokldjs554/recheck-ml-serving/commit/189307046e0c4ff378e8d3314162375a1d291b5a)의 Render 배포 `dep-dbb3iv9um5fc73bf5rs0`가 2026-10-19 15:41:36 UTC에 live가 됐다. 설정 변경으로 먼저 배포된 이전 코드 `92afcce`와 구분했다. [실제 배포·서비스 설정·시작 로그](evidence/outcome-workbench-2026-10-20/deployment.json).
 
 해당 배포 시간대 새 인스턴스에서 모델 준비까지 30.045초, API 프로세스 시작 로그부터 포트 바인딩 로그까지 약 21.860초였다. 서버 초기화 구간의 관측이며 사용자 요청 전체 지연이나 정확한 플랫폼 대기 시간은 아니다. 90초 모델 초기화 예산 안에서 준비됐고 해당 시작에서 조기 종료는 관측되지 않았다. 무료 호스트의 첫 응답 지연이 해결됐다고 주장하지 않는다.
+
+**공개 검증 대기 — 2026-10-19 15:54 UTC 조회 기준**: [원격 CI](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39279555808), [Pages 배포·공개 브라우저 검사](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39279555809), [정기 점검](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39279643242)이 모두 `queued`이며 아직 실행기와 검사 단계가 배정되지 않았다. [상태 원자료](evidence/outcome-workbench-2026-10-20/public-verification-pending.json). Pages의 승인 대기 목록은 비어 있었다. 대기 원인은 확인되지 않았으며 검사 실패 또는 성공으로 바꿔 기록하지 않는다. GitHub 공식 상태 페이지의 정상 표시는 개별 작업이 실행됐다는 근거가 아니다.
+
+따라서 이번 커밋의 **공개 Pages 브라우저 검증·macOS WebKit 재검증은 미완료**다. 로컬 PostgreSQL/SQLite·Chromium 통과와 Render live를 이 결과로 대신하지 않는다. 기존 실행을 취소하거나 기준을 바꾸지 않았으며, 실행기 배정 후 위 워크플로가 기존 절차대로 진행하도록 남겼다. 후속 확인에서는 링크의 실제 결론·배포 커밋·브라우저 artifact를 확인해야 한다.
+
+[새 UI가 배포된 Render 주소](https://recheck-ml-serving.onrender.com/#case)는 같은 `web_static` 번들을 제공한다. Render 배포 상태는 확인했지만 해당 공개 주소의 전체 사용자 흐름을 이번 환경에서 브라우저로 확인한 것으로 쓰지 않는다. 현재 개발 환경의 네트워크 정책은 공개 Render/Pages 호스트의 직접 브라우저 접근을 허용하지 않아 기존 GitHub Actions 검증 경로를 사용한다. README 영상은 Pages 대기와 무관하게 접근할 수 있는 고정 커밋의 MP4 다운로드 링크로 연결했고 HTTP 200·745,611바이트 전달을 확인했다.
+
+**종료 상태**: 코드·README·영상 수정 및 로컬 회귀, Render 배포·실제 health 설정 확인 완료. GitHub 실행기 대기로 Pages 반영·공개 브라우저 검증은 외부 대기. 기술 작업 전체의 최종 완료나 사람의 이해도 개선을 선언하지 않는다.
 
 ### 친구에게 다시 확인할 과제
 

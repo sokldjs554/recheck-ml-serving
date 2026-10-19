@@ -2,7 +2,7 @@
 
 **모델 연산의 과부하와 결과 기록의 불일치를 다루는 Python 백엔드입니다.** 실행 시점의 근거 재검사, 동일 요청의 중복 기록 방지, CPU 모델의 수용 제한·시간 예산, 실패 추적을 구현했습니다.
 
-[공개 화면 열기](https://sokldjs554.github.io/recheck-ml-serving/) · [현재 화면의 실제 시연 영상](https://sokldjs554.github.io/recheck-ml-serving/media/recheck-workbench-20261020.mp4)
+[공개 화면 열기](https://sokldjs554.github.io/recheck-ml-serving/) · [현재 UI 시연 · MP4 다운로드](https://github.com/sokldjs554/recheck-ml-serving/raw/189307046e0c4ff378e8d3314162375a1d291b5a/demo/public/media/recheck-workbench-20261020.mp4)
 
 [![기록하려던 답변과 서버에 실제 저장된 작업 기록](docs/evidence/outcome-workbench-2026-10-20/replayed.jpg)](https://sokldjs554.github.io/recheck-ml-serving/)
 

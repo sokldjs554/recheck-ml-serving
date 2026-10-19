@@ -1,0 +1,67 @@
+{
+  "checked_at_utc": "2026-10-19 15:54:24 UTC",
+  "code_commit": "189307046e0c4ff378e8d3314162375a1d291b5a",
+  "scope": "Local results are verified. GitHub-hosted jobs have not started, so current public Pages browser verification is not complete.",
+  "runs": [
+    {
+      "id": 39279555808,
+      "name": "RECHECK verification",
+      "url": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39279555808",
+      "commit": "189307046e0c4ff378e8d3314162375a1d291b5a",
+      "status": "queued",
+      "conclusion": null,
+      "created_at": "2026-10-19T15:38:38Z",
+      "jobs": [
+        {
+          "id": 118151128185,
+          "name": "verify",
+          "status": "queued",
+          "conclusion": null,
+          "run_id": 39279555808,
+          "logs_url": null,
+          "steps": null
+        }
+      ]
+    },
+    {
+      "id": 39279555809,
+      "name": "Publish interactive demo",
+      "url": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39279555809",
+      "commit": "189307046e0c4ff378e8d3314162375a1d291b5a",
+      "status": "queued",
+      "conclusion": null,
+      "created_at": "2026-10-19T15:38:38Z",
+      "jobs": [
+        {
+          "id": 118151128448,
+          "name": "deploy",
+          "status": "queued",
+          "conclusion": null,
+          "run_id": 39279555809,
+          "logs_url": null,
+          "steps": null
+        }
+      ]
+    },
+    {
+      "id": 39279643242,
+      "name": "Public API synthetic monitor",
+      "url": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39279643242",
+      "commit": "189307046e0c4ff378e8d3314162375a1d291b5a",
+      "status": "queued",
+      "conclusion": null,
+      "created_at": "2026-10-19T15:39:20Z",
+      "jobs": [
+        {
+          "id": 118151355706,
+          "name": "probe",
+          "status": "queued",
+          "conclusion": null,
+          "run_id": 39279643242,
+          "logs_url": null,
+          "steps": null
+        }
+      ]
+    }
+  ]
+}
