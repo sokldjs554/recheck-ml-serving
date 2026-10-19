@@ -1,0 +1,89 @@
+{
+  "deployment_commit": "92afcce798f5350dab552d8545a58a7a14f9487c",
+  "demo": "https://sokldjs554.github.io/recheck-ml-serving/",
+  "ci": {
+    "commit": "92afcce798f5350dab552d8545a58a7a14f9487c",
+    "run": 39233441918,
+    "job": 117996701904,
+    "conclusion": "success",
+    "evidence": [
+      "2026-10-19T09:55:08.0802405Z 159 passed, 1 skipped in 49.73s",
+      "2026-10-19T09:55:28.3528643Z 8 passed, 1 skipped in 10.04s",
+      "2026-10-19T09:55:39.0236402Z 8 passed, 1 skipped in 10.02s",
+      "2026-10-19T09:55:49.8311969Z 8 passed, 1 skipped in 10.13s",
+      "2026-10-19T09:56:15.7687928Z  Test Files  12 passed (12)",
+      "2026-10-19T09:56:15.7689093Z       Tests  68 passed (68)",
+      "2026-10-19T09:56:23.4795159Z PASS UI comparison is derived from raw evidence",
+      "2026-10-19T09:56:23.8352811Z PASS serving view matches source evidence"
+    ]
+  },
+  "public_run": 39233441974,
+  "jobs": [
+    {
+      "id": 117996702385,
+      "name": "deploy",
+      "conclusion": "success"
+    },
+    {
+      "id": 117998591509,
+      "name": "Verify public demo with macOS WebKit",
+      "conclusion": "success"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 12178238901,
+      "name": "public-consultation-records",
+      "bytes": 296597,
+      "sha256": "sha256:1fa522cdbf99f3946c5f2778ea135652bbf5c287551f3fdfb5e90bfd733b528e",
+      "url": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39233441974/artifacts/12178238901"
+    },
+    {
+      "id": 12177733965,
+      "name": "public-webkit-macos-evidence",
+      "bytes": 2248531,
+      "sha256": "sha256:85a0b6a6093805aa30fcec2658691c55073396b11b0aa8515400ceec7db99769",
+      "url": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39233441974/artifacts/12177733965"
+    },
+    {
+      "id": 12177464423,
+      "name": "public-browser-evidence",
+      "bytes": 14213005,
+      "sha256": "sha256:40c567d490c0c32d848ea0a944f4eb9d6713aacd6668ac4e1a0841bc24ea809c",
+      "url": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39233441974/artifacts/12177464423"
+    }
+  ],
+  "render": {
+    "service": "srv-db3rmj3ncjis73bi8fl0",
+    "deploy": "dep-dbauh7qvcj2c73akpu2g",
+    "commit": "92afcce798f5350dab552d8545a58a7a14f9487c",
+    "status": "live",
+    "finished_at_utc": "2026-10-19T09:55:26.405903Z"
+  },
+  "chromium_pass_lines": 78,
+  "serving_checks_separately_reported_as_json": 7,
+  "webkit_checks": 9,
+  "scope": "Public GitHub Pages and actual Render API; browser-side failure injection; synthetic sessions. No load test. Viewports are not physical-device testing.",
+  "human_recheck": "not performed",
+  "failed_public_runs_preserved": [
+    {
+      "id": 39231467114,
+      "commit": "2524e2f",
+      "failure": "completion assertion failed after a step-only wait; a controlled GET showed a completion race; the exact failing DOM was not captured"
+    },
+    {
+      "id": 39232152398,
+      "commit": "bb7abf7",
+      "failure": "request count changed during interrupted-response reload; extra URL not captured"
+    },
+    {
+      "id": 39232706982,
+      "commit": "b01b0e7",
+      "failure": "same interrupted-response reload request-count assertion; extra URL not captured"
+    }
+  ],
+  "reload_diagnostics": {
+    "chromium": "2026-10-19T09:57:59.9127049Z RESTORE_INTERRUPTION {\"before\": {\"step\": 4, \"busy\": true, \"error\": \"\", \"canReprepare\": false}, \"saved_after\": {\"step\": 4, \"busy\": true, \"error\": \"\", \"canReprepare\": false}, \"displayed_status\": \"중단된 실행의 확인된 기록을 복원했습니다. 자동 재전송하지 않습니다. 이어서 실행하면 서버 상태부터 확인합니다.\", \"requests_after_reload_started\": []}",
+    "webkit": "2026-10-19T09:59:07.4343800Z RESTORE_INTERRUPTION {\"before\": {\"step\": 4, \"busy\": true, \"error\": \"\", \"canReprepare\": false}, \"saved_after\": {\"step\": 4, \"busy\": true, \"error\": \"\", \"canReprepare\": false}, \"displayed_status\": \"중단된 실행의 확인된 기록을 복원했습니다. 자동 재전송하지 않습니다. 이어서 실행하면 서버 상태부터 확인합니다.\\n\", \"requests_after_reload_started\": []}"
+  }
+}

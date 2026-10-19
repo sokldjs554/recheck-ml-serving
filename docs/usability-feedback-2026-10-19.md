@@ -286,3 +286,24 @@ npm --prefix demo test
 
 
 [공개 재검사 39232152398](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39232152398)는 상담 기록 대조를 포함한 앞선 검사를 통과했으나, 응답을 보류한 채 새로고침하는 복원 검사에서 요청 수 불변 assertion에 실패했습니다. 로그의 이전 checkpoint에는 `Failed to fetch`가 추가돼 있었지만 추가 요청 URL은 수집되지 않아 당시 요청의 원인은 확정하지 않습니다. 600ms 지연을 둔 로컬 재현에서는 추가 요청이 발생하지 않았습니다. 코드에서 전체 페이지 종료는 React effect 정리만으로 막을 수 없다는 공백을 확인해 `beforeunload`·`pagehide`에서도 진행 중 flow와 조회 세대를 중단하도록 보완했습니다. history cache 복귀는 과거 상태로 표시하고 명시적 같은 키 재시도로만 계속합니다. 종료 후 늦게 완료된 저장 응답과 같은 키 복귀를 단위 검사하며, 공개 복원 로그에도 요청 차이를 추가했습니다. 재검사의 실패도 기록에서 제외하지 않습니다.
+
+
+### 공개 배포 최종 확인 · 2026-10-19
+
+배포 코드 **[`92afcce798f5350dab552d8545a58a7a14f9487c`](https://github.com/sokldjs554/recheck-ml-serving/commit/92afcce798f5350dab552d8545a58a7a14f9487c)**를 기준으로 확인했습니다. 이후 증거 문서만 정리하는 커밋은 실행 코드 버전과 구분합니다.
+
+- [필수 CI 39233441918](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39233441918): backend 159개 통과·SQLite 전용 fixture 1개 제외, 스케줄링 관련 회귀 8개 통과·1개 제외를 3회 반복, frontend 68개 통과, 과거 근거의 UI 생성 일치 검사 및 정적 배포 번들 일치 통과.
+- 제외된 SQLite 항목 `backend/tests/test_database.py::test_session_capacity_and_expired_session_cleanup`은 별도 로컬 실행에서 [1개 통과](evidence/record-results-2026-10-19/sqlite-check.log).
+- [공개 Pages·Chromium·macOS WebKit 39233441974](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39233441974): 두 job 모두 성공. Chromium은 기존 75개와 이번 상담 기록 대조 10개 조건, WebKit은 복원·영상·화면 9개 조건을 확인했습니다. 실제 사용자 이해도 검사 수가 아닙니다.
+- Render `dep-dbauh7qvcj2c73akpu2g`가 같은 코드로 live 상태임을 조회했습니다. 완료 시각은 `2026-10-19T09:55:26.405903Z`입니다.
+- [기계 판독용 공개 검증 요약·CI 로그 발췌·아티팩트 해시](evidence/record-results-2026-10-19/public-verification.json). 공개 상담 아티팩트 SHA-256을 대조한 뒤 화면·JSON을 저장했습니다.
+
+공개 API에서 확인한 대표 작업 ID는 `b62c145b-1d69-48f6-b14c-1618210e1bb4`입니다. 최초의 오래된 답변은 GET 목록에 없었습니다. 갱신한 답변을 기록한 뒤와 같은 키 재시도 뒤의 목록은 **동일한 본문·작업 ID의 1건**으로 일치했습니다. [원본 요청·GET·화면 대조](evidence/record-results-2026-10-19/public-results.json)의 `recorded before retry`, `after same-key retry and successful fresh GET` 항목에서 확인할 수 있습니다. 전체 건수 차이만으로 재시도 결과를 추론하지 않았습니다.
+
+공개 화면: [차단된 답변](evidence/record-results-2026-10-19/public-blocked.jpg) · [저장된 답변](evidence/record-results-2026-10-19/public-recorded.jpg) · [재시도 후 동일 기록](evidence/record-results-2026-10-19/public-replayed.jpg) · [모바일 본문·펼친 ID](evidence/record-results-2026-10-19/public-records-mobile.jpg) · [직접 구성](evidence/record-results-2026-10-19/public-custom.jpg).
+
+응답을 보류한 뒤 새로고침한 공개 재검사에서는 **Chromium과 WebKit 모두 추가 요청 `[]`**를 기록했습니다. 원래 요청 키를 유지한 명시적 재시도에서 같은 작업을 반환했습니다. [Chromium 원본](evidence/record-results-2026-10-19/public-chromium-restoration.json) · [WebKit 원본](evidence/record-results-2026-10-19/public-webkit-restoration.json). history cache 복귀 분기는 단위 검사 범위이며, 실기기 Safari 사용 결과로 확대하지 않습니다.
+
+실패 이력도 유지합니다. `2524e2f`의 단계 완료 시점 검사 실패, `bb7abf7`의 새로고침 요청 수 검사 실패에 더해 [`b01b0e7` 실행 39232706982](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39232706982)에서도 같은 복원 assertion이 실패했습니다. 이들을 성공 횟수에 합산하지 않았고, 원인 미수집 항목을 호스팅 시작 지연으로 단정하지 않았습니다. 종료 이벤트 경계를 보완한 `92afcce`에서 동일 조건을 통과했습니다.
+
+**기술 작업은 이 범위에서 완료했습니다.** 과거 성능 측정은 재측정하지 않았습니다. 영상은 로컬 Python·SQLite의 실제 실행이며, 위 화면과 API 대조는 최종 공개 환경의 실행입니다. 마지막 페이지 수명 수정은 영상에 나온 정상 상담 흐름의 화면을 변경하지 않았습니다. 무료 서버 시작 지연, 대표 흐름의 과거 응답 복원/별도 GET 조회, 직접 구성의 새로고침 초기화 범위는 유지됩니다. 실기기 Safari와 친구의 이해도 재확인은 수행하지 않았습니다. 제출용 자소서·포트폴리오는 수정하지 않았습니다.

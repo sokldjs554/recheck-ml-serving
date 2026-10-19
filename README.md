@@ -4,7 +4,7 @@
 
 [공개 화면 열기](https://sokldjs554.github.io/recheck-ml-serving/) · [현재 화면의 실제 시연 영상](https://sokldjs554.github.io/recheck-ml-serving/media/recheck-records-query-20261019.mp4)
 
-[![기록하려던 답변과 서버에 실제 저장된 상담 기록](docs/evidence/record-results-2026-10-19/replayed.jpg)](https://sokldjs554.github.io/recheck-ml-serving/)
+[![기록하려던 답변과 서버에 실제 저장된 상담 기록](docs/evidence/record-results-2026-10-19/public-replayed.jpg)](https://sokldjs554.github.io/recheck-ml-serving/)
 
 **준비한 답변과 실제 저장된 상담 기록을 같은 작업 화면에서 대조합니다.** 인용한 문서가 바뀐 답변은 기록하지 않고, 최신 답변을 기록한 뒤 같은 요청을 다시 보내도 기존 기록을 반환합니다. 문서 변경과 작업 기록을 같은 세션 잠금·SQL 트랜잭션 경계에서 처리하고, 같은 요청 키의 재시도에는 기존 작업을 반환합니다.
 
@@ -32,7 +32,7 @@
 <details>
 <summary>직접 구성·부하·복구 화면</summary>
 
-![직접 구성의 상담 답변과 서버 저장 기록](docs/evidence/record-results-2026-10-19/custom.jpg)
+![직접 구성의 상담 답변과 서버 저장 기록](docs/evidence/record-results-2026-10-19/public-custom.jpg)
 
 ![과거 부하 구간과 유효 응답 상세](docs/evidence/workspace-upgrade-2026-10-19/serving.jpg)
 
