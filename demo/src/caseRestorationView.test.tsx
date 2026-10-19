@@ -1,6 +1,7 @@
 import { expect, it, vi } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
 import CaseStudy from "./CaseStudy";
+import CaseRunButton from "./CaseRunButton";
 import { CaseFlow } from "./caseFlow";
 import { CaseApi } from "./caseApi";
 // Render the actual component; effects/subscriptions belong to browser checks.
@@ -9,7 +10,7 @@ function restoredView(step: number) {
   const flow = new CaseFlow(new CaseApi("http://localhost:8000"));
   const snapshot = { ...flow.getSnapshot(), step, restored: true };
   flow.getSnapshot = () => snapshot;
-  return renderToStaticMarkup(<CaseStudy flow={flow} configuredBase="http://localhost:8000" onConfigure={() => {}} onExplore={() => {}} onEvidence={() => {}} />);
+  return renderToStaticMarkup(<><CaseRunButton flow={flow} top /><CaseStudy flow={flow} configuredBase="http://localhost:8000" onConfigure={() => {}} onExplore={() => {}} onEvidence={() => {}} /></>);
 }
 it("completed restoration directs to saved results without offering a nonexistent resume", () => {
   const html = restoredView(6);
@@ -21,6 +22,6 @@ it("completed restoration directs to saved results without offering a nonexisten
 it("interrupted restoration points to an actual resume button", () => {
   const html = restoredView(3);
   expect(html).toContain("‘이어서 실행’");
-  expect(html).toMatch(/data-testid="case-run-all"[^>]*>/);
+  expect(html).toMatch(/data-testid="case-run-top"[^>]*>/);
   expect(html).toContain("서버 확인 전");
 });

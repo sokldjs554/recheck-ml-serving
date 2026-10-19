@@ -10,15 +10,14 @@ import {
 import { CaseApi } from "./caseApi";
 import type { CaseFlow } from "./caseFlow";
 import "./caseStudy.css";
-import CaseRunButton from "./CaseRunButton";
 import CaseJournal from "./CaseJournal";
 
 const actions = [
-  "답변 준비",
-  "정책 변경 적용",
-  "이전 답변으로 기록 시도",
-  "최신 근거로 다시 준비",
-  "검증하고 상담 기록",
+  "답변 불러오기",
+  "안내 한도를 100만 원으로 변경",
+  "이 답변으로 기록 요청",
+  "변경된 안내로 답변 갱신",
+  "새 답변으로 기록 요청",
   "같은 요청 재시도",
 ];
 const working = [
@@ -193,9 +192,7 @@ export default function CaseStudy({
                 : actions[state.step]}
             <ArrowRight size={14} />
           </button>
-          {state.step < 6 ? (
-            <CaseRunButton flow={flow} />
-          ) : (
+          {state.step >= 6 && (
             <button className="case-run" onClick={download}>
               <Download size={15} />
               실행 기록 저장
@@ -204,7 +201,7 @@ export default function CaseStudy({
         </div>
       </div>
       <div
-        className={`case-result ${!state.error && !state.busy && !state.status ? "is-empty" : ""}`}
+        className={`case-result ${!state.error && !state.busy ? state.status ? "is-announcement" : "is-empty" : ""}`}
         data-testid="case-status"
         role={state.error ? "alert" : "status"}
         aria-live="polite"
@@ -261,8 +258,8 @@ export default function CaseStudy({
     >
       <div className="replay-heading">
         <span className="case-route-label">
-          {state.restored ? "이전 상담 기록" : "답변 확인"}
-          <small>{state.restored ? "브라우저 저장본" : "실시간 API · 샘플 상담"}</small>
+          {state.restored ? "이전 상담 기록" : "샘플 상담"}
+          <small>{state.restored ? "브라우저 저장본" : "실시간 API · 송금 없이 상담 작업만 기록"}</small>
         </span>
         <div className="replay-heading-tools">
           <span
@@ -275,7 +272,7 @@ export default function CaseStudy({
                 ? "저장 기록 복원 · 서버 확인 전"
               : state.session
                 ? "API 연결됨"
-                : "API 연결 전"}
+                : locked ? "API 연결 중" : "API 연결 전"}
           </span>
           <button
             className="case-quiet"
@@ -303,56 +300,11 @@ export default function CaseStudy({
                 : "‘이어서 실행’으로 서버 상태를 확인하고 계속하세요."}</p>
         </div>
       )}
-      {(blocked || state.action) && (
-        <section
-          className="case-outcomes case-outcome-summary"
-          data-testid="case-outcomes"
-          ref={outcomeRef}
-          tabIndex={-1}
-          aria-labelledby="case-outcome-title"
-        >
-          <h2 id="case-outcome-title">{state.restored ? "이전 실행 결과" : "이번 실행 결과"}</h2>
-          <p className="case-outcome-explanation">
-            {blocked
-              ? "300만 원을 안내한 답변은 문서 변경으로 차단됐습니다. 현재 안내는 100만 원입니다."
-              : "서버가 반환한 상담 기록입니다. 이전 답변의 차단 여부는 실행 로그를 확인하세요."}
-          </p>
-          <dl>
-            <div>
-              <dt>변경 전 답변</dt>
-              <dd className={blocked ? "is-blocked" : "is-pending"}>{blocked ? "오래된 답변 차단" : "확인 전"}</dd>
-              <dd className="case-outcome-detail">{blocked ? "300만 원 안내 · 인용 문서 변경으로 기록 거절" : "차단 응답 확인 전"}</dd>
-            </div>
-            <div>
-              <dt>변경 후 답변</dt>
-              <dd className={state.action ? "" : "is-pending"}>{state.action ? "새 답변 기록 완료" : "기록 확인 전"}</dd>
-              <dd className="case-outcome-detail">{state.action ? "100만 원 안내 · 현재 문서를 확인한 뒤 기록" : "성공 응답을 받아야 기록 완료로 표시"}</dd>
-            </div>
-            <div>
-              <dt>같은 요청 재시도</dt>
-              <dd className={state.step === 6 ? "" : "is-pending"}>{state.step === 6 ? "동일 작업 반환" : "확인 전"}</dd>
-              <dd className="case-outcome-detail">{state.step === 6 ? "새 기록을 추가하지 않고 기존 작업 ID 반환" : "재시도 전후 작업 ID 비교 대기"}</dd>
-            </div>
-          </dl>
-          {state.action && (
-            <div className="case-action-receipt" data-testid="case-action">
-              <span>상담 기록의 작업 ID</span>
-              <code>{state.action.action_id}</code>
-              <small>{state.action.replayed ? "동일 작업 · 과거 기록" : "기록됨"}</small>
-            </div>
-          )}
-        </section>
-      )}
       <div className={`replay-machine gate-${gate}`}>
-        <div className="replay-ruler" aria-hidden="true">
-          <span>문제 상황 · 변경된 원문</span>
-          <span>비교 대상 · 준비된 답변</span>
-          <span>실행 판단 · 차단 또는 기록</span>
-        </div>
         <div className="replay-canvas">
           <aside className="replay-source" data-testid="case-source">
             <div className="replay-node-label">
-              <span>안내 문서</span>
+              <span>현재 안내 문서</span>
               <span>{source ? `문서 v${source.revision}` : "불러오기 전"}</span>
             </div>
             <h2>하루 이체 한도</h2>
@@ -362,7 +314,7 @@ export default function CaseStudy({
             <div className="replay-source-caption">
               {source ? (state.step >= 2 ? "변경된 안내 · 이전 한도 300만 원" : "현재 안내") : "서버 연결 후 표시"}
             </div>
-            <div className="replay-source-text">
+            <details className="replay-source-text"><summary>원문 보기</summary>
               {source ? (
                 <>
                   <p>
@@ -379,15 +331,13 @@ export default function CaseStudy({
                   상담 답변이 인용할 안내 문서입니다.
                 </p>
               )}
-            </div>
-            <span className="replay-wire" aria-hidden="true">
-              →
-            </span>
+            </details>
           </aside>
 
+          <div className="replay-work">
           <div className="replay-answer">
             <div className="replay-query">
-              <span>고객 문의</span>
+              <span>상담 문의</span>
               <p>“하루 이체 한도가 얼마인가요?”</p>
             </div>
             <article
@@ -431,7 +381,7 @@ export default function CaseStudy({
                     <span className="replay-placeholder-line" />
                     <span className="replay-placeholder-line" />
                     <p>
-                      아직 작성된 답변이 없습니다.
+                      안내 문서를 불러오면 답변이 여기에 표시됩니다.
                     </p>
                   </div>
                   <div className="replay-ticket-foot">
@@ -456,26 +406,11 @@ export default function CaseStudy({
                 </small>
               </details>
             )}
-            <span className="replay-wire" aria-hidden="true">
-              →
-            </span>
           </div>
 
           <div className="replay-gate">
             <div className="replay-node-label">
               <span>기록 처리</span>
-            </div>
-            <div className="replay-gate-symbol" aria-hidden="true">
-              <span />
-              <span />
-              <span />
-              <i>
-                {state.action
-                  ? "✓"
-                  : blocked && !state.freshReceipt
-                    ? "×"
-                    : "↳"}
-              </i>
             </div>
             <h2>
               {state.action
@@ -488,7 +423,7 @@ export default function CaseStudy({
                     ? "변경 감지"
                     : state.freshReceipt
                       ? "새 답변 확인 대기"
-                      : "기록 전 확인"}
+                      : "아직 기록하지 않음"}
             </h2>
             <p>
               {state.action
@@ -501,7 +436,7 @@ export default function CaseStudy({
                     ? "답변은 이전 안내를 인용하고 있습니다. 기록 요청 시 서버가 변경 여부를 확인합니다."
                     : state.freshReceipt
                       ? "갱신한 답변으로 기록을 시도합니다."
-                      : "인용한 문서가 바뀌지 않았고 유효기간이 남아 있어야 상담 기록을 저장합니다."}
+                      : "준비된 답변으로 기록을 요청하면 서버가 현재 안내와 일치하는지 확인합니다."}
             </p>
             <p className="replay-result-guide">
               {state.action
@@ -517,13 +452,55 @@ export default function CaseStudy({
                       : "확인 대상: 인용 문서의 변경 여부 · 답변 유효기간"}
             </p>
           </div>
+          {transport}
+          </div>
         </div>
-
-        {transport}
       </div>
 
+      {(blocked || state.action) && (
+        <section
+          className="case-outcomes case-outcome-summary"
+          data-testid="case-outcomes"
+          ref={outcomeRef}
+          tabIndex={-1}
+          aria-labelledby="case-outcome-title"
+        >
+          <h2 id="case-outcome-title">{state.restored ? "이전 실행 결과" : "이번 실행 결과"}</h2>
+          <p className="case-outcome-explanation">
+            {blocked
+              ? "300만 원을 안내한 답변은 문서 변경으로 차단됐습니다. 현재 안내는 100만 원입니다."
+              : "서버가 반환한 상담 기록입니다. 이전 답변의 차단 여부는 실행 로그를 확인하세요."}
+          </p>
+          <dl>
+            <div>
+              <dt>변경 전 답변</dt>
+              <dd className={blocked ? "is-blocked" : "is-pending"}>{blocked ? "오래된 답변 차단" : "확인 전"}</dd>
+              <dd className="case-outcome-detail">{blocked ? "300만 원 안내 · 인용 문서 변경으로 기록 거절" : "차단 응답 확인 전"}</dd>
+            </div>
+            <div>
+              <dt>변경 후 답변</dt>
+              <dd className={state.action ? "" : "is-pending"}>{state.action ? "새 답변 기록 완료" : "기록 확인 전"}</dd>
+              <dd className="case-outcome-detail">{state.action ? "100만 원 안내 · 현재 문서를 확인한 뒤 기록" : "성공 응답을 받아야 기록 완료로 표시"}</dd>
+            </div>
+            <div>
+              <dt>같은 요청 재시도</dt>
+              <dd className={state.step === 6 ? "" : "is-pending"}>{state.step === 6 ? "동일 작업 반환" : "확인 전"}</dd>
+              <dd className="case-outcome-detail">{state.step === 6 ? "새 기록을 추가하지 않고 기존 작업 ID 반환" : "재시도 전후 작업 ID 비교 대기"}</dd>
+            </div>
+          </dl>
+          {state.action && (
+            <div className="case-action-receipt" data-testid="case-action">
+              <span>상담 기록의 작업 ID</span>
+              <code>{state.action.action_id}</code>
+              <small>{state.action.replayed ? "동일 작업 · 과거 기록" : "기록됨"}</small>
+            </div>
+          )}
+        </section>
+      )}
+
+
       <div className="replay-below">
-        <div className="replay-audit">
+        <details className="replay-audit"><summary>요청별 응답 · {state.events.length}건</summary>
           <div className="case-audit-heading">
             <div>
               <h2>실행 로그</h2>
@@ -552,7 +529,7 @@ export default function CaseStudy({
               </div>
             )}
           </div>
-        </div>
+        </details>
         <aside className="replay-inspector">
           <div className="replay-inspector-note">
             <h2>검증 방식 비교</h2>
@@ -596,7 +573,7 @@ export default function CaseStudy({
         </button>
       </div>
       <p className="case-scope">
-        가상 상담 문서 · TF-IDF 검색 · 실제 API의 검증과 작업 기록
+        가상 상담 문서 · TF-IDF 검색 · 내부 상담 작업만 기록하며 실제 송금은 하지 않습니다.
       </p>
     </section>
   );

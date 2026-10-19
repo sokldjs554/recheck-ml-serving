@@ -63,6 +63,7 @@ def main():
                 page.get_by_test_id('case-next').click()
                 page.wait_for_function("document.querySelector('[data-testid=case-study]').dataset.step === '1'")
                 def download(name):
+                    page.locator('.replay-audit').evaluate('(e) => e.open = true')
                     with page.expect_download() as item:
                         page.get_by_role('button', name='사건 기록 JSON', exact=True).click()
                     target = args.output / name
@@ -83,7 +84,7 @@ def main():
                 page.get_by_role('button', name='세 방식 비교', exact=True).click()
                 page.get_by_role('navigation', name='화면 선택').get_by_role('button', name='상담 기록').click()
                 assert page.get_by_test_id('case-next').is_disabled()
-                assert page.get_by_test_id('case-run-all').is_disabled()
+                assert page.get_by_test_id('case-run-top').is_disabled()
                 assert download('after-navigation.json') == expired
                 navigation_requests = len(requests) - count
                 assert navigation_requests == 0

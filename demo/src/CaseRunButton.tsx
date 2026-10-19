@@ -2,7 +2,7 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 import { LoaderCircle } from "lucide-react";
 import type { CaseFlow } from "./caseFlow";
 
-/** Both entry points observe and run the same application-owned controller. */
+/** Automatic execution shares admission and state with the contextual next action. */
 export default function CaseRunButton({
   flow,
   top = false,
@@ -44,7 +44,7 @@ export default function CaseRunButton({
         : state.running
           ? "실행 중"
           : state.step === 0
-            ? "답변 확인 시작"
+            ? "전체 과정 실행"
             : "이어서 실행"}
     </button>
   );

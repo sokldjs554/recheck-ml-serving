@@ -47,6 +47,7 @@ def main():
         def return_to_case():
             page.get_by_role('navigation', name='화면 선택').get_by_role('button', name='상담 기록', exact=True).click()
         def download_case(name):
+            page.locator('.replay-audit').evaluate('(e) => e.open = true')
             with page.expect_download() as download:
                 page.get_by_role('button', name='사건 기록 JSON', exact=True).click()
             filename = args.output / name
@@ -61,6 +62,7 @@ def main():
             details.locator('summary').click()
         configure(args.api)
         page.screenshot(path=str(args.output / 'case-initial-desktop.png'), full_page=True)
+        page.screenshot(path=str(args.output / 'entry-desktop.png'))
         assert page.get_by_role('heading', name='상담 기록', exact=True).is_visible()
         assert page.locator('.project-intro').count() == 0, 'Working screen must not render a marketing hero'
         assert page.locator('h1').evaluate('(el) => parseFloat(getComputedStyle(el).fontSize)') <= 22
@@ -73,17 +75,19 @@ def main():
         # Same JS turn: both controls are clicked before React can paint disabled state.
         page.evaluate('''() => {
             document.querySelector('[data-testid=case-run-top]').click();
-            document.querySelector('[data-testid=case-run-all]').click();
+            document.querySelector('[data-testid=case-next]').click();
             document.querySelector('[data-testid=case-run-top]').click();
         }''')
         step(6)
         session_posts = [r for r in api_requests if r['method'] == 'POST' and r['url'].endswith('/api/sessions')]
         assert len(session_posts) == 1, 'Shared entry controls must create exactly one session'
         assert page.get_by_test_id('case-run-top').is_disabled()
-        checks.append('top and existing run buttons clicked in one turn create one session and one flow')
+        checks.append('automatic and contextual buttons clicked in one turn create one session and one flow')
         assert '300만 원' in page.get_by_test_id('case-old-draft').inner_text()
         assert '100만 원' in page.get_by_test_id('case-draft').inner_text()
         assert '오래된 답변 차단' in page.get_by_test_id('case-outcomes').inner_text()
+        assert not page.locator('.replay-audit').evaluate('(e) => e.open')
+        page.locator('.replay-audit > summary').click()
         with page.expect_download() as automatic_download:
             page.get_by_role('button', name='사건 기록 JSON', exact=True).click()
         automatic_file = args.output / 'automatic-case.json'
@@ -122,10 +126,10 @@ def main():
             held_events.append(route)
         page.route('**/evidence/events', hold_event)
         with page.expect_request('**/evidence/events'):
-            page.get_by_test_id('case-run-all').click()
+            page.get_by_test_id('case-run-top').click()
         assert len(held_events) == 1
         assert page.get_by_test_id('case-run-top').is_disabled()
-        assert page.get_by_test_id('case-run-all').is_disabled()
+        assert page.get_by_test_id('case-next').is_disabled()
         requests_before_navigation = len(api_requests)
         navigate('서버 설계')
         page.get_by_test_id('case-study').wait_for(state='hidden')
@@ -177,7 +181,10 @@ def main():
         }""")
         assert contrast >= 4.5, f'Blocked explanation contrast {contrast:.2f}:1 is below 4.5:1'
         checks.append(f'blocked reason is visible beside the result with {contrast:.2f}:1 text contrast')
+        page.locator('.replay-audit').evaluate('(e) => e.open = false')
+        page.evaluate('scrollTo(0,0)')
         page.screenshot(path=str(args.output / 'case-blocked-desktop.png'), full_page=True)
+        page.screenshot(path=str(args.output / 'blocked-desktop.png'))
         next_step(4)
         assert '100만 원' in page.get_by_test_id('case-draft').inner_text()
         assert '유효기간' in page.locator('.case-expiry').inner_text()
@@ -203,6 +210,7 @@ def main():
         next_step(6)
         assert original_action == page.get_by_test_id('case-action').locator('code').inner_text()
         assert '과거' in page.get_by_test_id('case-status').inner_text()
+        page.locator('.replay-audit').evaluate('(e) => e.open = true')
         with page.expect_download() as download:
             page.get_by_role('button', name='사건 기록 JSON', exact=True).click()
         filename = args.output / download.value.suggested_filename
@@ -212,6 +220,9 @@ def main():
         actions = page.request.get(f"{args.api}/api/sessions/{data['session_id']}/evidence/actions").json()['actions']
         assert len(actions) == 1 and actions[0]['action_id'] == original_action
         checks.append('actual HTTP: old answer blocked, fresh task recorded, replay returns one historical action, JSON contains actual responses')
+        page.locator('.replay-audit').evaluate('(e) => e.open = false')
+        page.get_by_test_id('case-outcomes').scroll_into_view_if_needed()
+        page.screenshot(path=str(args.output / 'record-desktop.png'))
         page.screenshot(path=str(args.output / 'case-complete-desktop.png'), full_page=True)
         for width, height in [(390, 844), (768, 1024), (844, 390)]:
             page.set_viewport_size({'width': width, 'height': height})
@@ -220,12 +231,17 @@ def main():
             assert page.get_by_test_id('case-reset').evaluate('(el) => el.getBoundingClientRect().top >= 0')
             if width <= 760:
                 page.keyboard.press('Tab')
+                assert page.locator('.replay-source-text summary').evaluate('(el) => document.activeElement === el')
+                page.keyboard.press('Tab')
                 assert page.get_by_test_id('case-old-draft').locator('summary').evaluate('(el) => document.activeElement === el'), 'Focus must follow the visible answer before processing controls'
                 page.keyboard.press('Tab')
                 assert page.locator('.case-progress-detail summary').evaluate('(el) => document.activeElement === el')
                 page.keyboard.press('Tab')
                 assert page.get_by_test_id('case-next').evaluate('(el) => document.activeElement === el'), 'Collapsed progress must not trap keyboard focus'
             page.screenshot(path=str(args.output / f'case-complete-{width}x{height}.png'), full_page=True)
+            if width == 390:
+                page.get_by_test_id('case-outcomes').scroll_into_view_if_needed()
+                page.screenshot(path=str(args.output / 'record-mobile.png'))
         checks.append('390 portrait, 768 tablet, 844 landscape: no horizontal overflow and reset reachable')
         page.set_viewport_size({'width': 1440, 'height': 1050})
         page.get_by_test_id('case-reset').click()
@@ -257,7 +273,6 @@ def main():
         assert len(injected_expiry) == 1
         assert case.get_attribute('data-step') == '1'
         assert page.get_by_test_id('case-next').is_disabled()
-        assert page.get_by_test_id('case-run-all').is_disabled()
         assert page.get_by_test_id('case-run-top').is_disabled()
         expired_data = download_case('injected-expiry-preserved.json')
         assert expired_data['session_id'] == before_expiry['session_id']

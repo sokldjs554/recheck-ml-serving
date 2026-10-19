@@ -46,6 +46,7 @@ def main():
         assert page.get_by_test_id('case-restored').is_visible()
         assert '저장된 차단 결과와 작업 ID' in page.get_by_test_id('case-restored').inner_text()
         assert '이어서 실행' not in page.get_by_test_id('case-restored').inner_text()
+        page.locator('.replay-audit > summary').click()
         assert '브라우저에 복원한 과거 API 응답' in page.get_by_test_id('case-journal').inner_text()
         assert page.get_by_test_id('case-api-base').input_value() == args.api
         assert page.get_by_test_id('case-action').locator('code').inner_text() == before['snapshot']['action']['action_id']
