@@ -1,0 +1,82 @@
+{
+  "recorded_at_utc": "2026-10-19T08:02:35Z",
+  "source_base": "2a67b78562aa0530d0fd3c20c550bca82853d7d9",
+  "scope": "Current UI with actual local Python API and SQLite; six manually advanced steps, blocked/record/replay journal filters, comparison round trip, archived model-load and recovery screens, return with same action ID. No intercepted or fabricated API responses. No speed changes.",
+  "responses": [
+    {
+      "url": "http://127.0.0.1:8025/api/sessions",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8025/api/sessions/0ff5004a-6221-4585-b5f8-3eae98e242ef/evidence",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8025/api/sessions/0ff5004a-6221-4585-b5f8-3eae98e242ef/evidence/prepare",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8025/api/sessions/0ff5004a-6221-4585-b5f8-3eae98e242ef/evidence/events",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8025/api/sessions/0ff5004a-6221-4585-b5f8-3eae98e242ef/evidence",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8025/api/sessions/0ff5004a-6221-4585-b5f8-3eae98e242ef/evidence/receipts/a3c51147-3630-4d5d-abe3-a4d0d5cdeec7/execute",
+      "status": 409
+    },
+    {
+      "url": "http://127.0.0.1:8025/api/sessions/0ff5004a-6221-4585-b5f8-3eae98e242ef/evidence/releases/evaluate",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8025/api/sessions/0ff5004a-6221-4585-b5f8-3eae98e242ef/evidence/releases/073383b3-a409-4226-ae99-6b73ed71b1c7/promote",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8025/api/sessions/0ff5004a-6221-4585-b5f8-3eae98e242ef/evidence/prepare",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8025/api/sessions/0ff5004a-6221-4585-b5f8-3eae98e242ef/evidence",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8025/api/sessions/0ff5004a-6221-4585-b5f8-3eae98e242ef/evidence/receipts/40928402-375a-4742-b607-8e14ec48b2d3/execute",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8025/api/sessions/0ff5004a-6221-4585-b5f8-3eae98e242ef/evidence/receipts/40928402-375a-4742-b607-8e14ec48b2d3/execute",
+      "status": 200
+    }
+  ],
+  "action_id": "0e1b3ba1-02bc-4144-a7fc-1fd144239428",
+  "raw_capture_retention": "Intermediate raw capture removed after encoding; published MP4/WebM and exported API responses retained.",
+  "media": [
+    {
+      "file": "demo/public/media/recheck-walkthrough-20261019.mp4",
+      "bytes": 1254101,
+      "sha256": "ff9063be58e7c4fa7c120303e2ccbd80d74d1b6b7f9b6dbc01c96d5096ca1a41"
+    },
+    {
+      "file": "demo/public/media/recheck-walkthrough-20261019.webm",
+      "bytes": 2090320,
+      "sha256": "b8ebba0881b02a4242b0fe3f37097ccafd488ca031b9f44c76b88afceabfc498"
+    },
+    {
+      "file": "demo/public/media/recheck-poster-20261019.webp",
+      "bytes": 43558,
+      "sha256": "78e4f35940141c4ee6c1b02874859cab0080cbbbdea01b2f0be62d15ea35bce0"
+    }
+  ],
+  "ui_sources": {
+    "demo/src/App.tsx": "57fb7b227ad1d62d82e9eecfd66a41dc59f22bde2345a8d116e73d4cd260f433",
+    "demo/src/CaseStudy.tsx": "8b7005a48a0d17ccd39ff6ce5e5dc1920f0b5433a1ce1d1376ea55a61ef9d35e",
+    "demo/src/CaseRunButton.tsx": "c113d76ee00f9d7889005abf87a5880f09b9972c3ff7dbe6a34de74dd4b01e7c",
+    "demo/src/interface.css": "51c11674c57d5534f66a4b4fda43e5ab0696837d9e60e3131027ccbc70972404",
+    "demo/src/RecordedDemo.tsx": "aae4e07c5361554c3ac5a941a779dc32083a16774376131354f32933bff26932",
+    "demo/src/MeasuredReview.tsx": "65397870f5414d33c54cbff17ac8c44cf8b4877b7a1f5dfa6e93c4a2852c7858"
+  }
+}

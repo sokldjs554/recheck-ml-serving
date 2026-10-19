@@ -14,7 +14,7 @@
 
 ## 실제 시연
 
-[영상](https://sokldjs554.github.io/recheck-ml-serving/media/recheck-walkthrough.mp4) · [대표 화면](../demo/public/media/recheck-poster.webp) · [촬영 시각·HTTP 상태·사건 기록·파일 SHA-256](evidence/introduction-media.json)
+당시 영상·poster는 2026-10-19 현재 UI 촬영본으로 교체되어 공개 경로에서 제거했다. [현재 촬영본](evidence/current-recording-2026-10-19/README.md) · [촬영 시각·HTTP 상태·사건 기록·파일 SHA-256](evidence/introduction-media.json)
 
 - 현재 React 화면 → 로컬 Python API·SQLite. HTTP 응답을 가로채거나 결과를 합성하지 않았다.
 - 6단계를 한 단계씩 실행하고, 세 방식 비교로 이동한 뒤 같은 작업 ID가 남아 있는 것을 확인했다.

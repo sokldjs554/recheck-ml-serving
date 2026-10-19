@@ -49,7 +49,7 @@
 
 ## 실제 시연
 
-[40.24초 시연](https://sokldjs554.github.io/recheck-ml-serving/media/recheck-walkthrough.mp4)은 새 상담 화면에서 **실제 로컬 Python API·SQLite**를 사용해 촬영했다. 6단계 실행, 차단·기록 로그, 비교 화면 왕복 후 같은 작업 ID를 확인한다. HTTP 응답 모킹·합성 프레임·배속은 없으며 앞 1초만 잘랐다. [촬영 시각·요청 상태·작업 ID](evidence/workspace-upgrade/recording.json)를 남겼다. 공개 서버의 현재 실행 상태와 구분해 표시한다.
+당시 40.24초 시연(이전 UI 파일은 2026-10-19 공개 배포에서 제거)은 새 상담 화면에서 **실제 로컬 Python API·SQLite**를 사용해 촬영했다. 6단계 실행, 차단·기록 로그, 비교 화면 왕복 후 같은 작업 ID를 확인한다. HTTP 응답 모킹·합성 프레임·배속은 없으며 앞 1초만 잘랐다. [촬영 시각·요청 상태·작업 ID](evidence/workspace-upgrade/recording.json)를 남겼다. 공개 서버의 현재 실행 상태와 구분해 표시한다.
 
 ## 재현
 

@@ -1,0 +1,90 @@
+{
+  "reviewed_utc": "2026-10-19",
+  "scope": "README + selected code/docs, not all repositories executed; see README.md matrix for actual UI access",
+  "repositories": [
+    {
+      "repo": "mlflow/mlflow",
+      "commit": "ee3c16654baf96ff83ca5e67ac05e0558dc48587",
+      "url": "https://github.com/mlflow/mlflow/tree/ee3c16654baf96ff83ca5e67ac05e0558dc48587",
+      "readme": "https://github.com/mlflow/mlflow/blob/ee3c16654baf96ff83ca5e67ac05e0558dc48587/README.md"
+    },
+    {
+      "repo": "vllm-project/vllm",
+      "commit": "852989f580820849113d67d13fd8053e279d0444",
+      "url": "https://github.com/vllm-project/vllm/tree/852989f580820849113d67d13fd8053e279d0444",
+      "readme": "https://github.com/vllm-project/vllm/blob/852989f580820849113d67d13fd8053e279d0444/README.md"
+    },
+    {
+      "repo": "triton-inference-server/server",
+      "commit": "57b3eba6b5ac9b493747bec0eb8c69f0a0cee7a4",
+      "url": "https://github.com/triton-inference-server/server/tree/57b3eba6b5ac9b493747bec0eb8c69f0a0cee7a4",
+      "readme": "https://github.com/triton-inference-server/server/blob/57b3eba6b5ac9b493747bec0eb8c69f0a0cee7a4/README.md"
+    },
+    {
+      "repo": "restatedev/agent",
+      "commit": "95a56fdece5cee57fa0df9a327ea1eb72a3a5d29",
+      "url": "https://github.com/restatedev/agent/tree/95a56fdece5cee57fa0df9a327ea1eb72a3a5d29",
+      "readme": "https://github.com/restatedev/agent/blob/95a56fdece5cee57fa0df9a327ea1eb72a3a5d29/README.md"
+    },
+    {
+      "repo": "temporal-sa/durable-agent-skills",
+      "commit": "c0333fb86fdbeb2010265a921c29b96d0cc16931",
+      "url": "https://github.com/temporal-sa/durable-agent-skills/tree/c0333fb86fdbeb2010265a921c29b96d0cc16931",
+      "readme": "https://github.com/temporal-sa/durable-agent-skills/blob/c0333fb86fdbeb2010265a921c29b96d0cc16931/README.md"
+    },
+    {
+      "repo": "Dababykogitarl/llm-inference-bench",
+      "commit": "58258bcb0f85b1ae5efebf7048e58b9a62a69b92",
+      "url": "https://github.com/Dababykogitarl/llm-inference-bench/tree/58258bcb0f85b1ae5efebf7048e58b9a62a69b92",
+      "readme": "https://github.com/Dababykogitarl/llm-inference-bench/blob/58258bcb0f85b1ae5efebf7048e58b9a62a69b92/README.md"
+    },
+    {
+      "repo": "langgenius/dify",
+      "commit": "67887de9e427da2892282ce878d8f53c1c18f080",
+      "url": "https://github.com/langgenius/dify/tree/67887de9e427da2892282ce878d8f53c1c18f080",
+      "readme": "https://github.com/langgenius/dify/blob/67887de9e427da2892282ce878d8f53c1c18f080/README.md"
+    },
+    {
+      "repo": "infiniflow/ragflow",
+      "commit": "24889253765b5acc0aaf7651754ef29742bbbfc1",
+      "url": "https://github.com/infiniflow/ragflow/tree/24889253765b5acc0aaf7651754ef29742bbbfc1",
+      "readme": "https://github.com/infiniflow/ragflow/blob/24889253765b5acc0aaf7651754ef29742bbbfc1/README.md"
+    },
+    {
+      "repo": "argilla-io/argilla",
+      "commit": "5338519accb13ae422f8bf9c0642651c249c49af",
+      "url": "https://github.com/argilla-io/argilla/tree/5338519accb13ae422f8bf9c0642651c249c49af",
+      "readme": "https://github.com/argilla-io/argilla/blob/5338519accb13ae422f8bf9c0642651c249c49af/README.md"
+    },
+    {
+      "repo": "GokuMohandas/Made-With-ML",
+      "commit": "3361aeb8ddfc2affdba9f545c978c38c85cee764",
+      "url": "https://github.com/GokuMohandas/Made-With-ML/tree/3361aeb8ddfc2affdba9f545c978c38c85cee764",
+      "readme": "https://github.com/GokuMohandas/Made-With-ML/blob/3361aeb8ddfc2affdba9f545c978c38c85cee764/README.md"
+    },
+    {
+      "repo": "GoogleCloudPlatform/bank-of-anthos",
+      "commit": "db35fea9fd090150e2398106aadb475576f80d94",
+      "url": "https://github.com/GoogleCloudPlatform/bank-of-anthos/tree/db35fea9fd090150e2398106aadb475576f80d94",
+      "readme": "https://github.com/GoogleCloudPlatform/bank-of-anthos/blob/db35fea9fd090150e2398106aadb475576f80d94/README.md"
+    },
+    {
+      "repo": "open-telemetry/opentelemetry-demo",
+      "commit": "85c2cb253ae3519ef2b3a02984c32614106de5ea",
+      "url": "https://github.com/open-telemetry/opentelemetry-demo/tree/85c2cb253ae3519ef2b3a02984c32614106de5ea",
+      "readme": "https://github.com/open-telemetry/opentelemetry-demo/blob/85c2cb253ae3519ef2b3a02984c32614106de5ea/README.md"
+    },
+    {
+      "repo": "SKNETWORKS-FAMILY-AICAMP/SKN22-Final-4Team-WEB",
+      "commit": "5829f8d7f159b2f3196f18906a3bb9874fc01673",
+      "url": "https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN22-Final-4Team-WEB/tree/5829f8d7f159b2f3196f18906a3bb9874fc01673",
+      "readme": "https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN22-Final-4Team-WEB/blob/5829f8d7f159b2f3196f18906a3bb9874fc01673/README.md"
+    },
+    {
+      "repo": "bentoml/BentoSentenceTransformers",
+      "commit": "4190091903523385686fce50b04c926071b37ac4",
+      "url": "https://github.com/bentoml/BentoSentenceTransformers/tree/4190091903523385686fce50b04c926071b37ac4",
+      "readme": "https://github.com/bentoml/BentoSentenceTransformers/blob/4190091903523385686fce50b04c926071b37ac4/README.md"
+    }
+  ]
+}

@@ -2,11 +2,11 @@
 
 **답변이 인용한 문서를 기록 직전에 다시 확인하는 Python ML 백엔드입니다.** 문서 변경에 따른 오래된 답변 차단, 같은 요청의 중복 기록 방지, 별도 CPU 모델의 부하·장애 처리를 구현했습니다.
 
-[공개 화면 열기](https://sokldjs554.github.io/recheck-ml-serving/) · [실제 API 시연 영상 — 이전 UI](https://sokldjs554.github.io/recheck-ml-serving/media/recheck-walkthrough.mp4)
+[공개 화면 열기](https://sokldjs554.github.io/recheck-ml-serving/) · [현재 UI 실제 시연 영상](https://sokldjs554.github.io/recheck-ml-serving/media/recheck-walkthrough-20261019.mp4)
 
 [![상담 문서와 답변, 기록 처리 화면](docs/evidence/ui-workflow-2026-10-19/public-entry-1440.png)](https://sokldjs554.github.io/recheck-ml-serving/)
 
-대표 화면은 이번 UI의 공개 배포 캡처입니다. 영상은 **2026-10-18의 이전 UI를 로컬 Python API·SQLite로 실행한 촬영본**입니다. 현재 배치·문구와는 다릅니다. 무료 공개 API의 첫 연결이 늦을 때 화면에서 저장된 영상을 먼저 볼 수 있습니다.
+대표 화면은 현재 UI의 공개 배포 캡처입니다. **2026-10-19 촬영 영상(56초)**은 현재 UI를 로컬 Python API·SQLite에 연결해 원문 변경·기록 차단·새 작업 기록·같은 작업 반환을 실행한 뒤, 별도의 모델 부하·장애 복구 근거 화면을 보여줍니다. 후반의 부하·복구 수치는 저장된 과거 실험이며, 영상은 현재 방문자의 요청 상태나 공개 서버 성능을 나타내지 않습니다. [촬영 근거](docs/evidence/current-recording-2026-10-19/README.md)
 
 ## 확인할 수 있는 동작
 
