@@ -1,0 +1,14 @@
+{
+  "total": 3,
+  "good": 2,
+  "bad": 1,
+  "availability": 0.6666666666666666,
+  "target": 0.99,
+  "latency_budget_ms": 5000.0,
+  "allowed_bad_samples": 0.030000000000000027,
+  "budget_consumed_ratio": 33.33333333333331,
+  "scope": "sampled synthetic workflow, not continuous production uptime",
+  "window_start": "2026-10-20T15:41:11.640766+00:00",
+  "window_end": "2026-10-20T15:42:59.172981+00:00",
+  "interval_seconds": 15.0
+}

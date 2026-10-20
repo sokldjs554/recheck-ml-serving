@@ -1,0 +1,75 @@
+{
+  "health": {
+    "status": "ok",
+    "service": "recheck-api",
+    "mode": "live",
+    "model_service": "http://127.0.0.1:8001",
+    "model_source": "bundle",
+    "bundle_sha256": "cd3d533e1105097680ba48a9620bd7773d72db399ef1c418ccb7b1f6afe252a4"
+  },
+  "receipt": {
+    "id": "087fbd8e-a54c-4537-93d4-effbfc298087",
+    "session_id": "90a2a6ae-9b95-415c-b8a7-cfd5499fb484",
+    "status": "clear",
+    "reason": "no_current_warning",
+    "risk_score": 0.00976261717345296,
+    "feature_version": 1,
+    "policy_version": 1,
+    "model_version": "risk-v1",
+    "created_at": "2026-10-20T15:43:00.368201+00:00",
+    "expires_at": "2026-10-20T15:43:15.368201+00:00",
+    "latency_ms": 23.948224261403084,
+    "trace_id": "411033848939bfe9b77c493f8ecbe883",
+    "spans": [
+      {
+        "name": "decision",
+        "start_ms": 0.137404,
+        "duration_ms": 23.654425,
+        "status": "ok"
+      },
+      {
+        "name": "snapshot",
+        "start_ms": 0.190125,
+        "duration_ms": 12.529882,
+        "status": "ok"
+      },
+      {
+        "name": "model.http",
+        "start_ms": 12.845071,
+        "duration_ms": 4.04655,
+        "status": "ok"
+      },
+      {
+        "name": "model.infer",
+        "start_ms": 12.971834000000001,
+        "duration_ms": 0.944966,
+        "status": "ok"
+      },
+      {
+        "name": "model.predict",
+        "start_ms": 13.130039,
+        "duration_ms": 0.72037,
+        "status": "ok"
+      },
+      {
+        "name": "fence.commit",
+        "start_ms": 17.053345,
+        "duration_ms": 6.712274,
+        "status": "ok"
+      }
+    ],
+    "protected": true,
+    "model_hash": "7de0929ba34aefaa313bf15354e6582133992cb755df11094ced0796125521be"
+  },
+  "invalidation": {
+    "valid": false,
+    "reason": "versions_changed",
+    "current_versions": {
+      "feature_version": 2,
+      "policy_version": 1,
+      "model_version": "risk-v1"
+    }
+  },
+  "provider_failure": "model_unavailable",
+  "checks_passed": 7
+}

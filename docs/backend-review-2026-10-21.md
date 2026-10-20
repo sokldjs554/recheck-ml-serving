@@ -89,4 +89,28 @@ Render 실제 `/health` 설정과 free 플랜을 이번에도 조회 확인했�
 
 ## 반영 상태
 
-현재 로컬 회귀와 문서 대조를 완료했다. 코드 커밋·원격 CI·배포 결과는 후속 확인 후 이 절에 기록한다. 확인 전에는 새 배포 성공으로 표시하지 않는다.
+구현 커밋은 [`6053bc397c92a8ad33aefa1e6a23d64cdd7a2bde`](https://github.com/sokldjs554/recheck-ml-serving/commit/6053bc397c92a8ad33aefa1e6a23d64cdd7a2bde)다. 기준 `5a60e88`의 UI·미디어와 기존 부하 실험 출처를 유지했다.
+
+- [필수 CI](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39450678291): success. 원격 PostgreSQL 백엔드 169 통과·SQLite 전용 1 제외, 시간 경계 검사 3회, 모델 인계, 양쪽 DB의 정합성·경합 비교, 프런트 68, 빌드·번들·요약 대조가 모두 완료됐다.
+- [API→CPU→PostgreSQL 기존 짧은 회귀](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39450678447): success. 5/30 req/s·각3초·1회인 기존 CI 조건이다. 새로운 지속 처리 용량 근거로 사용하지 않는다.
+- [기존 Kubernetes 복구 검사](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39450678013): success. 격리된 kind 검증이며 상용 HA 경험이 아니다.
+- Render `dep-dbbon367bikc73b0ek8g`: 위 코드로 2026-10-20 15:43:03 UTC에 live. 실제 `/health`는 유지됐다. [조회·CI 원문 발췌](evidence/backend-review-2026-10-21/remote-verification.json).
+
+### 배포와 겹친 첫 공개 점검 — 실패 보존
+
+[공개 점검 첫 시도](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39450677938/attempts/1)의 세 표본은 15:41:11–15:42:59 UTC다. 기능은 세 번 모두 성공했으나 전체 시간은 **74,118.815 / 1,520.827 / 1,873.182ms**, 첫 health 왕복은 **72,523.711ms**로 5초 기준을 초과했다. 세 표본 모두 새 Render 배포 live 시각보다 앞서고 새 서버 구간 헤더도 없다. 이 결과를 수정 후 서버 성능으로 표시하지 않는다. 첫 지연의 세부 원인은 이 응답만으로 확정할 수 없다.
+
+[실패 포함 모든 표본](evidence/backend-review-2026-10-21/public-attempt-1/synthetic.jsonl) · [분모·기준](evidence/backend-review-2026-10-21/public-attempt-1/summary.json) · [별도 공개 HTTP 기능 확인](evidence/backend-review-2026-10-21/public-attempt-1/public-http-proof.json) · [주입 응답 후 정상 추론·두 SQL 기록·관측 확인](evidence/backend-review-2026-10-21/public-attempt-1/public-observations-proof.json). 뒤의 기능·관측 검사가 성공해도 첫 점검 실패를 성공으로 바꾸지 않는다.
+
+새 서버의 응답 헤더와 trace 연결을 확인하기 위해 배포 완료 후 **동일 코드·동일 기준으로 한 번 재실행**했다. 첫 원본은 위에 보존했으며 이 재실행은 첫 응답 실패를 제거하려는 재측정이 아니다. 후속 결과는 별도 표본으로 아래에 기록한다.
+
+
+### 배포 완료 후 공개 점검 — 별도 표본
+
+[두 번째 시도](https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39450677938/attempts/2)는 15:45:18–15:45:54 UTC의 세 표본이다. 기능과 기존 5초 기준 모두 통과했으며 전체 시간은 **1,773.943 / 1,681.050 / 1,970.063ms**였다. 별도 HTTP 기능 확인과 주입 모델 실패→정상 추론→두 기록 저장→영속 관측 확인도 통과했다. [모든 표본](evidence/backend-review-2026-10-21/public-attempt-2/synthetic.jsonl) · [기준·분모](evidence/backend-review-2026-10-21/public-attempt-2/summary.json) · [HTTP 기능](evidence/backend-review-2026-10-21/public-attempt-2/public-http-proof.json) · [저장·관측](evidence/backend-review-2026-10-21/public-attempt-2/public-observations-proof.json).
+
+첫 health 요청은 클라이언트 왕복 **642.832ms**, 응답의 앱 구간 **9.589ms**, 그중 DB 확인 **6.282ms**, 모델 HTTP 확인 **3.094ms**였다. 요청/응답 trace `6dc27f950f0849579c2a33412c6a956d`를 [실제 Render 로그](evidence/backend-review-2026-10-21/public-health-trace.json)와 대조했고 숫자가 일치했다. 차이를 서버 내부 모델 연산이나 DB commit으로 잘못 설명하지 않도록 분리된 근거가 확보됐다. 나머지 왕복 시간의 DNS/TLS/프록시/전송 등 세부 분해는 이 자료만으로 확인하지 못했다.
+
+이 후속 표본은 배포가 완료되고 서버가 준비된 상태에서 실행했다. 첫 시도의74.12초 실패와 동일한 시작 조건이 아니므로 개선율을 계산하지 않는다. 오래 유휴한 무료 서버의 첫 응답 지연 해결이나 SLA 달성으로 표현하지 않는다. 원본 artifact ID는 각각 `12279455779`(첫 실패 포함), `12278756796`(배포 후)이며 GitHub의 최종 성공 표시와 첫 시도의 실패를 함께 읽어야 한다.
+
+**종료 상태.** 확인된 반복 취소 결함 수정, health 운영 진단 보완, 로컬·원격 필수 회귀, 무료 공개 배포와 실제 trace 대조, README·공고 대응 문서 반영을 완료했다. 이번 백엔드 기술 보완은 종료한다. **무료 공개 환경의 긴 첫 응답 지연은 미해결**이며, 이번 첫 표본의 세부 원인은 새 계측 도입 전이라 확정하지 못했다. 과거 부하 측정은 현 코드의 지속 처리 용량으로 재측정하지 않았고, 강제 프로세스 종료의 작업 복구나 상용 HA까지 확장하지 않았다. UI는 확정 버전을 유지하며 사람의 이해도는 기존 간접 전달된 의견 범위로 남긴다.

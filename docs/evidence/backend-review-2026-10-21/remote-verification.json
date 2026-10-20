@@ -1,0 +1,88 @@
+{
+  "checked_at_utc": "2026-10-20T15:45:30.682Z",
+  "code_commit": "6053bc397c92a8ad33aefa1e6a23d64cdd7a2bde",
+  "runs": [
+    {
+      "id": 39450678291,
+      "name": "RECHECK verification",
+      "head_sha": "6053bc397c92a8ad33aefa1e6a23d64cdd7a2bde",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39450678291",
+      "updated_at": "2026-10-20T15:43:19Z"
+    },
+    {
+      "id": 39450678447,
+      "name": "CPU API PostgreSQL full-path regression",
+      "head_sha": "6053bc397c92a8ad33aefa1e6a23d64cdd7a2bde",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39450678447",
+      "updated_at": "2026-10-20T15:42:04Z"
+    },
+    {
+      "id": 39450678013,
+      "name": "Kubernetes operational proof",
+      "head_sha": "6053bc397c92a8ad33aefa1e6a23d64cdd7a2bde",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/sokldjs554/recheck-ml-serving/actions/runs/39450678013",
+      "updated_at": "2026-10-20T15:41:26Z"
+    }
+  ],
+  "render": {
+    "commit": {
+      "createdAt": "2026-10-20T15:40:57Z",
+      "id": "6053bc397c92a8ad33aefa1e6a23d64cdd7a2bde",
+      "message": "Retain thread ownership through repeated cancellation and trace readiness phases"
+    },
+    "createdAt": "2026-10-20T15:41:00.43579Z",
+    "finishedAt": "2026-10-20T15:43:03.267785Z",
+    "id": "dep-dbbon367bikc73b0ek8g",
+    "startedAt": "2026-10-20T15:41:00.411817Z",
+    "status": "live",
+    "trigger": "new_commit",
+    "updatedAt": "2026-10-20T15:43:03.26806Z"
+  },
+  "ci_log_excerpt": [
+    "2026-10-20T15:42:19.1066403Z 169 passed, 1 skipped in 39.34s",
+    "2026-10-20T15:42:34.9952037Z 8 passed, 1 skipped in 7.40s",
+    "2026-10-20T15:42:43.4610640Z 8 passed, 1 skipped in 7.58s",
+    "2026-10-20T15:42:52.0003877Z 8 passed, 1 skipped in 7.60s",
+    "2026-10-20T15:43:09.4916575Z \u001b[2m Test Files \u001b[22m \u001b[1m\u001b[32m12 passed\u001b[39m\u001b[22m\u001b[90m (12)\u001b[39m",
+    "2026-10-20T15:43:09.4917074Z \u001b[2m      Tests \u001b[22m \u001b[1m\u001b[32m68 passed\u001b[39m\u001b[22m\u001b[90m (68)\u001b[39m",
+    "2026-10-20T15:43:14.0425470Z \u001b[32m\u2713 built in 1.83s\u001b[39m",
+    "2026-10-20T15:43:14.1760529Z PASS UI comparison is derived from raw evidence",
+    "2026-10-20T15:43:14.4472403Z PASS serving view matches source evidence"
+  ],
+  "public_monitor": {
+    "run_id": 39450677938,
+    "code_commit": "6053bc397c92a8ad33aefa1e6a23d64cdd7a2bde",
+    "attempts": [
+      {
+        "attempt": 1,
+        "conclusion": "failure",
+        "job_id": 118724333580,
+        "artifact_id": 12279455779,
+        "whole_workflow_ms": [
+          74118.815,
+          1520.827,
+          1873.182
+        ]
+      },
+      {
+        "attempt": 2,
+        "conclusion": "success",
+        "job_id": 118726534130,
+        "artifact_id": 12278756796,
+        "whole_workflow_ms": [
+          1773.943,
+          1681.05,
+          1970.063
+        ]
+      }
+    ],
+    "budget_ms": 5000,
+    "first_attempt_preserved": true
+  }
+}

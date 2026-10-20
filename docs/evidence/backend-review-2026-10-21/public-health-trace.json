@@ -1,0 +1,30 @@
+{
+  "hasMore": false,
+  "logs": [
+    {
+      "id": "2eae6f2e-1bfb-486d-8332-416a11c35da0",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db3rmj3ncjis73bi8fl0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db3rmj3ncjis73bi8fl0-hdw29"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "{\"event\": \"health_finished\", \"trace_id\": \"6dc27f950f0849579c2a33412c6a956d\", \"outcome\": \"ok\", \"duration_ms\": 9.589, \"phases_ms\": {\"database\": 6.282, \"model_http\": 3.094}}",
+      "timestamp": "2026-10-20T15:45:19.493873878Z"
+    }
+  ],
+  "nextEndTime": "2026-10-20T15:47:22.387820707Z",
+  "nextStartTime": "2026-10-20T15:45:19.493873879Z"
+}
