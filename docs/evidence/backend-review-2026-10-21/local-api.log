@@ -1,0 +1,17 @@
+INFO:     Started server process [121880]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:44387 (Press CTRL+C to quit)
+{"event": "health_finished", "trace_id": "4753fb369ef45d5143ec10c266f824ad", "outcome": "ok", "duration_ms": 114.874, "phases_ms": {"database": 1.472, "model_http": 113.242}}
+INFO:     127.0.0.1:37018 - "GET /ready HTTP/1.1" 200 OK
+{"event": "health_finished", "trace_id": "d9030f5223ad4e4e80524fde27837ccd", "outcome": "ok", "duration_ms": 2.875, "phases_ms": {"database": 0.769, "model_http": 1.969}}
+INFO:     127.0.0.1:37020 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37020 - "POST /api/sessions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37020 - "POST /api/sessions/ef2afd87-a1df-4d3c-b14f-29b5693dd828/decisions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37020 - "GET /api/sessions/ef2afd87-a1df-4d3c-b14f-29b5693dd828/decisions/3d523010-c764-468b-8112-06a07ceaa47d/validate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37020 - "POST /api/sessions/ef2afd87-a1df-4d3c-b14f-29b5693dd828/mutations HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37020 - "GET /api/sessions/ef2afd87-a1df-4d3c-b14f-29b5693dd828/decisions/3d523010-c764-468b-8112-06a07ceaa47d/validate HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [121880]

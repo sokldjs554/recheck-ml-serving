@@ -1,0 +1,64 @@
+{
+  "at": "2026-10-20T15:33:38.038338+00:00",
+  "ok": true,
+  "steps": [
+    "health",
+    "session",
+    "inference",
+    "current_validation",
+    "mutation",
+    "stale_rejection"
+  ],
+  "requests": [
+    {
+      "step": "health",
+      "method": "GET",
+      "http_status": 200,
+      "request_trace_id": "d9030f5223ad4e4e80524fde27837ccd",
+      "response_trace_id": "d9030f5223ad4e4e80524fde27837ccd",
+      "server_phases_ms": {
+        "health_db": 0.769,
+        "health_model": 1.969,
+        "health_app": 2.875
+      },
+      "duration_ms": 7.242
+    },
+    {
+      "step": "session",
+      "method": "POST",
+      "http_status": 200,
+      "request_trace_id": "7dde25a1f46346df8cc9d67430be966c",
+      "duration_ms": 8.933
+    },
+    {
+      "step": "inference",
+      "method": "POST",
+      "http_status": 200,
+      "request_trace_id": "cb6d1676e92845a0a2ec4075f95b24f3",
+      "duration_ms": 14.643
+    },
+    {
+      "step": "current_validation",
+      "method": "GET",
+      "http_status": 200,
+      "request_trace_id": "13b73f5e142240bab1d18c9d0f4053dc",
+      "duration_ms": 3.507
+    },
+    {
+      "step": "mutation",
+      "method": "POST",
+      "http_status": 200,
+      "request_trace_id": "7480d281fa284d6d87cd4c35a6e004f1",
+      "duration_ms": 3.444
+    },
+    {
+      "step": "stale_rejection",
+      "method": "GET",
+      "http_status": 200,
+      "request_trace_id": "29b438ec2bd548c48bde83f31e16a583",
+      "duration_ms": 2.77
+    }
+  ],
+  "trace_id": "cb6d1676e92845a0a2ec4075f95b24f3",
+  "duration_ms": 40.781
+}

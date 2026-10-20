@@ -1,0 +1,122 @@
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+_______ test_repeated_cancel_during_commit_keeps_slot_until_sql_finishes _______
+
+tmp_path = PosixPath('/tmp/recheck-final-backend/true-baseline/test_repeated_cancel_during_co0')
+
+    async def test_repeated_cancel_during_commit_keeps_slot_until_sql_finishes(tmp_path):
+        app, worker, model, client, sid = await setup(tmp_path, gateway_concurrency=1, gateway_queue=0, deadline_ms=2000)
+        entered, release = threading.Event(), threading.Event()
+        def hold(conn, cursor, statement, parameters, context, many):
+            if statement.startswith('UPDATE decisions'):
+                entered.set()
+                assert release.wait(5)
+        event.listen(app.state.store.engine, 'before_cursor_execute', hold)
+        async with closing_clients(model, client):
+            task = asyncio.create_task(client.post(f'/api/sessions/{sid}/decisions', json=body()))
+            try:
+                assert await asyncio.to_thread(entered.wait, 2)
+                task.cancel()
+                await asyncio.sleep(.01)  # let the owner enter its cancellation handler
+                task.cancel()
+                await asyncio.sleep(.01)
+>               assert app.state.admission.active == 1, 'SQL still running but admission was released'
+E               AssertionError: SQL still running but admission was released
+E               assert 0 == 1
+E                +  where 0 = <recheck.admission.Admission object at 0x7f95c5222600>.active
+E                +    where <recheck.admission.Admission object at 0x7f95c5222600> = <starlette.datastructures.State object at 0x7f95c5220470>.admission
+E                +      where <starlette.datastructures.State object at 0x7f95c5220470> = <fastapi.applications.FastAPI object at 0x7f95c5221910>.state
+
+baseline-tests/test_cancellation_ownership.py:27: AssertionError
+_ test_repeated_cancel_joins_thread_and_preserves_cancellation_on_late_failure[False] _
+
+fail = False
+caplog = <_pytest.logging.LogCaptureFixture object at 0x7f95c527e540>
+
+    @pytest.mark.parametrize('fail', [False, True])
+    async def test_repeated_cancel_joins_thread_and_preserves_cancellation_on_late_failure(fail, caplog):
+        from recheck.api import database_call
+        entered, release, finished = threading.Event(), threading.Event(), threading.Event()
+        def transaction():
+            entered.set()
+            assert release.wait(3)
+            finished.set()
+            if fail:
+                raise RuntimeError('private SQL or credentials')
+            return 'done'
+        task = asyncio.create_task(database_call(transaction))
+        try:
+            assert await asyncio.to_thread(entered.wait, 1)
+            for _ in range(3):
+                task.cancel()
+                await asyncio.sleep(.005)
+>           assert not task.done()
+E           AssertionError: assert not True
+E            +  where True = <built-in method done of _asyncio.Task object at 0x7f95c528cc40>()
+E            +    where <built-in method done of _asyncio.Task object at 0x7f95c528cc40> = <Task cancelled name='Task-10' coro=<database_call() done, defined at /tmp/recheck-final-backend/baseline/backend/recheck/api.py:34>>.done
+
+baseline-tests/test_cancellation_ownership.py:64: AssertionError
+_ test_repeated_cancel_joins_thread_and_preserves_cancellation_on_late_failure[True] _
+
+fail = True
+caplog = <_pytest.logging.LogCaptureFixture object at 0x7f95c527d6d0>
+
+    @pytest.mark.parametrize('fail', [False, True])
+    async def test_repeated_cancel_joins_thread_and_preserves_cancellation_on_late_failure(fail, caplog):
+        from recheck.api import database_call
+        entered, release, finished = threading.Event(), threading.Event(), threading.Event()
+        def transaction():
+            entered.set()
+            assert release.wait(3)
+            finished.set()
+            if fail:
+                raise RuntimeError('private SQL or credentials')
+            return 'done'
+        task = asyncio.create_task(database_call(transaction))
+        try:
+            assert await asyncio.to_thread(entered.wait, 1)
+            for _ in range(3):
+                task.cancel()
+                await asyncio.sleep(.005)
+>           assert not task.done()
+E           AssertionError: assert not True
+E            +  where True = <built-in method done of _asyncio.Task object at 0x7f95c528d300>()
+E            +    where <built-in method done of _asyncio.Task object at 0x7f95c528d300> = <Task cancelled name='Task-15' coro=<database_call() done, defined at /tmp/recheck-final-backend/baseline/backend/recheck/api.py:34>>.done
+
+baseline-tests/test_cancellation_ownership.py:64: AssertionError
+________ test_repeated_cancel_release_evaluation_keeps_bounded_capacity ________
+
+tmp_path = PosixPath('/tmp/recheck-final-backend/true-baseline/test_repeated_cancel_release_e0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f95c52c49e0>
+
+    async def test_repeated_cancel_release_evaluation_keeps_bounded_capacity(tmp_path, monkeypatch):
+        from recheck.evidence import EvidenceStore
+        from test_evidence import lab
+        entered, release = threading.Event(), threading.Event()
+        calls = []
+        def held_evaluation(self, sid, candidate):
+            calls.append(candidate)
+            entered.set()
+            assert release.wait(5)
+            return {'finished': True}
+        monkeypatch.setattr(EvidenceStore, 'evaluate', held_evaluation)
+        app, model, client, sid, base = await lab(tmp_path)
+        async with closing_clients(model, client):
+            tasks = [asyncio.create_task(client.post(base+'/releases/evaluate', json={'candidate':'paired'}))]
+            try:
+                assert await asyncio.to_thread(entered.wait, 2)
+                for _ in range(3):
+                    tasks[0].cancel()
+                    await asyncio.sleep(.005)
+>               assert not tasks[0].done()
+E               AssertionError: assert not True
+E                +  where True = <built-in method done of _asyncio.Task object at 0x7f95c528e800>()
+E                +    where <built-in method done of _asyncio.Task object at 0x7f95c528e800> = <Task cancelled name='Task-21' coro=<AsyncClient.post() done, defined at /workspace/work/recheck/backend/.venv/lib/python3.12/site-packages/httpx/_client.py:1838>>.done
+
+baseline-tests/test_cancellation_ownership.py:95: AssertionError
+=========================== short test summary info ============================
+FAILED baseline-tests/test_cancellation_ownership.py::test_repeated_cancel_during_commit_keeps_slot_until_sql_finishes
+FAILED baseline-tests/test_cancellation_ownership.py::test_repeated_cancel_joins_thread_and_preserves_cancellation_on_late_failure[False]
+FAILED baseline-tests/test_cancellation_ownership.py::test_repeated_cancel_joins_thread_and_preserves_cancellation_on_late_failure[True]
+FAILED baseline-tests/test_cancellation_ownership.py::test_repeated_cancel_release_evaluation_keeps_bounded_capacity
+4 failed in 2.12s

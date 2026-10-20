@@ -150,6 +150,8 @@ npm --prefix demo run dev
 | 동일 키·동시 요청·잠금 실패 | [정합성 계약](docs/action-contract.md) · [동시성 비교](docs/action-comparison-audit.md) |
 | 검증 실행 방법과 기존 운영 기록 | [검증 명령](docs/verification.md) · [공개 운영 점검](docs/public-runtime.md) |
 
+백엔드 후속 점검에서는 반복 취소 중 SQL 작업이 끝나기 전에 수용 슬롯이 반환되는 문제를 수정했습니다. health의 DB·모델 확인 구간을 trace와 연결하고, 실제 SQL·HTTP 회귀와 같은 조건의 추가 비용을 기록했습니다. [문제·판단·구현·검증·비용](docs/backend-review-2026-10-21.md). 기존 부하 수치는 과거 측정입니다.
+
 ## 본인 역할과 AI 활용
 
 AI와 주제 후보를 비교한 뒤 최종 주제와 방향을 결정했습니다. 요구사항을 구체화하고 기능 추가·범위 조정·수정 요청을 했으며, 관련 프로젝트와 예시를 전달하고 변경 결과의 반영 여부를 검토했습니다.

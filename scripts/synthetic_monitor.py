@@ -10,7 +10,9 @@ import argparse
 import asyncio
 from datetime import datetime, timezone
 import json
+import math
 from pathlib import Path
+import re
 import time
 import uuid
 
@@ -38,12 +40,28 @@ async def probe(client: httpx.AsyncClient) -> dict:
     step = 'health'
     async def request(method: str, path: str, **kwargs) -> httpx.Response:
         # Client-observed round trip, not a server span or a cold-start diagnosis.
-        # No URLs, request/response bodies or headers are retained.
-        item = {'step': step, 'method': method, 'http_status': None}
+        # Keep only generated trace identity and allowlisted numeric phase times;
+        # never retain raw headers, URLs or request/response bodies.
+        trace_id = uuid.uuid4().hex
+        item = {'step': step, 'method': method, 'http_status': None,
+                'request_trace_id': trace_id}
         request_started = time.perf_counter()
         try:
-            response = await client.request(method, path, **kwargs)
+            response = await client.request(method, path,
+                headers={'traceparent': f'00-{trace_id}-{uuid.uuid4().hex[:16]}-01'}, **kwargs)
             item['http_status'] = response.status_code
+            returned = response.headers.get('x-recheck-trace-id', '')
+            if re.fullmatch('[0-9a-f]{32}', returned) and int(returned, 16):
+                item['response_trace_id'] = returned
+            phases = {}
+            for field in response.headers.get('server-timing', '')[:1024].split(','):
+                match = re.fullmatch(r'\s*(health_db|health_model|health_app);dur=(\d+(?:\.\d+)?)\s*', field)
+                if match:
+                    duration = float(match[2])
+                    if math.isfinite(duration):
+                        phases[match[1]] = duration
+            if phases:
+                item['server_phases_ms'] = phases
             return response
         except httpx.HTTPError as exc:
             item['error_type'] = type(exc).__name__

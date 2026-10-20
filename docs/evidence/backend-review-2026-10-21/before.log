@@ -1,0 +1,126 @@
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+_______ test_repeated_cancel_during_commit_keeps_slot_until_sql_finishes _______
+
+tmp_path = PosixPath('/tmp/recheck-final-backend/before/test_repeated_cancel_during_co0')
+
+    async def test_repeated_cancel_during_commit_keeps_slot_until_sql_finishes(tmp_path):
+        app, worker, model, client, sid = await setup(tmp_path, gateway_concurrency=1, gateway_queue=0, deadline_ms=2000)
+        entered, release, finished = threading.Event(), threading.Event(), threading.Event()
+        def hold(conn, cursor, statement, parameters, context, many):
+            if statement.startswith('UPDATE decisions'):
+                entered.set()
+                assert release.wait(5)
+        event.listen(app.state.store.engine, 'before_cursor_execute', hold)
+        async with closing_clients(model, client):
+            task = asyncio.create_task(client.post(f'/api/sessions/{sid}/decisions', json=body()))
+            try:
+                assert await asyncio.to_thread(entered.wait, 2)
+                task.cancel()
+                await asyncio.sleep(.01)  # let the owner enter its cancellation handler
+                task.cancel()
+                await asyncio.sleep(.01)
+>               assert app.state.admission.active == 1, 'SQL still running but admission was released'
+E               AssertionError: SQL still running but admission was released
+E               assert 0 == 1
+E                +  where 0 = <recheck.admission.Admission object at 0x7f88c2645940>.active
+E                +    where <recheck.admission.Admission object at 0x7f88c2645940> = <starlette.datastructures.State object at 0x7f88c2644f20>.admission
+E                +      where <starlette.datastructures.State object at 0x7f88c2644f20> = <fastapi.applications.FastAPI object at 0x7f88c2644e90>.state
+
+backend/tests/test_cancellation_ownership.py:27: AssertionError
+____ test_health_phases_trace_and_failure_survive_in_response_and_log[None] ____
+
+tmp_path = PosixPath('/tmp/recheck-final-backend/before/test_health_phases_trace_and_f0')
+caplog = <_pytest.logging.LogCaptureFixture object at 0x7f88c26bd940>
+failure = None
+
+    @pytest.mark.parametrize('failure', [None, 'database', 'model'])
+    async def test_health_phases_trace_and_failure_survive_in_response_and_log(tmp_path, caplog, failure):
+        caplog.set_level(logging.INFO, logger='recheck.health')
+        app, worker, model, client, sid = await setup(tmp_path)
+        def database_boundary(conn, cursor, statement, parameters, context, many):
+            if statement == 'SELECT 1':
+                if failure == 'database':
+                    raise OperationalError('private SQL', {}, Exception('secret DSN'))
+                time.sleep(.02)
+        event.listen(app.state.store.engine, 'before_cursor_execute', database_boundary)
+        if failure == 'model':
+            worker.state.execution._failed = True
+        trace_id = '1234567890abcdef1234567890abcdef'
+        try:
+            async with closing_clients(model, client):
+                response = await client.get('/health', headers={'traceparent':f'00-{trace_id}-1234567890abcdef-01'})
+                assert response.status_code == (200 if failure is None else 503)
+>               assert response.headers.get('x-recheck-trace-id') == trace_id
+E               AssertionError: assert None == '1234567890abcdef1234567890abcdef'
+E                +  where None = get('x-recheck-trace-id')
+E                +    where get = Headers({'content-length': '148', 'content-type': 'application/json', 'vary': 'Origin'}).get
+E                +      where Headers({'content-length': '148', 'content-type': 'application/json', 'vary': 'Origin'}) = <Response [200 OK]>.headers
+
+backend/tests/test_health_diagnostics.py:31: AssertionError
+__ test_health_phases_trace_and_failure_survive_in_response_and_log[database] __
+
+tmp_path = PosixPath('/tmp/recheck-final-backend/before/test_health_phases_trace_and_f1')
+caplog = <_pytest.logging.LogCaptureFixture object at 0x7f88c26bfa40>
+failure = 'database'
+
+    @pytest.mark.parametrize('failure', [None, 'database', 'model'])
+    async def test_health_phases_trace_and_failure_survive_in_response_and_log(tmp_path, caplog, failure):
+        caplog.set_level(logging.INFO, logger='recheck.health')
+        app, worker, model, client, sid = await setup(tmp_path)
+        def database_boundary(conn, cursor, statement, parameters, context, many):
+            if statement == 'SELECT 1':
+                if failure == 'database':
+                    raise OperationalError('private SQL', {}, Exception('secret DSN'))
+                time.sleep(.02)
+        event.listen(app.state.store.engine, 'before_cursor_execute', database_boundary)
+        if failure == 'model':
+            worker.state.execution._failed = True
+        trace_id = '1234567890abcdef1234567890abcdef'
+        try:
+            async with closing_clients(model, client):
+                response = await client.get('/health', headers={'traceparent':f'00-{trace_id}-1234567890abcdef-01'})
+                assert response.status_code == (200 if failure is None else 503)
+>               assert response.headers.get('x-recheck-trace-id') == trace_id
+E               AssertionError: assert None == '1234567890abcdef1234567890abcdef'
+E                +  where None = get('x-recheck-trace-id')
+E                +    where get = Headers({'content-length': '33', 'content-type': 'application/json', 'vary': 'Origin'}).get
+E                +      where Headers({'content-length': '33', 'content-type': 'application/json', 'vary': 'Origin'}) = <Response [503 Service Unavailable]>.headers
+
+backend/tests/test_health_diagnostics.py:31: AssertionError
+___ test_health_phases_trace_and_failure_survive_in_response_and_log[model] ____
+
+tmp_path = PosixPath('/tmp/recheck-final-backend/before/test_health_phases_trace_and_f2')
+caplog = <_pytest.logging.LogCaptureFixture object at 0x7f88c25da2d0>
+failure = 'model'
+
+    @pytest.mark.parametrize('failure', [None, 'database', 'model'])
+    async def test_health_phases_trace_and_failure_survive_in_response_and_log(tmp_path, caplog, failure):
+        caplog.set_level(logging.INFO, logger='recheck.health')
+        app, worker, model, client, sid = await setup(tmp_path)
+        def database_boundary(conn, cursor, statement, parameters, context, many):
+            if statement == 'SELECT 1':
+                if failure == 'database':
+                    raise OperationalError('private SQL', {}, Exception('secret DSN'))
+                time.sleep(.02)
+        event.listen(app.state.store.engine, 'before_cursor_execute', database_boundary)
+        if failure == 'model':
+            worker.state.execution._failed = True
+        trace_id = '1234567890abcdef1234567890abcdef'
+        try:
+            async with closing_clients(model, client):
+                response = await client.get('/health', headers={'traceparent':f'00-{trace_id}-1234567890abcdef-01'})
+                assert response.status_code == (200 if failure is None else 503)
+>               assert response.headers.get('x-recheck-trace-id') == trace_id
+E               AssertionError: assert None == '1234567890abcdef1234567890abcdef'
+E                +  where None = get('x-recheck-trace-id')
+E                +    where get = Headers({'content-length': '30', 'content-type': 'application/json', 'vary': 'Origin'}).get
+E                +      where Headers({'content-length': '30', 'content-type': 'application/json', 'vary': 'Origin'}) = <Response [503 Service Unavailable]>.headers
+
+backend/tests/test_health_diagnostics.py:31: AssertionError
+=========================== short test summary info ============================
+FAILED backend/tests/test_cancellation_ownership.py::test_repeated_cancel_during_commit_keeps_slot_until_sql_finishes
+FAILED backend/tests/test_health_diagnostics.py::test_health_phases_trace_and_failure_survive_in_response_and_log[None]
+FAILED backend/tests/test_health_diagnostics.py::test_health_phases_trace_and_failure_survive_in_response_and_log[database]
+FAILED backend/tests/test_health_diagnostics.py::test_health_phases_trace_and_failure_survive_in_response_and_log[model]
+4 failed in 1.95s

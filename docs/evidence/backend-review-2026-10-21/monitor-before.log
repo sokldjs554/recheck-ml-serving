@@ -1,0 +1,39 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+___________ test_probe_keeps_safe_health_phases_and_trace_on_failure ___________
+
+    @pytest.mark.asyncio
+    async def test_probe_keeps_safe_health_phases_and_trace_on_failure():
+        m = monitor()
+        seen = []
+        def handler(request):
+            seen.append(request.headers.get('traceparent'))
+            return httpx.Response(503, json={'detail':'database_unavailable'}, headers={
+                'Server-Timing':'health_db;dur=24.3, health_app;dur=25.1, secret;dur=999',
+                'X-Recheck-Trace-Id': 'a'*32,
+                'Authorization':'secret'})
+        async with httpx.AsyncClient(base_url='https://owned.example', transport=httpx.MockTransport(handler)) as client:
+            row = await m.probe(client)
+>       assert seen[0] and len(seen[0]) == 55
+E       assert (None)
+
+backend/tests/test_synthetic_monitor.py:144: AssertionError
+_______ test_timeout_retains_sent_trace_without_inventing_server_timings _______
+
+    @pytest.mark.asyncio
+    async def test_timeout_retains_sent_trace_without_inventing_server_timings():
+        m = monitor()
+        sent = []
+        def handler(request):
+            sent.append(request.headers.get('traceparent'))
+            raise httpx.ReadTimeout('private address', request=request)
+        async with httpx.AsyncClient(base_url='https://owned.example', transport=httpx.MockTransport(handler)) as client:
+            row = await m.probe(client)
+>       assert sent[0]
+E       assert None
+
+backend/tests/test_synthetic_monitor.py:162: AssertionError
+=========================== short test summary info ============================
+FAILED backend/tests/test_synthetic_monitor.py::test_probe_keeps_safe_health_phases_and_trace_on_failure
+FAILED backend/tests/test_synthetic_monitor.py::test_timeout_retains_sent_trace_without_inventing_server_timings
+2 failed, 12 deselected in 0.12s

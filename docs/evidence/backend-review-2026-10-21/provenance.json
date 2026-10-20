@@ -1,0 +1,25 @@
+{
+  "at_utc": "2026-10-20T15:39:40.253633+00:00",
+  "base_commit": "5a60e88",
+  "scope": "modified working tree, commit recorded in report",
+  "python": "3.12.14",
+  "files": {
+    "backend/recheck/api.py": "4754589c0d26d0bcfa74480969fd367415c8892dbdf3930e8829bf47ed98f75e",
+    "backend/recheck/evidence_routes.py": "458ea7bf775211921f06e372011533ca42543892a59528fe02740675d6c64985",
+    "backend/recheck/task_lifecycle.py": "dd2699bf59b38cd63c2268240a1240d2b9377032ca3ca75a09f6a26f2f5a0e39",
+    "backend/recheck/health_observation.py": "ee9236f958b77fde1c07dcb086765b4b746656be365d2f1f628aecdb84911b11",
+    "scripts/synthetic_monitor.py": "857c76f4d150f6eccd44dd559fae85e9d6f5689dfb40390949a856906df1f305"
+  },
+  "comparison": {
+    "condition": "same host, OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1, warm lightweight ASGI + real SQLite, sequential health/decision pairs",
+    "order": [
+      "before",
+      "after",
+      "after-reverse",
+      "before-reverse"
+    ],
+    "per_run": "3 rounds, 5 warmups + 30 measured pairs each; independent session/db per round",
+    "baseline": "git archive 5a60e88 backend/recheck backend/model_artifacts",
+    "changes_during_measurement": false
+  }
+}

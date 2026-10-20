@@ -105,7 +105,8 @@ async def test_step_timings_identify_slow_request_without_changing_budget(monkey
     assert row['ok'] is True
     assert row['duration_ms'] == pytest.approx(54500)
     assert [entry['step'] for entry in row['requests']] == row['steps']
-    assert row['requests'][0] == {'step':'health', 'method':'GET', 'duration_ms':54000.0, 'http_status':200}
+    assert {k:v for k,v in row['requests'][0].items() if k != 'request_trace_id'} == {'step':'health', 'method':'GET', 'duration_ms':54000.0, 'http_status':200}
+    assert len(row['requests'][0]['request_trace_id']) == 32
     assert row['requests'][2]['duration_ms'] == pytest.approx(100)
     assert m.summarize([row], budget_ms=5000)['bad'] == 1
 
@@ -125,5 +126,42 @@ async def test_failed_request_keeps_its_timing_without_logging_payload_or_url(fa
     entry = row['requests'][0]
     assert entry['step'] == 'health' and entry['duration_ms'] >= 0
     assert entry['http_status'] == (None if failure == 'timeout' else 503 if failure == 'http' else 200)
-    assert set(entry) <= {'step','method','duration_ms','http_status','error_type'}
+    assert set(entry) <= {'step','method','duration_ms','http_status','error_type','request_trace_id'}
     assert 'secret' not in str(row) and 'owned.example' not in str(row)
+
+
+@pytest.mark.asyncio
+async def test_probe_keeps_safe_health_phases_and_trace_on_failure():
+    m = monitor()
+    seen = []
+    def handler(request):
+        seen.append(request.headers.get('traceparent'))
+        return httpx.Response(503, json={'detail':'database_unavailable'}, headers={
+            'Server-Timing':'health_db;dur=24.3, health_app;dur=25.1, secret;dur=999',
+            'X-Recheck-Trace-Id': 'a'*32,
+            'Authorization':'secret'})
+    async with httpx.AsyncClient(base_url='https://owned.example', transport=httpx.MockTransport(handler)) as client:
+        row = await m.probe(client)
+    assert seen[0] and len(seen[0]) == 55
+    item = row['requests'][0]
+    assert item['request_trace_id'] == seen[0].split('-')[1]
+    assert item['response_trace_id'] == 'a'*32
+    assert item['server_phases_ms'] == {'health_db':24.3, 'health_app':25.1}
+    assert 'secret' not in str(row)
+    assert not row['ok'] and m.summarize([row])['bad'] == 1
+
+
+@pytest.mark.asyncio
+async def test_timeout_retains_sent_trace_without_inventing_server_timings():
+    m = monitor()
+    sent = []
+    def handler(request):
+        sent.append(request.headers.get('traceparent'))
+        raise httpx.ReadTimeout('private address', request=request)
+    async with httpx.AsyncClient(base_url='https://owned.example', transport=httpx.MockTransport(handler)) as client:
+        row = await m.probe(client)
+    assert sent[0]
+    item = row['requests'][0]
+    assert item['request_trace_id'] == sent[0].split('-')[1]
+    assert 'server_phases_ms' not in item and 'response_trace_id' not in item
+    assert row['failed_step'] == 'health' and item['http_status'] is None

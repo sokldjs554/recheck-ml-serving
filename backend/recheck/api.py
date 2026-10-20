@@ -7,7 +7,7 @@ import json
 import logging
 import time
 
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 import httpx
@@ -23,6 +23,8 @@ from .schemas import DecisionRequest, MutationRequest
 from .store import Store
 from .evidence_routes import evidence_router
 from .telemetry import finishing_span, telemetry
+from .task_lifecycle import run_owned_thread
+from .health_observation import observe_health
 
 logger = logging.getLogger("recheck")
 
@@ -34,12 +36,7 @@ def iso(timestamp):
 async def database_call(fn, *args, **kwargs):
     # Remote SQL must not block the event loop. Join cancelled transactions
     # before releasing admission; cancellation cannot stop a running DB thread.
-    task = asyncio.create_task(asyncio.to_thread(fn, *args, **kwargs))
-    try:
-        return await asyncio.shield(task)
-    except asyncio.CancelledError:
-        await task
-        raise
+    return await run_owned_thread(fn, *args, **kwargs)
 
 
 def create_app(settings=None, model_client=None):
@@ -63,7 +60,7 @@ def create_app(settings=None, model_client=None):
         provider.shutdown()
 
     app = FastAPI(title="RECHECK version-fenced inference receipts", lifespan=lifespan)
-    app.add_middleware(CORSMiddleware, allow_origins=list(settings.cors_origins), allow_methods=["GET", "POST"], allow_headers=["Content-Type", "traceparent", "tracestate"], expose_headers=["X-Recheck-Trace-Id"])
+    app.add_middleware(CORSMiddleware, allow_origins=list(settings.cors_origins), allow_methods=["GET", "POST"], allow_headers=["Content-Type", "traceparent", "tracestate"], expose_headers=["X-Recheck-Trace-Id", "Server-Timing"])
     metrics = install_metrics(app, "api")
     app.include_router(evidence_router(store, metrics, tracer))
     app.state.store = store
@@ -79,24 +76,30 @@ def create_app(settings=None, model_client=None):
 
     @app.get("/ready")
     @app.get("/health")
-    async def health():
+    async def health(request: Request = None, response: Response = None):
         def check_database():
             with store.engine.connect() as connection:
                 connection.execute(text("SELECT 1"))
-        try:
-            await asyncio.to_thread(check_database)
-        except SQLAlchemyError as exc:
-            raise HTTPException(503, "database_unavailable") from exc
-        try:
-            response = await model_client.get("/health", timeout=0.3)
-            response.raise_for_status()
-            if response.json().get("models") != expected_hashes:
-                raise HTTPException(503, "model_registry_mismatch")
-        except (httpx.HTTPError, ValueError) as exc:
-            raise HTTPException(503, "model_unavailable") from exc
-        return {"status": "ok", "service": "recheck-api", "mode": "live", "model_service": settings.model_service_url,
-                "model_source": response.json().get("model_source", "unknown"),
-                "bundle_sha256": response.json().get("bundle_sha256")}
+        with observe_health(tracer, request, response) as observation:
+            with observation.phase("database"):
+                try:
+                    await database_call(check_database)
+                except SQLAlchemyError as exc:
+                    raise HTTPException(503, "database_unavailable") from exc
+            with observation.phase("model_http"):
+                try:
+                    headers = {}
+                    propagate.inject(headers)
+                    model_response = await model_client.get("/health", timeout=0.3, headers=headers)
+                    model_response.raise_for_status()
+                    info = model_response.json()
+                    if not isinstance(info, dict) or info.get("models") != expected_hashes:
+                        raise HTTPException(503, "model_registry_mismatch")
+                except (httpx.HTTPError, ValueError) as exc:
+                    raise HTTPException(503, "model_unavailable") from exc
+            return {"status": "ok", "service": "recheck-api", "mode": "live", "model_service": settings.model_service_url,
+                    "model_source": info.get("model_source", "unknown"),
+                    "bundle_sha256": info.get("bundle_sha256")}
 
     @app.post("/api/sessions")
     async def create_session():

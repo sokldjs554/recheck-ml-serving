@@ -1,0 +1,16 @@
+
+> recheck-demo@1.0.0 test
+> vitest run
+
+
+ RUN  v5.0.3 /workspace/work/recheck-review/demo
+
+
+ Test Files  12 passed (12)
+      Tests  68 passed (68)
+   Start at  15:40:08
+   Duration  1.08s (transform 50%, import 23%, tests 22%, worker 4%)
+
+    Isolate  12 workers spawned · ~122ms startup each (spawn + environment, per file)
+             at least ~366ms faster with isolate: false — reuses workers across files instead of one per file
+

@@ -1,5 +1,4 @@
 """Bounded public lab endpoints; no user-uploaded executable model artifacts."""
-import asyncio
 import time
 from typing import Literal
 
@@ -9,6 +8,7 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator, model_valida
 from .admission import Admission, DeadlineExceeded, Overloaded
 from .evidence import EvidenceStore
 from .evidence_observation import observe_execute
+from .task_lifecycle import run_owned_thread
 
 
 class SourceEvent(BaseModel):
@@ -94,13 +94,7 @@ def evidence_router(store, metrics, tracer):
     async def evaluate(sid: str, body: Candidate):
         try:
             async with admission.slot(time.monotonic()+5):
-                # Shield and join canceled CPU work before releasing its slot.
-                task = asyncio.create_task(asyncio.to_thread(lab.evaluate, sid, body.candidate))
-                try:
-                    return await asyncio.shield(task)
-                except asyncio.CancelledError:
-                    await task
-                    raise
+                return await run_owned_thread(lab.evaluate, sid, body.candidate)
         except (Overloaded, DeadlineExceeded) as exc:
             raise HTTPException(429, 'release_evaluation_busy') from exc
 
